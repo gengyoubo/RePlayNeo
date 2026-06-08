@@ -155,14 +155,24 @@ public class ConnectionEventHandler {
 
     public void reset() {
         if (packetListener != null) {
-            guiControls.unregister();
-            guiControls = null;
-            guiOverlay.unregister();
-            guiOverlay = null;
-            recordingEventHandler.unregister();
+            hideRecordingUi();
+            if (recordingEventHandler != null) {
+                recordingEventHandler.unregister();
+            }
             recordingEventHandler = null;
             packetListener = null;
         }
+    }
+
+    public void hideRecordingUi() {
+        if (guiControls != null) {
+            guiControls.close();
+        }
+        guiControls = null;
+        if (guiOverlay != null) {
+            guiOverlay.unregister();
+        }
+        guiOverlay = null;
     }
 
     public PacketListener getPacketListener() {

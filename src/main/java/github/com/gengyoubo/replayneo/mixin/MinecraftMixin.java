@@ -33,13 +33,11 @@ public abstract class MinecraftMixin
     @Unique
     private RenderTarget replayMod$framebufferDelegate;
 
-    @Unique
-    public void rePlay$replayModProcessKeyBinds() {
+    public void replayModProcessKeyBinds() {
         handleKeybinds();
     }
 
-    @Unique
-    public void rePlay$replayModExecuteTaskQueue() {
+    public void replayModExecuteTaskQueue() {
         runAllTasks();
     }
 

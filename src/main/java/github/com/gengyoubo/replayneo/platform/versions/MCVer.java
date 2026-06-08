@@ -95,11 +95,11 @@ public class MCVer {
     }
 
     public static ResourceLocation identifier(String id) {
-        return new ResourceLocation(id);
+        return ResourceLocation.parse(id);
     }
 
     public static ResourceLocation identifier(String namespace, String path) {
-        return new ResourceLocation(namespace, path);
+        return ResourceLocation.fromNamespaceAndPath(namespace,path);
     }
 
 

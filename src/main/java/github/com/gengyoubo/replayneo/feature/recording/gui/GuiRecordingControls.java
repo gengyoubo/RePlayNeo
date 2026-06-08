@@ -27,6 +27,7 @@ public class GuiRecordingControls extends EventRegistrations {
     private PacketListener packetListener;
     private boolean paused;
     private boolean stopped;
+    private volatile boolean closed;
 
     private final GuiPanel panel = new GuiPanel().setLayout(new HorizontalLayout().setSpacing(4));
 
@@ -69,6 +70,20 @@ public class GuiRecordingControls extends EventRegistrations {
         updateState();
     }
 
+    public void close() {
+        if (closed) {
+            return;
+        }
+        closed = true;
+        if (panel.getContainer() != null) {
+            panel.getContainer().removeElement(panel);
+        }
+        unregister();
+        panel.setDisabled();
+        buttonPauseResume.setDisabled();
+        buttonStartStop.setDisabled();
+    }
+
     private void updateState() {
         buttonPauseResume.setI18nLabel("replaymod.gui.recording." + (paused ? "resume" : "pause"));
         buttonStartStop.setI18nLabel("replaymod.gui.recording." + (stopped ? "start" : "stop"));
@@ -84,6 +99,9 @@ public class GuiRecordingControls extends EventRegistrations {
     private void injectIntoIngameMenu(Screen guiScreen,
                                       Collection<AbstractButton> buttonList
     ) {
+        if (closed) {
+            return;
+        }
         if (!(guiScreen instanceof PauseScreen)) {
             return;
         }
@@ -100,6 +118,9 @@ public class GuiRecordingControls extends EventRegistrations {
         vanillaGui.setLayout(new CustomLayout<github.com.gengyoubo.replayneo.core.gui.container.GuiScreen>(vanillaGui.getLayout()) {
             @Override
             protected void layout(github.com.gengyoubo.replayneo.core.gui.container.GuiScreen container, int width, int height) {
+                if (closed) {
+                    return;
+                }
                 pos(panel, width / 2 - 100, yPos.apply(height) + 16 + 8);
             }
         }).addElements(null, panel);

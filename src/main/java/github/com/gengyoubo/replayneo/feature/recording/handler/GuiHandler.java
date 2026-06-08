@@ -16,6 +16,7 @@ import github.com.gengyoubo.replayneo.core.gui.popup.GuiInfoPopup;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
 import net.minecraft.client.gui.screens.EditServerScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.client.multiplayer.ServerData;
@@ -30,28 +31,11 @@ public class GuiHandler extends EventRegistrations {
     }
 
     { on(InitScreenCallback.EVENT, (screen, buttons) -> onGuiInit(screen)); }
-    private void onGuiInit(net.minecraft.client.gui.screens.Screen gui) {
-        if (gui instanceof SelectWorldScreen || gui instanceof JoinMultiplayerScreen) {
-            boolean sp = gui instanceof SelectWorldScreen;
-            SettingsRegistry settingsRegistry = mod.getSettingsRegistry();
-            Setting<Boolean> setting = sp ? Setting.RECORD_SINGLEPLAYER : Setting.RECORD_SERVER;
-
-            GuiCheckbox recordingCheckbox = new GuiCheckbox()
-                    .setI18nLabel("replaymod.gui.settings.record" + (sp ? "singleplayer" : "server"))
-                    .setChecked(settingsRegistry.get(setting));
-            recordingCheckbox.onClick(() -> {
-                settingsRegistry.set(setting, recordingCheckbox.isChecked());
-                settingsRegistry.save();
-            });
-
-            VanillaGuiScreen vanillaGui = VanillaGuiScreen.wrap(gui);
-            vanillaGui.setLayout(new CustomLayout<GuiScreen>(vanillaGui.getLayout()) {
-                @Override
-                protected void layout(GuiScreen container, int width, int height) {
-                    //size(recordingCheckbox, 200, 20);
-                    pos(recordingCheckbox, width - width(recordingCheckbox) - 5, 5);
-                }
-            }).addElements(null, recordingCheckbox);
+    private void onGuiInit(Screen gui) {
+        if (gui.getClass() == SelectWorldScreen.class) {
+            addRecordingCheckbox(gui, Setting.RECORD_SINGLEPLAYER, "singleplayer");
+        } else if (gui.getClass() == JoinMultiplayerScreen.class) {
+            addRecordingCheckbox(gui, Setting.RECORD_SERVER, "server");
         }
 
         if (gui instanceof EditServerScreen) {
@@ -82,5 +66,26 @@ public class GuiHandler extends EventRegistrations {
                 }
             }).addElements(null, replayButton);
         }
+    }
+
+    private void addRecordingCheckbox(Screen gui, Setting<Boolean> setting, String labelSuffix) {
+        SettingsRegistry settingsRegistry = mod.getSettingsRegistry();
+
+        GuiCheckbox recordingCheckbox = new GuiCheckbox()
+                .setI18nLabel("replaymod.gui.settings.record" + labelSuffix)
+                .setChecked(settingsRegistry.get(setting));
+        recordingCheckbox.onClick(() -> {
+            settingsRegistry.set(setting, recordingCheckbox.isChecked());
+            settingsRegistry.save();
+        });
+
+        VanillaGuiScreen vanillaGui = VanillaGuiScreen.wrap(gui);
+        vanillaGui.setLayout(new CustomLayout<GuiScreen>(vanillaGui.getLayout()) {
+            @Override
+            protected void layout(GuiScreen container, int width, int height) {
+                //size(recordingCheckbox, 200, 20);
+                pos(recordingCheckbox, width - width(recordingCheckbox) - 5, 5);
+            }
+        }).addElements(null, recordingCheckbox);
     }
 }

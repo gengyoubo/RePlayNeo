@@ -26,6 +26,7 @@ package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import github.com.gengyoubo.replayneo.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
@@ -37,7 +38,7 @@ import net.minecraft.resources.ResourceLocation;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implements GuiElement<T> {
-    protected static final ResourceLocation TEXTURE = identifier("jgui", "gui.png");
+    protected static final ResourceLocation TEXTURE = identifier(RePlayNeo.RESOURCE_NAMESPACE, "gui/gui.png");
 
 
     private final Minecraft minecraft = MCVer.getMinecraft();

@@ -149,6 +149,7 @@ public class MarkerProcessor {
             int startCutOffset = 0;
             PacketData nextPacket = replayInputStream.readPacket();
             Marker nextMarker = markerIterator.next();
+            int packetIndex = 0;
 
             while (nextPacket != null && outputFileSuffixes.hasNext()) {
                 Path outputPath = path.resolveSibling(replayName + outputFileSuffixes.next() + ".mcpr");
@@ -175,6 +176,9 @@ public class MarkerProcessor {
                         boolean hasFurtherOutputs = outputFileSuffixes.hasNext();
 
                         while (nextPacket != null) {
+                            long packetTime = nextPacket.getTime();
+                            int packetId = nextPacket.getPacket().getId();
+                            String packetType = String.valueOf(nextPacket.getPacket().getType());
                             if (nextMarker != null && nextPacket.getTime() >= nextMarker.getTime()) {
                                 if (MARKER_NAME_START_CUT.equals(nextMarker.getName())) {
                                     if (cutFilter != null) {
@@ -209,18 +213,33 @@ public class MarkerProcessor {
                                 continue;
                             }
 
-                            dimensionTracker.onPacket(null, nextPacket);
-                            if (hasFurtherOutputs) {
-                                squashFilter.onPacket(null, nextPacket);
+                            try {
+                                dimensionTracker.onPacket(null, nextPacket);
+                                if (hasFurtherOutputs) {
+                                    squashFilter.onPacket(null, nextPacket);
+                                }
+                                if (cutFilter != null) {
+                                    cutFilter.onPacket(null, nextPacket);
+                                } else {
+                                    replayOutputStream.write(nextPacket.getTime() - timeOffset, nextPacket.getPacket().copy());
+                                    duration = nextPacket.getTime() - timeOffset;
+                                }
+                            } catch (Exception e) {
+                                throw new IOException("Failed while processing replay packet #" + packetIndex
+                                        + " (id=" + packetId
+                                        + ", type=" + packetType + ")"
+                                        + " at time " + packetTime
+                                        + " while post-processing " + path, e);
+                            } finally {
+                                nextPacket.release();
                             }
-                            if (cutFilter != null) {
-                                cutFilter.onPacket(null, nextPacket);
-                            } else {
-                                replayOutputStream.write(nextPacket.getTime() - timeOffset, nextPacket.getPacket().copy());
-                                duration = nextPacket.getTime() - timeOffset;
+                            packetIndex++;
+                            try {
+                                nextPacket = replayInputStream.readPacket();
+                            } catch (Exception e) {
+                                throw new IOException("Failed while reading replay packet #" + packetIndex
+                                        + " while post-processing " + path, e);
                             }
-                            nextPacket.release();
-                            nextPacket = replayInputStream.readPacket();
                             if (nextPacket != null) {
                                 progress.accept((float) nextPacket.getTime() / (float) inputDuration);
                             } else {
@@ -259,6 +278,25 @@ public class MarkerProcessor {
             if (cutFilter != null) {
                 cutFilter.release();
             }
+        } catch (IOException | RuntimeException e) {
+            if (outputPaths.isEmpty()) {
+                try {
+                    github.com.gengyoubo.replayneo.RePlayNeo.LOGGER.warn(
+                            "Replay post-processing failed; keeping the unprocessed recording instead.", e);
+                    if (Files.exists(inputPath)) {
+                        if (Files.exists(path)) {
+                            Files.delete(path);
+                        }
+                        Files.move(inputPath, path);
+                    }
+                    try (ReplayFile inputReplayFile = mod.files.open(path)) {
+                        return Collections.singletonList(Pair.of(path, inputReplayFile.getMetaData()));
+                    }
+                } catch (Exception restoreException) {
+                    e.addSuppressed(restoreException);
+                }
+            }
+            throw e;
         }
 
         return outputPaths;

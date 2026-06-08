@@ -32,6 +32,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.embedded.EmbeddedChannel;
+import io.netty.util.AttributeKey;
 import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -186,6 +187,7 @@ public class ReplayHandler {
 
 
         channel = new EmbeddedChannel();
+        channel.attr(AttributeKey.<String>valueOf("fml:netversion")).set("NONE");
         channel.pipeline().addFirst("ReplayModReplay_head", new DropOutboundMessagesHandler());
 
         quickReplaySender.setChannel(channel);

@@ -15,6 +15,7 @@
     "AbstractButtonWidgetAccessor",
     "AddServerScreenAccessor",
     "BlockOnChunkRebuildsMixin",
+    "ButtonMixin",
     "ChromaKeyDisableFogMixin",
     "ClientHandshakePacketListenerImplMixin",
     "ClientLevelMixin",

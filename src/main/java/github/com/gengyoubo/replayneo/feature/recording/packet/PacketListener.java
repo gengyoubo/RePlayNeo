@@ -61,6 +61,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 import static com.replaymod.replaystudio.util.Utils.writeInt;
@@ -99,6 +100,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private volatile boolean serverWasPaused;
     private volatile boolean closed;
     private final AtomicInteger pendingMainThreadSaves = new AtomicInteger();
+    private final AtomicReference<Throwable> saveFailure = new AtomicReference<>();
 
     /**
      * Used to keep track of the last metadata save job submitted to the save service and
@@ -142,6 +144,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                     }
                 }
             } catch (IOException e) {
+                saveFailure.compareAndSet(null, e);
                 logger.error("Writing metadata:", e);
             }
         });
@@ -218,7 +221,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
             }
             int timestamp = (int) (now - startTime - timePassedWhilePaused);
             lastSentPacket = timestamp;
-            PacketData packetData = new PacketData(timestamp, packet);
+            PacketData packetData = new PacketData(timestamp, packet).retain();
             saveService.submit(() -> {
                 try {
                     if (ReplayMod.isMinimalMode()) {
@@ -241,8 +244,9 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                     } else {
                         packetOutputStream.write(packetData);
                     }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                } catch (Throwable t) {
+                    saveFailure.compareAndSet(null, t);
+                    logger.error("Writing packet failed:", t);
                 }
             });
         } catch(Exception e) {
@@ -272,8 +276,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         new Thread(() -> {
             core.runLater(guiSavingReplay::open);
 
-            long waitUntil = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(5);
-            while (pendingMainThreadSaves.get() > 0 && System.currentTimeMillis() < waitUntil) {
+            while (pendingMainThreadSaves.get() > 0) {
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
@@ -286,10 +289,25 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
             saveMetaData();
             saveService.shutdown();
             try {
-                saveService.awaitTermination(10, TimeUnit.SECONDS);
+                while (!saveService.awaitTermination(1, TimeUnit.SECONDS)) {
+                    if (saveFailure.get() != null) {
+                        break;
+                    }
+                }
             } catch (InterruptedException e) {
                 logger.error("Waiting for save service termination:", e);
                 Thread.currentThread().interrupt();
+            }
+            if (saveFailure.get() != null) {
+                logger.error("Aborting replay post-processing because packet saving failed earlier.", saveFailure.get());
+                try {
+                    packetOutputStream.close();
+                } catch (IOException e) {
+                    logger.error("Failed to close packet output stream:", e);
+                }
+                core.runLater(() -> Utils.error(logger, VanillaGuiScreen.wrap(mc.screen),
+                        CrashReport.forThrowable(saveFailure.get(), "Saving replay file"), guiSavingReplay::close));
+                return;
             }
             try {
                 packetOutputStream.close();
@@ -387,14 +405,12 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         ByteBuf byteBuf = Unpooled.buffer();
         try {
             packet.write(new FriendlyByteBuf(byteBuf));
+            byte[] bytes = new byte[byteBuf.readableBytes()];
+            byteBuf.getBytes(byteBuf.readerIndex(), bytes);
             return new Packet(
                     MCVer.getPacketTypeRegistry(connectionState),
                     packetId,
-                    com.github.steveice10.netty.buffer.Unpooled.wrappedBuffer(
-                            byteBuf.array(),
-                            byteBuf.arrayOffset(),
-                            byteBuf.readableBytes()
-                    )
+                    com.github.steveice10.netty.buffer.Unpooled.copiedBuffer(bytes)
             );
         } finally {
             byteBuf.release();
@@ -460,6 +476,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                     markers.add(marker);
                     replayFile.writeMarkers(markers);
                 } catch (IOException e) {
+                    saveFailure.compareAndSet(null, e);
                     logger.error("Writing markers:", e);
                 }
             }
