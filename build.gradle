@@ -178,6 +178,8 @@ dependencies {
     compileOnly fg.deobf("curse.maven:changed-minecraft-mod-661527:7906615")
     //模组渲染测试
     runtimeOnly fg.deobf("curse.maven:changed-minecraft-mod-661527:7906615")
+    //调试
+    runtimeOnly fg.deobf("curse.maven:mixintrace-resmithed-1192609:6152628")
 }
 
 tasks.named('jar', Jar) {

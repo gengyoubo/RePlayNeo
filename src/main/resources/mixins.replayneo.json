@@ -7,10 +7,7 @@
     "EntityLivingBaseAccessor",
     "EntityPlayerAccessor",
     "InjectDynamicResourcePacksMixin",
-    "LoadIrisOdsShaderPackMixin",
     "NetworkManagerAccessor",
-    "ShowSpectatedHandIrisMixin",
-    "ShowSpectatedHandOFMixin",
     "UseReplayTimeForMovementMixin"
   ],
   "server": [],

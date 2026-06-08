@@ -1,21 +1,22 @@
 package github.com.gengyoubo.replayneo.platform.versions;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.RePlayNeo;
-import org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -40,9 +41,10 @@ import java.util.Objects;
  */
 public class LangResourcePack extends AbstractPackResources {
     private static final Gson GSON = new Gson();
+    private static final Type LANG_MAP_TYPE = new TypeToken<LinkedHashMap<String, String>>() {}.getType();
     public static final String NAME = RePlayNeo.MODID + "_lang";
     private static final Pattern JSON_FILE_PATTERN = Pattern.compile("^assets/" + RePlayNeo.RESOURCE_NAMESPACE + "/lang/([a-z][a-z])_([a-z][a-z]).json$");
-    private static final Pattern LANG_FILE_NAME_PATTERN = Pattern.compile("^([a-z][a-z])_([a-z][a-z]).lang$");
+    private static final Pattern JSON_FILE_NAME_PATTERN = Pattern.compile("^([a-z][a-z])_([a-z][a-z]).json$");
 
     public static final String LEGACY_KEY_PREFIX = "replaymod.input.";
     private static final String FABRIC_KEY_FORMAT = "key." + RePlayNeo.RESOURCE_NAMESPACE + ".%s";
@@ -61,7 +63,7 @@ public class LangResourcePack extends AbstractPackResources {
     private String langName(String path) {
         Matcher matcher = JSON_FILE_PATTERN.matcher(path);
         if (!matcher.matches()) return null;
-        return String.format("%s_%s.lang", matcher.group(1), matcher.group(2).toUpperCase());
+        return String.format("%s_%s.json", matcher.group(1), matcher.group(2));
     }
 
     private Path baseLangPath() {
@@ -100,23 +102,24 @@ public class LangResourcePack extends AbstractPackResources {
 
     private byte[] readFile(String path) throws IOException {
         if ("pack.mcmeta".equals(path)) {
-            return "{\"pack\": {\"description\": \"RePlayNeo language files\", \"pack_format\": 4}}".getBytes(StandardCharsets.UTF_8);
+            return "{\"pack\": {\"description\": \"RePlayNeo language files\", \"pack_format\": 15}}".getBytes(StandardCharsets.UTF_8);
         }
 
         Path langPath = langPath(path);
         if (langPath == null) return null;
 
-        List<String> langFile;
-        try (InputStream in = Files.newInputStream(langPath)) {
-            langFile = IOUtils.readLines(in, StandardCharsets.UTF_8);
+        Map<String, String> source;
+        try (InputStreamReader reader = new InputStreamReader(Files.newInputStream(langPath), StandardCharsets.UTF_8)) {
+            source = GSON.fromJson(reader, LANG_MAP_TYPE);
         }
 
-        Map<String, String> properties = new HashMap<>();
-        for (String line : langFile) {
-            if (line.trim().isEmpty() || line.trim().startsWith("#")) continue;
-            int i = line.indexOf('=');
-            String key = line.substring(0, i);
-            String value = line.substring(i + 1);
+        Map<String, String> properties = new LinkedHashMap<>();
+        if (source == null) {
+            source = Collections.emptyMap();
+        }
+        for (Map.Entry<String, String> entry : source.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
             value = convertValue(value);
             if (key.startsWith(LEGACY_KEY_PREFIX)) {
                 // Duplicating instead of just remapping as some other part of the UI may still rely on the old key
@@ -145,9 +148,9 @@ public class LangResourcePack extends AbstractPackResources {
                     .skip(1)
                     .filter(Files::isRegularFile)
                     .map(Path::getFileName).map(Path::toString)
-                    .map(LANG_FILE_NAME_PATTERN::matcher)
+                    .map(JSON_FILE_NAME_PATTERN::matcher)
                     .filter(Matcher::matches)
-                    .map(matcher -> String.format("%s_%s.json", matcher.group(1), matcher.group(1)))
+                    .map(matcher -> String.format("%s_%s.json", matcher.group(1), matcher.group(2)))
                     .map(name -> identifier(RePlayNeo.RESOURCE_NAMESPACE, "lang/" + name))
                     .forEach(consumer);
         } catch (IOException e) {

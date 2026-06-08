@@ -81,7 +81,8 @@ public abstract class MouseHandlerMixin {
     private void handleReplayModScroll(
             long _p0, double _p1, double _p2,
             CallbackInfo ci,
-            double _l1,
+            double _offset,
+            double _scrollDelta,
             int yOffsetAccumulated
     ) {
         if (ReplayModReplay.instance.getReplayHandler() != null) {
