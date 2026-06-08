@@ -17,7 +17,7 @@ public abstract class MixinMinecraft {
         PreTickCallback.EVENT.invoker().preTick();
     }
 
-    @Inject(method = "openScreen", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;screen:Lnet/minecraft/client/gui/screens/Screen;"))
+    @Inject(method = "setScreen", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;screen:Lnet/minecraft/client/gui/screens/Screen;"))
     private void openGuiScreen(Screen newGuiScreen, CallbackInfo ci) {
         OpenGuiScreenCallback.EVENT.invoker().openGuiScreen(newGuiScreen);
     }

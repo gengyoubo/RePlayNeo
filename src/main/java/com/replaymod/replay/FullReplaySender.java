@@ -437,8 +437,8 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        mc.openScreen(new AlertScreen(
-                                () -> mc.openScreen(null),
+                        mc.setScreen(new AlertScreen(
+                                () -> mc.setScreen(null),
                                 Component.translatable("replaymod.error.unknownrestriction1"),
                                 Component.translatable("replaymod.error.unknownrestriction2", unknown)
                         ));
@@ -492,7 +492,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
         if(p instanceof ClientboundLoginPacket) {
             ClientboundLoginPacket packet = (ClientboundLoginPacket) p;
-            int entId = packet.getEntityId();
+            int entId = packet.playerId();
             schedulePacketHandler(() -> allowMovement = true);
             actualID = entId;
             entId = -1789435; // Camera entity id should be negative which is an invalid id and can't be used by servers
@@ -501,18 +501,18 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                     packet.hardcore(),
                     GameType.SPECTATOR,
                     GameType.SPECTATOR,
-                    packet.getDimensionIds(),
+                    packet.levels(),
                     packet.registryHolder(),
-                    packet.getDimensionType(),
-                    packet.getDimensionId(),
+                    packet.dimensionType(),
+                    packet.dimension(),
                     packet.seed(),
                     0, // max players (has no getter -> never actually used)
-                    packet.getViewDistance(),
+                    packet.chunkRadius(),
                     packet.simulationDistance(),
-                    packet.hasReducedDebugInfo()
-                    , packet.showsDeathScreen()
-                    , packet.isDebugWorld()
-                    , packet.isFlatWorld()
+                    packet.reducedDebugInfo()
+                    , packet.showDeathScreen()
+                    , packet.isDebug()
+                    , packet.isFlat()
                     , java.util.Optional.empty()
                     , packet.portalCooldown()
             );
@@ -521,7 +521,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         if(p instanceof ClientboundRespawnPacket) {
             ClientboundRespawnPacket respawn = (ClientboundRespawnPacket) p;
             p = new ClientboundRespawnPacket(
-                    respawn.method_29445(),
+                    respawn.getDimensionType(),
                     respawn.getDimension(),
                     respawn.getSeed(),
                     GameType.SPECTATOR,
@@ -543,7 +543,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             ReplayMod.instance.runLater(() -> {
                 if (mc.screen instanceof ReceivingLevelScreen) {
                     // Close the world loading screen manually in case we swallow the packet
-                    mc.openScreen(null);
+                    mc.setScreen(null);
                 }
             });
 
@@ -832,7 +832,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
             if(p instanceof ClientboundAddEntityPacket) {
                 ClientboundAddEntityPacket pso = (ClientboundAddEntityPacket)p;
-                if (pso.getEntityTypeId() == EntityType.FIREWORK_ROCKET) return null;
+                if (pso.getType() == EntityType.FIREWORK_ROCKET) return null;
             }
         }
         return p;

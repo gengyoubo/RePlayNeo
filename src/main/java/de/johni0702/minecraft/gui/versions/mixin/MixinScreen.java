@@ -51,7 +51,7 @@ public class MixinScreen {
     private void firePostInit() {
         InitScreenCallback.EVENT.invoker().initScreen(
                 (Screen) (Object) this,
-                Collections2.transform(Collections2.filter(this.children, it -> it instanceof ClickableWidget), it -> (ClickableWidget) it)
+                Collections2.transform(Collections2.filter(this.children, it -> it instanceof AbstractButton), it -> (AbstractButton) it)
         );
     }
 }

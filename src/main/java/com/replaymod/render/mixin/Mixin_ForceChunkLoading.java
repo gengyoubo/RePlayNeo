@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Set;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
@@ -24,19 +24,17 @@ public abstract class Mixin_ForceChunkLoading implements IForceChunkLoading {
         this.replayModRender_hook = hook;
     }
 
-    @Shadow private Set<ChunkRenderDispatcher.RenderChunk> chunksToRebuild;
+    @Shadow private ObjectArrayList<ChunkRenderDispatcher.RenderChunk> renderChunksInFrustum;
 
     @Shadow private ChunkRenderDispatcher chunkRenderDispatcher;
 
-    @Shadow private boolean needsTerrainUpdate;
+    @Shadow private boolean needsFullRenderChunkUpdate;
 
-    @Shadow protected abstract void setupTerrain(Camera camera_1, Frustum frustum_1, boolean boolean_1, int int_1, boolean boolean_2);
-
-    @Shadow private int frame;
+    @Shadow protected abstract void setupRender(Camera camera, Frustum frustum, boolean hasForcedFrustum, boolean spectator);
 
     private boolean passThrough;
     @Inject(method = "setupRender", at = @At("HEAD"), cancellable = true)
-    private void forceAllChunks(Camera camera_1, Frustum frustum_1, boolean boolean_1, int int_1, boolean boolean_2, CallbackInfo ci) throws IllegalAccessException {
+    private void forceAllChunks(Camera camera, Frustum frustum, boolean hasForcedFrustum, boolean spectator, CallbackInfo ci) throws IllegalAccessException {
         if (replayModRender_hook == null) {
             return;
         }
@@ -52,24 +50,24 @@ public abstract class Mixin_ForceChunkLoading implements IForceChunkLoading {
         try {
             do {
                 // Determine which chunks shall be visible
-                setupTerrain(camera_1, frustum_1, boolean_1, frame++, boolean_2);
+                setupRender(camera, frustum, hasForcedFrustum, spectator);
 
                 // Schedule all chunks which need rebuilding (we schedule even important rebuilds because we wait for
                 // all of them anyway and this way we can take advantage of threading)
-                for (ChunkRenderDispatcher.RenderChunk builtChunk : this.chunksToRebuild) {
+                for (ChunkRenderDispatcher.RenderChunk builtChunk : this.renderChunksInFrustum) {
                     // MC sometimes schedules invalid chunks when you're outside of loaded chunks (e.g. y > 256)
                     if (builtChunk.hasAllNeighbors()) {
-                        builtChunk.setDirty(this.chunkRenderDispatcher);
+                        builtChunk.setDirty(true);
                     }
                     builtChunk.setNotDirty();
                 }
-                this.chunksToRebuild.clear();
+                this.renderChunksInFrustum.clear();
 
                 // Upload all chunks
-                this.needsTerrainUpdate |= ((ForceChunkLoadingHook.IBlockOnChunkRebuilds) this.chunkRenderDispatcher).uploadEverythingBlocking();
+                this.needsFullRenderChunkUpdate |= ((ForceChunkLoadingHook.IBlockOnChunkRebuilds) this.chunkRenderDispatcher).uploadEverythingBlocking();
 
                 // Repeat until no more updates are needed
-            } while (this.needsTerrainUpdate);
+            } while (this.needsFullRenderChunkUpdate);
         } finally {
             passThrough = false;
         }

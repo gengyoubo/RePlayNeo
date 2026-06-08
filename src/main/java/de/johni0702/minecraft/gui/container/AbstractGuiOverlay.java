@@ -118,11 +118,11 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
         if (visible) {
             if (mouseVisible) {
                 if (mc.screen == null) {
-                    mc.openScreen(userInputGuiScreen);
+                    mc.setScreen(userInputGuiScreen);
                 }
             } else {
                 if (mc.screen == userInputGuiScreen) {
-                    mc.openScreen(null);
+                    mc.setScreen(null);
                 }
             }
         }

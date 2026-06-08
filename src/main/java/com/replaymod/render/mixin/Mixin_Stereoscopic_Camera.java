@@ -19,13 +19,13 @@ public abstract class Mixin_Stereoscopic_Camera implements EntityRendererHandler
         if (replayModRender_getHandler() != null) {
             Matrix4f offset;
             if (replayModRender_getHandler().data == StereoscopicOpenGlFrameCapturer.Data.LEFT_EYE) {
-                offset = Matrix4f.translate(0.07f, 0, 0);
+                offset = new Matrix4f().translation(0.07f, 0, 0);
             } else if (replayModRender_getHandler().data == StereoscopicOpenGlFrameCapturer.Data.RIGHT_EYE) {
-                offset = Matrix4f.translate(-0.07f, 0, 0);
+                offset = new Matrix4f().translation(-0.07f, 0, 0);
             } else {
                 return;
             }
-            offset.multiply(ci.getReturnValue());
+            offset.mul(ci.getReturnValue());
             ci.setReturnValue(offset);
         }
     }

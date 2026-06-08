@@ -26,7 +26,7 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatsCounter;
-import net.minecraft.tag.TagKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -144,8 +144,8 @@ public class CameraEntity
     public void setCameraRotation(float yaw, float pitch, float roll) {
         this.yRotO = yaw;
         this.xRotO = pitch;
-        this.yRot = yaw;
-        this.xRot = pitch;
+        this.setYRot(yaw);
+        this.setXRot(pitch);
         this.roll = roll;
     }
 
@@ -171,8 +171,8 @@ public class CameraEntity
         this.yRotO = to.yRotO;
         this.xRotO = to.xRotO;
         this.setPosRaw(to.getX(), to.getY(), to.getZ());
-        this.yRot = to.yRot;
-        this.xRot = to.xRot;
+        this.setYRot(to.getYRot());
+        this.setXRot(to.getXRot());
         this.xOld = to.xOld;
         this.yOld = to.yOld + yOffset;
         this.zOld = to.zOld;
@@ -184,7 +184,7 @@ public class CameraEntity
     public float getViewYRot(float tickDelta) {
         Entity view = this.minecraft.getCameraEntity();
         if (view != null && view != this) {
-            return this.yRotO + (this.yRot - this.yRotO) * tickDelta;
+            return this.yRotO + (this.getYRot() - this.yRotO) * tickDelta;
         }
         return super.getViewYRot(tickDelta);
     }
@@ -193,7 +193,7 @@ public class CameraEntity
     public float getViewXRot(float tickDelta) {
         Entity view = this.minecraft.getCameraEntity();
         if (view != null && view != this) {
-            return this.xRotO + (this.xRot - this.xRotO) * tickDelta;
+            return this.xRotO + (this.getXRot() - this.xRotO) * tickDelta;
         }
         return super.getViewXRot(tickDelta);
     }
@@ -216,11 +216,11 @@ public class CameraEntity
             // entity is recreated and we have to spectate a new entity
             UUID spectating = ReplayModReplay.instance.getReplayHandler().getSpectatedUUID();
             // FIXME remap bug: Pattern doesn't work when these two are inlined
-            Level cameraWorld = this.level;
-            Level viewWorld = view.level;
+            Level cameraWorld = this.level();
+            Level viewWorld = view.level();
             if (spectating != null && (view.getUUID() != spectating
                     || viewWorld != cameraWorld)
-                    || cameraWorld.getEntity(view.getEntityId()) != view) {
+                    || cameraWorld.getEntity(view.getId()) != view) {
                 if (spectating == null) {
                     // Entity (non-player) died, stop spectating
                     ReplayModReplay.instance.getReplayHandler().spectateEntity(this);
@@ -242,14 +242,12 @@ public class CameraEntity
         }
     }
 
-    @Override
     public void afterSpawn() {
         // Make sure our world is up-to-date in case of world changes
         if (this.minecraft.level != null) {
             // FIXME cannot use Patters because `setWorld` is `protected` in 1.20
             this.setLevel(this.minecraft.level);
         }
-        super.afterSpawn();
     }
 
     @Override
@@ -267,7 +265,7 @@ public class CameraEntity
 
 
     @Override
-    public boolean isSubmergedIn(
+    public boolean isEyeInFluid(
             TagKey<Fluid> fluid
     ) {
         return falseUnlessSpectating(entity -> entity.isEyeInFluid(fluid));
@@ -302,7 +300,7 @@ public class CameraEntity
     }
 
     @Override
-    public boolean collides() {
+    public boolean canBeCollidedWith() {
         return false; // We are a camera, we cannot collide
     }
 
@@ -447,7 +445,7 @@ public class CameraEntity
 
     private void update() {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.level != this.level) {
+        if (mc.level != this.level()) {
             if (eventHandler != null) {
                 eventHandler.unregister();
                 eventHandler = null;
@@ -475,7 +473,7 @@ public class CameraEntity
         syncInventory();
     }
 
-    private final Inventory originalInventory = this.inventory;
+    private final Inventory originalInventory = this.getInventory();
 
     // If we are spectating a player, "steal" its inventory so the rendering code knows what item(s) to render
     // and if we aren't, then reset ours.
@@ -499,13 +497,13 @@ public class CameraEntity
     }
 
     private void handleInputEvents() {
-        if (this.minecraft.options.keyAttack.wasPressed() || this.minecraft.options.keyUse.wasPressed()) {
+        if (this.minecraft.options.keyAttack.consumeClick() || this.minecraft.options.keyUse.consumeClick()) {
             if (this.minecraft.screen == null && canSpectate(this.minecraft.crosshairPickEntity)) {
                 ReplayModReplay.instance.getReplayHandler().spectateEntity(
                         this.minecraft.crosshairPickEntity);
                 // Make sure we don't exit right away
                 //noinspection StatementWithEmptyBody
-                while (this.minecraft.options.keySneak.wasPressed());
+                while (this.minecraft.options.keyShift.consumeClick());
             }
         }
     }
@@ -513,8 +511,8 @@ public class CameraEntity
     private void updateArmYawAndPitch() {
         this.yBobO = this.yBob;
         this.xBobO = this.xBob;
-        this.xBob = this.xBob +  (this.xRot - this.xBob) * 0.5f;
-        this.yBob = this.yBob + wrapDegrees(this.yRot - this.yBob) * 0.5f;
+        this.xBob = this.xBob +  (this.getXRot() - this.xBob) * 0.5f;
+        this.yBob = this.yBob + wrapDegrees(this.getYRot() - this.yBob) * 0.5f;
         this.wrapArmYaw();
     }
 
@@ -526,7 +524,7 @@ public class CameraEntity
      * outside the normal range.
      */
     private void wrapArmYaw() {
-        this.yBob = wrapDegreesTo(this.yBob, this.yRot);
+        this.yBob = wrapDegreesTo(this.yBob, this.getYRot());
         this.yBobO = wrapDegreesTo(this.yBobO, this.yBob);
     }
 
@@ -611,8 +609,8 @@ public class CameraEntity
                     acc.setItemStackOffHand(player.getItemBySlot(EquipmentSlot.OFFHAND));
 
 
-                    mc.player.yBob = mc.player.yBobO = player.yRot;
-                    mc.player.xBob = mc.player.xBobO = player.xRot;
+                    mc.player.yBob = mc.player.yBobO = player.getYRot();
+                    mc.player.xBob = mc.player.xBobO = player.getXRot();
                 }
                 return false;
             }

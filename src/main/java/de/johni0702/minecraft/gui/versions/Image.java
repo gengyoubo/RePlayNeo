@@ -23,7 +23,7 @@ public class Image implements AutoCloseable {
 
     public Image(int width, int height) {
         this(
-                new NativeImage(NativeImage.Format.ABGR, width, height, true)
+                new NativeImage(NativeImage.Format.RGBA, width, height, true)
         );
     }
 
@@ -60,7 +60,7 @@ public class Image implements AutoCloseable {
 
     public void setRGBA(int x, int y, int r, int g, int b, int a) {
         // actually takes ABGR, not RGBA
-        inner.setPixelColor(x, y, ((a & 0xff) << 24) | ((b & 0xff) << 16) | ((g & 0xff) << 8) | (r & 0xff));
+        inner.setPixelRGBA(x, y, ((a & 0xff) << 24) | ((b & 0xff) << 16) | ((g & 0xff) << 8) | (r & 0xff));
     }
 
     public static Image read(Path path) throws IOException {
@@ -75,13 +75,13 @@ public class Image implements AutoCloseable {
     }
 
     public void writePNG(File file) throws IOException {
-        inner.writeFile(file);
+        inner.writeToFile(file);
     }
 
     public void writePNG(OutputStream outputStream) throws IOException {
         Path tmp = Files.createTempFile("tmp", ".png");
         try {
-            inner.writeFile(tmp);
+            inner.writeToFile(tmp);
             Files.copy(tmp, outputStream);
         } finally {
             Files.delete(tmp);

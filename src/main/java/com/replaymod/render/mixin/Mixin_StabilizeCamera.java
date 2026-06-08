@@ -40,8 +40,8 @@ public abstract class Mixin_StabilizeCamera {
             CallbackInfo ci
     ) {
         if (getHandler() != null) {
-            orgYaw = entity.yRot;
-            orgPitch = entity.xRot;
+            orgYaw = entity.getYRot();
+            orgPitch = entity.getXRot();
             orgPrevYaw = entity.yRotO;
             orgPrevPitch = entity.xRotO;
             orgRoll = entity instanceof CameraEntity ? ((CameraEntity) entity).roll : 0;
@@ -54,14 +54,14 @@ public abstract class Mixin_StabilizeCamera {
             RenderSettings settings = getHandler().getSettings();
             if (settings.isStabilizeYaw()) {
                 entity.yRotO = 0;
-                entity.yRot = 0;
+                entity.setYRot(0);
                 if (entity instanceof LivingEntity) {
                     ((LivingEntity) entity).yHeadRotO = ((LivingEntity) entity).yHeadRot = 0;
                 }
             }
             if (settings.isStabilizePitch()) {
                 entity.xRotO = 0;
-                entity.xRot = 0;
+                entity.setXRot(0);
             }
             if (settings.isStabilizeRoll() && entity instanceof CameraEntity) {
                 ((CameraEntity) entity).roll = 0;
@@ -79,8 +79,8 @@ public abstract class Mixin_StabilizeCamera {
             CallbackInfo ci
     ) {
         if (getHandler() != null) {
-            entity.yRot = orgYaw;
-            entity.xRot = orgPitch;
+            entity.setYRot(orgYaw);
+            entity.setXRot(orgPitch);
             entity.yRotO = orgPrevYaw;
             entity.xRotO = orgPrevPitch;
             if (entity instanceof CameraEntity) {

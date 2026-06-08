@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(GameRenderer.class)
 public abstract class Mixin_Omnidirectional_Camera implements EntityRendererHandler.IEntityRenderer {
-    private static final String METHOD = "getBasicProjectionMatrix";
+    private static final String METHOD = "getProjectionMatrix";
     private static final String TARGET = "Lorg/joml/Matrix4f;setPerspective(FFFF)Lorg/joml/Matrix4f;";
     private static final boolean TARGET_REMAP = false;
     private static final float OMNIDIRECTIONAL_FOV = (float) Math.PI / 2;

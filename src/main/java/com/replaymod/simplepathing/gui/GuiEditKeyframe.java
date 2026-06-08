@@ -33,6 +33,7 @@ import de.johni0702.minecraft.gui.layout.GridLayout;
 import de.johni0702.minecraft.gui.layout.HorizontalLayout;
 import de.johni0702.minecraft.gui.layout.VerticalLayout;
 import de.johni0702.minecraft.gui.popup.AbstractGuiPopup;
+import net.minecraft.client.resources.language.I18n;
 import de.johni0702.minecraft.gui.utils.Colors;
 import de.johni0702.minecraft.gui.utils.Consumer;
 import org.apache.logging.log4j.LogManager;
@@ -284,7 +285,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
                 setLayout(new VerticalLayout());
 
                 dropdown = new GuiDropdownMenu<InterpolatorType>()
-                        .setToString(s -> I18n.translate(s.getI18nName()))
+                        .setToString(s -> I18n.get(s.getI18nName()))
                         .setValues(InterpolatorType.values()).setHeight(20)
                         .onSelection(i -> setSettingsPanel(dropdown.getSelectedValue()));
 

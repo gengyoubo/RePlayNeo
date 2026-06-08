@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
  * this redirect ensures that it is synced with the time in the Replay instead.
  */
 // FIXME: preprocessor should be able to remap between fabric and forge
-@Mixin(targets = "net.minecraft.world.border.WorldBorder.MovingArea")
+@Mixin(targets = "net.minecraft.world.level.border.WorldBorder$MovingBorderExtent")
 public class Mixin_UseReplayTime_ForMovement {
 
     @Redirect(method = "*", at = @At(value = "INVOKE", target = "Lnet/minecraft/Util;getMillis()J"))

@@ -47,6 +47,7 @@ import static com.replaymod.core.utils.Utils.error;
 import static com.replaymod.render.ReplayModRender.LOGGER;
 
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.CrashReport;
 
 public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
     { disablePopupBackground(); }
@@ -238,7 +239,7 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
                 videoRenderer.renderVideo();
             } catch (FFmpegWriter.NoFFmpegException e) {
                 LOGGER.error("Rendering video:", e);
-                getMinecraft().openScreen(new GuiNoFfmpeg(getScreen()::display).toMinecraft());
+                getMinecraft().setScreen(new GuiNoFfmpeg(getScreen()::display).toMinecraft());
             } catch (FFmpegWriter.FFmpegStartupException e) {
                 GuiExportFailed.tryToRecover(e, newSettings -> {
                     // Update settings with fixed ffmpeg arguments
@@ -247,7 +248,7 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
                     renderButton.onClick(click);
                 });
             } catch (Throwable t) {
-                error(LOGGER, GuiRenderSettings.this, CrashReport.create(t, "Rendering video"), () -> {});
+                error(LOGGER, GuiRenderSettings.this, CrashReport.forThrowable(t, "Rendering video"), () -> {});
                 getScreen().display(); // Re-show the render settings gui and the new error popup
             }
         }

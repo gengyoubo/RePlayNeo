@@ -2,7 +2,7 @@ package com.replaymod.recording.mixin;
 
 import com.replaymod.recording.packet.ResourcePackRecorder;
 import de.johni0702.minecraft.gui.utils.Consumer;
-import net.minecraft.client.resources.server.DownloadedPackSource;
+import net.minecraft.client.resources.DownloadedPackSource;
 import net.minecraft.server.packs.repository.PackSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,11 +20,11 @@ public abstract class MixinDownloadingPackFinder implements ResourcePackRecorder
         requestCallback = callback;
     }
 
-    @Inject(method = "loadServerPack(Ljava/io/File;Lnet/minecraft/server/packs/repository/PackSource;)Ljava/util/concurrent/CompletableFuture;", at = @At("HEAD"))
+    @Inject(method = "setServerPack", at = @At("HEAD"))
     private void recordDownloadedPack(
             File file,
             PackSource arg,
-            CallbackInfoReturnable ci
+            CallbackInfoReturnable<?> ci
     ) {
         if (requestCallback != null) {
             requestCallback.consume(file);

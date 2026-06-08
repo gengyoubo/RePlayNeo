@@ -84,7 +84,7 @@ public abstract class OpenGlFrameCapturer<F extends Frame, D extends CaptureData
         pushMatrix();
         frameBuffer().bindWrite(true);
 
-        GlStateManager.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
+        com.mojang.blaze3d.systems.RenderSystem.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
                 , false
         );
 

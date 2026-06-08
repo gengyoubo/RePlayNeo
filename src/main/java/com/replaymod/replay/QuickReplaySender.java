@@ -137,7 +137,7 @@ public class QuickReplaySender extends ChannelHandlerAdapter implements ReplaySe
             public void onFailure(Throwable t) {
                 // Error already printed by initialize method
             }
-        });
+        }, Runnable::run);
     }
 
     public void restart() {

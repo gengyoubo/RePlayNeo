@@ -100,7 +100,7 @@ public class GuiPathing {
                 @Override
                 protected void close() {
                     super.close();
-                    getMinecraft().openScreen(null);
+                    getMinecraft().setScreen(null);
                 }
             }.open();
             screen.display();
@@ -288,7 +288,7 @@ public class GuiPathing {
                             }
                             overlay.setCloseable(true);
                         }
-                    });
+                    }, Runnable::run);
                 }
             }
         });
@@ -405,7 +405,7 @@ public class GuiPathing {
                     t.printStackTrace();
                     core.printWarningToChat("Error loading timeline: " + t.getMessage());
                 }
-            });
+            }, Runnable::run);
             gui.display();
         } catch (IOException e) {
             e.printStackTrace();
@@ -635,7 +635,7 @@ public class GuiPathing {
                         thenRun.run();
                     }
                 }
-            });
+            }, Runnable::run);
             return false;
         }
         if (mod.getCurrentTimeline().getEntityTracker() == null) {
@@ -693,10 +693,10 @@ public class GuiPathing {
                     CameraEntity camera = replayHandler.getCameraEntity();
                     int spectatedId = -1;
                     if (!replayHandler.isCameraView() && !neverSpectator) {
-                        spectatedId = replayHandler.getOverlay().getMinecraft().getCameraEntity().getEntityId();
+                        spectatedId = replayHandler.getOverlay().getMinecraft().getCameraEntity().getId();
                     }
                     timeline.addPositionKeyframe(time, camera.getX(), camera.getY(), camera.getZ(),
-                            camera.yRot, camera.xRot, camera.roll, spectatedId);
+                            camera.getYRot(), camera.getXRot(), camera.roll, spectatedId);
                     mod.setSelected(path, time);
                 }
                 break;

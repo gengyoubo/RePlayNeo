@@ -54,7 +54,7 @@ public class NoGuiScreenshot {
 
                     // Render frame without GUI
                     pushMatrix();
-                    GlStateManager.clear(
+                    com.mojang.blaze3d.systems.RenderSystem.clear(
                             16640
                             , true
                     );
@@ -79,7 +79,7 @@ public class NoGuiScreenshot {
                 // The frame without GUI has been rendered
                 // Read it, create the screenshot and finish the future
                 try {
-                    Image image = new Image(ScreenshotUtils.takeScreenshot(
+                    Image image = new Image(Screenshot.takeScreenshot(
                             mc.getMainRenderTarget()
                     ));
                     int imageWidth = image.getWidth();

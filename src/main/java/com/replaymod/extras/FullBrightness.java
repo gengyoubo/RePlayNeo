@@ -63,8 +63,8 @@ public class FullBrightness extends EventRegistrations implements Extra {
         if (active && module.getReplayHandler() != null) {
             Type type = getType();
             if (type == Type.Gamma || type == Type.Both) {
-                originalGamma = mc.options.gamma;
-                mc.options.gamma = 1000.0;
+                originalGamma = mc.options.gamma().get();
+                mc.options.gamma().set(1000.0);
             }
             if (type == Type.NightVision || type == Type.Both) {
                 if (mc.player != null) {
@@ -80,7 +80,7 @@ public class FullBrightness extends EventRegistrations implements Extra {
         if (active && module.getReplayHandler() != null) {
             Type type = getType();
             if (type == Type.Gamma || type == Type.Both) {
-                mc.options.gamma = originalGamma;
+                mc.options.gamma().set(originalGamma);
             }
             if (type == Type.NightVision || type == Type.Both) {
                 if (mc.player != null) {

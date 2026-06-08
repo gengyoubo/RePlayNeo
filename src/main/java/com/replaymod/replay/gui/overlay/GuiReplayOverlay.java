@@ -158,7 +158,7 @@ public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
     @Override
     public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
         // Do not render overlay if all hud, or this one specifically, is hidden and we're not in some popup
-        if ((getMinecraft().options.hudHidden || hidden) && isAllowUserInput()) {
+        if ((getMinecraft().options.hideGui || hidden) && isAllowUserInput()) {
             // Note that this only applies to when the mouse is visible, otherwise
             // the draw method isn't called in the first place
             return;
@@ -175,7 +175,7 @@ public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
         { on(KeyBindingEventCallback.EVENT, this::onKeyBindingEvent); }
         private void onKeyBindingEvent() {
             Options gameSettings = getMinecraft().options;
-            while (gameSettings.keyChat.wasPressed() || gameSettings.keyCommand.wasPressed()) {
+            while (gameSettings.keyChat.consumeClick() || gameSettings.keyCommand.consumeClick()) {
                 if (!isMouseVisible()) {
                     setMouseVisible(true);
                 }

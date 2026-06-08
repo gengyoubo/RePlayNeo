@@ -37,7 +37,7 @@ public class Pipeline<R extends Frame, P extends Frame> implements Runnable {
         this.consumer = new ParallelSafeConsumer<>(consumer);
 
         float near = 0.05f;
-        float far = getMinecraft().options.renderDistance * 16 * 4;
+        float far = (Integer) getMinecraft().options.renderDistance().get() * 16 * 4;
         this.depthProcessor = new GlToAbsoluteDepthProcessor(near, far);
     }
 
@@ -118,7 +118,7 @@ public class Pipeline<R extends Frame, P extends Frame> implements Runnable {
                 consumer.consume(processedChannels);
             } catch (Throwable t) {
                 CrashReport crashReport = CrashReport.forThrowable(t, "Processing frame");
-                MCVer.getMinecraft().setCrashReport(crashReport);
+                MCVer.getMinecraft().delayCrashRaw(crashReport);
             }
         }
     }

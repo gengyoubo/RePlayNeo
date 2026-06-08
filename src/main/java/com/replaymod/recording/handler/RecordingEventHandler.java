@@ -128,11 +128,11 @@ public class RecordingEventHandler extends EventRegistrations {
             if (force || Math.abs(dx) > maxRelDist || Math.abs(dy) > maxRelDist || Math.abs(dz) > maxRelDist) {
                 packet = new ClientboundTeleportEntityPacket(player);
             } else {
-                byte newYaw = (byte) ((int) (player.yRot * 256.0F / 360.0F));
-                byte newPitch = (byte) ((int) (player.xRot * 256.0F / 360.0F));
+                byte newYaw = (byte) ((int) (player.getYRot() * 256.0F / 360.0F));
+                byte newPitch = (byte) ((int) (player.getXRot() * 256.0F / 360.0F));
 
                 packet = new ClientboundMoveEntityPacket.PosRot(
-                        player.getEntityId(),
+                        player.getId(),
                         (short) Math.round(dx * 4096), (short) Math.round(dy * 4096), (short) Math.round(dz * 4096),
                         newYaw, newPitch
                         , player.onGround()
@@ -149,7 +149,7 @@ public class RecordingEventHandler extends EventRegistrations {
                 rotationYawHeadBefore = rotationYawHead;
             }
 
-            packetListener.save(new ClientboundSetEntityMotionPacket(player.getEntityId(),
+            packetListener.save(new ClientboundSetEntityMotionPacket(player.getId(),
                     player.getDeltaMovement()
             ));
 
@@ -191,14 +191,14 @@ public class RecordingEventHandler extends EventRegistrations {
                     // current state with future states (e.g. dropping on modern versions will set the count to zero).
                     stack = stack != null ? stack.copy() : null;
                     playerItems.set(index, stack);
-                    packetListener.save(new ClientboundSetEquipmentPacket(player.getEntityId(), Collections.singletonList(Pair.of(slot, stack))));
+                    packetListener.save(new ClientboundSetEquipmentPacket(player.getId(), Collections.singletonList(Pair.of(slot, stack))));
                 }
             }
 
             //Leaving Ride
 
             Entity vehicle = player.getVehicle();
-            int vehicleId = vehicle == null ? -1 : vehicle.getEntityId();
+            int vehicleId = vehicle == null ? -1 : vehicle.getId();
             if (lastRiding != vehicleId) {
                 lastRiding = vehicleId;
                 packetListener.save(new ClientboundSetEntityLinkPacket(
@@ -220,7 +220,7 @@ public class RecordingEventHandler extends EventRegistrations {
 
     public void onBlockBreakAnim(int breakerId, BlockPos pos, int progress) {
         Player thePlayer = mc.player;
-        if (thePlayer != null && breakerId == thePlayer.getEntityId()) {
+        if (thePlayer != null && breakerId == thePlayer.getId()) {
             packetListener.save(new ClientboundBlockDestructionPacket(breakerId,
                     pos,
                     progress));

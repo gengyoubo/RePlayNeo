@@ -165,7 +165,7 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
     }
 
     public void display() {
-        getMinecraft().openScreen(toMinecraft());
+        getMinecraft().setScreen(toMinecraft());
     }
 
     public Background getBackground() {

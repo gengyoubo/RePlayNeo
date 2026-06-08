@@ -18,16 +18,16 @@ public class SpectatorCameraController implements CameraController {
     @Override
     public void update(float partialTicksPassed) {
         Minecraft mc = getMinecraft();
-        if (mc.options.keySneak.wasPressed()) {
+        if (mc.options.keyShift.consumeClick()) {
             ReplayModReplay.instance.getReplayHandler().spectateCamera();
         }
 
         // Soak up all remaining key presses
         for (KeyMapping binding : Arrays.asList(mc.options.keyAttack, mc.options.keyUse,
-                mc.options.keyJump, mc.options.keySneak, mc.options.keyForward,
-                mc.options.keyBack, mc.options.keyLeft, mc.options.keyRight)) {
+                mc.options.keyJump, mc.options.keyShift, mc.options.keyUp,
+                mc.options.keyDown, mc.options.keyLeft, mc.options.keyRight)) {
             //noinspection StatementWithEmptyBody
-            while (binding.wasPressed());
+            while (binding.consumeClick());
         }
 
         // Prevent mouse movement

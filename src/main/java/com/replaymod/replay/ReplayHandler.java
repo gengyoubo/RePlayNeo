@@ -12,6 +12,7 @@ import com.replaymod.core.mixin.MinecraftAccessor;
 import com.replaymod.core.mixin.TimerAccessor;
 import com.replaymod.core.utils.Restrictions;
 import com.replaymod.core.utils.Utils;
+import com.replaymod.core.versions.MCVer;
 import com.replaymod.replay.camera.CameraEntity;
 import com.replaymod.replay.camera.SpectatorCameraController;
 import com.replaymod.replay.events.ReplayClosedCallback;
@@ -39,9 +40,9 @@ import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
 import net.minecraft.network.Connection;
 import net.minecraft.network.ConnectionProtocol;
-import net.minecraft.network.protocol.PacketBundlePacker;
-import net.minecraft.network.protocol.PacketDecoder;
-import net.minecraft.network.protocol.PacketEncoder;
+import net.minecraft.network.PacketBundlePacker;
+import net.minecraft.network.PacketDecoder;
+import net.minecraft.network.PacketEncoder;
 import net.minecraft.network.protocol.PacketFlow;
 import java.io.IOException;
 import java.util.*;
@@ -171,7 +172,7 @@ public class ReplayHandler {
 
         ReplayModReplay.instance.forcefullyStopReplay();
 
-        mc.openScreen(null);
+        mc.setScreen(null);
 
         ReplayClosedCallback.EVENT.invoker().replayClosed(this);
     }
@@ -253,7 +254,7 @@ public class ReplayHandler {
                     String message = "Failed to initialize quick mode. It will not be available.";
                     Utils.error(LOGGER, overlay, CrashReport.forThrowable(t, message), popup::close);
                 }
-            });
+            }, Runnable::run);
         }
         Futures.addCallback(future, new FutureCallback<Void>() {
             @Override
@@ -265,7 +266,7 @@ public class ReplayHandler {
             public void onFailure(@Nonnull Throwable t) {
                 // Exception already printed in callback added above
             }
-        });
+        }, Runnable::run);
     }
 
     private class InitializingQuickModePopup extends AbstractGuiPopup<InitializingQuickModePopup> {
@@ -304,7 +305,7 @@ public class ReplayHandler {
 
         CameraEntity cam = getCameraEntity();
         if (cam != null) {
-            targetCameraPosition = new Location(cam.getX(), cam.getY(), cam.getZ(), cam.yRot, cam.xRot);
+            targetCameraPosition = new Location(cam.getX(), cam.getY(), cam.getZ(), cam.getYRot(), cam.getXRot());
         } else {
             targetCameraPosition = null;
         }
@@ -432,8 +433,8 @@ public class ReplayHandler {
                 entity.xOld = entity.xo = entity.getX();
                 entity.yOld = entity.yo = entity.getY();
                 entity.zOld = entity.zo = entity.getZ();
-                entity.yRotO = entity.yRot;
-                entity.xRotO = entity.xRot;
+                entity.yRotO = entity.getYRot();
+                entity.xRotO = entity.getXRot();
             }
 
             // Run previous tick
@@ -455,14 +456,14 @@ public class ReplayHandler {
         }
 
         if (targetTime < replaySender.currentTimeStamp()) {
-            mc.openScreen(null);
+            mc.setScreen(null);
         }
 
         if (retainCameraPosition) {
             CameraEntity cam = getCameraEntity();
             if (cam != null) {
                 targetCameraPosition = new Location(cam.getX(), cam.getY(), cam.getZ(),
-                        cam.yRot, cam.xRot);
+                        cam.getYRot(), cam.getXRot());
             } else {
                 targetCameraPosition = null;
             }
@@ -498,13 +499,13 @@ public class ReplayHandler {
 
                 // Perform the rendering using OpenGL
                 pushMatrix();
-                GlStateManager.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
+                com.mojang.blaze3d.systems.RenderSystem.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
                         , true
                 );
                 mc.getMainRenderTarget().bindWrite(true);
                 Window window = mc.getWindow();
                 RenderSystem.clear(256, Minecraft.ON_OSX);
-                RenderSystem.setProjectionMatrix(Matrix4f.projectionMatrix(
+                RenderSystem.setProjectionMatrix(MCVer.ortho(
                         0,
                         (float) (window.getWidth() / window.getGuiScale()),
                         0,
@@ -557,8 +558,8 @@ public class ReplayHandler {
                     entity.xOld = entity.xo = entity.getX();
                     entity.yOld = entity.yo = entity.getY();
                     entity.zOld = entity.zo = entity.getZ();
-                    entity.yRotO = entity.yRot;
-                    entity.xRotO = entity.xRot;
+                    entity.yRotO = entity.getYRot();
+                    entity.xRotO = entity.getXRot();
                 }
                 mc.tick();
 
@@ -576,8 +577,8 @@ public class ReplayHandler {
             LivingEntity e = (LivingEntity) entity;
             EntityLivingBaseAccessor ea = (EntityLivingBaseAccessor) e;
             e.absMoveTo(ea.getInterpTargetX(), ea.getInterpTargetY(), ea.getInterpTargetZ());
-            e.yRot = (float) ea.getInterpTargetYaw();
-            e.xRot = (float) ea.getInterpTargetPitch();
+            e.setYRot((float) ea.getInterpTargetYaw());
+            e.setXRot((float) ea.getInterpTargetPitch());
         }
     }
 

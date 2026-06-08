@@ -71,7 +71,7 @@ public class PlayerOverview extends EventRegistrations implements Extra {
 
     { on(ReplayOpenedCallback.EVENT, this::onReplayOpen); }
     private void onReplayOpen(ReplayHandler replayHandler) throws IOException {
-        java.util.Optional<Set<UUID>> savedData = replayHandler.getReplayFile().getInvisiblePlayers();
+        Optional<Set<UUID>> savedData = replayHandler.getReplayFile().getInvisiblePlayers();
         if (savedData.isPresent()) {
             hiddenPlayers.addAll(savedData.get());
             savingEnabled = true;

@@ -196,7 +196,7 @@ public class VideoRenderer implements RenderInfo {
         renderingPipeline.run();
 
         if (((MinecraftAccessor) mc).getCrashReporter() != null) {
-            throw new ReportedException(((MinecraftAccessor) mc).getCrashReporter());
+            throw new ReportedException(((MinecraftAccessor) mc).getCrashReporter().get());
         }
 
         if (settings.isInjectSphericalMetadata()) {
@@ -282,7 +282,7 @@ public class VideoRenderer implements RenderInfo {
         for (SoundSource category : SoundSource.values()) {
             if (category != SoundSource.MASTER) {
                 originalSoundLevels.put(category, mc.options.getSoundSourceVolume(category));
-                mc.options.setSoundVolume(category, 0);
+                mc.options.getSoundSourceOptionInstance(category).set(0.0);
             }
         }
 
@@ -329,9 +329,9 @@ public class VideoRenderer implements RenderInfo {
             mc.mouseHandler.grabMouse();
         }
         for (Map.Entry<SoundSource, Float> entry : originalSoundLevels.entrySet()) {
-            mc.options.setSoundVolume(entry.getKey(), entry.getValue());
+            mc.options.getSoundSourceOptionInstance(entry.getKey()).set((double) entry.getValue());
         }
-        mc.openScreen(null);
+        mc.setScreen(null);
         forceChunkLoadingHook.uninstall();
 
         if (!hasFailed() && cameraPathExporter != null) {
@@ -342,7 +342,7 @@ public class VideoRenderer implements RenderInfo {
             }
         }
 
-        mc.getSoundManager().play(SimpleSoundInstance.forUI(new SoundEvent(SOUND_RENDER_SUCCESS), 1));
+        mc.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvent.createVariableRangeEvent(SOUND_RENDER_SUCCESS), 1));
 
         try {
             if (!hasFailed() && ffmpegWriter != null) {
@@ -391,13 +391,13 @@ public class VideoRenderer implements RenderInfo {
             }
 
             pushMatrix();
-            GlStateManager.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
+            com.mojang.blaze3d.systems.RenderSystem.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
                     , false
             );
             guiWindow.beginWrite();
 
             RenderSystem.clear(256, Minecraft.ON_OSX);
-            RenderSystem.setProjectionMatrix(Matrix4f.projectionMatrix(
+            RenderSystem.setProjectionMatrix(MCVer.ortho(
                     0,
                     (float) (window.getWidth() / window.getGuiScale()),
                     0,

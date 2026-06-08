@@ -24,12 +24,12 @@ import java.util.Set;
  */
 @Mixin(KeyMapping.class)
 public class Mixin_ContextualKeyBindings {
-    @Shadow @Final private static Map<String, KeyMapping> keysById;
-    @Unique private static Collection<KeyMapping> keyBindings() { return Mixin_ContextualKeyBindings.keysById.values(); }
+    @Shadow @Final private static Map<String, KeyMapping> ALL;
+    @Unique private static Collection<KeyMapping> keyBindings() { return Mixin_ContextualKeyBindings.ALL.values(); }
 
     @Unique private static final List<KeyMapping> temporarilyRemoved = new ArrayList<>();
 
-    @Inject(method = "updateKeysByCode", at = @At("HEAD"))
+    @Inject(method = "resetMapping", at = @At("HEAD"))
     private static void preContextualKeyBindings(CallbackInfo ci) {
         ReplayMod mod = ReplayMod.instance;
         if (mod == null) {
@@ -59,10 +59,10 @@ public class Mixin_ContextualKeyBindings {
         }
     }
 
-    @Inject(method = "updateKeysByCode", at = @At("RETURN"))
+    @Inject(method = "resetMapping", at = @At("RETURN"))
     private static void postContextualKeyBindings(CallbackInfo ci) {
-        for (KeyMapping KeyMapping : temporarilyRemoved) {
-            Mixin_ContextualKeyBindings.keysById.put(KeyMapping.getTranslationKey(), KeyMapping);
+        for (KeyMapping keyMapping : temporarilyRemoved) {
+            Mixin_ContextualKeyBindings.ALL.put(keyMapping.getName(), keyMapping);
         }
         temporarilyRemoved.clear();
     }

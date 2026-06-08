@@ -189,7 +189,7 @@ class Patterns {
     }
 
     @Pattern
-    private static BufferBuilder Tessellator_getBuffer(Tesselator tessellator) {
+    private static BufferBuilder Tesselator_getBuffer(Tesselator tessellator) {
         return tessellator.getBuilder();
     }
 
@@ -206,7 +206,7 @@ class Patterns {
     @Pattern private static void BufferBuilder_addPosTexCol() {}
 
     @Pattern
-    private static Tesselator Tessellator_getInstance() {
+    private static Tesselator Tesselator_getInstance() {
         return Tesselator.getInstance();
     }
 
@@ -242,7 +242,7 @@ class Patterns {
 
     @Pattern
     private static SimpleSoundInstance master(ResourceLocation sound, float pitch) {
-        return SimpleSoundInstance.forUI(new SoundEvent(sound), pitch);
+        return SimpleSoundInstance.forUI(SoundEvent.createVariableRangeEvent(sound), pitch);
     }
 
     @Pattern
@@ -303,7 +303,7 @@ class Patterns {
 
     @Pattern
     private static Vec3 getTrackedPosition(Entity entity) {
-        return entity.getPositionCodec();
+        return entity.getPositionCodec().decode(0, 0, 0);
     }
 
     @Pattern
@@ -323,27 +323,27 @@ class Patterns {
 
     @Pattern
     private static void setGamma(Options options, double value) {
-        ((com.replaymod.core.mixin.SimpleOptionAccessor<Double>) (Object) options.getGamma()).setRawValue(value);
+        options.gamma().set(value);
     }
 
     @Pattern
     private static double getGamma(Options options) {
-        return options.getGamma().getValue();
+        return options.gamma().get();
     }
 
     @Pattern
     private static int getViewDistance(Options options) {
-        return options.getViewDistance().getValue();
+        return options.renderDistance().get();
     }
 
     @Pattern
     private static double getFov(Options options) {
-        return options.getFov().getValue();
+        return options.fov().get();
     }
 
     @Pattern
     private static int getGuiScale(Options options) {
-        return options.getGuiScale().getValue();
+        return options.guiScale().get();
     }
 
     @Pattern
@@ -358,7 +358,7 @@ class Patterns {
 
     @Pattern
     private static void setSoundVolume(Options options, SoundSource category, float value) {
-        options.getSoundVolumeOption(category).setValue((double) value);
+        options.getSoundSourceOptionInstance(category).set((double) value);
     }
 
     @Pattern

@@ -73,7 +73,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
     }
 
     public void display() {
-        getMinecraft().openScreen(mcScreen);
+        getMinecraft().setScreen(mcScreen);
         register();
     }
 
@@ -127,7 +127,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
         //      see also the note in ReplayMod's GuiBackgroundProcesses
         // If this screen ever becomes the main screen, something has gone wrong.
         if (getSuperMcGui() == getMinecraft().screen) {
-            getMinecraft().openScreen(null);
+            getMinecraft().setScreen(null);
         }
     }
 

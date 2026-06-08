@@ -34,34 +34,34 @@ public class ClassicCameraController implements CameraController {
     public void update(float partialTicksPassed) {
         boolean forward = false, backward = false, left = false, right = false, up = false, down = false;
         speedup = false;
-        for(KeyMapping kb : Minecraft.getInstance().options.keysAll) {
-            if(!kb.isPressed()) continue;
-            if(kb.getTranslationKey().equals("key.forward")) {
+        for(KeyMapping kb : Minecraft.getInstance().options.keyMappings) {
+            if(!kb.isDown()) continue;
+            if(kb.getName().equals("key.forward")) {
                 forward = true;
                 speedup = true;
             }
 
-            if(kb.getTranslationKey().equals("key.back")) {
+            if(kb.getName().equals("key.back")) {
                 backward = true;
                 speedup = true;
             }
 
-            if(kb.getTranslationKey().equals("key.jump")) {
+            if(kb.getName().equals("key.jump")) {
                 up = true;
                 speedup = true;
             }
 
-            if(kb.getTranslationKey().equals("key.left")) {
+            if(kb.getName().equals("key.left")) {
                 left = true;
                 speedup = true;
             }
 
-            if(kb.getTranslationKey().equals("key.right")) {
+            if(kb.getName().equals("key.right")) {
                 right = true;
                 speedup = true;
             }
 
-            if(kb.getTranslationKey().equals("key.sneak")) {
+            if(kb.getName().equals("key.sneak")) {
                 down = true;
                 speedup = true;
             }
@@ -137,7 +137,7 @@ public class ClassicCameraController implements CameraController {
     }
 
     private void setMovement(MoveDirection dir) {
-        float rotationPitch = camera.xRot, rotationYaw = camera.yRot;
+        float rotationPitch = camera.getXRot(), rotationYaw = camera.getYRot();
         switch(dir) {
             case BACKWARD:
                 direction = this.getVectorForRotation(-rotationPitch, rotationYaw - 180);

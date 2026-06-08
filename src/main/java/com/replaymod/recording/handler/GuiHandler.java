@@ -18,6 +18,8 @@ import de.johni0702.minecraft.gui.versions.callbacks.InitScreenCallback;
 import net.minecraft.client.gui.screens.EditServerScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.client.resources.language.I18n;
 
 public class GuiHandler extends EventRegistrations {
 
@@ -55,15 +57,15 @@ public class GuiHandler extends EventRegistrations {
         if (gui instanceof EditServerScreen) {
             VanillaGuiScreen vanillaGui = VanillaGuiScreen.wrap(gui);
             GuiButton replayButton = new GuiReplayButton().onClick(() -> {
-                ServerInfo serverInfo = ((AddServerScreenAccessor) gui).getServer();
+                ServerData serverInfo = ((AddServerScreenAccessor) gui).getServerData();
                 ServerInfoExt serverInfoExt = ServerInfoExt.from(serverInfo);
                 Boolean state = serverInfoExt.getAutoRecording();
                 GuiToggleButton<String> autoRecording = new GuiToggleButton<String>()
                         .setI18nLabel("replaymod.gui.settings.autostartrecording")
                         .setValues(
-                                I18n.translate("replaymod.gui.settings.default"),
-                                I18n.translate("options.off"),
-                                I18n.translate("options.on")
+                                I18n.get("replaymod.gui.settings.default"),
+                                I18n.get("options.off"),
+                                I18n.get("options.on")
                         )
                         .setSelected(state == null ? 0 : state ? 2 : 1);
                 autoRecording.onClick(() -> {

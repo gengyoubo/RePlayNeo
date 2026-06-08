@@ -5,7 +5,7 @@ import de.johni0702.minecraft.gui.utils.Event;
 
 public interface PostRenderWorldCallback {
     Event<PostRenderWorldCallback> EVENT = Event.create((listeners) ->
-            (MatrixStack matrixStack) -> {
+            (PoseStack matrixStack) -> {
                 for (PostRenderWorldCallback listener : listeners) {
                     listener.postRenderWorld(matrixStack);
                 }

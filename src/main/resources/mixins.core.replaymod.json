@@ -12,7 +12,6 @@
     "MixinMouse",
     "MixinKeyboardListener",
     "MixinMinecraft",
-    "GuiScreenAccessor",
     "KeyBindingAccessor",
     "MinecraftAccessor",
     "SimpleOptionAccessor",

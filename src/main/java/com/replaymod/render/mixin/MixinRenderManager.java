@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityRenderDispatcher.class)
 public abstract class MixinRenderManager {
-    @Shadow private Quaternion rotation;
+    @Shadow private Quaternionf cameraOrientation;
 
     @Inject(method = "render", at = @At("HEAD"))
     private void replayModRender_reorientForCubicRendering(Entity entity, double dx, double dy, double dz,
@@ -30,9 +30,9 @@ public abstract class MixinRenderManager {
         if (handler != null && handler.omnidirectional) {
             double pitch = -Math.atan2(dy, Math.sqrt(dx * dx + dz * dz));
             double yaw = -Math.atan2(dx, dz);
-            this.rotation = new Quaternion(0.0F, 0.0F, 0.0F, 1.0F);
-            this.rotation.hamiltonProduct(Vector3f.POSITIVE_Y.getDegreesQuaternion((float) -yaw));
-            this.rotation.hamiltonProduct(Vector3f.POSITIVE_X.getDegreesQuaternion((float) pitch));
+            this.cameraOrientation = new Quaternionf()
+                    .mul(new Quaternionf().rotationY((float) -yaw))
+                    .mul(new Quaternionf().rotationX((float) pitch));
         }
     }
 }

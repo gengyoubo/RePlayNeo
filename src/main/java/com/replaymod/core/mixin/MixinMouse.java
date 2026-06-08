@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MouseHandler.class)
 public class MixinMouse {
-    @Inject(method = "onPress", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/KeyMapping;onKeyPressed(Lnet/minecraft/client/util/InputUtil$Key;)V", shift = At.Shift.AFTER))
+    @Inject(method = "onPress", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/KeyMapping;click(Lcom/mojang/blaze3d/platform/InputConstants$Key;)V", shift = At.Shift.AFTER))
     private void afterKeyBindingTick(CallbackInfo ci) {
         KeyBindingEventCallback.EVENT.invoker().onKeybindingEvent();
     }

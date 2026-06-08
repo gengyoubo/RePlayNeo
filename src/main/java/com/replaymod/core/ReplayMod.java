@@ -77,7 +77,7 @@ public class ReplayMod implements Module, Scheduler {
     public ReplayMod(ReplayModBackend backend) {
         this.backend = backend;
 
-        I18n.setI18n(net.minecraft.client.resources.language.I18n::translate);
+        I18n.setI18n(net.minecraft.client.resources.language.I18n::get);
 
         // Check Minecraft protocol version for compatibility
         if (!ProtocolVersion.isRegistered(MCVer.getProtocolVersion()) && !Boolean.parseBoolean(System.getProperty("replaymod.skipversioncheck", "false"))) {

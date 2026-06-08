@@ -24,6 +24,7 @@
  */
 package de.johni0702.minecraft.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import de.johni0702.minecraft.gui.utils.NonNull;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
@@ -33,7 +34,6 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import de.johni0702.minecraft.gui.utils.lwjgl.WritableDimension;
 import de.johni0702.minecraft.gui.versions.MCVer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
@@ -167,7 +167,7 @@ public class MinecraftGuiRenderer implements GuiRenderer {
     public void drawRect(int x, int y, int width, int height, int color) {
         context.fill(x, y, x + width, y + height, color);
         color(1, 1, 1);
-        enableBlend();
+        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
     }
 
     @Override
@@ -186,17 +186,17 @@ public class MinecraftGuiRenderer implements GuiRenderer {
     }
 
     private void drawRect(int x, int y, int width, int height, ReadableColor tl, ReadableColor tr, ReadableColor bl, ReadableColor br, boolean highlight) {
-        enableBlend();
-        blendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-        setShader(GameRenderer::getPositionColorShader);
+        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        com.mojang.blaze3d.systems.RenderSystem.blendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+        com.mojang.blaze3d.systems.RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder vertexBuffer = tessellator.getBuilder();
         vertexBuffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-        vertexBuffer.vertex(x, y + height, 0).color(bl.getRed(), bl.getGreen(), bl.getBlue(), bl.getAlpha()).next();
-        vertexBuffer.vertex(x + width, y + height, 0).color(br.getRed(), br.getGreen(), br.getBlue(), br.getAlpha()).next();
-        vertexBuffer.vertex(x + width, y, 0).color(tr.getRed(), tr.getGreen(), tr.getBlue(), tr.getAlpha()).next();
-        vertexBuffer.vertex(x, y, 0).color(tl.getRed(), tl.getGreen(), tl.getBlue(), tl.getAlpha()).next();
+        vertexBuffer.vertex(x, y + height, 0).color(bl.getRed(), bl.getGreen(), bl.getBlue(), bl.getAlpha()).endVertex();
+        vertexBuffer.vertex(x + width, y + height, 0).color(br.getRed(), br.getGreen(), br.getBlue(), br.getAlpha()).endVertex();
+        vertexBuffer.vertex(x + width, y, 0).color(tr.getRed(), tr.getGreen(), tr.getBlue(), tr.getAlpha()).endVertex();
+        vertexBuffer.vertex(x, y, 0).color(tl.getRed(), tl.getGreen(), tl.getBlue(), tl.getAlpha()).endVertex();
         tessellator.end();
 
     }
@@ -225,7 +225,7 @@ public class MinecraftGuiRenderer implements GuiRenderer {
     public int drawString(int x, int y, int color, String text, boolean shadow) {
         Font fontRenderer = MCVer.getFontRenderer();
         try {
-            int nx = context.drawText(fontRenderer, text, x, y, color, shadow);
+            int nx = context.drawString(fontRenderer, text, x, y, color, shadow);
             return nx;
         } finally {
             color(1, 1, 1);
@@ -269,12 +269,12 @@ public class MinecraftGuiRenderer implements GuiRenderer {
         if (left >= right || top >= bottom) return;
 
         color(0, 0, 1);
-        enableColorLogicOp();
-        logicOp(GlStateManager.LogicOp.OR_REVERSE);
+        com.mojang.blaze3d.systems.RenderSystem.enableColorLogicOp();
+        com.mojang.blaze3d.systems.RenderSystem.logicOp(GlStateManager.LogicOp.OR_REVERSE);
 
         drawRect(right, bottom, right - left, bottom - top, ReadableColor.WHITE, ReadableColor.WHITE, ReadableColor.WHITE, ReadableColor.WHITE, true);
 
-        disableColorLogicOp();
+        com.mojang.blaze3d.systems.RenderSystem.disableColorLogicOp();
         color(1, 1, 1);
     }
 }

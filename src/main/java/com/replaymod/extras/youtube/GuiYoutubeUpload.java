@@ -210,7 +210,7 @@ public class GuiYoutubeUpload extends GuiScreen {
                                 LOGGER.error("Failed to open video URL \"{}\":", url, throwable);
                             }
                             upload = null;
-                            progressBar.setLabel(I18n.translate("replaymod.gui.ytuploadprogress.done", url));
+                            progressBar.setLabel(I18n.get("replaymod.gui.ytuploadprogress.done", url));
                             setState(false);
                         }
 
@@ -226,7 +226,7 @@ public class GuiYoutubeUpload extends GuiScreen {
                             upload = null;
                             setState(false);
                         }
-                    });
+                    }, Runnable::run);
                 } catch (GeneralSecurityException | IOException e) {
                     e.printStackTrace();
                 }

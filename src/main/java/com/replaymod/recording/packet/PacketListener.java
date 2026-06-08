@@ -34,6 +34,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.Connection;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.BundlerInfo;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket;
@@ -324,7 +325,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     }
 
     private ConnectionProtocol getConnectionState() {
-        AttributeKey<ConnectionProtocol> key = ClientConnection.ATTR_KEY_PROTOCOL;
+        AttributeKey<ConnectionProtocol> key = Connection.ATTRIBUTE_PROTOCOL;
         return channel.attr(key).get();
     }
 
@@ -376,8 +377,8 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
             marker.setX(view.getX());
             marker.setY(view.getY());
             marker.setZ(view.getZ());
-            marker.setYaw(view.yRot);
-            marker.setPitch(view.xRot);
+            marker.setYaw(view.getYRot());
+            marker.setPitch(view.getXRot());
         }
         // Roll is always 0
         saveService.submit(() -> {

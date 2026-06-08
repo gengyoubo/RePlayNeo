@@ -26,7 +26,7 @@ public abstract class MixinNetHandlerLoginClient {
         initiateRecording(packet);
     }
 
-    @Inject(method = "onLoginSuccess", at=@At("HEAD"))
+    @Inject(method = "handleGameProfile", at=@At("HEAD"))
     private void lateInitiateRecording(ClientboundGameProfilePacket packet, CallbackInfo ci) {
         initiateRecording(packet);
     }

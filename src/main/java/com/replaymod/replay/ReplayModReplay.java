@@ -69,8 +69,8 @@ public class ReplayModReplay implements Module {
                         marker.setX(camera.getX());
                         marker.setY(camera.getY());
                         marker.setZ(camera.getZ());
-                        marker.setYaw(camera.yRot);
-                        marker.setPitch(camera.xRot);
+                        marker.setYaw(camera.getYRot());
+                        marker.setPitch(camera.getXRot());
                         marker.setRoll(camera.roll);
                         replayHandler.getOverlay().timeline.addMarker(marker);
                     }
@@ -108,7 +108,7 @@ public class ReplayModReplay implements Module {
                             t.printStackTrace();
                             core.printWarningToChat("replaymod.chat.failedthumb");
                         }
-                    });
+                    }, Runnable::run);
                 }
             }
         }, true);

@@ -56,7 +56,7 @@ public abstract class Mixin_Omnidirectional_Rotation {
                     x = 1;
                     break;
             }
-            matrixStack.mulPose(new Vector3f(x, y, 0).getDegreesQuaternion(angle));
+            matrixStack.mulPose(new org.joml.Quaternionf().fromAxisAngleDeg(x, y, 0, angle));
 
             getMinecraft().levelRenderer.needsUpdate();
         }

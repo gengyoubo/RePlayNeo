@@ -43,7 +43,7 @@ public abstract class MixinNetHandlerPlayClient {
         RecordingEventHandler handler = getRecordingEventHandler();
         if (handler != null && packet.actions().contains(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER)) {
             for (ClientboundPlayerInfoUpdatePacket.Entry entry : packet.entries()) {
-                UUID uuid = entry.getProfile().getId();
+                UUID uuid = entry.profile().getId();
                 // Only add spawn packet for our own player and only if he isn't known yet
                 if (uuid.equals(mcStatic.player.getGameProfile().getId()) && !this.playerInfoMap.containsKey(uuid)) {
                     handler.spawnRecordingPlayer();

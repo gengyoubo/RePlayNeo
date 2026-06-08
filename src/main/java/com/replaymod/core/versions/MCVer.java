@@ -3,11 +3,11 @@ package com.replaymod.core.versions;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormatElement;
-import com.replaymod.core.mixin.GuiScreenAccessor;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.packet.State;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.version.ProtocolVersion;
 import com.replaymod.replaystudio.protocol.PacketTypeRegistry;
@@ -88,16 +88,16 @@ public class MCVer {
         Window window = mc.getWindow();
         MainWindowAccessor mainWindow = (MainWindowAccessor) (Object) window;
         //noinspection ConstantConditions
-        mainWindow.invokeOnFramebufferSizeChanged(window.getWindow(), width, height);
+        mainWindow.invokeOnFramebufferResize(window.getWindow(), width, height);
     }
 
 
     public static
     CompletableFuture<?>
     setServerResourcePack(File file) {
-        return getMinecraft().getResourcePackDownloader().loadServerPack(
-                file
-                , ResourcePackSource.PACK_SOURCE_SERVER
+        return getMinecraft().getDownloadedPackSource().setServerPack(
+                file,
+                net.minecraft.server.packs.repository.PackSource.SERVER
         );
     }
 
@@ -124,10 +124,20 @@ public class MCVer {
 
     public static void addButton(
             Screen screen,
-            Button button
+            AbstractButton button
     ) {
-        GuiScreenAccessor acc = (GuiScreenAccessor) screen;
-        acc.invokeAddButton(button);
+        try {
+            java.lang.reflect.Method method;
+            try {
+                method = Screen.class.getDeclaredMethod("addRenderableWidget", GuiEventListener.class);
+            } catch (NoSuchMethodException ignored) {
+                method = Screen.class.getDeclaredMethod("m_142416_", GuiEventListener.class);
+            }
+            method.setAccessible(true);
+            method.invoke(screen, button);
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException("Unable to add button to screen", e);
+        }
     }
 
     public static Optional<AbstractButton> findButton(Iterable<? extends GuiEventListener> buttonList, @SuppressWarnings("unused") String text, @SuppressWarnings("unused") int id) {
@@ -171,9 +181,9 @@ public class MCVer {
     // TODO: this can be inlined once https://github.com/SpongePowered/Mixin/issues/305 is fixed
     public static Vec3 getPosition(Particle particle, float partialTicks) {
         ParticleAccessor acc = (ParticleAccessor) particle;
-        double x = acc.getPrevPosX() + (acc.getPosX() - acc.getPrevPosX()) * partialTicks;
-        double y = acc.getPrevPosY() + (acc.getPosY() - acc.getPrevPosY()) * partialTicks;
-        double z = acc.getPrevPosZ() + (acc.getPosZ() - acc.getPrevPosZ()) * partialTicks;
+        double x = acc.getXo() + (acc.getPosX() - acc.getXo()) * partialTicks;
+        double y = acc.getYo() + (acc.getPosY() - acc.getYo()) * partialTicks;
+        double z = acc.getZo() + (acc.getPosZ() - acc.getZo()) * partialTicks;
         return new Vec3(x, y, z);
     }
 
@@ -187,11 +197,11 @@ public class MCVer {
     }
 
     public static void pushMatrix() {
-        RenderSystem.getModelViewStack().push();
+        RenderSystem.getModelViewStack().pushPose();
     }
 
     public static void popMatrix() {
-        RenderSystem.getModelViewStack().pop();
+        RenderSystem.getModelViewStack().popPose();
         RenderSystem.applyModelViewMatrix();
     }
 
@@ -214,12 +224,12 @@ public class MCVer {
         int b = color >> 8 & 0xff;
         int a = color & 0xff;
         Vector3f n = Vector3f.sub(p2, p1, null);
-        buffer.vertex(matrixStack.last().getModel(), p1.x, p1.y, p1.z)
+        buffer.vertex(matrixStack.last().pose(), p1.x, p1.y, p1.z)
                 .color(r, g, b, a)
                 .normal(n.x, n.y, n.z)
                 ;
         buffer.endVertex();
-        buffer.vertex(matrixStack.last().getModel(), p2.x, p2.y, p2.z)
+        buffer.vertex(matrixStack.last().pose(), p2.x, p2.y, p2.z)
                 .color(r, g, b, a)
                 .normal(n.x, n.y, n.z)
                 ;

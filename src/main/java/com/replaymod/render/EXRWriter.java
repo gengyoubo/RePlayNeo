@@ -130,7 +130,7 @@ public class EXRWriter implements FrameConsumer<BitmapFrame> {
                 throw new IOException(message);
             }
         } catch (Throwable t) {
-            MCVer.getMinecraft().setCrashReport(CrashReport.forThrowable(t, "Exporting EXR frame"));
+            MCVer.getMinecraft().delayCrashRaw(CrashReport.forThrowable(t, "Exporting EXR frame"));
         } finally {
             memFree(images);
             stackPop();

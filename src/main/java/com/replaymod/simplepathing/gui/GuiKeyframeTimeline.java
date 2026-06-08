@@ -24,7 +24,13 @@ import org.apache.commons.lang3.tuple.Pair;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import org.lwjgl.opengl.GL11;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.GameRenderer;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -153,9 +159,9 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
 
                     final int color = 0xff0000ff;
                     final float lineWidth = 2f;
-                    Tessellator tessellator = Tessellator.getInstance();
-                    BufferBuilder buffer = tessellator.getBuffer();
-                    buffer.begin(GL11.GL_LINE_STRIP, VertexFormats.POSITION_COLOR);
+                    Tesselator tessellator = Tesselator.getInstance();
+                    BufferBuilder buffer = tessellator.getBuilder();
+                    buffer.begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
 
                     // Start just below the top border of the replay timeline
                     Vector2f p1 = new Vector2f(replayTimelineLeft + positionXReplayTimeline, replayTimelineTop + BORDER_TOP);
@@ -166,7 +172,7 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
                     // And finally another vertical bit (the timeline is already crammed enough, so only the border)
                     Vector2f p4 = new Vector2f(keyframeTimelineLeft + positionXKeyframeTimeline, keyframeTimelineTop + BORDER_TOP);
 
-                    MatrixStack matrixStack = renderer.getMatrixStack();
+                    PoseStack matrixStack = renderer.getMatrixStack();
                     emitLine(matrixStack, buffer, p1, p2, color, lineWidth);
                     emitLine(matrixStack, buffer, p2, p3, color, lineWidth);
                     emitLine(matrixStack, buffer, p3, p4, color, lineWidth);
@@ -174,8 +180,8 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
                     pushScissorState();
                     setScissorDisabled();
 
-                    RenderSystem.setShader(GameRenderer::getRenderTypeLinesShader);
-                    tessellator.draw();
+                    RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
+                    BufferUploader.drawWithShader(buffer.end());
 
                     popScissorState();
                 }

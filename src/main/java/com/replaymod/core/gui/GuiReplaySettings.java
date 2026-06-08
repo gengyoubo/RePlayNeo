@@ -23,7 +23,7 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
         final GuiButton doneButton = new GuiButton(this).setI18nLabel("gui.done").setSize(200, 20).onClick(new Runnable() {
             @Override
             public void run() {
-                getMinecraft().openScreen(parent);
+                getMinecraft().setScreen(parent);
             }
         });
 

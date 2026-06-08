@@ -21,8 +21,8 @@ public abstract class MixinParticleManager {
         if (handler == null || !handler.omnidirectional) {
             buildGeometry(particle, vertexConsumer, camera, partialTicks);
         } else {
-            Quaternion rotation = camera.rotation();
-            Quaternion org = rotation.copy();
+            Quaternionf rotation = camera.rotation();
+            Quaternionf org = new Quaternionf(rotation);
             try {
                 Vec3 from = new Vec3(0, 0, 1);
                 Vec3 to = MCVer.getPosition(particle, partialTicks).subtract(camera.getPosition()).normalize();
@@ -32,7 +32,7 @@ public abstract class MixinParticleManager {
 
                 buildGeometry(particle, vertexConsumer, camera, partialTicks);
             } finally {
-                rotation.set(org.getW(), org.getX(), org.getY(), org.getZ());
+                rotation.set(org);
             }
         }
     }

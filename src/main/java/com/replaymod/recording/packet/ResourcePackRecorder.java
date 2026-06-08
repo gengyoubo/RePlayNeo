@@ -6,8 +6,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
-import net.minecraft.client.resources.server.DownloadedPackSource;
+import net.minecraft.client.resources.DownloadedPackSource;
 import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundResourcePackPacket;
 import net.minecraft.network.protocol.game.ServerboundResourcePackPacket;
 import net.minecraft.network.protocol.game.ServerboundResourcePackPacket.Action;
@@ -104,26 +105,26 @@ public class ResourcePackRecorder {
             }
         } else {
             final ServerData serverData = mc.getCurrentServer();
-            if (serverData != null && serverData.getResourcePack() == ServerInfo.ResourcePackState.ENABLED) {
+            if (serverData != null && serverData.getResourcePackStatus() == ServerData.ServerPackStatus.ENABLED) {
                 netManager.send(makeStatusPacket(hash, Action.ACCEPTED));
                 downloadResourcePackFuture(netManager, requestId, url, hash);
-            } else if (serverData != null && serverData.getResourcePack() != ServerInfo.ResourcePackState.PROMPT) {
+            } else if (serverData != null && serverData.getResourcePackStatus() != ServerData.ServerPackStatus.PROMPT) {
                 netManager.send(makeStatusPacket(hash, Action.DECLINED));
             } else {
                 // Lambdas MUST NOT be used with methods that need re-obfuscation in FG prior to 2.2 (will result in AbstractMethodError)
-                mc.execute(() -> mc.openScreen(new ConfirmScreen(result -> {
+                mc.execute(() -> mc.setScreen(new ConfirmScreen(result -> {
                         if (serverData != null) {
-                            serverData.setResourcePackState(result ? ServerInfo.ResourcePackState.ENABLED : ServerInfo.ResourcePackState.DISABLED);
+                            serverData.setResourcePackStatus(result ? ServerData.ServerPackStatus.ENABLED : ServerData.ServerPackStatus.DISABLED);
                         }
                         if (result) {
-                            netManager.send(makeStatusPacket(hash, Status.ACCEPTED));
+                            netManager.send(makeStatusPacket(hash, Action.ACCEPTED));
                             downloadResourcePackFuture(netManager, requestId, url, hash);
                         } else {
-                            netManager.send(makeStatusPacket(hash, Status.DECLINED));
+                            netManager.send(makeStatusPacket(hash, Action.DECLINED));
                         }
 
-                        ServerList.updateServerListEntry(serverData);
-                        mc.openScreen(null);
+                        ServerList.saveSingleServer(serverData);
+                        mc.setScreen(null);
                     }
                 , Component.translatable("multiplayer.texturePrompt.line1"), Component.translatable("multiplayer.texturePrompt.line2"))));
             }
@@ -144,7 +145,7 @@ public class ResourcePackRecorder {
     private
     CompletableFuture<?>
     downloadResourcePack(final int requestId, String url, String hash) {
-        DownloadedPackSource packFinder = mc.getResourcePackDownloader();
+        DownloadedPackSource packFinder = mc.getDownloadedPackSource();
         ((IDownloadingPackFinder) packFinder).setRequestCallback(file -> recordResourcePack(file.toPath(), requestId));
         try {
             URL theUrl = new URL(url);
@@ -152,7 +153,7 @@ public class ResourcePackRecorder {
             if (!"http".equals(protocol) && !"https".equals(protocol)) {
                 throw new MalformedURLException("Unsupported protocol.");
             }
-            return packFinder.download(theUrl, hash, true);
+            return packFinder.downloadAndSelectResourcePack(theUrl, hash, true);
         } catch (MalformedURLException e) {
             return CompletableFuture.failedFuture(e);
         }

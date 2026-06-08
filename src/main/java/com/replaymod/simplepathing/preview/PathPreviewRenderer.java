@@ -79,7 +79,7 @@ public class PathPreviewRenderer extends EventRegistrations {
 
         path.update();
 
-        int renderDistance = mc.options.renderDistance * 16;
+        int renderDistance = (Integer) mc.options.renderDistance().get() * 16;
         int renderDistanceSquared = renderDistance * renderDistance;
 
         Vector3f viewPos = new Vector3f(
@@ -92,7 +92,7 @@ public class PathPreviewRenderer extends EventRegistrations {
         pushMatrix();
         try {
 
-            RenderSystem.getModelViewStack().method_34425(matrixStack.last().getModel());
+            RenderSystem.getModelViewStack().mulPoseMatrix(matrixStack.last().pose());
             RenderSystem.applyModelViewMatrix();
 
             for (PathSegment segment : path.getSegments()) {
@@ -217,11 +217,11 @@ public class PathPreviewRenderer extends EventRegistrations {
 
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder buffer = tessellator.getBuilder();
-        buffer.begin(GL11.GL_LINES, DefaultVertexFormat.POSITION_COLOR);
+        buffer.begin(com.mojang.blaze3d.vertex.VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR);
 
         emitLine(new PoseStack(), buffer, Vector3f.sub(pos1, view, null), Vector3f.sub(pos2, view, null), color, 3f);
 
-        RenderSystem.setShader(GameRenderer::getRenderTypeLinesShader);
+        RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
         RenderSystem.disableCull();
         tessellator.end();
         RenderSystem.enableCull();
@@ -250,7 +250,7 @@ public class PathPreviewRenderer extends EventRegistrations {
 
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder buffer = tessellator.getBuilder();
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+        buffer.begin(com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 
         vertex(buffer, minX, minY, 0, posX + size, posY + size, 255);
         vertex(buffer, minX, maxY, 0, posX + size, posY, 255);
@@ -286,12 +286,12 @@ public class PathPreviewRenderer extends EventRegistrations {
         //draw the position line
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder buffer = tessellator.getBuilder();
-        buffer.begin(GL11.GL_LINES, DefaultVertexFormat.POSITION_COLOR);
+        buffer.begin(com.mojang.blaze3d.vertex.VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR);
 
         emitLine(new PoseStack(), buffer, new Vector3f(0, 0, 0), new Vector3f(0, 0, 2), 0x00ff00aa, 3f);
 
         RenderSystem.applyModelViewMatrix();
-        RenderSystem.setShader(GameRenderer::getRenderTypeLinesShader);
+        RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
 
         tessellator.end();
 
@@ -302,7 +302,7 @@ public class PathPreviewRenderer extends EventRegistrations {
 
         float r = -cubeSize/2;
 
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+        buffer.begin(com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 
         //back
         vertex(buffer, r, r + cubeSize, r, 3 * 8 / 64f, 8 / 64f, 200);

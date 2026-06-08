@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class Mixin_RenderHudCallback {
     @Inject(
             method = "render",
-            at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/client/options/Options;debugEnabled:Z")
+            at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/client/Options;renderDebug:Z")
     )
     private void renderOverlay(GuiGraphics stack, float partialTicks, CallbackInfo ci) {
         RenderHudCallback.EVENT.invoker().renderHud(stack, partialTicks);

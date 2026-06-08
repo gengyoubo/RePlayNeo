@@ -108,7 +108,7 @@ public class GuiExportFailed extends GuiScreen {
 
         abortButton.onClick(() -> {
             // Assume they know what they're doing
-            getMinecraft().openScreen(null);
+            getMinecraft().setScreen(null);
         });
     }
 }

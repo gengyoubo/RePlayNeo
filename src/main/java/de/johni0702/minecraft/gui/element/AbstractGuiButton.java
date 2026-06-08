@@ -84,9 +84,9 @@ public abstract class AbstractGuiButton<T extends AbstractGuiButton<T>> extends 
             color = 0xffffa0;
         }
 
-        enableBlend();
-        blendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-        blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        com.mojang.blaze3d.systems.RenderSystem.blendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+        com.mojang.blaze3d.systems.RenderSystem.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         int textureY = 46 + texture * 20;
         int halfWidth = size.getWidth() / 2;

@@ -71,7 +71,7 @@ public class ConnectionEventHandler {
 
             ServerData serverInfo;
             serverInfo = networkManager.getPacketListener() instanceof ClientLoginNetworkHandlerAccessor loginNetworkHandler
-                    ? loginNetworkHandler.getServerInfo()
+                    ? loginNetworkHandler.getServerData()
                     : null;
 
             String worldName;

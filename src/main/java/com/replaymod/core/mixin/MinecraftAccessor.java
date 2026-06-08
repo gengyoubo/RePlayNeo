@@ -27,10 +27,10 @@ public interface MinecraftAccessor {
     void setPendingReload(CompletableFuture<Void> value);
 
 
-    @Accessor("crashReport")
+    @Accessor("delayedCrash")
     Supplier<CrashReport> getCrashReporter();
 
 
-    @Accessor
+    @Accessor("pendingConnection")
     void setConnection(Connection connection);
 }

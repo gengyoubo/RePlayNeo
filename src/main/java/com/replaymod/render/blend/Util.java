@@ -166,7 +166,7 @@ public class Util {
     }
 
     public static String getTileEntityId(BlockEntity tileEntity) {
-        NbtCompound nbt = tileEntity.saveWithoutMetadata();
+        net.minecraft.nbt.CompoundTag nbt = tileEntity.saveWithoutMetadata();
         return nbt.getString("id");
     }
 

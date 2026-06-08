@@ -42,6 +42,8 @@ import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import net.minecraft.client.gui.screens.AlertScreen;
+import net.minecraft.network.chat.Component;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -161,7 +163,7 @@ public class GuiReplayViewer extends GuiScreen {
                 } catch (IOException e) {
                     // We failed (might also be their OS)
                     e.printStackTrace();
-                    getMinecraft().openScreen(new NoticeScreen(
+                    getMinecraft().setScreen(new AlertScreen(
                             GuiReplayViewer.this::display,
                             Component.translatable("replaymod.gui.viewer.delete.failed1"),
                             Component.translatable("replaymod.gui.viewer.delete.failed2")
@@ -177,7 +179,7 @@ public class GuiReplayViewer extends GuiScreen {
             String name = entry.name.getText();
             GuiYesNoPopup.open(GuiReplayViewer.this,
                     new GuiLabel().setI18nText("replaymod.gui.viewer.delete.linea").setColor(Colors.BLACK),
-                    new GuiLabel().setI18nText("replaymod.gui.viewer.delete.lineb", name + Formatting.RESET).setColor(Colors.BLACK)
+                    new GuiLabel().setI18nText("replaymod.gui.viewer.delete.lineb", name + net.minecraft.ChatFormatting.RESET).setColor(Colors.BLACK)
             ).setYesI18nLabel("replaymod.gui.delete").setNoI18nLabel("replaymod.gui.cancel").onAccept(() -> {
                 try {
                     FileUtils.forceDelete(entry.file);
@@ -198,7 +200,7 @@ public class GuiReplayViewer extends GuiScreen {
     public final GuiButton cancelButton = new GuiButton().onClick(new Runnable() {
         @Override
         public void run() {
-            getMinecraft().openScreen(null);
+            getMinecraft().setScreen(null);
         }
     }).setSize(73, 20).setI18nLabel("replaymod.gui.cancel");
 
