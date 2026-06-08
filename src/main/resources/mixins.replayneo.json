@@ -25,6 +25,7 @@
     "EntityRendererMixin",
     "FirstPersonRendererAccessor",
     "FixNPCSkinCachingMixin",
+    "ForgeGuiMixin",
     "GameRendererAccessor",
     "GameRendererMixin",
     "GuiMixin",

@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 
 
 @Mixin(ClientLevel.class)
-public abstract class ClientLevelMixin extends Level implements RecordingEventHandler.RecordingEventSender {
+public abstract class ClientLevelMixin extends Level {
     @Final
     @Shadow
     private Minecraft minecraft;

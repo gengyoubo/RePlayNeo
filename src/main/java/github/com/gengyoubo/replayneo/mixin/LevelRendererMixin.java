@@ -16,6 +16,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.ViewArea;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.BlockPos;
@@ -37,6 +38,7 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
     @Shadow private ObjectArrayList<ChunkRenderDispatcher.RenderChunk> renderChunksInFrustum;
     @Shadow private ChunkRenderDispatcher chunkRenderDispatcher;
     @Shadow private boolean needsFullRenderChunkUpdate;
+    @Shadow private ViewArea viewArea;
 
     @Unique
     private ForceChunkLoadingHook replayModRender$hook;
@@ -49,19 +51,26 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
 
     @Shadow protected abstract void setupRender(Camera camera, Frustum frustum, boolean hasForcedFrustum, boolean spectator);
 
+    @Inject(method = "setSectionDirty(IIIZ)V", at = @At("HEAD"), cancellable = true)
+    private void replayneo$skipSectionDirtyWithoutViewArea(int sectionX, int sectionY, int sectionZ, boolean rerenderOnMainThread, CallbackInfo ci) {
+        if (this.viewArea == null) {
+            ci.cancel();
+        }
+    }
+
     @Unique
     @Override
     public void replayModRender_setHook(ForceChunkLoadingHook hook) {
         this.replayModRender$hook = hook;
     }
 
-    @Unique
-    public void rePlay$setRecordingEventHandler(RecordingEventHandler recordingEventHandler) {
+    @Override
+    public void setRecordingEventHandler(RecordingEventHandler recordingEventHandler) {
         this.replayMod$recordingEventHandler = recordingEventHandler;
     }
 
-    @Unique
-    public RecordingEventHandler rePlay$getRecordingEventHandler() {
+    @Override
+    public RecordingEventHandler getRecordingEventHandler() {
         return replayMod$recordingEventHandler;
     }
 

@@ -5,12 +5,14 @@ import github.com.gengyoubo.replayneo.feature.replay.InputReplayTimer;
 import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.function.Click;
 import github.com.gengyoubo.replayneo.platform.callbacks.MouseCallback;
+import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.screens.Screen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -39,7 +41,7 @@ public abstract class MouseHandlerMixin {
         if (this.minecraft.screen == null) {
             return;
         }
-        Click click = new Click(this.xpos, this.ypos, button);
+        Click click = new Click(this.replayneo$scaledMouseX(this.xpos), this.replayneo$scaledMouseY(this.ypos), button);
         if (action == 1 && MouseCallback.EVENT.invoker().mouseDown(click)) {
             ci.cancel();
         } else if (action == 0 && MouseCallback.EVENT.invoker().mouseUp(click)) {
@@ -54,9 +56,28 @@ public abstract class MouseHandlerMixin {
 
     @Inject(method = "onMove(JDD)V", at = @At("HEAD"), cancellable = true)
     private void replayMod_onMove(long window, double x, double y, CallbackInfo ci) {
-        if (this.minecraft.screen != null && MouseCallback.EVENT.invoker().mouseDrag(new Click(x, y, this.activeButton), x - this.xpos, y - this.ypos)) {
+        if (this.minecraft.screen == null) {
+            return;
+        }
+        double scaledX = this.replayneo$scaledMouseX(x);
+        double scaledY = this.replayneo$scaledMouseY(y);
+        double scaledPreviousX = this.replayneo$scaledMouseX(this.xpos);
+        double scaledPreviousY = this.replayneo$scaledMouseY(this.ypos);
+        if (MouseCallback.EVENT.invoker().mouseDrag(new Click(scaledX, scaledY, this.activeButton), scaledX - scaledPreviousX, scaledY - scaledPreviousY)) {
             ci.cancel();
         }
+    }
+
+    @Unique
+    private double replayneo$scaledMouseX(double x) {
+        Window window = this.minecraft.getWindow();
+        return x * (double) window.getGuiScaledWidth() / (double) window.getScreenWidth();
+    }
+
+    @Unique
+    private double replayneo$scaledMouseY(double y) {
+        Window window = this.minecraft.getWindow();
+        return y * (double) window.getGuiScaledHeight() / (double) window.getScreenHeight();
     }
 
     @Redirect(

@@ -98,6 +98,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private long timePassedWhilePaused;
     private volatile boolean serverWasPaused;
     private volatile boolean closed;
+    private final AtomicInteger pendingMainThreadSaves = new AtomicInteger();
 
     /**
      * Used to keep track of the last metadata save job submitted to the save service and
@@ -186,13 +187,27 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     }
 
     public void save(Packet packet) {
+        save(packet, false);
+    }
+
+    private void save(Packet packet, boolean allowAfterClose) {
         // If we're not on the main thread (i.e. we're on the netty thread), then we need to schedule the saving
         // to happen on the main thread so we can guarantee correct ordering of inbound and inject packets.
         // Otherwise, injected packets may end up further down the packet stream than they were supposed to and other
         // inbound packets which may rely on the injected packet would behave incorrectly when played back.
         if (!mc.isSameThread()) {
             // Note that we must use the same queue as regular packets, otherwise stuff will be out of order!
-            mc.tell(() -> save(packet));
+            pendingMainThreadSaves.incrementAndGet();
+            mc.tell(() -> {
+                try {
+                    save(packet, true);
+                } finally {
+                    pendingMainThreadSaves.decrementAndGet();
+                }
+            });
+            return;
+        }
+        if (closed && !allowAfterClose) {
             return;
         }
         try {
@@ -246,9 +261,6 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         }
         closed = true;
 
-        metaData.setDuration((int) lastSentPacket);
-        saveMetaData();
-
         core.runLater(() -> {
             ConnectionEventHandler connectionEventHandler = ReplayModRecording.instance.getConnectionEventHandler();
             if (connectionEventHandler.getPacketListener() == this) {
@@ -260,11 +272,24 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         new Thread(() -> {
             core.runLater(guiSavingReplay::open);
 
+            long waitUntil = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(5);
+            while (pendingMainThreadSaves.get() > 0 && System.currentTimeMillis() < waitUntil) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    logger.error("Waiting for main-thread packet saves:", e);
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+            metaData.setDuration((int) lastSentPacket);
+            saveMetaData();
             saveService.shutdown();
             try {
                 saveService.awaitTermination(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 logger.error("Waiting for save service termination:", e);
+                Thread.currentThread().interrupt();
             }
             try {
                 packetOutputStream.close();

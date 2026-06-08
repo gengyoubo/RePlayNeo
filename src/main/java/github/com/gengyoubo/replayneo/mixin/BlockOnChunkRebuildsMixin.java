@@ -48,9 +48,9 @@ public abstract class BlockOnChunkRebuildsMixin implements ForceChunkLoadingHook
 
     @Shadow @Final private Queue<Runnable> toUpload;
     @Unique
-    private final Lock rePlay$waitingForWorkLock = new ReentrantLock();
+    private Lock rePlay$waitingForWorkLock;
     @Unique
-    private final Condition rePlay$newWork = rePlay$waitingForWorkLock.newCondition();
+    private Condition rePlay$newWork;
     @Unique
     private volatile boolean rePlay$allDone;
 
@@ -59,6 +59,7 @@ public abstract class BlockOnChunkRebuildsMixin implements ForceChunkLoadingHook
 
     @Inject(method = "<init>*", at = @At("RETURN"))
     private void rememberTotalThreads(CallbackInfo ci) {
+        rePlay$ensureWorkSignal();
         this.rePlay$totalBufferCount = rePlay$getAvailableBufferCount();
     }
 
@@ -66,6 +67,7 @@ public abstract class BlockOnChunkRebuildsMixin implements ForceChunkLoadingHook
     private void notifyMainThreadIfEverythingIsDone(CallbackInfo ci) {
         if (rePlay$getAvailableBufferCount() == this.rePlay$totalBufferCount) {
             // Looks like we're done, better notify the main thread in case the previous task didn't generate an upload
+            rePlay$ensureWorkSignal();
             this.rePlay$waitingForWorkLock.lock();
             try {
                 this.rePlay$allDone = true;
@@ -80,6 +82,7 @@ public abstract class BlockOnChunkRebuildsMixin implements ForceChunkLoadingHook
 
     @Inject(method = "uploadChunkLayer", at = @At("RETURN"))
     private void notifyMainThreadOfNewUpload(CallbackInfoReturnable<CompletableFuture<Void>> ci) {
+        rePlay$ensureWorkSignal();
         this.rePlay$waitingForWorkLock.lock();
         try {
             this.rePlay$newWork.signal();
@@ -98,6 +101,7 @@ public abstract class BlockOnChunkRebuildsMixin implements ForceChunkLoadingHook
         if (allDone) {
             return true;
         } else {
+            rePlay$ensureWorkSignal();
             this.rePlay$waitingForWorkLock.lock();
             try {
                 while (true) {
@@ -117,7 +121,15 @@ public abstract class BlockOnChunkRebuildsMixin implements ForceChunkLoadingHook
     }
 
     @Unique
-    public boolean rePlay$uploadEverythingBlocking() {
+    private void rePlay$ensureWorkSignal() {
+        if (this.rePlay$waitingForWorkLock == null) {
+            this.rePlay$waitingForWorkLock = new ReentrantLock();
+            this.rePlay$newWork = this.rePlay$waitingForWorkLock.newCondition();
+        }
+    }
+
+    @Override
+    public boolean uploadEverythingBlocking() {
         boolean anything = false;
 
         boolean allChunksBuilt;

@@ -52,6 +52,13 @@ public abstract class GameRendererMixin implements EntityRendererHandler.IEntity
         return replayModRender$handler;
     }
 
+    @Inject(method = "renderLevel", at = @At("HEAD"), cancellable = true)
+    private void replayneo$skipWorldRenderWithoutPlayer(float partialTicks, long frameStartNano, PoseStack matrixStack, CallbackInfo ci) {
+        if (this.minecraft.level != null && this.minecraft.player == null) {
+            ci.cancel();
+        }
+    }
+
     @Inject(
             method = "renderLevel",
             at = @At(
