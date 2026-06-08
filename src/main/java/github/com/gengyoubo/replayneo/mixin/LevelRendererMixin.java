@@ -55,10 +55,12 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
         this.replayModRender$hook = hook;
     }
 
+    @Unique
     public void rePlay$setRecordingEventHandler(RecordingEventHandler recordingEventHandler) {
         this.replayMod$recordingEventHandler = recordingEventHandler;
     }
 
+    @Unique
     public RecordingEventHandler rePlay$getRecordingEventHandler() {
         return replayMod$recordingEventHandler;
     }
@@ -131,8 +133,8 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
         }
     }
 
-    @Redirect(method = "*", at = @At(value = "INVOKE", target = "Lnet/minecraft/Util;getMillis()J"))
-    private long getWorldBorderTime() {
+    @Redirect(method = "renderWorldBorder", at = @At(value = "INVOKE", target = "Lnet/minecraft/Util;getMillis()J"))
+    private long replayneo$getWorldBorderTime() {
         ReplayHandler replayHandler = ReplayModReplay.instance.getReplayHandler();
         if (replayHandler != null) {
             return replayHandler.getReplaySender().currentTimeStamp();

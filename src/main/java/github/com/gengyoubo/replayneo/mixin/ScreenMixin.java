@@ -60,12 +60,12 @@ public class ScreenMixin implements ScreenExt {
     }
 
     @Override
-    public boolean doesPassEvents() {
+    public boolean rePlay$doesPassEvents() {
         return this.replayMod$passEvents;
     }
 
     @Override
-    public void setPassEvents(boolean passEvents) {
+    public void rePlay$setPassEvents(boolean passEvents) {
         this.replayMod$passEvents = passEvents;
     }
 }

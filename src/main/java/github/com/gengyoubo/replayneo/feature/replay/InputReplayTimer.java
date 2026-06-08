@@ -21,7 +21,7 @@ public class InputReplayTimer {
         // If we are in a replay, we have to manually process key and mouse events as the
         // tick speed may vary or there may not be any ticks at all (when the replay is paused)
         if (mod.getReplayHandler() != null && mc.level != null && mc.player != null) {
-            if (mc.screen == null || ((ScreenExt) mc.screen).doesPassEvents()) {
+            if (mc.screen == null || ((ScreenExt) mc.screen).rePlay$doesPassEvents()) {
                 GLFW.glfwPollEvents();
                 MCVer.processKeyBinds();
             }

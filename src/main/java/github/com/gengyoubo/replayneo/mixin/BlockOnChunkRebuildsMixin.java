@@ -116,6 +116,7 @@ public abstract class BlockOnChunkRebuildsMixin implements ForceChunkLoadingHook
         }
     }
 
+    @Unique
     public boolean rePlay$uploadEverythingBlocking() {
         boolean anything = false;
 

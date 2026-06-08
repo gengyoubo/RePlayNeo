@@ -99,7 +99,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
      * @see #setAllowUserInput(boolean)
      */
     public boolean isAllowUserInput() {
-        return ((ScreenExt) userInputGuiScreen).doesPassEvents();
+        return ((ScreenExt) userInputGuiScreen).rePlay$doesPassEvents();
     }
 
     /**
@@ -110,7 +110,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
      * @param allowUserInput {@code true} to allow user input, {@code false} to disallow it
      */
     public void setAllowUserInput(boolean allowUserInput) {
-        ((ScreenExt) userInputGuiScreen).setPassEvents(allowUserInput);
+        ((ScreenExt) userInputGuiScreen).rePlay$setPassEvents(allowUserInput);
     }
 
     private void updateUserInputGui() {
@@ -236,7 +236,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
         }
 
         {
-            ((ScreenExt) this).setPassEvents(true);
+            ((ScreenExt) this).rePlay$setPassEvents(true);
         }
 
         @Override

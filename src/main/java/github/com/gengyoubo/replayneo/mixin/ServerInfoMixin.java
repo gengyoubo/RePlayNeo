@@ -15,10 +15,12 @@ public abstract class ServerInfoMixin implements ServerInfoExt {
     @Unique
     private Boolean rePlay$autoRecording;
 
+    @Unique
     public Boolean rePlay$getAutoRecording() {
         return rePlay$autoRecording;
     }
 
+    @Unique
     public void rePlay$setAutoRecording(Boolean autoRecording) {
         this.rePlay$autoRecording = autoRecording;
     }

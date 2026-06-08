@@ -14,6 +14,7 @@ import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(SingleQuadParticle.class)
 public abstract class SingleQuadParticleMixin extends Particle {
@@ -85,11 +86,13 @@ public abstract class SingleQuadParticleMixin extends Particle {
         vertexConsumer.vertex(vertices[3].x(), vertices[3].y(), vertices[3].z()).uv(u0, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
     }
 
+    @Unique
     private boolean replayneo$useOmnidirectionalParticleRotation() {
         EntityRendererHandler handler = ((EntityRendererHandler.IEntityRenderer) MCVer.getMinecraft().gameRenderer).replayModRender_getHandler();
         return handler != null && handler.omnidirectional;
     }
 
+    @Unique
     private Quaternionf replayneo$particleRotation(Camera camera, float x, float y, float z) {
         Vec3 to = new Vec3(x, y, z);
         if (to.lengthSqr() < 1.0E-8) {

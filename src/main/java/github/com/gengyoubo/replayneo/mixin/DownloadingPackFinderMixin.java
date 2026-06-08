@@ -17,6 +17,7 @@ public abstract class DownloadingPackFinderMixin implements ResourcePackRecorder
     @Unique
     private Consumer<File> rePlay$requestCallback;
 
+    @Unique
     public void rePlay$setRequestCallback(Consumer<File> callback) {
         rePlay$requestCallback = callback;
     }

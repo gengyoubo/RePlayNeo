@@ -6,9 +6,7 @@ import github.com.gengyoubo.replayneo.feature.render.capturer.CubicOpenGlFrameCa
 import github.com.gengyoubo.replayneo.feature.render.capturer.StereoscopicOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
 import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
-import github.com.gengyoubo.replayneo.platform.callbacks.PostRenderScreenCallback;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
@@ -30,8 +28,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin implements EntityRendererHandler.IEntityRenderer {
     @Unique
-    private static final String EXTRACT_GUI = "render";
-    @Unique
     private static final String PROJECTION_MATRIX = "getProjectionMatrix";
     @Unique
     private static final String SET_PERSPECTIVE = "Lorg/joml/Matrix4f;setPerspective(FFFF)Lorg/joml/Matrix4f;";
@@ -46,9 +42,6 @@ public abstract class GameRendererMixin implements EntityRendererHandler.IEntity
     @Unique
     private EntityRendererHandler replayModRender$handler;
 
-    @Unique
-    private GuiGraphics replayMod$context;
-
     @Override
     public void replayModRender_setHandler(EntityRendererHandler handler) {
         this.replayModRender$handler = handler;
@@ -57,21 +50,6 @@ public abstract class GameRendererMixin implements EntityRendererHandler.IEntity
     @Override
     public EntityRendererHandler replayModRender_getHandler() {
         return replayModRender$handler;
-    }
-
-    @ModifyArg(method = EXTRACT_GUI, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;renderWithTooltip(Lnet/minecraft/client/gui/GuiGraphics;IIF)V"))
-    private GuiGraphics captureContext(GuiGraphics context) {
-        this.replayMod$context = context;
-        return context;
-    }
-
-    @Inject(method = EXTRACT_GUI, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;renderWithTooltip(Lnet/minecraft/client/gui/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
-    private void postRenderScreen(
-            float partialTicks, long nanoTime,
-            boolean renderWorld,
-            CallbackInfo ci
-    ) {
-        PostRenderScreenCallback.EVENT.invoker().postRenderScreen(replayMod$context, partialTicks);
     }
 
     @Inject(
