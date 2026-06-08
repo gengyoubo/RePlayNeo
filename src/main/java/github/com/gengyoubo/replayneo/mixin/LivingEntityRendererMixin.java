@@ -33,6 +33,6 @@ public abstract class LivingEntityRendererMixin {
             )
     )
     private boolean replayModReplay_shouldInvisibleNotBeRendered(LivingEntity entity, Player thePlayer) {
-        return thePlayer instanceof CameraEntity || entity.isInvisibleTo(thePlayer);
+        return entity.isInvisibleTo(thePlayer);
     }
 }

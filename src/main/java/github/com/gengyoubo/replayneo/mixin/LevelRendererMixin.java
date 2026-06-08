@@ -31,6 +31,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mixin(LevelRenderer.class)
 public abstract class LevelRendererMixin implements IForceChunkLoading, RecordingEventHandler.RecordingEventSender {
     @Shadow @Final private Minecraft minecraft;
@@ -39,6 +42,7 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
     @Shadow private ChunkRenderDispatcher chunkRenderDispatcher;
     @Shadow private boolean needsFullRenderChunkUpdate;
     @Shadow private ViewArea viewArea;
+    @Shadow protected abstract void setSectionDirty(int sectionX, int sectionY, int sectionZ, boolean rerenderOnMainThread);
 
     @Unique
     private ForceChunkLoadingHook replayModRender$hook;
@@ -49,11 +53,15 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
     @Unique
     private RecordingEventHandler replayMod$recordingEventHandler;
 
+    @Unique
+    private final List<PendingSectionDirty> replayneo$pendingSectionDirties = new ArrayList<>();
+
     @Shadow protected abstract void setupRender(Camera camera, Frustum frustum, boolean hasForcedFrustum, boolean spectator);
 
     @Inject(method = "setSectionDirty(IIIZ)V", at = @At("HEAD"), cancellable = true)
     private void replayneo$skipSectionDirtyWithoutViewArea(int sectionX, int sectionY, int sectionZ, boolean rerenderOnMainThread, CallbackInfo ci) {
         if (this.viewArea == null) {
+            this.replayneo$pendingSectionDirties.add(new PendingSectionDirty(sectionX, sectionY, sectionZ, rerenderOnMainThread));
             ci.cancel();
         }
     }
@@ -107,6 +115,19 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
         }
     }
 
+    @Inject(method = "setupRender", at = @At("RETURN"))
+    private void replayneo$flushPendingSectionDirties(Camera camera, Frustum frustum, boolean hasForcedFrustum, boolean spectator, CallbackInfo ci) {
+        if (this.viewArea == null || this.replayneo$pendingSectionDirties.isEmpty()) {
+            return;
+        }
+
+        List<PendingSectionDirty> pending = new ArrayList<>(this.replayneo$pendingSectionDirties);
+        this.replayneo$pendingSectionDirties.clear();
+        for (PendingSectionDirty dirty : pending) {
+            this.setSectionDirty(dirty.sectionX(), dirty.sectionY(), dirty.sectionZ(), dirty.rerenderOnMainThread());
+        }
+    }
+
     @Inject(
             method = "renderSky(Lcom/mojang/blaze3d/vertex/PoseStack;Lorg/joml/Matrix4f;FLnet/minecraft/client/Camera;ZLjava/lang/Runnable;)V",
             at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V", remap = false, shift = At.Shift.AFTER),
@@ -150,4 +171,7 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
         }
         return MCVer.milliTime();
     }
+
+    @Unique
+    private record PendingSectionDirty(int sectionX, int sectionY, int sectionZ, boolean rerenderOnMainThread) {}
 }

@@ -15,6 +15,8 @@ import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.sounds.SoundEvents;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -36,6 +38,7 @@ public class GuiRecordingControls extends EventRegistrations {
             packetListener.addMarker(MarkerProcessor.MARKER_NAME_START_CUT);
         }
         paused = !paused;
+        playToggleSound();
         updateState();
     }).setSize(98, 20);
 
@@ -53,6 +56,7 @@ public class GuiRecordingControls extends EventRegistrations {
             packetListener.addMarker(MarkerProcessor.MARKER_NAME_SPLIT, timestamp + 1);
         }
         stopped = !stopped;
+        playToggleSound();
         updateState();
     }).setSize(98, 20);
 
@@ -70,6 +74,10 @@ public class GuiRecordingControls extends EventRegistrations {
         buttonStartStop.setI18nLabel("replaymod.gui.recording." + (stopped ? "start" : "stop"));
 
         buttonPauseResume.setEnabled(!stopped);
+    }
+
+    private void playToggleSound() {
+        core.getMinecraft().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FLINTANDSTEEL_USE, 1.0F));
     }
 
     { on(InitScreenCallback.EVENT, this::injectIntoIngameMenu); }

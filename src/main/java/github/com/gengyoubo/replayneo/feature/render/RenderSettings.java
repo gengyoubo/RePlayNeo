@@ -47,10 +47,6 @@ public class RenderSettings {
 
         @SuppressWarnings("RedundantIfStatement")
         public boolean isSupported() {
-            if (this == BLEND) {
-                return false;
-            }
-
             return true;
         }
 
@@ -83,7 +79,8 @@ public class RenderSettings {
         }
 
         public String getValue() {
-            return "-y -f rawvideo -pix_fmt bgra -s %WIDTH%x%HEIGHT% -r %FPS% -i - %FILTERS%" + preset;
+            return "-y -f rawvideo -pix_fmt bgra -s %WIDTH%x%HEIGHT% -r %FPS% -i - %FILTERS%"
+                    + (preset == null ? "" : preset);
         }
 
         public String getFileExtension() {

@@ -232,8 +232,10 @@ public class CameraEntity
                 view = cameraWorld.getPlayerByUUID(spectating);
                 if (view != null) {
                     this.minecraft.setCameraEntity(view);
-                } else {
+                } else if (viewWorld == cameraWorld) {
                     this.minecraft.setCameraEntity(this);
+                    return;
+                } else {
                     return;
                 }
             }
