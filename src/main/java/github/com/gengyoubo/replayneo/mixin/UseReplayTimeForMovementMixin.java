@@ -1,0 +1,26 @@
+package github.com.gengyoubo.replayneo.mixin;
+
+import com.replaymod.core.versions.MCVer;
+import com.replaymod.replay.ReplayHandler;
+import com.replaymod.replay.ReplayModReplay;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+/**
+ * Normally Minecraft's world border movement is based off real time;
+ * this redirect ensures that it is synced with the time in the Replay instead.
+ */
+// FIXME: preprocessor should be able to remap between fabric and forge
+@Mixin(targets = "net.minecraft.world.level.border.WorldBorder$MovingBorderExtent")
+public class UseReplayTimeForMovementMixin {
+
+    @Redirect(method = "*", at = @At(value = "INVOKE", target = "Lnet/minecraft/Util;getMillis()J"))
+    private long getWorldBorderTime() {
+        ReplayHandler replayHandler = ReplayModReplay.instance.getReplayHandler();
+        if (replayHandler != null) {
+            return replayHandler.getReplaySender().currentTimeStamp();
+        }
+        return MCVer.milliTime();
+    }
+}
