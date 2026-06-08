@@ -24,9 +24,9 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.element.GuiElement;
-import de.johni0702.minecraft.gui.element.IGuiClickable;
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.IGuiClickable;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 
 import java.util.Map;
 import java.util.function.Function;

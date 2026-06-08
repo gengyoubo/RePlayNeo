@@ -1,12 +1,12 @@
 package github.com.gengyoubo.replayneo.feature.pathing.gui;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.pathing.properties.CameraProperties;
-import com.replaymod.pathing.properties.SpectatorProperty;
-import com.replaymod.pathing.properties.TimestampProperty;
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.gui.overlay.GuiMarkerTimeline;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.pathing.properties.CameraProperties;
+import github.com.gengyoubo.replayneo.feature.pathing.properties.SpectatorProperty;
+import github.com.gengyoubo.replayneo.feature.pathing.properties.TimestampProperty;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.replay.gui.overlay.GuiMarkerTimeline;
 import com.replaymod.replaystudio.pathing.change.Change;
 import com.replaymod.replaystudio.pathing.path.Keyframe;
 import com.replaymod.replaystudio.pathing.path.Path;
@@ -15,10 +15,10 @@ import com.replaymod.replaystudio.pathing.property.Property;
 import github.com.gengyoubo.replayneo.feature.pathing.ReplayModSimplePathing;
 import github.com.gengyoubo.replayneo.feature.pathing.SPTimeline;
 import github.com.gengyoubo.replayneo.feature.pathing.SPTimeline.SPPath;
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.element.advanced.AbstractGuiTimeline;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Draggable;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.feature.pathing.element.advanced.AbstractGuiTimeline;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Draggable;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector2f;
 import org.apache.commons.lang3.tuple.Pair;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
@@ -35,10 +35,10 @@ import net.minecraft.client.renderer.GameRenderer;
 import java.util.Comparator;
 import java.util.Optional;
 
-import static com.replaymod.core.versions.MCVer.emitLine;
-import static de.johni0702.minecraft.gui.versions.MCVer.popScissorState;
-import static de.johni0702.minecraft.gui.versions.MCVer.pushScissorState;
-import static de.johni0702.minecraft.gui.versions.MCVer.setScissorDisabled;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.emitLine;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.popScissorState;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.pushScissorState;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.setScissorDisabled;
 
 
 

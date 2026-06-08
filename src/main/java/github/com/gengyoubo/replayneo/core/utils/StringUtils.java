@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.core.utils;
 
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.gui.Font;

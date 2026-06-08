@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.feature.replay;
 
-import com.replaymod.core.SettingsRegistry;
-import com.replaymod.replay.handler.GuiHandler.MainMenuButtonPosition;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.feature.replay.handler.GuiHandler.MainMenuButtonPosition;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -21,7 +21,7 @@ public final class Setting<T> extends SettingsRegistry.SettingKeys<T> {
     }
 
     private static <T> Setting<T> make() {
-        return new Setting<>("showChat", "showchat", (T) true);
+        return new Setting<>("showChat", "showchat", (T) Boolean.TRUE);
     }
 
     public Setting(String key, String displayString, T defaultValue) {

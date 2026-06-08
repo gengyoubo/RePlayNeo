@@ -1,14 +1,14 @@
 package github.com.gengyoubo.replayneo.feature.render.processor;
 
-import com.replaymod.render.frame.BitmapFrame;
-import com.replaymod.render.frame.StereoscopicOpenGlFrame;
-import com.replaymod.render.utils.ByteBufferPool;
+import github.com.gengyoubo.replayneo.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.StereoscopicOpenGlFrame;
+import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
 import java.nio.ByteBuffer;
 
-import static com.replaymod.render.utils.Utils.openGlBytesToBitmap;
+import static github.com.gengyoubo.replayneo.restored.com.replaymod.render.utils.Utils.openGlBytesToBitmap;
 
 public class StereoscopicToBitmapProcessor extends AbstractFrameProcessor<StereoscopicOpenGlFrame, BitmapFrame> {
     @Override

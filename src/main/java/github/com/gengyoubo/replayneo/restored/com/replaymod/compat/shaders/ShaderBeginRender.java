@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.restored.com.replaymod.compat.shaders;
 
-import com.replaymod.core.events.PreRenderCallback;
-import com.replaymod.render.hooks.EntityRendererHandler;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import java.lang.reflect.InvocationTargetException;
 import net.minecraft.client.Minecraft;
 

@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.pathing;
 
-import com.replaymod.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

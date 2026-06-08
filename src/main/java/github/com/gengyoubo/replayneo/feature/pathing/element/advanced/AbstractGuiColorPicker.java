@@ -24,17 +24,17 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.OffsetGuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.element.AbstractComposedGuiElement;
-import de.johni0702.minecraft.gui.element.AbstractGuiElement;
-import de.johni0702.minecraft.gui.element.GuiElement;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Clickable;
-import de.johni0702.minecraft.gui.function.Draggable;
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractComposedGuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractGuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Clickable;
+import github.com.gengyoubo.replayneo.function.Draggable;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
@@ -132,9 +132,9 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
     }
 
     @Override
-    public void setOpened(boolean opened) {
+    public T setOpened(boolean opened) {
         this.opened = opened;
-        getThis();
+        return getThis();
     }
 
     @Override

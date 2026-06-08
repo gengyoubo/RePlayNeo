@@ -1,10 +1,10 @@
 package github.com.gengyoubo.replayneo.feature.replay;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.replay.camera.CameraController;
-import com.replaymod.replay.camera.CameraEntity;
-import de.johni0702.minecraft.gui.versions.ScreenExt;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraController;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.platform.versions.ScreenExt;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import org.lwjgl.glfw.GLFW;

@@ -1,16 +1,16 @@
 package github.com.gengyoubo.replayneo.addon.advancedscreenshots;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.render.RenderSettings;
-import com.replaymod.render.gui.GuiRenderSettings;
-import com.replaymod.replay.ReplayModReplay;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.container.GuiScreen;
-import de.johni0702.minecraft.gui.element.GuiLabel;
-import de.johni0702.minecraft.gui.function.Loadable;
-import de.johni0702.minecraft.gui.layout.GridLayout;
-import de.johni0702.minecraft.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.feature.render.gui.GuiRenderSettings;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.function.Loadable;
+import github.com.gengyoubo.replayneo.core.gui.layout.GridLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import java.io.File;
 import java.nio.file.Path;
 import java.text.DateFormat;
@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import net.minecraft.CrashReport;
 
-import static com.replaymod.core.utils.Utils.error;
-import static com.replaymod.render.ReplayModRender.LOGGER;
+import static github.com.gengyoubo.replayneo.core.utils.Utils.error;
+import static github.com.gengyoubo.replayneo.feature.render.ReplayModRender.LOGGER;
 
 public class GuiCreateScreenshot extends GuiRenderSettings implements Loadable {
 

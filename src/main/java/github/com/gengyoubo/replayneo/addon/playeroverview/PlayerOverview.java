@@ -1,23 +1,23 @@
 package github.com.gengyoubo.replayneo.addon.playeroverview;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.events.PreRenderHandCallback;
-import com.replaymod.core.utils.Utils;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.events.PreRenderHandCallback;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.addon.Extra;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.camera.CameraEntity;
-import com.replaymod.replay.events.ReplayClosedCallback;
-import com.replaymod.replay.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayClosedCallback;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayOpenedCallback;
 import com.replaymod.replaystudio.lib.guava.base.Optional;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import java.util.stream.Collectors;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import java.io.IOException;
 import java.util.*;
 
-import static com.replaymod.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 
 public class PlayerOverview extends EventRegistrations implements Extra {
     private ReplayModReplay module;

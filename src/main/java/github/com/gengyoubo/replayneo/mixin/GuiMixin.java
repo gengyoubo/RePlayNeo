@@ -1,9 +1,9 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.render.hooks.EntityRendererHandler;
-import com.replaymod.replay.events.RenderHotbarCallback;
-import com.replaymod.replay.events.RenderSpectatorCrosshairCallback;
-import de.johni0702.minecraft.gui.versions.callbacks.RenderHudCallback;
+import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.feature.render.events.RenderHotbarCallback;
+import github.com.gengyoubo.replayneo.feature.render.events.RenderSpectatorCrosshairCallback;
+import github.com.gengyoubo.replayneo.platform.callbacks.RenderHudCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;

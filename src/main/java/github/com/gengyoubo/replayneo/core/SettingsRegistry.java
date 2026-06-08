@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.core;
 
-import com.replaymod.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

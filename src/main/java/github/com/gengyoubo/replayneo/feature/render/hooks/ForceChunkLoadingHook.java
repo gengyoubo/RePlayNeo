@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.render.hooks;
 
-import com.replaymod.render.utils.FlawlessFrames;
+import github.com.gengyoubo.replayneo.core.utils.FlawlessFrames;
 import net.minecraft.client.renderer.LevelRenderer;
 
 public class ForceChunkLoadingHook {

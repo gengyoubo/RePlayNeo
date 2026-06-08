@@ -1,32 +1,32 @@
 package github.com.gengyoubo.replayneo.feature.replay.gui.overlay;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.events.KeyBindingEventCallback;
-import com.replaymod.core.events.KeyEventCallback;
-import com.replaymod.core.versions.MCVer.Keyboard;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.ReplaySender;
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.AbstractGuiOverlay;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.element.GuiElement;
-import de.johni0702.minecraft.gui.element.GuiSlider;
-import de.johni0702.minecraft.gui.element.GuiTooltip;
-import de.johni0702.minecraft.gui.element.advanced.IGuiTimeline;
-import de.johni0702.minecraft.gui.function.KeyInput;
-import de.johni0702.minecraft.gui.layout.CustomLayout;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
+import github.com.gengyoubo.replayneo.core.events.KeyEventCallback;
+import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.replay.ReplaySender;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiOverlay;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiSlider;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.feature.pathing.element.advanced.IGuiTimeline;
+import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import de.johni0702.minecraft.gui.utils.lwjgl.WritablePoint;
 import net.minecraft.client.Options;
 import net.minecraft.client.resources.language.I18n;
 
-import static com.replaymod.core.ReplayMod.TEXTURE_SIZE;
+import static github.com.gengyoubo.replayneo.core.ReplayMod.TEXTURE_SIZE;
 
 public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
 

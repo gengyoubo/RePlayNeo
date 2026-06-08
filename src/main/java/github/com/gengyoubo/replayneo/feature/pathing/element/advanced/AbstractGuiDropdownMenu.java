@@ -24,26 +24,26 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.OffsetGuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.element.AbstractComposedGuiElement;
-import de.johni0702.minecraft.gui.element.AbstractGuiClickable;
-import de.johni0702.minecraft.gui.element.GuiElement;
-import de.johni0702.minecraft.gui.element.IGuiClickable;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Clickable;
-import de.johni0702.minecraft.gui.layout.VerticalLayout;
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractComposedGuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractGuiClickable;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.IGuiClickable;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Clickable;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -174,11 +174,10 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
     }
 
     @Override
-    public void setSelected(V value) {
+    public T setSelected(V value) {
         for (int i = 0; i < values.length; i++) {
             if (values[i].equals(value)) {
-                setSelected(i);
-                return;
+                return setSelected(i);
             }
         }
         throw new IllegalArgumentException("The value " + value + " is not in this dropdown menu.");
@@ -190,9 +189,9 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
     }
 
     @Override
-    public void setOpened(boolean opened) {
+    public T setOpened(boolean opened) {
         this.opened = opened;
-        getThis();
+        return getThis();
     }
 
     @Override

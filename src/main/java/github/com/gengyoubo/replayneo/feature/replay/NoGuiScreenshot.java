@@ -2,14 +2,14 @@ package github.com.gengyoubo.replayneo.feature.replay;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import com.replaymod.core.ReplayMod;
-import de.johni0702.minecraft.gui.versions.Image;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.platform.versions.Image;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
 
-import static com.replaymod.core.versions.MCVer.popMatrix;
-import static com.replaymod.core.versions.MCVer.pushMatrix;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.popMatrix;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.pushMatrix;
 
 
 public class NoGuiScreenshot {

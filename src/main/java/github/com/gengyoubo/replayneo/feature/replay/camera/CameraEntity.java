@@ -1,22 +1,22 @@
 package github.com.gengyoubo.replayneo.feature.replay.camera;
 
-import com.replaymod.core.KeyBindingRegistry;
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.SettingsRegistry;
-import com.replaymod.core.events.KeyBindingEventCallback;
-import com.replaymod.core.events.PreRenderCallback;
-import com.replaymod.core.events.PreRenderHandCallback;
-import com.replaymod.core.events.SettingsChangedCallback;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.events.RenderHotbarCallback;
-import com.replaymod.replay.events.RenderSpectatorCrosshairCallback;
-import com.replaymod.replay.mixin.EntityPlayerAccessor;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import de.johni0702.minecraft.gui.versions.callbacks.PreTickCallback;
-import com.replaymod.core.utils.Utils;
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.Setting;
-import com.replaymod.replay.mixin.FirstPersonRendererAccessor;
+import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
+import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.core.events.PreRenderHandCallback;
+import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.render.events.RenderHotbarCallback;
+import github.com.gengyoubo.replayneo.feature.render.events.RenderSpectatorCrosshairCallback;
+import github.com.gengyoubo.replayneo.mixin.EntityPlayerAccessor;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.replay.Setting;
+import github.com.gengyoubo.replayneo.mixin.FirstPersonRendererAccessor;
 import com.replaymod.replaystudio.util.Location;
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.Minecraft;
@@ -48,7 +48,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 
-import static com.replaymod.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 
 /**
  * The camera entity used as the main player entity during replay viewing.

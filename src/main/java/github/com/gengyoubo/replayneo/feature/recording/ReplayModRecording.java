@@ -1,14 +1,14 @@
 package github.com.gengyoubo.replayneo.feature.recording;
 
-import com.replaymod.core.KeyBindingRegistry;
-import com.replaymod.core.Module;
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.versions.MCVer.Keyboard;
-import com.replaymod.recording.handler.ConnectionEventHandler;
-import com.replaymod.recording.handler.GuiHandler;
-import com.replaymod.recording.mixin.NetworkManagerAccessor;
-import com.replaymod.recording.packet.PacketListener;
-import com.replaymod.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.core.Module;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.feature.recording.handler.ConnectionEventHandler;
+import github.com.gengyoubo.replayneo.feature.recording.handler.GuiHandler;
+import github.com.gengyoubo.replayneo.mixin.NetworkManagerAccessor;
+import github.com.gengyoubo.replayneo.feature.recording.packet.PacketListener;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 import org.apache.logging.log4j.Logger;
@@ -19,11 +19,11 @@ import net.minecraft.network.Connection;
 
 public class ReplayModRecording implements Module {
 
-    private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
-    private static final AttributeKey<Void> ATTR_CHECKED = AttributeKey.newInstance("ReplayModRecording_checked");
+    private static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    private static AttributeKey<Void> ATTR_CHECKED = AttributeKey.newInstance("ReplayModRecording_checked");
 
     { instance = this; }
-    public static final ReplayModRecording instance;
+    public static ReplayModRecording instance;
 
     private final ReplayMod core;
 

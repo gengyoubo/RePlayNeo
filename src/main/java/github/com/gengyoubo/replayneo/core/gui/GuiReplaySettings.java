@@ -1,17 +1,17 @@
 package github.com.gengyoubo.replayneo.core.gui;
 
-import com.replaymod.core.SettingsRegistry;
-import de.johni0702.minecraft.gui.container.AbstractGuiScreen;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.element.GuiElement;
-import de.johni0702.minecraft.gui.element.GuiLabel;
-import de.johni0702.minecraft.gui.element.GuiToggleButton;
-import de.johni0702.minecraft.gui.element.advanced.GuiDropdownMenu;
-import de.johni0702.minecraft.gui.layout.CustomLayout;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.layout.VerticalLayout;
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiScreen;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiToggleButton;
+import github.com.gengyoubo.replayneo.feature.pathing.element.advanced.GuiDropdownMenu;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import java.util.List;
@@ -42,7 +42,7 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
                         settingsRegistry.set(booleanKey, button.getSelected() == 0);
                         settingsRegistry.save();
                     });
-                } else if (key instanceof MultipleChoiceSettingKey<?> multipleChoiceKey) {
+                } else if (key instanceof SettingsRegistry.MultipleChoiceSettingKey<?> multipleChoiceKey) {
                     List<?> values = multipleChoiceKey.getChoices();
                     MultipleChoiceDropdownEntry[] entries = new MultipleChoiceDropdownEntry[values.size()];
                     int selected = 0;

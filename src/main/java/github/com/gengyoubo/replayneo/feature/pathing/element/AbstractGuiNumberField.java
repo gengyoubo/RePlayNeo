@@ -25,7 +25,7 @@
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import com.google.common.base.Preconditions;
-import de.johni0702.minecraft.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -55,11 +55,11 @@ public abstract class AbstractGuiNumberField<T extends AbstractGuiNumberField<T>
     }
 
     @Override
-    public void setText(String text) {
+    public T setText(String text) {
         if (!isTextValid(text, !validateOnFocusChange)) {
             throw new IllegalArgumentException(text + " is not a valid number!");
         }
-        super.setText(text);
+        return super.setText(text);
     }
 
     @Override
@@ -153,15 +153,15 @@ public abstract class AbstractGuiNumberField<T extends AbstractGuiNumberField<T>
     }
 
     @Override
-    public void setValue(int value) {
+    public T setValue(int value) {
         setText(Integer.toString(value));
-        getThis();
+        return getThis();
     }
 
     @Override
-    public void setValue(double value) {
+    public T setValue(double value) {
         setText(String.format(Locale.ROOT, "%." + precision + "f", value));
-        getThis();
+        return getThis();
     }
 
     @Override

@@ -24,16 +24,16 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Clickable;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Clickable;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
@@ -42,7 +42,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
-import static de.johni0702.minecraft.gui.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;

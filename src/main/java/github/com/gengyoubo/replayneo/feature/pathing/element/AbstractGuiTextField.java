@@ -26,30 +26,30 @@ package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.function.CharHandler;
-import de.johni0702.minecraft.gui.function.CharInput;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Clickable;
-import de.johni0702.minecraft.gui.function.Focusable;
-import de.johni0702.minecraft.gui.function.KeyHandler;
-import de.johni0702.minecraft.gui.function.KeyInput;
-import de.johni0702.minecraft.gui.function.Tickable;
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.function.CharHandler;
+import github.com.gengyoubo.replayneo.function.CharInput;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Clickable;
+import github.com.gengyoubo.replayneo.function.Focusable;
+import github.com.gengyoubo.replayneo.function.KeyHandler;
+import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.function.Tickable;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 
-import static de.johni0702.minecraft.gui.utils.Utils.clamp;
-import static de.johni0702.minecraft.gui.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.guiutils.Utils.clamp;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 
 public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
         extends AbstractGuiElement<T> implements Clickable, Tickable, KeyHandler, CharHandler, IGuiTextField<T> {
@@ -165,40 +165,38 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
     }
 
     @Override
-    public void writeText(String append) {
+    public T writeText(String append) {
         for (char c : append.toCharArray()) {
             writeChar(c);
         }
-        getThis();
+        return getThis();
     }
 
     @Override
-    public void writeChar(char c) {
+    public T writeChar(char c) {
         if (!CharInput.isValidChar(c)) {
-            getThis();
-            return;
+            return getThis();
         }
 
         deleteSelectedText();
 
         if (text.length() >= maxLength) {
-            getThis();
-            return;
+            return getThis();
         }
 
         text = text.substring(0, cursorPos) + c + text.substring(cursorPos);
         selectionPos = ++cursorPos;
 
-        getThis();
+        return getThis();
     }
 
     @Override
-    public void deleteNextChar() {
+    public T deleteNextChar() {
         if (cursorPos < text.length()) {
             text = text.substring(0, cursorPos) + text.substring(cursorPos + 1);
         }
         selectionPos = cursorPos;
-        getThis();
+        return getThis();
     }
 
     /**
@@ -226,20 +224,22 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
     }
 
     @Override
-    public void deleteNextWord() {
+    public String deleteNextWord() {
         int worldLength = getNextWordLength();
+        String deleted = "";
         if (worldLength > 0) {
-            deleteText(cursorPos, cursorPos + worldLength - 1);
+            deleted = deleteText(cursorPos, cursorPos + worldLength - 1);
         }
+        return deleted;
     }
 
     @Override
-    public void deletePreviousChar() {
+    public T deletePreviousChar() {
         if (cursorPos > 0) {
             text = text.substring(0, cursorPos - 1) + text.substring(cursorPos);
             selectionPos = --cursorPos;
         }
-        getThis();
+        return getThis();
     }
 
     /**
@@ -267,20 +267,21 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
     }
 
     @Override
-    public void deletePreviousWord() {
+    public String deletePreviousWord() {
         int worldLength = getPreviousWordLength();
         String deleted = "";
         if (worldLength > 0) {
             deleted = deleteText(cursorPos - worldLength, cursorPos - 1);
             selectionPos = cursorPos -= worldLength;
         }
+        return deleted;
     }
 
     @Override
-    public void setCursorPosition(int pos) {
+    public T setCursorPosition(int pos) {
         Preconditions.checkArgument(pos >= 0 && pos <= text.length());
         selectionPos = cursorPos = pos;
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -316,7 +317,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
                 && pos.getX() < size.getWidth() && pos.getY() < size.getHeight();
     }
 
-    public void setFocused(boolean isFocused) {
+    public T setFocused(boolean isFocused) {
         if (isFocused && !this.focused) {
             this.blinkCursorTick = 0; // Restart blinking to indicate successful focus
         }
@@ -324,7 +325,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
             this.focused = isFocused;
             onFocusChanged(this.focused);
         }
-        getThis();
+        return getThis();
     }
 
     @Override

@@ -1,18 +1,18 @@
 package github.com.gengyoubo.replayneo.addon.advancedscreenshots;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.SettingsRegistry;
-import com.replaymod.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.addon.Setting;
-import com.replaymod.render.RenderSettings;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.element.GuiCheckbox;
-import de.johni0702.minecraft.gui.element.GuiLabel;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.layout.VerticalLayout;
-import de.johni0702.minecraft.gui.popup.AbstractGuiPopup;
+import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiCheckbox;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.core.gui.popup.AbstractGuiPopup;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 
 import java.net.URI;

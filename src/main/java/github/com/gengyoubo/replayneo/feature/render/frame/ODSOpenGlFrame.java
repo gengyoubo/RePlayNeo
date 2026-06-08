@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.render.frame;
 
-import com.replaymod.render.rendering.Frame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Frame;
 import org.apache.commons.lang3.Validate;
 
 public record ODSOpenGlFrame(CubicOpenGlFrame left, CubicOpenGlFrame right) implements Frame {

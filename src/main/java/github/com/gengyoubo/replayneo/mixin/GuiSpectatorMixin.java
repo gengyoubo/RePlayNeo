@@ -1,13 +1,13 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
 import net.minecraft.client.gui.components.spectator.SpectatorGui;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.replaymod.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 
 @Mixin(SpectatorGui.class)
 public abstract class GuiSpectatorMixin {

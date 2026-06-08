@@ -6,20 +6,20 @@ import com.google.common.collect.Ordering;
 import com.google.common.primitives.Longs;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import com.replaymod.core.mixin.MinecraftAccessor;
-import com.replaymod.core.mixin.TimerAccessor;
-import com.replaymod.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
+import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
 import com.replaymod.replaystudio.pathing.path.Keyframe;
 import com.replaymod.replaystudio.pathing.path.Path;
 import com.replaymod.replaystudio.pathing.path.Timeline;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Timer;
 import java.util.Iterator;
 
-import static com.replaymod.core.utils.Utils.DEFAULT_MS_PER_TICK;
-import static com.replaymod.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 
 /**
  * Plays a timeline.

@@ -4,13 +4,13 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import com.replaymod.core.mixin.MinecraftAccessor;
-import com.replaymod.core.mixin.TimerAccessor;
+import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
+import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.packet.State;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import com.replaymod.replaystudio.rar.RandomAccessReplay;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import de.johni0702.minecraft.gui.versions.callbacks.PreTickCallback;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -24,10 +24,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import static com.replaymod.core.utils.Utils.DEFAULT_MS_PER_TICK;
-import static com.replaymod.core.versions.MCVer.getMinecraft;
-import static com.replaymod.core.versions.MCVer.getPacketTypeRegistry;
-import static com.replaymod.replay.ReplayModReplay.LOGGER;
+import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.getPacketTypeRegistry;
+import static github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay.LOGGER;
 
 /**
  * Sends only chunk updates and entity position updates but tries to do so as quickly as possible.
@@ -100,9 +100,9 @@ public class QuickReplaySender extends ChannelHandlerAdapter implements ReplaySe
         return initPromise;
     }
 
-    public void initialize(Consumer<Double> progress) {
+    public ListenableFuture<Void> initialize(Consumer<Double> progress) {
         if (initPromise != null) {
-            return;
+            return initPromise;
         }
         SettableFuture<Void> promise = SettableFuture.create();
         initPromise = promise;
@@ -121,6 +121,7 @@ public class QuickReplaySender extends ChannelHandlerAdapter implements ReplaySe
             }
             mod.getCore().runLaterWithoutLock(() -> promise.set(null));
         }).start();
+        return promise;
     }
 
     private void ensureInitialized(Runnable body) {

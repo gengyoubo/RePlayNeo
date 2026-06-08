@@ -2,8 +2,8 @@ package github.com.gengyoubo.replayneo.feature.pathing.properties;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
 import com.replaymod.replaystudio.pathing.property.AbstractProperty;
 import com.replaymod.replaystudio.pathing.property.PropertyPart;
 import com.replaymod.replaystudio.pathing.property.PropertyParts;

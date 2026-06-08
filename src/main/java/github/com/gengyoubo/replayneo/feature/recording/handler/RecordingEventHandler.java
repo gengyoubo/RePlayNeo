@@ -1,10 +1,10 @@
 package github.com.gengyoubo.replayneo.feature.recording.handler;
 
-import com.replaymod.core.events.PreRenderCallback;
-import com.replaymod.recording.mixin.IntegratedServerAccessor;
-import com.replaymod.recording.packet.PacketListener;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import de.johni0702.minecraft.gui.versions.callbacks.PreTickCallback;
+import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.mixin.IntegratedServerAccessor;
+import github.com.gengyoubo.replayneo.feature.recording.packet.PacketListener;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.server.IntegratedServer;
@@ -32,7 +32,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static com.replaymod.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 
 public class RecordingEventHandler extends EventRegistrations {
 

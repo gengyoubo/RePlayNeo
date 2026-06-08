@@ -17,17 +17,25 @@ public class DAction {
 
     public CPointer<bAction> serialize(Serializer serializer) throws IOException {
         return serializer.maybeMajor(this, id, bAction.class, () -> bAction -> serializer.writeDataList(FCurve.class, bAction.getCurves(), curves.size(), (i, fCurve) -> {
-            DFCurve dfCurve = curves.get(i);
-            fCurve.setRna_path(serializer.writeString0(dfCurve.rnaPath));
-            fCurve.setArray_index(dfCurve.rnaArrayIndex);
-            fCurve.setTotvert(dfCurve.keyframes.size());
-            fCurve.setBezt(serializer.writeData(BezTriple.class, dfCurve.keyframes.size(), (j, fBezTriple) -> {
-                DKeyframe dKeyframe = dfCurve.keyframes.get(j);
-                fBezTriple.setIpo((byte) dKeyframe.interpolationType.ordinal());
-                CArrayFacade<Float> vec = fBezTriple.getVec().get(1);
-                vec.set(0, (float) dKeyframe.frame);
-                vec.set(1, dKeyframe.value);
-            }));
+            try {
+                DFCurve dfCurve = curves.get(i);
+                fCurve.setRna_path(serializer.writeString0(dfCurve.rnaPath));
+                fCurve.setArray_index(dfCurve.rnaArrayIndex);
+                fCurve.setTotvert(dfCurve.keyframes.size());
+                fCurve.setBezt(serializer.writeData(BezTriple.class, dfCurve.keyframes.size(), (j, fBezTriple) -> {
+                    try {
+                        DKeyframe dKeyframe = dfCurve.keyframes.get(j);
+                        fBezTriple.setIpo((byte) dKeyframe.interpolationType.ordinal());
+                        CArrayFacade<Float> vec = fBezTriple.getVec().get(1);
+                        vec.set(0, (float) dKeyframe.frame);
+                        vec.set(1, dKeyframe.value);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }));
     }
 
@@ -38,7 +46,7 @@ public class DAction {
     }
 
     public static class DKeyframe {
-        public final InterpolationType interpolationType = InterpolationType.CONSTANT;
+        public InterpolationType interpolationType = InterpolationType.CONSTANT;
         public int frame;
         public float value;
     }

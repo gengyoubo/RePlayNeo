@@ -24,20 +24,20 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.OffsetGuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.element.AbstractComposedGuiElement;
-import de.johni0702.minecraft.gui.element.ComposedGuiElement;
-import de.johni0702.minecraft.gui.element.GuiElement;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.layout.Layout;
-import de.johni0702.minecraft.gui.layout.LayoutData;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractComposedGuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.ComposedGuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.Layout;
+import github.com.gengyoubo.replayneo.core.gui.layout.LayoutData;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
@@ -69,9 +69,9 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public void setLayout(Layout layout) {
+    public T setLayout(Layout layout) {
         this.layout = layout;
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -110,7 +110,7 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public void addElements(LayoutData layoutData, GuiElement... elements) {
+    public T addElements(LayoutData layoutData, GuiElement... elements) {
         if (layoutData == null) {
             layoutData = LayoutData.NONE;
         }
@@ -118,18 +118,18 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
             this.elements.put(element, layoutData);
             element.setContainer(this);
         }
-        getThis();
+        return getThis();
     }
 
     @Override
-    public void removeElement(GuiElement element) {
+    public T removeElement(GuiElement element) {
         if (elements.remove(element) != null) {
             element.setContainer(null);
             if (layedOutElements != null) {
                 layedOutElements.remove(element);
             }
         }
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -229,12 +229,12 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public void sortElements(final Comparator<GuiElement> comparator) {
+    public T sortElements(final Comparator<GuiElement> comparator) {
         elements = elements.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey(comparator))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, LinkedHashMap::new));
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -243,8 +243,8 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public void setBackgroundColor(ReadableColor backgroundColor) {
+    public T setBackgroundColor(ReadableColor backgroundColor) {
         this.backgroundColor = backgroundColor;
-        getThis();
+        return getThis();
     }
 }

@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.feature.replay.camera;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
-import com.replaymod.replay.Setting;
+import github.com.gengyoubo.replayneo.feature.replay.Setting;
 
 import java.util.ArrayList;
 import java.util.Collections;

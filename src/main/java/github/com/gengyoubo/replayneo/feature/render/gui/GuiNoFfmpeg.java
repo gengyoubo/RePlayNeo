@@ -1,16 +1,16 @@
 package github.com.gengyoubo.replayneo.feature.render.gui;
 
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.container.GuiScreen;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.element.GuiLabel;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 
 import java.net.URI;
 
-import static com.replaymod.core.versions.MCVer.openURL;
-import static de.johni0702.minecraft.gui.versions.MCVer.setClipboardString;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.openURL;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.setClipboardString;
 
 public class GuiNoFfmpeg extends GuiScreen {
 

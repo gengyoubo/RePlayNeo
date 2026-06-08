@@ -1,10 +1,10 @@
 package github.com.gengyoubo.replayneo.feature.render.capturer;
 
-import com.replaymod.render.frame.OpenGlFrame;
-import com.replaymod.render.rendering.Channel;
-import com.replaymod.render.rendering.Frame;
-import com.replaymod.render.utils.ByteBufferPool;
-import com.replaymod.render.utils.PixelBufferObject;
+import github.com.gengyoubo.replayneo.feature.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Frame;
+import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
+import github.com.gengyoubo.replayneo.core.utils.PixelBufferObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

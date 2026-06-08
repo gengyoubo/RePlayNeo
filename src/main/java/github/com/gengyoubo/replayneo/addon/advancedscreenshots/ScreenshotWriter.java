@@ -1,15 +1,15 @@
 package github.com.gengyoubo.replayneo.addon.advancedscreenshots;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.utils.Utils;
-import com.replaymod.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.addon.ReplayModExtras;
-import com.replaymod.render.frame.BitmapFrame;
-import com.replaymod.render.rendering.Channel;
-import com.replaymod.render.rendering.FrameConsumer;
-import com.replaymod.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.feature.render.rendering.FrameConsumer;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.versions.Image;
+import github.com.gengyoubo.replayneo.platform.versions.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;

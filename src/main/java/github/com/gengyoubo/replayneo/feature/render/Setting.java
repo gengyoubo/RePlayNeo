@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.render;
 
-import com.replaymod.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 
 public final class Setting<T> {
     public static final SettingsRegistry.SettingKey<String> RENDER_PATH =

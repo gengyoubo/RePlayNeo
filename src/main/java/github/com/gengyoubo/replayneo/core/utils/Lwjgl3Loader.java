@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.core.utils;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.render.rendering.Frame;
-import com.replaymod.render.rendering.FrameConsumer;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Frame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.FrameConsumer;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;

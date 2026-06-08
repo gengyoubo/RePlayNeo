@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.pathing.player;
 
-import de.johni0702.minecraft.gui.utils.Event;
+import github.com.gengyoubo.replayneo.core.utils.Event;
 import net.minecraft.client.Timer;
 
 /**

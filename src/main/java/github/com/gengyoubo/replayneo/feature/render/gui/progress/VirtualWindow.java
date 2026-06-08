@@ -3,9 +3,9 @@ package github.com.gengyoubo.replayneo.feature.render.gui.progress;
 import com.mojang.blaze3d.pipeline.MainTarget;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.Window;
-import com.replaymod.render.hooks.MinecraftClientExt;
-import com.replaymod.render.mixin.MainWindowAccessor;
-import de.johni0702.minecraft.gui.function.Closeable;
+import github.com.gengyoubo.replayneo.feature.render.hooks.MinecraftClientExt;
+import github.com.gengyoubo.replayneo.mixin.MainWindowAccessor;
+import github.com.gengyoubo.replayneo.function.Closeable;
 import net.minecraft.client.Minecraft;
 
 public class VirtualWindow implements Closeable {

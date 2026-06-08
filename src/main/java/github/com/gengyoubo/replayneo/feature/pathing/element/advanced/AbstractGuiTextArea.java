@@ -24,33 +24,33 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.element.AbstractGuiElement;
-import de.johni0702.minecraft.gui.function.CharHandler;
-import de.johni0702.minecraft.gui.function.CharInput;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Clickable;
-import de.johni0702.minecraft.gui.function.Focusable;
-import de.johni0702.minecraft.gui.function.KeyHandler;
-import de.johni0702.minecraft.gui.function.KeyInput;
-import de.johni0702.minecraft.gui.function.Tickable;
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractGuiElement;
+import github.com.gengyoubo.replayneo.function.CharHandler;
+import github.com.gengyoubo.replayneo.function.CharInput;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Clickable;
+import github.com.gengyoubo.replayneo.function.Focusable;
+import github.com.gengyoubo.replayneo.function.KeyHandler;
+import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.function.Tickable;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 
 import java.util.Arrays;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 
-import static de.johni0702.minecraft.gui.utils.Utils.clamp;
-import static de.johni0702.minecraft.gui.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.guiutils.Utils.clamp;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 
 public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
         extends AbstractGuiElement<T> implements Clickable, KeyHandler, CharHandler, Tickable, IGuiTextArea<T> {
@@ -352,10 +352,10 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     }
 
     @Override
-    public void setCursorPosition(int x, int y) {
+    public T setCursorPosition(int x, int y) {
         selectionY = cursorY = clamp(y, 0, text.length - 1);
         selectionX = cursorX = clamp(x, 0, text[cursorY].length());
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -394,7 +394,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
                 && pos.getX() < size.getWidth() && pos.getY() < size.getHeight();
     }
 
-    public void setFocused(boolean isFocused) {
+    public T setFocused(boolean isFocused) {
         if (isFocused && !this.focused) {
             this.blinkCursorTick = 0; // Restart blinking to indicate successful focus
         }
@@ -402,7 +402,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
             this.focused = isFocused;
             onFocusChanged(this.focused);
         }
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -695,9 +695,9 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     }
 
     @Override
-    public void setHint(String... hint) {
+    public T setHint(String... hint) {
         this.hint = hint;
-        getThis();
+        return getThis();
     }
 
     @Override

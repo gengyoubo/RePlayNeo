@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import de.johni0702.minecraft.gui.versions.ScreenExt;
-import de.johni0702.minecraft.gui.versions.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.platform.versions.ScreenExt;
+import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -59,11 +59,13 @@ public class ScreenMixin implements ScreenExt {
         );
     }
 
-    public boolean rePlay$doesPassEvents() {
+    @Override
+    public boolean doesPassEvents() {
         return this.replayMod$passEvents;
     }
 
-    public void rePlay$setPassEvents(boolean passEvents) {
+    @Override
+    public void setPassEvents(boolean passEvents) {
         this.replayMod$passEvents = passEvents;
     }
 }

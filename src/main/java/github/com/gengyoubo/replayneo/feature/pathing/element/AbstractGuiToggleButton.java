@@ -24,10 +24,10 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.function.Click;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.function.Click;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
 public abstract class AbstractGuiToggleButton<V, T extends AbstractGuiToggleButton<V, T>>

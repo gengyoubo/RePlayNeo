@@ -26,7 +26,7 @@ package github.com.gengyoubo.replayneo.core.utils;
 
 import com.mojang.blaze3d.platform.Window;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.client.Minecraft;
 
 public class MouseUtils {

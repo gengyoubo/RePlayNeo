@@ -24,9 +24,9 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import de.johni0702.minecraft.gui.element.GuiElement;
-import de.johni0702.minecraft.gui.layout.Layout;
-import de.johni0702.minecraft.gui.layout.LayoutData;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.core.gui.layout.Layout;
+import github.com.gengyoubo.replayneo.core.gui.layout.LayoutData;
 
 import java.util.ArrayList;
 import java.util.Map;

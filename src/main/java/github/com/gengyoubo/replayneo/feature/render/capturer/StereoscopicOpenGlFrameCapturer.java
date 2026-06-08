@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.feature.render.capturer;
 
-import com.replaymod.render.frame.OpenGlFrame;
-import com.replaymod.render.frame.StereoscopicOpenGlFrame;
-import com.replaymod.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.feature.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.StereoscopicOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Channel;
 
 import java.util.Collections;
 import java.util.Map;

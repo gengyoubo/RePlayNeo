@@ -24,27 +24,27 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.popup;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.container.GuiScrollable;
-import de.johni0702.minecraft.gui.container.GuiVerticalList;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.element.GuiElement;
-import de.johni0702.minecraft.gui.element.GuiTextField;
-import de.johni0702.minecraft.gui.element.advanced.GuiDropdownMenu;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.KeyHandler;
-import de.johni0702.minecraft.gui.function.KeyInput;
-import de.johni0702.minecraft.gui.layout.CustomLayout;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.layout.VerticalLayout;
-import de.johni0702.minecraft.gui.utils.Colors;
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiScrollable;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiVerticalList;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTextField;
+import github.com.gengyoubo.replayneo.feature.pathing.element.advanced.GuiDropdownMenu;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.KeyHandler;
+import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.core.utils.Colors;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 
 import java.io.File;
 import java.io.IOException;

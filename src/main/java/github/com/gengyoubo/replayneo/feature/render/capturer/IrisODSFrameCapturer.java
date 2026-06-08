@@ -1,11 +1,11 @@
 package github.com.gengyoubo.replayneo.feature.render.capturer;
 
-import com.replaymod.render.RenderSettings;
-import com.replaymod.render.frame.CubicOpenGlFrame;
-import com.replaymod.render.frame.ODSOpenGlFrame;
-import com.replaymod.render.frame.OpenGlFrame;
-import com.replaymod.render.rendering.Channel;
-import com.replaymod.render.rendering.FrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.feature.render.frame.CubicOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.ODSOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.feature.render.rendering.FrameCapturer;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import net.coderbot.iris.Iris;
 import net.coderbot.iris.config.IrisConfig;
@@ -44,10 +44,11 @@ public class IrisODSFrameCapturer implements FrameCapturer<ODSOpenGlFrame> {
             }
 
             @Override
-            public void updateForNextFrame() {
+            public float updateForNextFrame() {
                 if (call++ % 2 == 0) {
                     partialTicks = renderInfo.updateForNextFrame();
                 }
+                return partialTicks;
             }
 
             @Override

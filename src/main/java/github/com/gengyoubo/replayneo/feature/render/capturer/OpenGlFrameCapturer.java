@@ -1,11 +1,11 @@
 package github.com.gengyoubo.replayneo.feature.render.capturer;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.render.frame.OpenGlFrame;
-import com.replaymod.render.rendering.Frame;
-import com.replaymod.render.rendering.FrameCapturer;
-import com.replaymod.render.utils.ByteBufferPool;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Frame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.FrameCapturer;
+import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.WritableDimension;
@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import net.minecraft.client.Minecraft;
 
-import static com.replaymod.core.versions.MCVer.popMatrix;
-import static com.replaymod.core.versions.MCVer.pushMatrix;
-import static com.replaymod.core.versions.MCVer.resizeMainWindow;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.popMatrix;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.pushMatrix;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.resizeMainWindow;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 
@@ -106,6 +106,6 @@ public abstract class OpenGlFrameCapturer<F extends Frame, D extends CaptureData
     }
 
     @Override
-    public void close() {
+    public void close() throws IOException {
     }
 }

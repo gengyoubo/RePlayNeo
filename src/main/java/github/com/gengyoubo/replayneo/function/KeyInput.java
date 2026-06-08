@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.function;
 
-import de.johni0702.minecraft.gui.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 
 public class KeyInput implements InputWithModifiers {
     public final int key;

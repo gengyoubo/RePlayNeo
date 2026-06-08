@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.core.events.KeyBindingEventCallback;
-import com.replaymod.core.events.KeyEventCallback;
-import de.johni0702.minecraft.gui.function.KeyInput;
+import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
+import github.com.gengyoubo.replayneo.core.events.KeyEventCallback;
+import github.com.gengyoubo.replayneo.function.KeyInput;
 import net.minecraft.client.KeyboardHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

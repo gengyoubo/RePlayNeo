@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.recording;
 
-import com.replaymod.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 
 public final class Setting<T> extends SettingsRegistry.SettingKeys<T> {
     public static final Setting<Boolean> RECORD_SINGLEPLAYER = make("recordSingleplayer", "recordsingleplayer");
@@ -11,7 +11,7 @@ public final class Setting<T> extends SettingsRegistry.SettingKeys<T> {
     public static final Setting<Boolean> RENAME_DIALOG = make("renameDialog", "rename_recording_dialog");
 
     private static <T> Setting<T> make(String key, String displayName) {
-        return new Setting<>(key, displayName, (T) true);
+        return new Setting<>(key, displayName, (T) Boolean.TRUE);
     }
 
     public Setting(String key, String displayString, T defaultValue) {

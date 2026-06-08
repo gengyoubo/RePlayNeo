@@ -24,12 +24,12 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Draggable;
-import de.johni0702.minecraft.gui.layout.CustomLayout;
-import de.johni0702.minecraft.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Draggable;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
@@ -37,7 +37,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import de.johni0702.minecraft.gui.utils.lwjgl.WritableDimension;
 
-import static de.johni0702.minecraft.gui.utils.Colors.TRANSPARENT;
+import static github.com.gengyoubo.replayneo.core.utils.Colors.TRANSPARENT;
 import static de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor.BLACK;
 
 public abstract class AbstractGuiVerticalList<T extends AbstractGuiVerticalList<T>> extends AbstractGuiScrollable<T>
@@ -194,9 +194,9 @@ public abstract class AbstractGuiVerticalList<T extends AbstractGuiVerticalList<
         return drawSlider;
     }
 
-    public void setDrawSlider(boolean drawSlider) {
+    public T setDrawSlider(boolean drawSlider) {
         this.drawSlider = drawSlider;
-        getThis();
+        return getThis();
     }
 
     public boolean doesDrawShadow() {

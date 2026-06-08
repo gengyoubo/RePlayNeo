@@ -24,8 +24,12 @@ public class DImage {
             image.setAspy(1);
             serializer.writeDataList(ImagePackedFile.class, image.getPackedfiles(), packedFiles.size(), (i, pf) -> {
                 Pair<String, DPackedFile> pair = packedFiles.get(i);
-                pf.getFilepath().fromString(pair.getLeft());
-                pf.setPackedfile(pair.getRight().serialize(serializer));
+                try {
+                    pf.getFilepath().fromString(pair.getLeft());
+                    pf.setPackedfile(pair.getRight().serialize(serializer));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             });
         });
     }

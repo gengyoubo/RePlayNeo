@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.core.files;
 
 import com.google.common.net.PercentEscaper;
-import com.replaymod.core.Setting;
-import com.replaymod.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.Setting;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import net.minecraft.client.Minecraft;
 
-import static com.replaymod.core.utils.Utils.ensureDirectoryExists;
+import static github.com.gengyoubo.replayneo.core.utils.Utils.ensureDirectoryExists;
 
 public class ReplayFoldersService {
     private final Path mcDir = Minecraft.getInstance().gameDirectory.toPath();

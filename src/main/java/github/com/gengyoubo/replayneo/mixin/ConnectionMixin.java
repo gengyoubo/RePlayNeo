@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.recording.packet.PacketListener;
+import github.com.gengyoubo.replayneo.feature.recording.packet.PacketListener;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,9 +1,9 @@
 package github.com.gengyoubo.replayneo.addon;
 
-import com.replaymod.core.Module;
-import com.replaymod.core.ReplayMod;
-import com.replaymod.extras.advancedscreenshots.AdvancedScreenshots;
-import com.replaymod.extras.playeroverview.PlayerOverview;
+import github.com.gengyoubo.replayneo.core.Module;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.addon.advancedscreenshots.AdvancedScreenshots;
+import github.com.gengyoubo.replayneo.addon.playeroverview.PlayerOverview;
 import github.com.gengyoubo.replayneo.addon.youtube.YoutubeUpload;
 import org.apache.logging.log4j.Logger;
 
@@ -15,9 +15,9 @@ import java.util.Optional;
 
 public class ReplayModExtras implements Module {
     { instance = this; }
-    public static final ReplayModExtras instance;
+    public static ReplayModExtras instance;
 
-    private static final List<Class<? extends Extra>> builtin = Arrays.asList(
+    private static List<Class<? extends Extra>> builtin = Arrays.asList(
             AdvancedScreenshots.class,
             PlayerOverview.class,
             YoutubeUpload.class,
@@ -28,7 +28,7 @@ public class ReplayModExtras implements Module {
 
     private final Map<Class<? extends Extra>, Extra> instances = new HashMap<>();
 
-    public static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     public ReplayModExtras(ReplayMod core) {
         core.getSettingsRegistry().register(Setting.class);

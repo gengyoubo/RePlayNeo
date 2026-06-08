@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.callbacks;
 
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.utils.Event;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface MouseCallback {
     Event<MouseCallback> EVENT = Event.create((listeners) ->

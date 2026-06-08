@@ -4,7 +4,7 @@ import com.coremedia.iso.IsoFile;
 import com.coremedia.iso.boxes.*;
 import com.google.common.primitives.Bytes;
 import com.googlecode.mp4parser.BasicContainer;
-import com.replaymod.render.RenderSettings;
+import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import static com.replaymod.render.ReplayModRender.LOGGER;
+import static github.com.gengyoubo.replayneo.feature.render.ReplayModRender.LOGGER;
 
 public class MetadataInjector {
 

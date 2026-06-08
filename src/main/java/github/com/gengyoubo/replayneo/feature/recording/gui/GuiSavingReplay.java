@@ -1,25 +1,25 @@
 package github.com.gengyoubo.replayneo.feature.recording.gui;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.utils.Utils;
-import com.replaymod.recording.Setting;
-import com.replaymod.replay.gui.screen.GuiReplayViewer;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.feature.recording.Setting;
+import github.com.gengyoubo.replayneo.feature.replay.gui.screen.GuiReplayViewer;
 import com.replaymod.replaystudio.replay.ReplayMetaData;
-import de.johni0702.minecraft.gui.container.AbstractGuiScreen;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.container.GuiScreen;
-import de.johni0702.minecraft.gui.container.VanillaGuiScreen;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.element.GuiLabel;
-import de.johni0702.minecraft.gui.element.GuiTextField;
-import de.johni0702.minecraft.gui.element.GuiTooltip;
-import de.johni0702.minecraft.gui.element.advanced.GuiProgressBar;
-import de.johni0702.minecraft.gui.function.Focusable;
-import de.johni0702.minecraft.gui.layout.CustomLayout;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.layout.VerticalLayout;
-import de.johni0702.minecraft.gui.utils.Colors;
+import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiScreen;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.core.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTextField;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.feature.pathing.element.advanced.GuiProgressBar;
+import github.com.gengyoubo.replayneo.function.Focusable;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.core.utils.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import org.apache.commons.lang3.tuple.Pair;
@@ -33,8 +33,8 @@ import java.util.List;
 import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;
 
-import static com.replaymod.core.versions.MCVer.getMinecraft;
-import static de.johni0702.minecraft.gui.utils.Utils.link;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.core.guiutils.Utils.link;
 
 public class GuiSavingReplay {
 
@@ -75,7 +75,7 @@ public class GuiSavingReplay {
     public void presentRenameDialog(List<Pair<Path, ReplayMetaData>> outputPaths) {
         panel.removeElement(progressBar);
 
-        link(outputPaths.stream().map(it -> addOutput(it.getKey(), it.getValue())).toArray(de.johni0702.minecraft.gui.element.GuiTextField[]::new));
+        link(outputPaths.stream().map(it -> addOutput(it.getKey(), it.getValue())).toArray(github.com.gengyoubo.replayneo.feature.pathing.element.GuiTextField[]::new));
 
         GuiButton applyButton = new GuiButton()
                 .setSize(150, 20)

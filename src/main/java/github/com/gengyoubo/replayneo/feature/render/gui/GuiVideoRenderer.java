@@ -1,20 +1,20 @@
 package github.com.gengyoubo.replayneo.feature.render.gui;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import com.replaymod.core.utils.Utils;
-import com.replaymod.render.rendering.VideoRenderer;
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.container.GuiScreen;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.element.GuiCheckbox;
-import de.johni0702.minecraft.gui.element.GuiLabel;
-import de.johni0702.minecraft.gui.element.advanced.GuiProgressBar;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Tickable;
-import de.johni0702.minecraft.gui.layout.CustomLayout;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.feature.render.rendering.VideoRenderer;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiCheckbox;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.advanced.GuiProgressBar;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Tickable;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import github.com.gengyoubo.replayneo.RePlayNeo;
@@ -23,7 +23,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
 
-import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 public class GuiVideoRenderer extends GuiScreen implements Tickable {
     private static final ResourceLocation NO_PREVIEW_TEXTURE = identifier(RePlayNeo.RESOURCE_NAMESPACE, "logo.png");

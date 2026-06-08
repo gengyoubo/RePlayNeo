@@ -1,11 +1,11 @@
 package github.com.gengyoubo.replayneo.core.files;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.gui.RestoreReplayGui;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.gui.RestoreReplayGui;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import com.replaymod.replaystudio.replay.ZipReplayFile;
 import com.replaymod.replaystudio.studio.ReplayStudio;
-import de.johni0702.minecraft.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;

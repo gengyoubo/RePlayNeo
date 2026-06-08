@@ -2,14 +2,14 @@ package github.com.gengyoubo.replayneo.feature.pathing.properties;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
 import com.replaymod.replaystudio.pathing.change.Change;
 import com.replaymod.replaystudio.pathing.property.AbstractProperty;
 import com.replaymod.replaystudio.pathing.property.AbstractPropertyGroup;
 import com.replaymod.replaystudio.pathing.property.PropertyPart;
 import com.replaymod.replaystudio.pathing.property.PropertyParts;
-import de.johni0702.minecraft.gui.utils.NonNull;
+import github.com.gengyoubo.replayneo.core.utils.NonNull;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 

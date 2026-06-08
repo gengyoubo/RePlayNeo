@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.feature.editor.gui;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import com.replaymod.replaystudio.PacketData;
 import com.replaymod.replaystudio.data.Marker;
 import com.replaymod.replaystudio.filter.DimensionTracker;

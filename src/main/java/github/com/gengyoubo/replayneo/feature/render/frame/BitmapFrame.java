@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.render.frame;
 
-import com.replaymod.render.rendering.Frame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Frame;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import org.apache.commons.lang3.Validate;
 
@@ -12,5 +12,17 @@ public record BitmapFrame(int frameId, ReadableDimension size, int bytesPerPixel
         Validate.isTrue(size.getWidth() * size.getHeight() * bytesPerPixel == byteBuffer.remaining(),
                 "Buffer size is %d (cap: %d) but should be %d",
                 byteBuffer.remaining(), byteBuffer.capacity(), size.getWidth() * size.getHeight() * bytesPerPixel);
+    }
+
+    public ReadableDimension getSize() {
+        return size;
+    }
+
+    public int getBytesPerPixel() {
+        return bytesPerPixel;
+    }
+
+    public ByteBuffer getByteBuffer() {
+        return byteBuffer;
     }
 }

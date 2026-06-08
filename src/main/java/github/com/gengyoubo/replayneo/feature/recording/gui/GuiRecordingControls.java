@@ -1,17 +1,17 @@
 package github.com.gengyoubo.replayneo.feature.recording.gui;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.utils.Utils;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.editor.gui.MarkerProcessor;
-import com.replaymod.recording.packet.PacketListener;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.container.VanillaGuiScreen;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.layout.CustomLayout;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import de.johni0702.minecraft.gui.versions.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.editor.gui.MarkerProcessor;
+import github.com.gengyoubo.replayneo.feature.recording.packet.PacketListener;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.core.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -89,9 +89,9 @@ public class GuiRecordingControls extends EventRegistrations {
                         .<Function<Integer, Integer>>map(it -> (height) -> it.getY())
                         .orElse((height) -> height / 4 + 120 - 16);
         VanillaGuiScreen vanillaGui = VanillaGuiScreen.wrap(guiScreen);
-        vanillaGui.setLayout(new CustomLayout<de.johni0702.minecraft.gui.container.GuiScreen>(vanillaGui.getLayout()) {
+        vanillaGui.setLayout(new CustomLayout<github.com.gengyoubo.replayneo.core.gui.container.GuiScreen>(vanillaGui.getLayout()) {
             @Override
-            protected void layout(de.johni0702.minecraft.gui.container.GuiScreen container, int width, int height) {
+            protected void layout(github.com.gengyoubo.replayneo.core.gui.container.GuiScreen container, int width, int height) {
                 pos(panel, width / 2 - 100, yPos.apply(height) + 16 + 8);
             }
         }).addElements(null, panel);

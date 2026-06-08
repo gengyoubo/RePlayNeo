@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.recording.ServerInfoExt;
+import github.com.gengyoubo.replayneo.feature.recording.ServerInfoExt;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;

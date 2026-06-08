@@ -1,14 +1,14 @@
 package github.com.gengyoubo.replayneo.addon;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.versions.MCVer.Keyboard;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.events.ReplayOpenedCallback;
-import com.replaymod.replay.gui.overlay.GuiReplayOverlay;
-import de.johni0702.minecraft.gui.element.GuiImage;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.feature.replay.gui.overlay.GuiReplayOverlay;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiImage;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 
 public class QuickMode extends EventRegistrations implements Extra {
     private ReplayModReplay module;

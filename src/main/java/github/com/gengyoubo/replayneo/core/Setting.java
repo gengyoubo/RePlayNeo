@@ -6,7 +6,7 @@ public final class Setting<T> extends SettingsRegistry.SettingKeys<T> {
     public static final Setting<String> CACHE_PATH = advanced("cachePath", "./.replay_cache/");
 
     private static <T> Setting<T> make() {
-        return new Setting<>("core", "notifications", "notifications", (T) true);
+        return new Setting<>("core", "notifications", "notifications", (T) Boolean.TRUE);
     }
 
     private static <T> Setting<T> advanced(String key, T defaultValue) {

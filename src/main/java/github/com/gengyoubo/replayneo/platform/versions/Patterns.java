@@ -9,8 +9,8 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import com.replaymod.core.mixin.MinecraftAccessor;
-import com.replaymod.gradle.remap.Pattern;
+import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
+import github.com.gengyoubo.replayneo.restored.com.replaymod.gradle.remap.Pattern;
 import net.minecraft.client.Options;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -266,7 +266,7 @@ class Patterns {
 
     @Pattern
     private static void GL11_glRotatef(float angle, float x, float y, float z) {
-        com.mojang.blaze3d.systems.RenderSystem.getModelViewStack().mulPose(com.replaymod.core.versions.MCVer.quaternion(angle, new org.joml.Vector3f(x, y, z)));
+        com.mojang.blaze3d.systems.RenderSystem.getModelViewStack().mulPose(github.com.gengyoubo.replayneo.core.versions.MCVer.quaternion(angle, new org.joml.Vector3f(x, y, z)));
     }
 
     @SuppressWarnings("rawtypes") // preprocessor bug: doesn't work with generics
@@ -417,7 +417,7 @@ class Patterns {
 
     @Pattern
     private static Matrix4f Matrix4f_perspectiveMatrix(float left, float right, float top, float bottom, float zNear, float zFar) {
-        return com.replaymod.core.versions.MCVer.ortho(left, right, top, bottom, zNear, zFar);
+        return github.com.gengyoubo.replayneo.core.versions.MCVer.ortho(left, right, top, bottom, zNear, zFar);
     }
 
     @Pattern

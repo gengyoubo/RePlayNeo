@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.callbacks;
 
-import de.johni0702.minecraft.gui.utils.Event;
+import github.com.gengyoubo.replayneo.core.utils.Event;
 import net.minecraft.client.gui.GuiGraphics;
 
 public interface RenderHudCallback {

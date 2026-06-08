@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
-import de.johni0702.minecraft.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 
 public class GuiCheckbox extends AbstractGuiCheckbox<GuiCheckbox> {
     public GuiCheckbox() {

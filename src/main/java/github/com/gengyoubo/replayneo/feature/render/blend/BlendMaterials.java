@@ -1,10 +1,10 @@
 package github.com.gengyoubo.replayneo.feature.render.blend;
 
-import com.replaymod.render.blend.data.DImage;
-import com.replaymod.render.blend.data.DMaterial;
-import com.replaymod.render.blend.data.DPackedFile;
-import com.replaymod.render.blend.data.DTexture;
-import de.johni0702.minecraft.gui.versions.Image;
+import github.com.gengyoubo.replayneo.feature.render.blend.data.DImage;
+import github.com.gengyoubo.replayneo.feature.render.blend.data.DMaterial;
+import github.com.gengyoubo.replayneo.feature.render.blend.data.DPackedFile;
+import github.com.gengyoubo.replayneo.feature.render.blend.data.DTexture;
+import github.com.gengyoubo.replayneo.platform.versions.Image;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;

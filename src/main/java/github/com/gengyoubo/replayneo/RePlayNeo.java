@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo;
 
-import com.replaymod.core.ReplayModBackend;
+import github.com.gengyoubo.replayneo.core.ReplayModBackend;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

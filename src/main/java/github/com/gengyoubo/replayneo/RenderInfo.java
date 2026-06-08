@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo;
 
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 

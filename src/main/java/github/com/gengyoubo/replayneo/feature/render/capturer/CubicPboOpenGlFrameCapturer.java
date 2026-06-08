@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.feature.render.capturer;
 
-import com.replaymod.render.frame.CubicOpenGlFrame;
-import com.replaymod.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.CubicOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.OpenGlFrame;
 
 public class CubicPboOpenGlFrameCapturer extends
         PboOpenGlFrameCapturer<CubicOpenGlFrame, CubicOpenGlFrameCapturer.Data> {

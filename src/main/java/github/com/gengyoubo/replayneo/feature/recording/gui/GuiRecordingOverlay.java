@@ -1,17 +1,17 @@
 package github.com.gengyoubo.replayneo.feature.recording.gui;
 
-import com.replaymod.core.SettingsRegistry;
-import com.replaymod.recording.Setting;
-import de.johni0702.minecraft.gui.MinecraftGuiRenderer;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import de.johni0702.minecraft.gui.versions.callbacks.RenderHudCallback;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.feature.recording.Setting;
+import github.com.gengyoubo.replayneo.MinecraftGuiRenderer;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.platform.callbacks.RenderHudCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 
-import static com.replaymod.core.ReplayMod.TEXTURE;
-import static com.replaymod.core.ReplayMod.TEXTURE_SIZE;
+import static github.com.gengyoubo.replayneo.core.ReplayMod.TEXTURE;
+import static github.com.gengyoubo.replayneo.core.ReplayMod.TEXTURE_SIZE;
 
 /**
  * Renders overlay during recording.

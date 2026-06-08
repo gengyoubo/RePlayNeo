@@ -1,10 +1,10 @@
-package com.replaymod.core.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.core.events.KeyBindingEventCallback;
-import com.replaymod.replay.InputReplayTimer;
-import com.replaymod.replay.ReplayModReplay;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.versions.callbacks.MouseCallback;
+import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
+import github.com.gengyoubo.replayneo.feature.replay.InputReplayTimer;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.platform.callbacks.MouseCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.screens.Screen;

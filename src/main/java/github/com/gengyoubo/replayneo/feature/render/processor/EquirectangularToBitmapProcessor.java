@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.feature.render.processor;
 
-import com.replaymod.render.frame.CubicOpenGlFrame;
-import com.replaymod.render.frame.BitmapFrame;
-import com.replaymod.render.utils.ByteBufferPool;
+import github.com.gengyoubo.replayneo.feature.render.frame.CubicOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import org.apache.commons.lang3.Validate;
 

@@ -1,24 +1,24 @@
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import de.johni0702.minecraft.gui.function.CharHandler;
-import de.johni0702.minecraft.gui.function.CharInput;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Draggable;
-import de.johni0702.minecraft.gui.function.KeyHandler;
-import de.johni0702.minecraft.gui.function.KeyInput;
-import de.johni0702.minecraft.gui.function.Scrollable;
-import de.johni0702.minecraft.gui.function.Tickable;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import de.johni0702.minecraft.gui.utils.MouseUtils;
+import github.com.gengyoubo.replayneo.function.CharHandler;
+import github.com.gengyoubo.replayneo.function.CharInput;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Draggable;
+import github.com.gengyoubo.replayneo.function.KeyHandler;
+import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.function.Scrollable;
+import github.com.gengyoubo.replayneo.function.Tickable;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.utils.MouseUtils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import de.johni0702.minecraft.gui.versions.MCVer;
-import de.johni0702.minecraft.gui.versions.callbacks.InitScreenCallback;
-import de.johni0702.minecraft.gui.versions.callbacks.OpenGuiScreenCallback;
-import de.johni0702.minecraft.gui.versions.callbacks.PostRenderScreenCallback;
-import de.johni0702.minecraft.gui.versions.callbacks.PreTickCallback;
-import de.johni0702.minecraft.gui.versions.callbacks.KeyboardCallback;
-import de.johni0702.minecraft.gui.versions.callbacks.MouseCallback;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.platform.callbacks.OpenGuiScreenCallback;
+import github.com.gengyoubo.replayneo.platform.callbacks.PostRenderScreenCallback;
+import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
+import github.com.gengyoubo.replayneo.platform.callbacks.KeyboardCallback;
+import github.com.gengyoubo.replayneo.platform.callbacks.MouseCallback;
 
 
 

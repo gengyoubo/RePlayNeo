@@ -24,9 +24,9 @@ import com.google.common.base.Suppliers;
 import com.google.common.io.Files;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import com.replaymod.render.RenderSettings;
-import com.replaymod.render.metadata.MetadataInjector;
-import de.johni0702.minecraft.gui.utils.NonNull;
+import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.feature.render.metadata.MetadataInjector;
+import github.com.gengyoubo.replayneo.core.utils.NonNull;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.io.FileUtils;
 

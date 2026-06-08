@@ -19,7 +19,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -31,7 +31,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.replaymod.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 
 /**
  * Records resource packs and handles incoming resource pack packets during recording.

@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.feature.render.events;
 
-import com.replaymod.replay.ReplayHandler;
-import de.johni0702.minecraft.gui.utils.Event;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface ReplayClosedCallback {
     Event<ReplayClosedCallback> EVENT = Event.create((listeners) ->

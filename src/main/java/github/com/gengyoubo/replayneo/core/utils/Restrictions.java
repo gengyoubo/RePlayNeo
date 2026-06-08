@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.core.utils;
 
-import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import net.minecraft.network.FriendlyByteBuf;

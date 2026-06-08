@@ -1,12 +1,12 @@
 package github.com.gengyoubo.replayneo.feature.render.processor;
 
-import com.replaymod.render.rendering.Frame;
-import com.replaymod.render.rendering.FrameProcessor;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Frame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.FrameProcessor;
 
 import java.io.IOException;
 
 public abstract class AbstractFrameProcessor<R extends Frame, P extends Frame> implements FrameProcessor<R, P> {
     @Override
-    public void close() {
+    public void close() throws IOException {
     }
 }

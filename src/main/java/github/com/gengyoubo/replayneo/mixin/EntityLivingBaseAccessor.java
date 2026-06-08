@@ -13,4 +13,25 @@ public interface EntityLivingBaseAccessor {
     @Nonnull
     @SuppressWarnings("ConstantConditions")
     static EntityDataAccessor<Byte> getLivingFlags() { return null; }
+
+    @Accessor("lerpX")
+    double getInterpTargetX();
+
+    @Accessor("lerpY")
+    double getInterpTargetY();
+
+    @Accessor("lerpZ")
+    double getInterpTargetZ();
+
+    @Accessor("lerpYRot")
+    double getInterpTargetYaw();
+
+    @Accessor("lerpXRot")
+    double getInterpTargetPitch();
+
+    @Accessor("useItemRemaining")
+    int getActiveItemStackUseCount();
+
+    @Accessor("useItemRemaining")
+    void setActiveItemStackUseCount(int value);
 }

@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
-import de.johni0702.minecraft.gui.versions.Image;
+import github.com.gengyoubo.replayneo.platform.versions.Image;
 import net.minecraft.resources.ResourceLocation;
 
 public interface IGuiImage<T extends IGuiImage<T>> extends GuiElement<T> {

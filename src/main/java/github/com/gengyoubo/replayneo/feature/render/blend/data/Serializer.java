@@ -1,9 +1,9 @@
 package github.com.gengyoubo.replayneo.feature.render.blend.data;
 
-import com.replaymod.render.blend.Util;
-import com.replaymod.render.blend.Util.IOBiConsumer;
-import com.replaymod.render.blend.Util.IOCallable;
-import com.replaymod.render.blend.Util.IOConsumer;
+import github.com.gengyoubo.replayneo.feature.render.blend.Util;
+import github.com.gengyoubo.replayneo.feature.render.blend.Util.IOBiConsumer;
+import github.com.gengyoubo.replayneo.feature.render.blend.Util.IOCallable;
+import github.com.gengyoubo.replayneo.feature.render.blend.Util.IOConsumer;
 import org.blender.dna.ID;
 import org.blender.dna.Link;
 import org.blender.dna.ListBase;
@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.replaymod.render.blend.Util.align4;
-import static com.replaymod.render.blend.Util.factory;
+import static github.com.gengyoubo.replayneo.feature.render.blend.Util.align4;
+import static github.com.gengyoubo.replayneo.feature.render.blend.Util.factory;
 import static org.cakelab.blender.io.block.BlockCodes.ID_DATA;
 
 public class Serializer {

@@ -24,17 +24,17 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.element.AbstractGuiElement;
-import de.johni0702.minecraft.gui.utils.Colors;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractGuiElement;
+import github.com.gengyoubo.replayneo.core.utils.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 
-import static de.johni0702.minecraft.gui.element.advanced.AbstractGuiTimeline.BORDER_LEFT;
-import static de.johni0702.minecraft.gui.element.advanced.AbstractGuiTimeline.BORDER_RIGHT;
+import static github.com.gengyoubo.replayneo.feature.pathing.element.advanced.AbstractGuiTimeline.BORDER_LEFT;
+import static github.com.gengyoubo.replayneo.feature.pathing.element.advanced.AbstractGuiTimeline.BORDER_RIGHT;
 
 public abstract class AbstractGuiTimelineTime<T extends AbstractGuiTimelineTime<T, U>, U extends AbstractGuiTimeline<U>>
         extends AbstractGuiElement<T> implements IGuiTimelineTime<T, U> {

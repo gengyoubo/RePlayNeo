@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
 
 /**
  * Displays the time of a timeline at its big markers.

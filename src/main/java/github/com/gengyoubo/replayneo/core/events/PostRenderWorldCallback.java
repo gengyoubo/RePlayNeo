@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.core.events;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import de.johni0702.minecraft.gui.utils.Event;
+import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface PostRenderWorldCallback {
     Event<PostRenderWorldCallback> EVENT = Event.create((listeners) ->

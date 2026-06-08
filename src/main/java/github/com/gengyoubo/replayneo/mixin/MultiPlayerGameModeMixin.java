@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

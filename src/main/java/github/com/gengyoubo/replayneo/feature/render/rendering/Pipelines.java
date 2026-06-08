@@ -1,29 +1,31 @@
 package github.com.gengyoubo.replayneo.feature.render.rendering;
 
-import com.replaymod.render.RenderSettings;
-import com.replaymod.render.blend.BlendFrameCapturer;
-import com.replaymod.render.capturer.CubicOpenGlFrameCapturer;
-import com.replaymod.render.capturer.CubicPboOpenGlFrameCapturer;
-import com.replaymod.render.capturer.ODSFrameCapturer;
-import com.replaymod.render.capturer.RenderInfo;
-import com.replaymod.render.capturer.SimpleOpenGlFrameCapturer;
-import com.replaymod.render.capturer.SimplePboOpenGlFrameCapturer;
-import com.replaymod.render.capturer.StereoscopicOpenGlFrameCapturer;
-import com.replaymod.render.capturer.StereoscopicPboOpenGlFrameCapturer;
-import com.replaymod.render.capturer.WorldRenderer;
-import com.replaymod.render.frame.CubicOpenGlFrame;
-import com.replaymod.render.frame.ODSOpenGlFrame;
-import com.replaymod.render.frame.OpenGlFrame;
-import com.replaymod.render.frame.BitmapFrame;
-import com.replaymod.render.frame.StereoscopicOpenGlFrame;
-import com.replaymod.render.hooks.EntityRendererHandler;
-import com.replaymod.render.processor.CubicToBitmapProcessor;
-import com.replaymod.render.processor.DummyProcessor;
-import com.replaymod.render.processor.EquirectangularToBitmapProcessor;
-import com.replaymod.render.processor.ODSToBitmapProcessor;
-import com.replaymod.render.processor.OpenGlToBitmapProcessor;
-import com.replaymod.render.processor.StereoscopicToBitmapProcessor;
-import com.replaymod.render.utils.PixelBufferObject;
+import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.feature.render.blend.BlendFrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.capturer.CubicOpenGlFrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.capturer.CubicPboOpenGlFrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.capturer.ODSFrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.capturer.RenderInfo;
+import github.com.gengyoubo.replayneo.feature.render.capturer.SimpleOpenGlFrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.capturer.SimplePboOpenGlFrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.capturer.StereoscopicOpenGlFrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.capturer.StereoscopicPboOpenGlFrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.capturer.WorldRenderer;
+import github.com.gengyoubo.replayneo.feature.render.frame.CubicOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.ODSOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.StereoscopicOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.feature.render.processor.CubicToBitmapProcessor;
+import github.com.gengyoubo.replayneo.feature.render.processor.DummyProcessor;
+import github.com.gengyoubo.replayneo.feature.render.processor.EquirectangularToBitmapProcessor;
+import github.com.gengyoubo.replayneo.feature.render.processor.ODSToBitmapProcessor;
+import github.com.gengyoubo.replayneo.feature.render.processor.OpenGlToBitmapProcessor;
+import github.com.gengyoubo.replayneo.feature.render.processor.StereoscopicToBitmapProcessor;
+import github.com.gengyoubo.replayneo.core.utils.PixelBufferObject;
+
+import java.util.Map;
 
 public class Pipelines {
     public static Pipeline newPipeline(RenderSettings.RenderMethod method, RenderInfo renderInfo, FrameConsumer<BitmapFrame> consumer) {
@@ -98,7 +100,7 @@ public class Pipelines {
 
         boolean iris = net.minecraftforge.fml.ModList.get().isLoaded("iris");
         FrameCapturer<ODSOpenGlFrame> capturer = iris
-                ? new com.replaymod.render.capturer.IrisODSFrameCapturer(worldRenderer, renderInfo, processor.getFrameSize())
+                ? new github.com.gengyoubo.replayneo.feature.render.capturer.IrisODSFrameCapturer(worldRenderer, renderInfo, processor.getFrameSize())
                 : new ODSFrameCapturer(worldRenderer, renderInfo, processor.getFrameSize());
         return new Pipeline<>(worldRenderer, capturer, processor, consumer);
     }
@@ -108,6 +110,13 @@ public class Pipelines {
         WorldRenderer worldRenderer = new EntityRendererHandler(settings, renderInfo);
         FrameCapturer<BitmapFrame> capturer = new BlendFrameCapturer(worldRenderer, renderInfo);
         FrameConsumer<BitmapFrame> consumer = new FrameConsumer<BitmapFrame>() {
+            @Override
+            public void consume(Map<Channel, BitmapFrame> channels) {
+            }
+
+            @Override
+            public void close() {
+            }
 
             @Override
             public boolean isParallelCapable() {

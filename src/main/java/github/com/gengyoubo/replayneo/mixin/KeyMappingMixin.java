@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
 import net.minecraft.client.KeyMapping;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

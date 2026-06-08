@@ -39,8 +39,12 @@ public class DScene {
             return scene -> {
                 serializer.writeDataList(Base.class, scene.getBase(), bases.size(), (i, base) -> {
                     CPointer<BlenderObject> objPointer = bases.get(i);
-                    base.setLay(objPointer.get().getLay());
-                    base.setObject(objPointer);
+                    try {
+                        base.setLay(objPointer.get().getLay());
+                        base.setObject(objPointer);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
 
                 RenderData renderData = scene.getR();

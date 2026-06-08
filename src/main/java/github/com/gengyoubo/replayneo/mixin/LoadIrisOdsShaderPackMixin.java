@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.render.capturer.IrisODSFrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.capturer.IrisODSFrameCapturer;
 import net.coderbot.iris.Iris;
-import com.replaymod.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;

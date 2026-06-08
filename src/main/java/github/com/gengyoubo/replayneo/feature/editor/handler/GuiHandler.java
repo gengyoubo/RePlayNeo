@@ -1,14 +1,14 @@
 package github.com.gengyoubo.replayneo.feature.editor.handler;
 
-import com.replaymod.core.utils.Utils;
-import com.replaymod.editor.ReplayModEditor;
-import com.replaymod.editor.gui.GuiEditReplay;
-import com.replaymod.replay.gui.screen.GuiReplayViewer;
-import de.johni0702.minecraft.gui.container.AbstractGuiScreen;
-import de.johni0702.minecraft.gui.container.GuiScreen;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import de.johni0702.minecraft.gui.versions.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.feature.editor.ReplayModEditor;
+import github.com.gengyoubo.replayneo.feature.editor.gui.GuiEditReplay;
+import github.com.gengyoubo.replayneo.feature.replay.gui.screen.GuiReplayViewer;
+import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiScreen;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
 import java.io.IOException;
 import net.minecraft.CrashReport;
 

@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
 
 public interface IGuiTimeline<T extends IGuiTimeline<T>> extends GuiElement<T> {
 

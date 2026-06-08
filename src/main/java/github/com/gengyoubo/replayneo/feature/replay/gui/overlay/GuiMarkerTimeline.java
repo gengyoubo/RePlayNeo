@@ -1,19 +1,19 @@
 package github.com.gengyoubo.replayneo.feature.replay.gui.overlay;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.versions.MCVer.Keyboard;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
 import com.replaymod.replaystudio.data.Marker;
 import com.replaymod.replaystudio.util.Location;
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.element.advanced.AbstractGuiTimeline;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Draggable;
-import de.johni0702.minecraft.gui.function.KeyHandler;
-import de.johni0702.minecraft.gui.function.KeyInput;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.feature.pathing.element.advanced.AbstractGuiTimeline;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Draggable;
+import github.com.gengyoubo.replayneo.function.KeyHandler;
+import github.com.gengyoubo.replayneo.function.KeyInput;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import static de.johni0702.minecraft.gui.utils.Utils.clamp;
+import static github.com.gengyoubo.replayneo.core.guiutils.Utils.clamp;
 
 public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> implements Draggable, KeyHandler {
     protected static final int TEXTURE_MARKER_X = 109;
@@ -188,7 +188,7 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
         return super.mouseClick(click);
     }
 
-    public void mouseDrag(Click click) {
+    public boolean mouseDrag(Click click) {
         if (selectedMarker != null) {
             int diff = click.y - draggingStartX;
             if (Math.abs(diff) > MARKER_SIZE) {
@@ -200,7 +200,9 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
                     selectedMarker.setTime(draggingTimeDelta + timeAt);
                 }
             }
+            return true;
         }
+        return false;
     }
 
     @Override

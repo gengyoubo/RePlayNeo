@@ -4,18 +4,18 @@ import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.mixin.MinecraftAccessor;
-import com.replaymod.core.mixin.TimerAccessor;
-import com.replaymod.core.utils.Restrictions;
-import com.replaymod.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
+import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
+import github.com.gengyoubo.replayneo.core.utils.Restrictions;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
 import com.replaymod.replaystudio.io.ReplayInputStream;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.packet.State;
 import com.replaymod.replaystudio.protocol.PacketType;
 import com.replaymod.replaystudio.protocol.PacketTypeRegistry;
 import com.replaymod.replaystudio.replay.ReplayFile;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import de.johni0702.minecraft.gui.versions.callbacks.PreTickCallback;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
@@ -69,7 +69,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
 
-import com.replaymod.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.RelativeMovement;
@@ -84,8 +84,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.replaymod.core.utils.Utils.DEFAULT_MS_PER_TICK;
-import static com.replaymod.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 import static com.replaymod.replaystudio.util.Utils.readInt;
 
 /**
@@ -316,6 +316,9 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
     private static class EventHandler extends EventRegistrations {
         { on(PreTickCallback.EVENT, this::onWorldTick); }
+
+        private void onWorldTick() {
+        }
     }
 
     @Override
@@ -386,6 +389,14 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                 removeDeadEntities(world);
             }
         });
+    }
+
+    private void removeDeadEntities(ClientLevel world) {
+        for (Entity entity : world.entitiesForRendering()) {
+            if (entity.isRemoved()) {
+                world.removeEntity(entity.getId(), entity.getRemovalReason());
+            }
+        }
     }
 
     /**

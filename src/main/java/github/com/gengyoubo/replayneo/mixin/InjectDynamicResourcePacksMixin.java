@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.versions.LangResourcePack;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.platform.versions.LangResourcePack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

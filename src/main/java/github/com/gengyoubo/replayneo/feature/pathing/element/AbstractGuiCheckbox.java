@@ -24,20 +24,20 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.function.Click;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.function.Click;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
 
-import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 public abstract class AbstractGuiCheckbox<T extends AbstractGuiCheckbox<T>>
         extends AbstractGuiClickable<T> implements IGuiCheckbox<T> {
@@ -107,9 +107,9 @@ public abstract class AbstractGuiCheckbox<T extends AbstractGuiCheckbox<T>>
     }
 
     @Override
-    public void setChecked(boolean checked) {
+    public T setChecked(boolean checked) {
         this.checked = checked;
-        getThis();
+        return getThis();
     }
 
     public String getLabel() {

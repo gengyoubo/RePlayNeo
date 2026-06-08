@@ -1,12 +1,12 @@
 package github.com.gengyoubo.replayneo.feature.pathing.preview;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.events.PostRenderWorldCallback;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.pathing.properties.CameraProperties;
-import com.replaymod.pathing.properties.SpectatorProperty;
-import com.replaymod.pathing.properties.TimestampProperty;
-import com.replaymod.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.events.PostRenderWorldCallback;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.pathing.properties.CameraProperties;
+import github.com.gengyoubo.replayneo.feature.pathing.properties.SpectatorProperty;
+import github.com.gengyoubo.replayneo.feature.pathing.properties.TimestampProperty;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
 import com.replaymod.replaystudio.pathing.interpolation.Interpolator;
 import com.replaymod.replaystudio.pathing.path.Keyframe;
 import com.replaymod.replaystudio.pathing.path.Path;
@@ -16,15 +16,15 @@ import com.replaymod.replaystudio.util.Location;
 import github.com.gengyoubo.replayneo.feature.pathing.ReplayModSimplePathing;
 import github.com.gengyoubo.replayneo.feature.pathing.SPTimeline;
 import github.com.gengyoubo.replayneo.RePlayNeo;
-import com.replaymod.simplepathing.gui.GuiPathing;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.feature.pathing.gui.GuiPathing;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.lwjgl.opengl.GL11;
 
 
-import static com.replaymod.core.versions.MCVer.bindTexture;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.bindTexture;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -38,11 +38,11 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-import static com.replaymod.core.ReplayMod.TEXTURE;
-import static com.replaymod.core.versions.MCVer.emitLine;
-import static com.replaymod.core.versions.MCVer.popMatrix;
-import static com.replaymod.core.versions.MCVer.pushMatrix;
-import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
+import static github.com.gengyoubo.replayneo.core.ReplayMod.TEXTURE;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.emitLine;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.popMatrix;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.pushMatrix;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 public class PathPreviewRenderer extends EventRegistrations {
     private static final ResourceLocation CAMERA_HEAD = identifier(RePlayNeo.RESOURCE_NAMESPACE, "camera_head.png");
@@ -198,9 +198,9 @@ public class PathPreviewRenderer extends EventRegistrations {
     }
 
     private static int interpolateColor(double weight) {
-        return (interpolateColorComponent((com.replaymod.simplepathing.preview.PathPreviewRenderer.SLOW_PATH_COLOR >> 16) & 0xff, (com.replaymod.simplepathing.preview.PathPreviewRenderer.FAST_PATH_COLOR >> 16) & 0xff, weight) << 16)
-                | (interpolateColorComponent((com.replaymod.simplepathing.preview.PathPreviewRenderer.SLOW_PATH_COLOR >> 8) & 0xff, (com.replaymod.simplepathing.preview.PathPreviewRenderer.FAST_PATH_COLOR >> 8) & 0xff, weight) << 8)
-                | interpolateColorComponent(com.replaymod.simplepathing.preview.PathPreviewRenderer.SLOW_PATH_COLOR & 0xff, com.replaymod.simplepathing.preview.PathPreviewRenderer.FAST_PATH_COLOR & 0xff, weight);
+        return (interpolateColorComponent((github.com.gengyoubo.replayneo.feature.pathing.preview.PathPreviewRenderer.SLOW_PATH_COLOR >> 16) & 0xff, (github.com.gengyoubo.replayneo.feature.pathing.preview.PathPreviewRenderer.FAST_PATH_COLOR >> 16) & 0xff, weight) << 16)
+                | (interpolateColorComponent((github.com.gengyoubo.replayneo.feature.pathing.preview.PathPreviewRenderer.SLOW_PATH_COLOR >> 8) & 0xff, (github.com.gengyoubo.replayneo.feature.pathing.preview.PathPreviewRenderer.FAST_PATH_COLOR >> 8) & 0xff, weight) << 8)
+                | interpolateColorComponent(github.com.gengyoubo.replayneo.feature.pathing.preview.PathPreviewRenderer.SLOW_PATH_COLOR & 0xff, github.com.gengyoubo.replayneo.feature.pathing.preview.PathPreviewRenderer.FAST_PATH_COLOR & 0xff, weight);
     }
 
     private static int interpolateColorComponent(int c1, int c2, double weight) {

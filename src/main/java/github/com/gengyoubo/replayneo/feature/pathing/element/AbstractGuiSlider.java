@@ -24,12 +24,12 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Clickable;
-import de.johni0702.minecraft.gui.function.Draggable;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Clickable;
+import github.com.gengyoubo.replayneo.function.Draggable;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
@@ -165,10 +165,10 @@ public abstract class AbstractGuiSlider<T extends AbstractGuiSlider<T>> extends 
     }
 
     @Override
-    public void setValue(int value) {
+    public T setValue(int value) {
         this.value = value;
         onValueChanged();
-        getThis();
+        return getThis();
     }
 
     @Override

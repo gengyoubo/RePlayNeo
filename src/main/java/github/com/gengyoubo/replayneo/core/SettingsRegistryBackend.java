@@ -6,7 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.replaymod.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Map;
 import net.minecraft.client.Minecraft;
 
-import static com.replaymod.core.utils.Utils.ensureDirectoryExists;
-import static com.replaymod.core.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.core.utils.Utils.ensureDirectoryExists;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
 
 class SettingsRegistryBackend {
     private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
@@ -85,9 +85,9 @@ class SettingsRegistryBackend {
                 }
                 if (key.getDefault() instanceof String && value.isString()) {
                     String valueStr = value.getAsString();
-                    if (entry instanceof SettingsRegistry.MultipleChoiceSettingKey) {
+                    if (key instanceof SettingsRegistry.MultipleChoiceSettingKey) {
                         @SuppressWarnings("unchecked")
-                        List<String> choices = ((SettingsRegistry.MultipleChoiceSettingKey<String>) entry).getChoices();
+                        List<String> choices = ((SettingsRegistry.MultipleChoiceSettingKey<String>) key).getChoices();
                         if (choices.stream().noneMatch(valueStr::equals)) {
                             continue;
                         }
@@ -96,6 +96,14 @@ class SettingsRegistryBackend {
                 }
             }
         }
+    }
+
+    public void register(SettingsRegistry.SettingKey<?> key) {
+        load(false);
+    }
+
+    public <T> void update(SettingsRegistry.SettingKey<T> key, T value) {
+        settings.put(key, value);
     }
 
     private void registerWatcher() throws IOException {

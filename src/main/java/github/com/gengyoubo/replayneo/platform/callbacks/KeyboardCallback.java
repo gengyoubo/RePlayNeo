@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.platform.callbacks;
 
-import de.johni0702.minecraft.gui.function.CharInput;
-import de.johni0702.minecraft.gui.function.KeyInput;
-import de.johni0702.minecraft.gui.utils.Event;
+import github.com.gengyoubo.replayneo.function.CharInput;
+import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface KeyboardCallback {
     Event<KeyboardCallback> EVENT = Event.create((listeners) ->

@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.feature.render.hooks;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
-import com.replaymod.render.gui.progress.VirtualWindow;
+import github.com.gengyoubo.replayneo.feature.render.gui.progress.VirtualWindow;
 import net.minecraft.client.Minecraft;
 
 public interface MinecraftClientExt {

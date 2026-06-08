@@ -24,8 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.core.guiutils;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.function.Focusable;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.function.Focusable;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -24,17 +24,17 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 
-import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implements GuiElement<T> {
     protected static final ResourceLocation TEXTURE = identifier("jgui", "gui.png");
@@ -117,20 +117,20 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
     }
 
     @Override
-    public void setTooltip(GuiElement tooltip) {
+    public T setTooltip(GuiElement tooltip) {
         this.tooltip = tooltip;
-        getThis();
+        return getThis();
     }
 
     @Override
-    public void setContainer(GuiContainer container) {
+    public T setContainer(GuiContainer container) {
         this.container = container;
-        getThis();
+        return getThis();
     }
 
-    public void setMinSize(ReadableDimension minSize) {
+    public T setMinSize(ReadableDimension minSize) {
         this.minSize = new Dimension(minSize);
-        getThis();
+        return getThis();
     }
 
     public T setMaxSize(ReadableDimension maxSize) {

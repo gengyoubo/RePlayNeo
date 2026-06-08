@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.feature.render.events;
 
-import com.replaymod.render.rendering.VideoRenderer;
-import de.johni0702.minecraft.gui.utils.Event;
+import github.com.gengyoubo.replayneo.feature.render.rendering.VideoRenderer;
+import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface ReplayRenderCallback {
     interface Pre {

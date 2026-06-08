@@ -1,13 +1,13 @@
 package github.com.gengyoubo.replayneo.feature.render.processor;
 
-import com.replaymod.render.frame.CubicOpenGlFrame;
-import com.replaymod.render.frame.BitmapFrame;
-import com.replaymod.render.utils.ByteBufferPool;
+import github.com.gengyoubo.replayneo.feature.render.frame.CubicOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 
 import java.nio.ByteBuffer;
 
-import static com.replaymod.render.utils.Utils.openGlBytesToBitmap;
+import static github.com.gengyoubo.replayneo.restored.com.replaymod.render.utils.Utils.openGlBytesToBitmap;
 
 public class CubicToBitmapProcessor extends AbstractFrameProcessor<CubicOpenGlFrame, BitmapFrame> {
 

@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.render.blend.data;
 
-import com.replaymod.render.blend.Util;
+import github.com.gengyoubo.replayneo.feature.render.blend.Util;
 import org.blender.dna.MTex;
 import org.blender.dna.Material;
 import org.blender.dna.Tex;

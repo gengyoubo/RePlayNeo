@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.feature.pathing.player;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.replaymod.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
 import com.replaymod.replaystudio.pathing.path.Timeline;
 import net.minecraft.client.Minecraft;
 

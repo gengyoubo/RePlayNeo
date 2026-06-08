@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 
 import org.joml.Matrix4f;
 import net.minecraft.world.phys.Vec3;
-import com.replaymod.render.mixin.MainWindowAccessor;
+import github.com.gengyoubo.replayneo.mixin.MainWindowAccessor;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -28,7 +28,7 @@ import net.minecraft.client.gui.components.AbstractButton;
 import java.util.concurrent.CompletableFuture;
 import org.lwjgl.glfw.GLFW;
 
-import com.replaymod.render.blend.mixin.ParticleAccessor;
+import github.com.gengyoubo.replayneo.mixin.ParticleAccessor;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraft.network.chat.Component;
@@ -233,7 +233,7 @@ public class MCVer {
     }
 
     public static void bindTexture(ResourceLocation id) {
-        de.johni0702.minecraft.gui.versions.MCVer.bindTexture(id);
+        github.com.gengyoubo.replayneo.platform.versions.MCVer.bindTexture(id);
     }
 
 

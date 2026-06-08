@@ -25,12 +25,12 @@
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import com.google.common.base.Preconditions;
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.versions.Image;
+import github.com.gengyoubo.replayneo.platform.versions.Image;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
 
@@ -107,7 +107,7 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     }
 
     @Override
-    public void setTexture(ResourceLocation resourceLocation) {
+    public T setTexture(ResourceLocation resourceLocation) {
         Preconditions.checkState(copyOf == null, "Cannot change texture of copy.");
         if (texture != null) {
             texture.releaseId();
@@ -115,7 +115,7 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
         }
         this.resourceLocation = resourceLocation;
         textureWidth = textureHeight = 256;
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -127,9 +127,9 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     }
 
     @Override
-    public void setU(int u) {
+    public T setU(int u) {
         this.u = u;
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -139,15 +139,16 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     }
 
     @Override
-    public void setUV(int u, int v) {
+    public T setUV(int u, int v) {
         setU(u);
         setV(v);
+        return getThis();
     }
 
     @Override
-    public void setUWidth(int width) {
+    public T setUWidth(int width) {
         this.uWidth = width;
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -157,9 +158,10 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     }
 
     @Override
-    public void setUVSize(int width, int height) {
+    public T setUVSize(int width, int height) {
         setUWidth(width);
         setVHeight(height);
+        return getThis();
     }
 
     /**

@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.feature.pathing.gui;
 
-import com.replaymod.pathing.properties.CameraProperties;
-import com.replaymod.pathing.properties.TimestampProperty;
-import com.replaymod.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.pathing.properties.CameraProperties;
+import github.com.gengyoubo.replayneo.feature.pathing.properties.TimestampProperty;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
 import com.replaymod.replaystudio.pathing.change.Change;
 import com.replaymod.replaystudio.pathing.change.CombinedChange;
 import com.replaymod.replaystudio.pathing.interpolation.CatmullRomSplineInterpolator;
@@ -16,32 +16,32 @@ import github.com.gengyoubo.replayneo.feature.pathing.InterpolatorType;
 import github.com.gengyoubo.replayneo.feature.pathing.SPTimeline;
 import github.com.gengyoubo.replayneo.feature.pathing.SPTimeline.SPPath;
 import github.com.gengyoubo.replayneo.feature.pathing.Setting;
-import com.replaymod.simplepathing.properties.ExplicitInterpolationProperty;
-import de.johni0702.minecraft.gui.container.AbstractGuiContainer;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.element.GuiButton;
-import de.johni0702.minecraft.gui.element.GuiLabel;
-import de.johni0702.minecraft.gui.element.GuiNumberField;
-import de.johni0702.minecraft.gui.element.GuiTooltip;
-import de.johni0702.minecraft.gui.element.IGuiClickable;
-import de.johni0702.minecraft.gui.element.IGuiLabel;
-import de.johni0702.minecraft.gui.element.advanced.GuiDropdownMenu;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.KeyHandler;
-import de.johni0702.minecraft.gui.function.KeyInput;
-import de.johni0702.minecraft.gui.layout.GridLayout;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.layout.VerticalLayout;
-import de.johni0702.minecraft.gui.popup.AbstractGuiPopup;
+import github.com.gengyoubo.replayneo.feature.pathing.properties.ExplicitInterpolationProperty;
+import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiNumberField;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.feature.pathing.element.IGuiClickable;
+import github.com.gengyoubo.replayneo.feature.pathing.element.IGuiLabel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.advanced.GuiDropdownMenu;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.KeyHandler;
+import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.core.gui.layout.GridLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.core.gui.popup.AbstractGuiPopup;
 import net.minecraft.client.resources.language.I18n;
-import de.johni0702.minecraft.gui.utils.Colors;
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.core.utils.Colors;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 import java.util.Optional;
 
-import static de.johni0702.minecraft.gui.utils.Utils.link;
+import static github.com.gengyoubo.replayneo.core.guiutils.Utils.link;
 
 public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends AbstractGuiPopup<T> implements KeyHandler {
     private static GuiNumberField newGuiNumberField() {

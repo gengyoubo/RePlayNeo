@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.feature.render;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
 import de.javagl.jgltf.impl.v2.Accessor;
 import de.javagl.jgltf.impl.v2.Animation;
 import de.javagl.jgltf.impl.v2.AnimationChannel;
@@ -30,7 +30,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
-import static com.replaymod.core.utils.Utils.configure;
+import static github.com.gengyoubo.replayneo.core.utils.Utils.configure;
 
 public class CameraPathExporter {
 

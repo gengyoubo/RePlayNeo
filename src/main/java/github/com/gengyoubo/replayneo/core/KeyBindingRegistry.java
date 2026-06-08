@@ -3,26 +3,25 @@ package github.com.gengyoubo.replayneo.core;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.replaymod.core.events.PreRenderCallback;
-import com.replaymod.core.mixin.KeyBindingAccessor;
+import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.mixin.KeyBindingAccessor;
 import github.com.gengyoubo.replayneo.RePlayNeo;
-import de.johni0702.minecraft.gui.function.KeyInput;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import com.replaymod.core.events.KeyBindingEventCallback;
-import com.replaymod.core.events.KeyEventCallback;
+import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
+import github.com.gengyoubo.replayneo.core.events.KeyEventCallback;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.ResourceLocation;
-import com.replaymod.core.versions.LangResourcePack;
+import github.com.gengyoubo.replayneo.platform.versions.LangResourcePack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static com.replaymod.core.ReplayMod.MOD_ID;
-import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -195,7 +194,7 @@ public class KeyBindingRegistry extends EventRegistrations {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = RePlayNeo.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ForgeKeyMappings {
         @SubscribeEvent
         public static void registerKeyMappings(RegisterKeyMappingsEvent event) {

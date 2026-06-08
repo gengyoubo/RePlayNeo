@@ -1,22 +1,22 @@
 package github.com.gengyoubo.replayneo.feature.recording.handler;
 
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.utils.ModCompat;
-import com.replaymod.core.utils.Utils;
-import com.replaymod.editor.gui.MarkerProcessor;
-import com.replaymod.recording.ServerInfoExt;
-import com.replaymod.recording.Setting;
-import com.replaymod.recording.gui.GuiRecordingControls;
-import com.replaymod.recording.gui.GuiRecordingOverlay;
-import com.replaymod.recording.mixin.NetworkManagerAccessor;
-import com.replaymod.recording.packet.PacketListener;
-import com.replaymod.recording.packet.PacketListener.DecodedPacketListener;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.utils.ModCompat;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.feature.editor.gui.MarkerProcessor;
+import github.com.gengyoubo.replayneo.feature.recording.ServerInfoExt;
+import github.com.gengyoubo.replayneo.feature.recording.Setting;
+import github.com.gengyoubo.replayneo.feature.recording.gui.GuiRecordingControls;
+import github.com.gengyoubo.replayneo.feature.recording.gui.GuiRecordingOverlay;
+import github.com.gengyoubo.replayneo.mixin.NetworkManagerAccessor;
+import github.com.gengyoubo.replayneo.feature.recording.packet.PacketListener;
+import github.com.gengyoubo.replayneo.feature.recording.packet.PacketListener.DecodedPacketListener;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import com.replaymod.replaystudio.replay.ReplayMetaData;
 import io.netty.channel.Channel;
 import org.apache.logging.log4j.Logger;
 
-import com.replaymod.recording.mixin.ClientLoginNetworkHandlerAccessor;
+import github.com.gengyoubo.replayneo.mixin.ClientLoginNetworkHandlerAccessor;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +28,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.Connection;
 import net.minecraft.world.level.Level;
 
-import static com.replaymod.core.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
 
 /**
  * Handles connection events and initiates recording if enabled.

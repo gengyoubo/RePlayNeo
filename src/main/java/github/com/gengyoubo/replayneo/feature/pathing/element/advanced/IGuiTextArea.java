@@ -24,8 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.element.GuiElement;
-import de.johni0702.minecraft.gui.function.Focusable;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.function.Focusable;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 
 public interface IGuiTextArea<T extends IGuiTextArea<T>> extends GuiElement<T>, Focusable<T> {

@@ -24,19 +24,19 @@
  */
 package github.com.gengyoubo.replayneo.function;
 
-import de.johni0702.minecraft.gui.utils.Consumer;
+import github.com.gengyoubo.replayneo.core.utils.Consumer;
 
 public interface Focusable<T extends Focusable<T>> {
 
     boolean isFocused();
-    void setFocused(boolean focused);
+    T setFocused(boolean focused);
 
     T onFocusChange(Consumer<Boolean> consumer);
 
     Focusable getNext();
-    void setNext(Focusable next);
+    T setNext(Focusable next);
 
     Focusable getPrevious();
-    void setPrevious(Focusable previous);
+    T setPrevious(Focusable previous);
 
 }

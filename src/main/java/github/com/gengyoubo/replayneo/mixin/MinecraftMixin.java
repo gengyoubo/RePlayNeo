@@ -2,10 +2,10 @@ package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.Window;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.render.gui.progress.VirtualWindow;
-import com.replaymod.render.hooks.MinecraftClientExt;
-import com.replaymod.replay.InputReplayTimer;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.render.gui.progress.VirtualWindow;
+import github.com.gengyoubo.replayneo.feature.render.hooks.MinecraftClientExt;
+import github.com.gengyoubo.replayneo.feature.replay.InputReplayTimer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
-import com.replaymod.core.events.PostRenderCallback;
-import com.replaymod.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.core.events.PostRenderCallback;
+import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.thread.ReentrantBlockableEventLoop;

@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
 
 public interface IGuiProgressBar<T extends IGuiProgressBar<T>> extends GuiElement<T> {
     T setProgress(float progress);

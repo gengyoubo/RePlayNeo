@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.feature.render.blend;
 
-import com.replaymod.render.blend.data.DScene;
-import com.replaymod.render.blend.data.Serializer;
+import github.com.gengyoubo.replayneo.feature.render.blend.data.DScene;
+import github.com.gengyoubo.replayneo.feature.render.blend.data.Serializer;
 import org.apache.commons.io.output.NullOutputStream;
 import org.blender.utils.BlenderFactory;
 import org.cakelab.blender.io.BlenderFile;
@@ -16,7 +16,7 @@ import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 
-import static com.replaymod.render.ReplayModRender.LOGGER;
+import static github.com.gengyoubo.replayneo.feature.render.ReplayModRender.LOGGER;
 
 // Note:
 // - Chunk exporter currently assumes VBO are enabled and in use

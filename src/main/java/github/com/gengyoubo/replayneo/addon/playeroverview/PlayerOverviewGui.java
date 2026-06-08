@@ -1,23 +1,23 @@
 package github.com.gengyoubo.replayneo.addon.playeroverview;
 
-import com.replaymod.replay.ReplayModReplay;
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiClickable;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.container.GuiPanel;
-import de.johni0702.minecraft.gui.container.GuiScreen;
-import de.johni0702.minecraft.gui.container.GuiVerticalList;
-import de.johni0702.minecraft.gui.element.GuiCheckbox;
-import de.johni0702.minecraft.gui.element.GuiImage;
-import de.johni0702.minecraft.gui.element.GuiLabel;
-import de.johni0702.minecraft.gui.element.GuiTooltip;
-import de.johni0702.minecraft.gui.element.IGuiCheckbox;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Closeable;
-import de.johni0702.minecraft.gui.layout.CustomLayout;
-import de.johni0702.minecraft.gui.layout.HorizontalLayout;
-import de.johni0702.minecraft.gui.utils.Colors;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiClickable;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiVerticalList;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiCheckbox;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiImage;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.feature.pathing.element.IGuiCheckbox;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Closeable;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.utils.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
@@ -105,9 +105,9 @@ public class PlayerOverviewGui extends GuiScreen implements Closeable {
             ).onClick((Runnable) () -> ReplayModReplay.instance.getReplayHandler().spectateEntity(p));
             final GuiCheckbox checkbox = new GuiCheckbox() {
                 @Override
-                public void setChecked(boolean checked) {
+                public GuiCheckbox setChecked(boolean checked) {
                     extra.setHidden(p.getUUID(), !checked);
-                    super.setChecked(checked);
+                    return super.setChecked(checked);
                 }
             }.setChecked(!extra.isHidden(p.getUUID()));
             new GuiPanel(playersScrollable.getListPanel()).setLayout(new CustomLayout<GuiPanel>() {

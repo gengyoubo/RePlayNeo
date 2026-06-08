@@ -4,22 +4,22 @@ import com.google.common.base.Function;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.replaymod.core.KeyBindingRegistry;
-import com.replaymod.core.Module;
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.utils.ModCompat;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.core.versions.MCVer.Keyboard;
-import com.replaymod.replay.camera.CameraController;
-import com.replaymod.replay.camera.CameraControllerRegistry;
-import com.replaymod.replay.camera.CameraEntity;
-import com.replaymod.replay.camera.ClassicCameraController;
-import com.replaymod.replay.camera.VanillaCameraController;
-import com.replaymod.replay.gui.screen.GuiModCompatWarning;
-import com.replaymod.replay.handler.GuiHandler;
+import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.core.Module;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.utils.ModCompat;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraController;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraControllerRegistry;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.feature.replay.camera.ClassicCameraController;
+import github.com.gengyoubo.replayneo.feature.replay.camera.VanillaCameraController;
+import github.com.gengyoubo.replayneo.feature.replay.gui.screen.GuiModCompatWarning;
+import github.com.gengyoubo.replayneo.feature.replay.handler.GuiHandler;
 import com.replaymod.replaystudio.data.Marker;
 import com.replaymod.replaystudio.replay.ReplayFile;
-import de.johni0702.minecraft.gui.function.Click;
+import github.com.gengyoubo.replayneo.function.Click;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 import org.apache.logging.log4j.Logger;
@@ -34,14 +34,14 @@ import java.util.Optional;
 public class ReplayModReplay implements Module {
 
     { instance = this; }
-    public static final ReplayModReplay instance;
+    public static ReplayModReplay instance;
 
     private final ReplayMod core;
     public KeyBindingRegistry.Binding keyPlayPause;
 
     private final CameraControllerRegistry cameraControllerRegistry = new CameraControllerRegistry();
 
-    public static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     private ReplayHandler replayHandler;
 

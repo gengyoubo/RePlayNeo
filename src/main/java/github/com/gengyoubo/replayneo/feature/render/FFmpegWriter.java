@@ -1,12 +1,12 @@
 package github.com.gengyoubo.replayneo.feature.render;
 
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.render.frame.BitmapFrame;
-import com.replaymod.render.rendering.Channel;
-import com.replaymod.render.rendering.FrameConsumer;
-import com.replaymod.render.rendering.VideoRenderer;
-import com.replaymod.render.utils.ByteBufferPool;
-import com.replaymod.render.utils.StreamPipe;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.feature.render.rendering.FrameConsumer;
+import github.com.gengyoubo.replayneo.feature.render.rendering.VideoRenderer;
+import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
+import github.com.gengyoubo.replayneo.core.utils.StreamPipe;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.io.FileUtils;
@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 
-import static com.replaymod.render.ReplayModRender.LOGGER;
+import static github.com.gengyoubo.replayneo.feature.render.ReplayModRender.LOGGER;
 import static org.apache.commons.lang3.Validate.isTrue;
 
 public class FFmpegWriter implements FrameConsumer<BitmapFrame> {

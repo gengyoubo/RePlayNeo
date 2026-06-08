@@ -1,18 +1,18 @@
 package github.com.gengyoubo.replayneo.feature.pathing;
 
-import com.replaymod.core.KeyBindingRegistry;
-import com.replaymod.core.Module;
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.SettingsRegistry;
-import com.replaymod.core.events.SettingsChangedCallback;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import com.replaymod.core.versions.MCVer.Keyboard;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.events.ReplayClosedCallback;
-import com.replaymod.replay.events.ReplayClosingCallback;
-import com.replaymod.replay.events.ReplayOpenedCallback;
-import com.replaymod.replay.gui.overlay.GuiReplayOverlay;
+import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.core.Module;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayClosedCallback;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayClosingCallback;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.feature.replay.gui.overlay.GuiReplayOverlay;
 import com.replaymod.replaystudio.pathing.PathingRegistry;
 import com.replaymod.replaystudio.pathing.change.Change;
 import com.replaymod.replaystudio.pathing.path.Keyframe;
@@ -20,8 +20,8 @@ import com.replaymod.replaystudio.pathing.path.Timeline;
 import com.replaymod.replaystudio.pathing.serialize.TimelineSerialization;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import github.com.gengyoubo.replayneo.feature.pathing.SPTimeline.SPPath;
-import com.replaymod.simplepathing.gui.GuiPathing;
-import com.replaymod.simplepathing.preview.PathPreview;
+import github.com.gengyoubo.replayneo.feature.pathing.gui.GuiPathing;
+import github.com.gengyoubo.replayneo.feature.pathing.preview.PathPreview;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -36,14 +36,14 @@ import net.minecraft.ReportedException;
 
 public class ReplayModSimplePathing extends EventRegistrations implements Module {
     { instance = this; }
-    public static final ReplayModSimplePathing instance;
+    public static ReplayModSimplePathing instance;
 
     private final ReplayMod core;
     public KeyBindingRegistry.Binding keyPositionKeyframe;
     public KeyBindingRegistry.Binding keyTimeKeyframe;
     public KeyBindingRegistry.Binding keySyncTime;
 
-    public static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     private GuiPathing guiPathing;
     private final PathPreview pathPreview = new PathPreview(this);

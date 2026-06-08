@@ -8,12 +8,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.RemotePlayer;
 
 @Mixin(AbstractClientPlayer.class)
 public abstract class FixNPCSkinCachingMixin {
-    @Shadow @Nullable protected abstract void getPlayerInfo();
+    @Shadow @Nullable protected abstract PlayerInfo getPlayerInfo();
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void forceCachePlayerListEntry(CallbackInfo ci) {

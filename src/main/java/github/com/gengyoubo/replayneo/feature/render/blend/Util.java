@@ -178,10 +178,10 @@ public class Util {
     }
 
     public interface IOBiConsumer<T, U> {
-        void accept(T t, U u);
+        void accept(T t, U u) throws IOException;
     }
 
     public interface IOFunction<T, R> {
-        R apply(T t);
+        R apply(T t) throws IOException;
     }
 }

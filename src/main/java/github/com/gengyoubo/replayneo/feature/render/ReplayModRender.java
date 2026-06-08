@@ -1,15 +1,15 @@
 package github.com.gengyoubo.replayneo.feature.render;
 
-import com.replaymod.core.Module;
-import com.replaymod.core.ReplayMod;
-import com.replaymod.core.utils.Utils;
-import com.replaymod.render.utils.RenderJob;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.events.ReplayClosedCallback;
-import com.replaymod.replay.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.core.Module;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.core.utils.RenderJob;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayClosedCallback;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayOpenedCallback;
 import com.replaymod.replaystudio.replay.ReplayFile;
-import de.johni0702.minecraft.gui.container.VanillaGuiScreen;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Logger;
 
@@ -23,11 +23,11 @@ import net.minecraft.ReportedException;
 
 public class ReplayModRender extends EventRegistrations implements Module {
     { instance = this; }
-    public static final ReplayModRender instance;
+    public static ReplayModRender instance;
 
     private final ReplayMod core;
 
-    public static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     private ReplayFile replayFile;
     private final List<RenderJob> renderQueue = new ArrayList<>();

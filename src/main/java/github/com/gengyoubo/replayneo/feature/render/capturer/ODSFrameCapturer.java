@@ -1,15 +1,15 @@
 package github.com.gengyoubo.replayneo.feature.render.capturer;
 
-import com.replaymod.render.rendering.Channel;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import com.replaymod.render.RenderSettings;
-import com.replaymod.render.frame.CubicOpenGlFrame;
-import com.replaymod.render.frame.ODSOpenGlFrame;
-import com.replaymod.render.frame.OpenGlFrame;
-import com.replaymod.render.hooks.FogStateCallback;
-import com.replaymod.render.hooks.Texture2DStateCallback;
-import com.replaymod.render.rendering.FrameCapturer;
-import com.replaymod.render.shader.Program;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.feature.render.frame.CubicOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.ODSOpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.feature.render.hooks.FogStateCallback;
+import github.com.gengyoubo.replayneo.feature.render.hooks.Texture2DStateCallback;
+import github.com.gengyoubo.replayneo.feature.render.rendering.FrameCapturer;
+import github.com.gengyoubo.replayneo.feature.render.shader.Program;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.resources.ResourceLocation;
 
-import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 public class ODSFrameCapturer implements FrameCapturer<ODSOpenGlFrame> {
     private static final ResourceLocation vertexResource = identifier(RePlayNeo.RESOURCE_NAMESPACE, "shader/ods.vert");
@@ -52,12 +52,13 @@ public class ODSFrameCapturer implements FrameCapturer<ODSOpenGlFrame> {
             }
 
             @Override
-            public void updateForNextFrame() {
+            public float updateForNextFrame() {
                 if (call++ % 2 == 0) {
                     unbindProgram();
                     partialTicks = renderInfo.updateForNextFrame();
                     bindProgram();
                 }
+                return partialTicks;
             }
 
             @Override

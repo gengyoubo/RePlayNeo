@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.core.events;
 
-import com.replaymod.core.SettingsRegistry;
-import de.johni0702.minecraft.gui.utils.Event;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface SettingsChangedCallback {
     Event<SettingsChangedCallback> EVENT = Event.create((listeners) ->

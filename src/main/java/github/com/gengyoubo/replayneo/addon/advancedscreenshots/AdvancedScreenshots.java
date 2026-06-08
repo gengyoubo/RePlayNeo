@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.addon.advancedscreenshots;
 
-import com.replaymod.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.addon.Extra;
 
 public class AdvancedScreenshots implements Extra {
@@ -12,7 +12,7 @@ public class AdvancedScreenshots implements Extra {
         this.mod = mod;
     }
 
-    private static final AdvancedScreenshots instance; { instance = this; }
+    private static AdvancedScreenshots instance; { instance = this; }
     public static void take() {
         if (instance != null) {
             instance.takeScreenshot();

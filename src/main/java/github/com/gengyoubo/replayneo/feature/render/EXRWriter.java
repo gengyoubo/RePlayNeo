@@ -1,11 +1,11 @@
 package github.com.gengyoubo.replayneo.feature.render;
 
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.render.frame.BitmapFrame;
-import com.replaymod.render.rendering.Channel;
-import com.replaymod.render.rendering.FrameConsumer;
-import com.replaymod.render.utils.ByteBufferPool;
-import com.replaymod.render.utils.Lwjgl3Loader;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.feature.render.rendering.FrameConsumer;
+import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
+import github.com.gengyoubo.replayneo.core.utils.Lwjgl3Loader;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.util.tinyexr.EXRChannelInfo;

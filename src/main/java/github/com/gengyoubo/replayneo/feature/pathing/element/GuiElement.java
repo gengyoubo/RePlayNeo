@@ -24,9 +24,9 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import net.minecraft.client.Minecraft;
 
@@ -35,7 +35,7 @@ public interface GuiElement<T extends GuiElement<T>> {
     Minecraft getMinecraft();
 
     GuiContainer getContainer();
-    void setContainer(GuiContainer container);
+    T setContainer(GuiContainer container);
 
     void layout(ReadableDimension size, RenderInfo renderInfo);
     void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo);

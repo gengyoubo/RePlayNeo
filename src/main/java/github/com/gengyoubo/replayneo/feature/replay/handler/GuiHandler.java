@@ -1,15 +1,15 @@
 package github.com.gengyoubo.replayneo.feature.replay.handler;
 
-import com.replaymod.core.gui.GuiReplayButton;
-import com.replaymod.replay.Setting;
-import de.johni0702.minecraft.gui.container.VanillaGuiScreen;
-import de.johni0702.minecraft.gui.element.GuiTooltip;
-import de.johni0702.minecraft.gui.layout.CustomLayout;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.gui.GuiReplayButton;
+import github.com.gengyoubo.replayneo.feature.replay.Setting;
+import github.com.gengyoubo.replayneo.core.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
-import de.johni0702.minecraft.gui.versions.callbacks.InitScreenCallback;
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.gui.screen.GuiReplayViewer;
+import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.replay.gui.screen.GuiReplayViewer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
@@ -20,7 +20,7 @@ import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
-import de.johni0702.minecraft.gui.MinecraftGuiRenderer;
+import github.com.gengyoubo.replayneo.MinecraftGuiRenderer;
 import net.minecraftforge.fml.ModList;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,8 +33,8 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import static com.replaymod.core.versions.MCVer.*;
-import static com.replaymod.replay.ReplayModReplay.LOGGER;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay.LOGGER;
 
 public class GuiHandler extends EventRegistrations {
     private static final int BUTTON_REPLAY_VIEWER = 17890234;
@@ -270,11 +270,11 @@ public class GuiHandler extends EventRegistrations {
                     .onClick(() -> new GuiReplayViewer(mod).display())
                     .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.replayviewer"));
 
-            vanillaGui.setLayout(new CustomLayout<de.johni0702.minecraft.gui.container.GuiScreen>(vanillaGui.getLayout()) {
+            vanillaGui.setLayout(new CustomLayout<github.com.gengyoubo.replayneo.core.gui.container.GuiScreen>(vanillaGui.getLayout()) {
                 private Point pos;
 
                 @Override
-                protected void layout(de.johni0702.minecraft.gui.container.GuiScreen container, int width, int height) {
+                protected void layout(github.com.gengyoubo.replayneo.core.gui.container.GuiScreen container, int width, int height) {
                     if (pos == null) {
                         // Delaying computation so we can take into account buttons
                         // added after our callback.

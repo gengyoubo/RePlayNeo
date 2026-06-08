@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,13 +1,13 @@
 package github.com.gengyoubo.replayneo.feature.render;
 
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.render.blend.Util.IOConsumer;
-import com.replaymod.render.frame.BitmapFrame;
-import com.replaymod.render.rendering.Channel;
-import com.replaymod.render.rendering.FrameConsumer;
-import com.replaymod.render.utils.ByteBufferPool;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.render.blend.Util.IOConsumer;
+import github.com.gengyoubo.replayneo.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.feature.render.rendering.FrameConsumer;
+import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.versions.Image;
+import github.com.gengyoubo.replayneo.platform.versions.Image;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;

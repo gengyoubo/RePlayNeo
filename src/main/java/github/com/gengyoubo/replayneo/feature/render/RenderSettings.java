@@ -2,8 +2,8 @@ package github.com.gengyoubo.replayneo.feature.render;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.replaymod.core.utils.FileTypeAdapter;
-import com.replaymod.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.core.utils.FileTypeAdapter;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import org.apache.maven.artifact.versioning.ComparableVersion;
@@ -22,7 +22,7 @@ import net.minecraft.Util;
 import net.minecraft.client.resources.language.I18n;
 import org.jetbrains.annotations.NotNull;
 
-import static com.replaymod.render.ReplayModRender.LOGGER;
+import static github.com.gengyoubo.replayneo.feature.render.ReplayModRender.LOGGER;
 
 public class RenderSettings {
     public enum RenderMethod {

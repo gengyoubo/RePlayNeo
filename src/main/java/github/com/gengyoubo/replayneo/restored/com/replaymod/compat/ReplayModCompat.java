@@ -1,12 +1,12 @@
 package github.com.gengyoubo.replayneo.restored.com.replaymod.compat;
 
-import com.replaymod.compat.optifine.DisableFastRender;
-import com.replaymod.core.Module;
+import github.com.gengyoubo.replayneo.restored.com.replaymod.compat.optifine.DisableFastRender;
+import github.com.gengyoubo.replayneo.core.Module;
 import org.apache.logging.log4j.Logger;
 
 
 
-import com.replaymod.compat.shaders.ShaderBeginRender;
+import github.com.gengyoubo.replayneo.restored.com.replaymod.compat.shaders.ShaderBeginRender;
 
 public class ReplayModCompat implements Module {
     public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;

@@ -1,13 +1,13 @@
 package github.com.gengyoubo.replayneo.feature.pathing.preview;
 
-import com.replaymod.core.KeyBindingRegistry;
-import com.replaymod.core.SettingsRegistry;
-import com.replaymod.core.events.SettingsChangedCallback;
-import de.johni0702.minecraft.gui.utils.EventRegistrations;
-import com.replaymod.core.versions.MCVer.Keyboard;
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.events.ReplayClosedCallback;
-import com.replaymod.replay.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.core.SettingsRegistry;
+import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayClosedCallback;
+import github.com.gengyoubo.replayneo.feature.render.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.feature.pathing.ReplayModSimplePathing;
 import github.com.gengyoubo.replayneo.feature.pathing.Setting;
 

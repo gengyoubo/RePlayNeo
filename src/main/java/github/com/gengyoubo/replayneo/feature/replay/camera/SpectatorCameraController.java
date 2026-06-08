@@ -1,12 +1,12 @@
 package github.com.gengyoubo.replayneo.feature.replay.camera;
 
-import com.replaymod.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.world.entity.Entity;
 import java.util.Arrays;
 
-import static com.replaymod.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 
 public class SpectatorCameraController implements CameraController {
     private final CameraEntity camera;
@@ -40,6 +40,14 @@ public class SpectatorCameraController implements CameraController {
         if (view != null && view != camera) {
             camera.setCameraPosRot(mc.getCameraEntity());
         }
+    }
+
+    @Override
+    public void increaseSpeed() {
+    }
+
+    @Override
+    public void decreaseSpeed() {
     }
 
 }

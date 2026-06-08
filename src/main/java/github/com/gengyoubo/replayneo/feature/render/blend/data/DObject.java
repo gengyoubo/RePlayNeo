@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.render.blend.data;
 
-import com.replaymod.render.blend.Util;
+import github.com.gengyoubo.replayneo.feature.render.blend.Util;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Quaternion;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
 import org.blender.dna.AnimData;
@@ -192,7 +192,13 @@ public class DObject {
                         byte[] matbits = new byte[totcol];
                         Arrays.fill(matbits, (byte) 1);
                         object.setMatbits(serializer.writeBytes(matbits));
-                        object.setMat(serializer.writeDataPArray(Material.class, totcol, i -> Util.plus(meshObj.getMat(), i).get()));
+                        object.setMat(serializer.writeDataPArray(Material.class, totcol, i -> {
+                            try {
+                                return Util.plus(meshObj.getMat(), i).get();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }));
                         object.setTotcol(totcol);
                     }
                 }
@@ -226,13 +232,17 @@ public class DObject {
 
                 if (pointAt != null) {
                     serializer.writeDataList(bConstraint.class, object.getConstraints(), 1, (i, bConstraint) -> {
-                        bConstraint.setEnforce(1);
-                        bConstraint.setType((short) 2 /* CONSTRAINT_TYPE_TRACKTO */);
-                        bTrackToConstraint constraint = serializer.writeData(bTrackToConstraint.class);
-                        constraint.setTar(pointAt);
-                        constraint.setReserved1(1 /* TRACK_Y */);
-                        constraint.setReserved2(2 /* UP_Z */);
-                        bConstraint.setData(constraint.__io__addressof().cast(Object.class));
+                        try {
+                            bConstraint.setEnforce(1);
+                            bConstraint.setType((short) 2 /* CONSTRAINT_TYPE_TRACKTO */);
+                            bTrackToConstraint constraint = serializer.writeData(bTrackToConstraint.class);
+                            constraint.setTar(pointAt);
+                            constraint.setReserved1(1 /* TRACK_Y */);
+                            constraint.setReserved2(2 /* UP_Z */);
+                            bConstraint.setData(constraint.__io__addressof().cast(Object.class));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     });
                 }
             };

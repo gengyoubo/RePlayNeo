@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.render.frame;
 
-import com.replaymod.render.rendering.Frame;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Frame;
 import org.apache.commons.lang3.Validate;
 
 public record CubicOpenGlFrame(OpenGlFrame left, OpenGlFrame right, OpenGlFrame front, OpenGlFrame back,
@@ -21,5 +21,13 @@ public record CubicOpenGlFrame(OpenGlFrame left, OpenGlFrame right, OpenGlFrame 
     @Override
     public int frameId() {
         return left.getFrameId();
+    }
+
+    public OpenGlFrame getLeft() {
+        return left;
+    }
+
+    public OpenGlFrame getRight() {
+        return right;
     }
 }

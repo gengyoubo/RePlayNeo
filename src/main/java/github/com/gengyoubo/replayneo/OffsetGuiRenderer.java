@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo;
 
-import de.johni0702.minecraft.gui.utils.NonNull;
+import github.com.gengyoubo.replayneo.core.utils.NonNull;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
@@ -32,8 +32,8 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
-import static de.johni0702.minecraft.gui.versions.MCVer.popScissorState;
-import static de.johni0702.minecraft.gui.versions.MCVer.pushScissorState;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.popScissorState;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.pushScissorState;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 

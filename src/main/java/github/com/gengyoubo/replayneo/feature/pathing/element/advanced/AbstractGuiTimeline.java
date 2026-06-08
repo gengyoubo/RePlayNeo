@@ -24,21 +24,21 @@
  */
 package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
-import de.johni0702.minecraft.gui.GuiRenderer;
-import de.johni0702.minecraft.gui.RenderInfo;
-import de.johni0702.minecraft.gui.container.GuiContainer;
-import de.johni0702.minecraft.gui.element.AbstractGuiElement;
-import de.johni0702.minecraft.gui.element.GuiTooltip;
-import de.johni0702.minecraft.gui.function.Click;
-import de.johni0702.minecraft.gui.function.Clickable;
-import de.johni0702.minecraft.gui.utils.Colors;
-import de.johni0702.minecraft.gui.utils.Utils;
+import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractGuiElement;
+import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.function.Clickable;
+import github.com.gengyoubo.replayneo.core.utils.Colors;
+import github.com.gengyoubo.replayneo.core.guiutils.Utils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
-import static de.johni0702.minecraft.gui.utils.Utils.clamp;
+import static github.com.gengyoubo.replayneo.core.guiutils.Utils.clamp;
 
 public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> extends AbstractGuiElement<T> implements IGuiTimeline<T>, Clickable {
     protected static final int TEXTURE_WIDTH = 64;
@@ -244,10 +244,10 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
     }
 
     @Override
-    public void setZoom(double zoom) {
+    public T setZoom(double zoom) {
         this.zoom = Math.min(zoom, 1);
         checkOffset();
-        getThis();
+        return getThis();
     }
 
     @Override
@@ -256,10 +256,10 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
     }
 
     @Override
-    public void setOffset(int offset) {
+    public T setOffset(int offset) {
         this.offset = Math.max(offset, 0);
         checkOffset();
-        getThis();
+        return getThis();
     }
 
     @Override

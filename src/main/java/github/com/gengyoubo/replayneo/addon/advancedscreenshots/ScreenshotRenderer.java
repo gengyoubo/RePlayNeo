@@ -1,17 +1,17 @@
 package github.com.gengyoubo.replayneo.addon.advancedscreenshots;
 
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.render.RenderSettings;
-import com.replaymod.render.blend.BlendState;
-import com.replaymod.render.capturer.RenderInfo;
-import com.replaymod.render.hooks.ForceChunkLoadingHook;
-import com.replaymod.render.rendering.Pipelines;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.feature.render.blend.BlendState;
+import github.com.gengyoubo.replayneo.feature.render.capturer.RenderInfo;
+import github.com.gengyoubo.replayneo.feature.render.hooks.ForceChunkLoadingHook;
+import github.com.gengyoubo.replayneo.feature.render.rendering.Pipelines;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;
 
-import static com.replaymod.core.versions.MCVer.resizeMainWindow;
+import static github.com.gengyoubo.replayneo.core.versions.MCVer.resizeMainWindow;
 
 import com.mojang.blaze3d.platform.Window;
 

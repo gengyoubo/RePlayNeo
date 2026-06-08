@@ -1,18 +1,18 @@
 package github.com.gengyoubo.replayneo.core;
 
-import com.replaymod.compat.ReplayModCompat;
-import com.replaymod.core.files.ReplayFilesService;
-import com.replaymod.core.files.ReplayFoldersService;
-import com.replaymod.core.gui.GuiBackgroundProcesses;
-import com.replaymod.core.gui.GuiReplaySettings;
-import com.replaymod.core.versions.MCVer;
-import com.replaymod.core.versions.scheduler.Scheduler;
-import com.replaymod.core.versions.scheduler.SchedulerImpl;
-import com.replaymod.editor.ReplayModEditor;
+import github.com.gengyoubo.replayneo.restored.com.replaymod.compat.ReplayModCompat;
+import github.com.gengyoubo.replayneo.core.files.ReplayFilesService;
+import github.com.gengyoubo.replayneo.core.files.ReplayFoldersService;
+import github.com.gengyoubo.replayneo.core.gui.GuiBackgroundProcesses;
+import github.com.gengyoubo.replayneo.core.gui.GuiReplaySettings;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.scheduler.Scheduler;
+import github.com.gengyoubo.replayneo.platform.scheduler.SchedulerImpl;
+import github.com.gengyoubo.replayneo.feature.editor.ReplayModEditor;
 import github.com.gengyoubo.replayneo.addon.ReplayModExtras;
-import com.replaymod.recording.ReplayModRecording;
-import com.replaymod.render.ReplayModRender;
-import com.replaymod.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.recording.ReplayModRecording;
+import github.com.gengyoubo.replayneo.feature.render.ReplayModRender;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.version.ProtocolVersion;
 import com.replaymod.replaystudio.studio.ReplayStudio;
 import com.replaymod.replaystudio.util.I18n;
@@ -35,19 +35,19 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 
 
 public class ReplayMod implements Module, Scheduler {
 
-    public static final String MOD_ID = RePlayNeo.MODID;
+    public static String MOD_ID = RePlayNeo.MODID;
 
-    public static final ResourceLocation TEXTURE = identifier(RePlayNeo.RESOURCE_NAMESPACE, "replay_gui.png");
-    public static final int TEXTURE_SIZE = 256;
-    public static final ResourceLocation LOGO_FAVICON = identifier(RePlayNeo.RESOURCE_NAMESPACE, "favicon_logo.png");
+    public static ResourceLocation TEXTURE = identifier(RePlayNeo.RESOURCE_NAMESPACE, "replay_gui.png");
+    public static int TEXTURE_SIZE = 256;
+    public static ResourceLocation LOGO_FAVICON = identifier(RePlayNeo.RESOURCE_NAMESPACE, "favicon_logo.png");
 
-    private static final Minecraft mc = MCVer.getMinecraft();
+    private static Minecraft mc = MCVer.getMinecraft();
 
     private final ReplayModBackend backend;
     private final SchedulerImpl scheduler = new SchedulerImpl();
@@ -58,7 +58,7 @@ public class ReplayMod implements Module, Scheduler {
     }
 
     { instance = this; }
-    public static final ReplayMod instance;
+    public static ReplayMod instance;
 
     private final List<Module> modules = new ArrayList<>();
 
@@ -108,8 +108,8 @@ public class ReplayMod implements Module, Scheduler {
         return settingsRegistry;
     }
 
-    public static final PathPackResources jGuiResourcePack = createJGuiResourcePack();
-    public static final String JGUI_RESOURCE_PACK_NAME = "replaymod_jgui";
+    public static PathPackResources jGuiResourcePack = createJGuiResourcePack();
+    public static String JGUI_RESOURCE_PACK_NAME = "replaymod_jgui";
     private static PathPackResources createJGuiResourcePack() {
         File folder = new File("../jGui/src/main/resources");
         if (!folder.exists()) {

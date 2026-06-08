@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.core.utils;
 
 import com.google.common.base.Objects;
-import com.replaymod.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.ReplayMod;
 
 import org.lwjgl.opengl.ARBVertexBufferObject;
 import org.lwjgl.opengl.GL;

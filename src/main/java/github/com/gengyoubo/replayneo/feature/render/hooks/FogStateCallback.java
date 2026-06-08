@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.render.hooks;
 
-import de.johni0702.minecraft.gui.utils.Event;
+import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface FogStateCallback {
     Event<FogStateCallback> EVENT = Event.create((listeners) ->
