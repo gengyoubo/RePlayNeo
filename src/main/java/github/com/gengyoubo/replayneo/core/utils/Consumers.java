@@ -22,15 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 public class Consumers {
     public static <U>  Consumer<U> from(final Runnable runnable) {
-        return new Consumer<U>() {
-            @Override
-            public void consume(U obj) {
-                runnable.run();
-            }
-        };
+        return obj -> runnable.run();
     }
 }

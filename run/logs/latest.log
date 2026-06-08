@@ -1,0 +1,37 @@
+[086月2026 18:48:34.326] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 5, --assetsDir, C:\Users\gengy\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.4.20, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mixin, mixins.replayneo.json, --mixin.config, mixins.replayneo.json]
+[086月2026 18:48:34.331] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.18 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[086月2026 18:48:34.461] [main/WARN] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Configuration file C:\Users\gengy\Desktop\RePlay\run\config\fml.toml is not correct. Correcting
+[086月2026 18:48:34.462] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSkipGLVersions] was corrected from null to []
+[086月2026 18:48:34.463] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowLogHelpMessage] was corrected from null to true
+[086月2026 18:48:34.463] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSquir] was corrected from null to false
+[086月2026 18:48:34.463] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowShowCPU] was corrected from null to false
+[086月2026 18:48:34.484] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[086月2026 18:48:34.623] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
+[086月2026 18:48:34.623] [main/INFO] [EARLYDISPLAY/]: If this message is the only thing at the bottom of your log before a crash, you probably have a driver issue.
+
+Possible solutions:
+A) Make sure Minecraft is set to prefer high performance graphics in the OS and/or driver control panel
+B) Check for driver updates on the graphics brand's website
+C) Try reinstalling your graphics drivers
+D) If still not working after trying all of the above, ask for further help on the Forge forums or Discord
+
+You can safely ignore this message if the game starts up successfully.
+[086月2026 18:48:35.277] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
+[086月2026 18:48:35.359] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/gengy/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[086月2026 18:48:35.391] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: NVIDIA GeForce RTX 3050 Laptop GPU/PCIe/SSE2 GL version 4.6.0 NVIDIA 595.71, NVIDIA Corporation
+[086月2026 18:48:35.612] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.4.20\c354b21002937b393c4f86163a98dccdf1d51e72\javafmllanguage-1.20.1-47.4.20.jar is missing mods.toml file
+[086月2026 18:48:35.615] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.4.20\865d75f8c18329ddb31db5856701ab86609108b5\lowcodelanguage-1.20.1-47.4.20.jar is missing mods.toml file
+[086月2026 18:48:35.619] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.4.20\af599930362212ae937e392709f49047e6abbbf\mclanguage-1.20.1-47.4.20.jar is missing mods.toml file
+[086月2026 18:48:35.622] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.4.20\e8cc697c69f3911e76caa2f005d9486597cd7448\fmlcore-1.20.1-47.4.20.jar is missing mods.toml file
+[086月2026 18:48:35.977] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[086月2026 18:48:39.433] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[086月2026 18:48:39.437] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\gengy\.gradle\caches\forge_gradle\assets, --assetIndex, 5]
+[086月2026 18:48:39.640] [main/WARN] [mixin/]: Reference map 'mixins.replayneo.refmap.json' for mixins.replayneo.json could not be read. If this is a development environment you can ignore this message
+[086月2026 18:48:39.795] [main/INFO] [mixin/]: Remapping refMap changed.refmap.json using C:\Users\gengy\Desktop\RePlay\build\createSrgToMcp\output.srg
+[086月2026 18:48:39.803] [main/INFO] [mixin/]: Remapping refMap changed.refmap.json using C:\Users\gengy\Desktop\RePlay\build\createSrgToMcp\output.srg
+[086月2026 18:48:40.640] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[086月2026 18:48:45.393] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 188 Datafixer optimizations took 110 milliseconds
+[086月2026 18:48:46.829] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/gengy/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.20_mapped_official_1.20.1/forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[086月2026 18:48:46.830] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/gengy/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.20_mapped_official_1.20.1/forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[086月2026 18:48:46.858] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[086月2026 18:48:46.863] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev

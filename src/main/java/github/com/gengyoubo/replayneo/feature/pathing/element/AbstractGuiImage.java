@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import com.google.common.base.Preconditions;
 import de.johni0702.minecraft.gui.GuiRenderer;
@@ -107,7 +107,7 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     }
 
     @Override
-    public T setTexture(ResourceLocation resourceLocation) {
+    public void setTexture(ResourceLocation resourceLocation) {
         Preconditions.checkState(copyOf == null, "Cannot change texture of copy.");
         if (texture != null) {
             texture.releaseId();
@@ -115,7 +115,7 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
         }
         this.resourceLocation = resourceLocation;
         textureWidth = textureHeight = 256;
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -127,9 +127,9 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     }
 
     @Override
-    public T setU(int u) {
+    public void setU(int u) {
         this.u = u;
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -139,15 +139,15 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     }
 
     @Override
-    public T setUV(int u, int v) {
+    public void setUV(int u, int v) {
         setU(u);
-        return setV(v);
+        setV(v);
     }
 
     @Override
-    public T setUWidth(int width) {
+    public void setUWidth(int width) {
         this.uWidth = width;
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -157,25 +157,20 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     }
 
     @Override
-    public T setUVSize(int width, int height) {
+    public void setUVSize(int width, int height) {
         setUWidth(width);
-        return setVHeight(height);
+        setVHeight(height);
     }
 
     /**
-     * We use a static class here in order to prevent the inner class from keeping the outer class
-     * alive after finalization when still unloading the texture.
-     */
-    private static final class Finalizer implements Runnable {
-        private final DynamicTexture texture;
-
-        public Finalizer(DynamicTexture texture) {
-            this.texture = texture;
-        }
+         * We use a static class here in order to prevent the inner class from keeping the outer class
+         * alive after finalization when still unloading the texture.
+         */
+        private record Finalizer(DynamicTexture texture) implements Runnable {
 
         @Override
-        public void run() {
-            texture.releaseId();
+            public void run() {
+                texture.releaseId();
+            }
         }
-    }
 }

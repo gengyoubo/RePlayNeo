@@ -1,4 +1,4 @@
-package com.replaymod.replay;
+package github.com.gengyoubo.replayneo.feature.replay;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.versions.MCVer;

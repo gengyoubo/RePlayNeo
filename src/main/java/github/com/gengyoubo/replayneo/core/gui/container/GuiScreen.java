@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.container;
+package github.com.gengyoubo.replayneo.core.gui.container;
 
 public class GuiScreen extends AbstractGuiScreen<GuiScreen> {
     @SuppressWarnings("unchecked")

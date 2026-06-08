@@ -1,4 +1,4 @@
-package com.replaymod.render.gui;
+package github.com.gengyoubo.replayneo.feature.render.gui;
 
 import de.johni0702.minecraft.gui.container.GuiPanel;
 import de.johni0702.minecraft.gui.container.GuiScreen;

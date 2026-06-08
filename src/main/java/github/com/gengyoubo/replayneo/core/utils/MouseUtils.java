@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import com.mojang.blaze3d.platform.Window;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;

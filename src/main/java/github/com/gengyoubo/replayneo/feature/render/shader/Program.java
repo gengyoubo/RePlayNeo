@@ -1,4 +1,4 @@
-package com.replaymod.render.shader;
+package github.com.gengyoubo.replayneo.feature.render.shader;
 
 import com.replaymod.core.versions.MCVer;
 import org.apache.commons.io.IOUtils;
@@ -80,10 +80,10 @@ public class Program {
     }
 
     public Uniform getUniformVariable(String name) {
-        return new Uniform(ARBShaderObjects.glGetUniformLocationARB(program, name));
+        return new Uniform(glGetUniformLocationARB(program, name));
     }
 
-    public class Uniform {
+    public static class Uniform {
         private final int location;
 
         public Uniform(int location) {

@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.container;
+package github.com.gengyoubo.replayneo.core.gui.container;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -194,9 +194,9 @@ public abstract class AbstractGuiVerticalList<T extends AbstractGuiVerticalList<
         return drawSlider;
     }
 
-    public T setDrawSlider(boolean drawSlider) {
+    public void setDrawSlider(boolean drawSlider) {
         this.drawSlider = drawSlider;
-        return getThis();
+        getThis();
     }
 
     public boolean doesDrawShadow() {

@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.container;
+package github.com.gengyoubo.replayneo.core.gui.container;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.OffsetGuiRenderer;
@@ -98,7 +98,7 @@ public abstract class AbstractGuiScrollable<T extends AbstractGuiScrollable<T>> 
         size = new Dimension(Math.max(width, size.getWidth()), Math.max(height, size.getHeight()));
         renderInfo = renderInfo.offsetMouse(-offsetX, -offsetY);
 
-        OffsetGuiRenderer offsetRenderer = new OffsetGuiRenderer(renderer, negativeOffset, size, renderInfo.layer == 0);
+        OffsetGuiRenderer offsetRenderer = new OffsetGuiRenderer(renderer, negativeOffset, size, renderInfo.layer() == 0);
         offsetRenderer.startUsing();
         super.draw(offsetRenderer, size, renderInfo);
         offsetRenderer.stopUsing();
@@ -156,14 +156,14 @@ public abstract class AbstractGuiScrollable<T extends AbstractGuiScrollable<T>> 
         return getThis();
     }
 
-    public T scrollX(int dPixel) {
+    public void scrollX(int dPixel) {
         offsetX = Math.max(0, Math.min(super.calcMinSize().getWidth() - lastRenderSize.getWidth(), offsetX - dPixel));
-        return getThis();
+        getThis();
     }
 
-    public T scrollY(int dPixel) {
+    public void scrollY(int dPixel) {
         offsetY = Math.max(0, Math.min(super.calcMinSize().getHeight() - lastRenderSize.getHeight(), offsetY - dPixel));
-        return getThis();
+        getThis();
     }
 
     public enum Direction {

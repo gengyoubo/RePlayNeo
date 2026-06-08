@@ -1,7 +1,6 @@
-package com.replaymod.render.capturer;
+package github.com.gengyoubo.replayneo.feature.render.capturer;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.replaymod.core.versions.MCVer;
 import com.replaymod.render.frame.OpenGlFrame;
 import com.replaymod.render.rendering.Frame;
@@ -107,6 +106,6 @@ public abstract class OpenGlFrameCapturer<F extends Frame, D extends CaptureData
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
     }
 }

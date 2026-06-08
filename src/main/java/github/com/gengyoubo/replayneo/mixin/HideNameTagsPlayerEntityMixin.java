@@ -1,4 +1,4 @@
-package com.replaymod.render.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import org.spongepowered.asm.mixin.Mixin;

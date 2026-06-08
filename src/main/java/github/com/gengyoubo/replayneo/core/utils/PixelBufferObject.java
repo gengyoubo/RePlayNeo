@@ -1,8 +1,7 @@
-package com.replaymod.render.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import com.google.common.base.Objects;
 import com.replaymod.core.ReplayMod;
-import org.apache.logging.log4j.LogManager;
 
 import org.lwjgl.opengl.ARBVertexBufferObject;
 import org.lwjgl.opengl.GL;
@@ -32,8 +31,8 @@ public class PixelBufferObject implements AutoCloseable {
     public static final boolean SUPPORTED = GL.getCapabilities().GL_ARB_pixel_buffer_object || GL.getCapabilities().OpenGL15;
     private static final boolean arb = !GL.getCapabilities().OpenGL15;
 
-    private static ThreadLocal<Integer> bound = new ThreadLocal<>();
-    private static ThreadLocal<Integer> mapped = new ThreadLocal<>();
+    private static final ThreadLocal<Integer> bound = new ThreadLocal<>();
+    private static final ThreadLocal<Integer> mapped = new ThreadLocal<>();
 
     private final long size;
     private long handle;

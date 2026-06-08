@@ -1,4 +1,4 @@
-package com.replaymod.core;
+package github.com.gengyoubo.replayneo.core;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.replaymod.core.events.SettingsChangedCallback;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -48,7 +47,7 @@ class SettingsRegistryBackend {
         String config;
         if (Files.exists(configFile)) {
             try {
-                config = new String(Files.readAllBytes(configFile), StandardCharsets.UTF_8);
+                config = Files.readString(configFile);
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
@@ -139,14 +138,6 @@ class SettingsRegistryBackend {
         }
     }
 
-    @SuppressWarnings("unused")
-    public void register(SettingsRegistry.SettingKey<?> key) {
-    }
-
-    @SuppressWarnings("unused")
-    public <T> void update(SettingsRegistry.SettingKey<T> key, T value) {
-    }
-
     public void save() {
         JsonObject root = new JsonObject();
         for (Map.Entry<SettingsRegistry.SettingKey<?>, Object> entry : settings.entrySet()) {
@@ -181,7 +172,7 @@ class SettingsRegistryBackend {
         String config = gson.toJson(root);
         try {
             ensureDirectoryExists(configFile.getParent());
-            Files.write(configFile, config.getBytes(StandardCharsets.UTF_8));
+            Files.writeString(configFile, config);
         } catch (IOException e) {
             e.printStackTrace();
         }

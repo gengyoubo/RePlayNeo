@@ -1,6 +1,5 @@
-package com.replaymod.core.versions.scheduler;
+package github.com.gengyoubo.replayneo.platform.scheduler;
 
-import com.replaymod.core.mixin.MinecraftAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -9,6 +8,7 @@ import java.util.concurrent.TimeoutException;
 import net.minecraft.ReportedException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.thread.ReentrantBlockableEventLoop;
+import org.jetbrains.annotations.NotNull;
 
 
 public class SchedulerImpl implements  Scheduler {
@@ -47,7 +47,7 @@ public class SchedulerImpl implements  Scheduler {
      * processed, otherwise a livelock may occur.
      */
     private boolean inRunLater = false;
-    private boolean inRenderTaskQueue = false;
+    private final boolean inRenderTaskQueue = false;
     // Starting 1.14 MC clears the queue of scheduled tasks on disconnect.
     // This works fine for MC since it uses the queue only for packet handling but breaks our assumption that
     // stuff submitted via runLater is actually always run (e.g. recording might not be fully stopped because parts
@@ -56,21 +56,21 @@ public class SchedulerImpl implements  Scheduler {
     public static class ReplayModExecutor extends ReentrantBlockableEventLoop<Runnable> {
         private final Thread mcThread = Thread.currentThread();
 
-        private ReplayModExecutor(String string_1) {
-            super(string_1);
+        private ReplayModExecutor() {
+            super("Client/ReplayMod");
         }
 
-        @Override public Runnable wrapRunnable(Runnable runnable) {
+        @Override public @NotNull Runnable wrapRunnable(@NotNull Runnable runnable) {
             return runnable;
         }
 
         @Override
-        protected boolean shouldRun(Runnable runnable) {
+        protected boolean shouldRun(@NotNull Runnable runnable) {
             return true;
         }
 
         @Override
-        protected Thread getRunningThread() {
+        protected @NotNull Thread getRunningThread() {
             return mcThread;
         }
 
@@ -79,7 +79,7 @@ public class SchedulerImpl implements  Scheduler {
             super.runAllTasks();
         }
     }
-    public final ReplayModExecutor executor = new ReplayModExecutor("Client/ReplayMod");
+    public final ReplayModExecutor executor = new ReplayModExecutor();
     private final List<Runnable> delayedTasks = new ArrayList<>();
 
     @Override

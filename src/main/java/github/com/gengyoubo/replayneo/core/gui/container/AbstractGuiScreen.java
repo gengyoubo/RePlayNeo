@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.container;
+package github.com.gengyoubo.replayneo.core.gui.container;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.MinecraftGuiRenderer;
@@ -31,7 +31,6 @@ import de.johni0702.minecraft.gui.RenderInfo;
 import de.johni0702.minecraft.gui.element.GuiElement;
 import de.johni0702.minecraft.gui.element.GuiLabel;
 import de.johni0702.minecraft.gui.function.*;
-import de.johni0702.minecraft.gui.utils.MouseUtils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
@@ -43,10 +42,9 @@ import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 
 import static de.johni0702.minecraft.gui.versions.MCVer.literalText;
-
-import com.mojang.blaze3d.platform.GlStateManager;
 
 
 public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends AbstractGuiContainer<T> {
@@ -72,13 +70,13 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
         if (size == null) {
             size = screenSize;
         }
-        if (renderInfo.layer == 0) {
+        if (renderInfo.layer() == 0) {
             if (title != null) {
                 title.layout(title.getMinSize(), renderInfo);
             }
         }
         super.layout(size, renderInfo);
-        if (renderInfo.layer == getMaxLayer()) {
+        if (renderInfo.layer() == getMaxLayer()) {
             final GuiElement tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
             if (tooltip != null) {
                 tooltip.layout(tooltip.getMinSize(), renderInfo);
@@ -88,7 +86,7 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
 
     @Override
     public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
-        if (renderInfo.layer == 0) {
+        if (renderInfo.layer() == 0) {
             switch (background) {
                 case NONE:
                     break;
@@ -111,18 +109,18 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
             }
         }
         super.draw(renderer, size, renderInfo);
-        if (renderInfo.layer == getMaxLayer()) {
+        if (renderInfo.layer() == getMaxLayer()) {
             final GuiElement tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
             if (tooltip != null) {
                 final ReadableDimension tooltipSize = tooltip.getMinSize();
                 int x, y;
-                if (renderInfo.mouseX + 8 + tooltipSize.getWidth() < screenSize.getWidth()) {
-                    x = renderInfo.mouseX + 8;
+                if (renderInfo.mouseX() + 8 + tooltipSize.getWidth() < screenSize.getWidth()) {
+                    x = renderInfo.mouseX() + 8;
                 } else {
                     x = screenSize.getWidth() - tooltipSize.getWidth() - 1;
                 }
-                if (renderInfo.mouseY + 8 + tooltipSize.getHeight() < screenSize.getHeight()) {
-                    y = renderInfo.mouseY + 8;
+                if (renderInfo.mouseY() + 8 + tooltipSize.getHeight() < screenSize.getHeight()) {
+                    y = renderInfo.mouseY() + 8;
                 } else {
                     y = screenSize.getHeight() - tooltipSize.getHeight() - 1;
                 }
@@ -196,14 +194,14 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
         }
 
         @Override
-        public Component getTitle() {
+        public @NotNull Component getTitle() {
             GuiLabel title = AbstractGuiScreen.this.title;
             return literalText(title == null ? "" : title.getText());
         }
 
 
         @Override
-        public void render(GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
+        public void render(@NotNull GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
             // The Forge loading screen apparently leaves one of the textures of the GlStateManager in an
             // incorrect state which can cause the whole screen to just remain white. This is a workaround.
 
@@ -304,6 +302,6 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
     }
 
     public enum Background {
-        NONE, DEFAULT, TRANSPARENT, DIRT;
+        NONE, DEFAULT, TRANSPARENT, DIRT
     }
 }

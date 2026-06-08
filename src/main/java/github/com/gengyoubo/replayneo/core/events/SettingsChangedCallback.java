@@ -1,4 +1,4 @@
-package com.replaymod.core.events;
+package github.com.gengyoubo.replayneo.core.events;
 
 import com.replaymod.core.SettingsRegistry;
 import de.johni0702.minecraft.gui.utils.Event;

@@ -1,4 +1,4 @@
-package com.replaymod.render.blend.data;
+package github.com.gengyoubo.replayneo.feature.render.blend.data;
 
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector2f;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
@@ -216,7 +216,7 @@ public class DMesh {
     }
 
     public static class Vertex {
-        public Vector3f pos;
+        public final Vector3f pos;
         public short normX, normY, normZ;
 
         public Vertex(float x, float y, float z) {
@@ -236,7 +236,8 @@ public class DMesh {
     }
 
     public static class Edge {
-        public int v1, v2;
+        public final int v1;
+        public final int v2;
 
         public Edge(int v1, int v2) {
             this.v1 = v1;
@@ -250,9 +251,11 @@ public class DMesh {
     }
 
     public static class Loop {
-        public int vertex, edge;
-        public float u, v;
-        public int col;
+        public final int vertex;
+        public final int edge;
+        public final float u;
+        public final float v;
+        public final int col;
 
         public Loop(int vertex, int edge,
                     float u, float v,
@@ -284,8 +287,9 @@ public class DMesh {
     }
 
     public static class Poly {
-        public int loopStart, size;
-        public short materialSlot;
+        public final int loopStart;
+        public final int size;
+        public final short materialSlot;
 
         public Poly(int loopStart, int size, int materialSlot) {
             this.loopStart = loopStart;
@@ -301,7 +305,10 @@ public class DMesh {
     }
 
     public static class Face {
-        public int v1, v2, v3, v4;
+        public final int v1;
+        public final int v2;
+        public final int v3;
+        public final int v4;
 
         public Face(int v1, int v2, int v3, int v4) {
             this.v1 = v1;

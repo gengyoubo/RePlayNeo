@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element.advanced;
+package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -37,7 +37,6 @@ import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 
 import static de.johni0702.minecraft.gui.utils.Utils.clamp;
 
@@ -88,7 +87,7 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
     }
 
     protected String getTooltipText(RenderInfo renderInfo) {
-        int ms = getTimeAt(renderInfo.mouseX, renderInfo.mouseY);
+        int ms = getTimeAt(renderInfo.mouseX(), renderInfo.mouseY());
         int s = ms / 1000 % 60;
         int m = ms / 1000 / 60;
         return String.format("%02d:%02d", m, s);
@@ -245,10 +244,10 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
     }
 
     @Override
-    public T setZoom(double zoom) {
+    public void setZoom(double zoom) {
         this.zoom = Math.min(zoom, 1);
         checkOffset();
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -257,10 +256,10 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
     }
 
     @Override
-    public T setOffset(int offset) {
+    public void setOffset(int offset) {
         this.offset = Math.max(offset, 0);
         checkOffset();
-        return getThis();
+        getThis();
     }
 
     @Override

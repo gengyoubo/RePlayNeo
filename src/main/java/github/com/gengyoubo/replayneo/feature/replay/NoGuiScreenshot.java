@@ -1,10 +1,9 @@
-package com.replaymod.replay;
+package github.com.gengyoubo.replayneo.feature.replay;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.replaymod.core.ReplayMod;
 import de.johni0702.minecraft.gui.versions.Image;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
@@ -38,66 +37,63 @@ public class NoGuiScreenshot {
 
     public static ListenableFuture<NoGuiScreenshot> take(final Minecraft mc, final int width, final int height) {
         final SettableFuture<NoGuiScreenshot> future = SettableFuture.create();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (future.isCancelled()) {
-                    return;
-                }
+        Runnable runnable = () -> {
+            if (future.isCancelled()) {
+                return;
+            }
 
-                int frameWidth = mc.getWindow().getWidth();
-                int frameHeight = mc.getWindow().getHeight();
+            int frameWidth = mc.getWindow().getWidth();
+            int frameHeight = mc.getWindow().getHeight();
 
-                final boolean guiHidden = mc.options.hideGui;
-                try {
-                    mc.options.hideGui = true;
+            final boolean guiHidden = mc.options.hideGui;
+            try {
+                mc.options.hideGui = true;
 
-                    // Render frame without GUI
-                    pushMatrix();
-                    com.mojang.blaze3d.systems.RenderSystem.clear(
-                            16640
-                            , true
-                    );
-                    mc.getMainRenderTarget().bindWrite(true);
+                // Render frame without GUI
+                pushMatrix();
+                com.mojang.blaze3d.systems.RenderSystem.clear(
+                        16640
+                        , true
+                );
+                mc.getMainRenderTarget().bindWrite(true);
 
-                    float tickDelta = mc.getFrameTime();
-                    mc.gameRenderer.renderLevel(tickDelta, System.nanoTime(), new PoseStack());
+                float tickDelta = mc.getFrameTime();
+                mc.gameRenderer.renderLevel(tickDelta, System.nanoTime(), new PoseStack());
 
-                    mc.getMainRenderTarget().unbindWrite();
-                    popMatrix();
-                    pushMatrix();
-                    mc.getMainRenderTarget().blitToScreen(frameWidth, frameHeight);
-                    popMatrix();
-                } catch (Throwable t) {
-                    future.setException(t);
-                    return;
-                } finally {
-                    // Reset GUI settings
-                    mc.options.hideGui = guiHidden;
-                }
+                mc.getMainRenderTarget().unbindWrite();
+                popMatrix();
+                pushMatrix();
+                mc.getMainRenderTarget().blitToScreen(frameWidth, frameHeight);
+                popMatrix();
+            } catch (Throwable t) {
+                future.setException(t);
+                return;
+            } finally {
+                // Reset GUI settings
+                mc.options.hideGui = guiHidden;
+            }
 
-                // The frame without GUI has been rendered
-                // Read it, create the screenshot and finish the future
-                try {
-                    Image image = new Image(Screenshot.takeScreenshot(
-                            mc.getMainRenderTarget()
-                    ));
-                    int imageWidth = image.getWidth();
-                    int imageHeight = image.getHeight();
+            // The frame without GUI has been rendered
+            // Read it, create the screenshot and finish the future
+            try {
+                Image image = new Image(Screenshot.takeScreenshot(
+                        mc.getMainRenderTarget()
+                ));
+                int imageWidth = image.getWidth();
+                int imageHeight = image.getHeight();
 
-                    // Scale & crop
-                    float scaleFactor = Math.max((float) width / imageWidth, (float) height / imageHeight);
-                    int croppedWidth = Math.min(Math.max(0, (int) (width / scaleFactor)), imageWidth);
-                    int croppedHeight = Math.min(Math.max(0, (int) (height / scaleFactor)), imageHeight);
-                    int offsetX = (imageWidth - croppedWidth) / 2;
-                    int offsetY = (imageHeight - croppedHeight) / 2;
-                    image = image.scaledSubRect(offsetX, offsetY, croppedWidth, croppedHeight, width, height);
+                // Scale & crop
+                float scaleFactor = Math.max((float) width / imageWidth, (float) height / imageHeight);
+                int croppedWidth = Math.min(Math.max(0, (int) (width / scaleFactor)), imageWidth);
+                int croppedHeight = Math.min(Math.max(0, (int) (height / scaleFactor)), imageHeight);
+                int offsetX = (imageWidth - croppedWidth) / 2;
+                int offsetY = (imageHeight - croppedHeight) / 2;
+                image = image.scaledSubRect(offsetX, offsetY, croppedWidth, croppedHeight, width, height);
 
-                    // Finish
-                    future.set(new NoGuiScreenshot(image, width, height));
-                } catch (Throwable t) {
-                    future.setException(t);
-                }
+                // Finish
+                future.set(new NoGuiScreenshot(image, width, height));
+            } catch (Throwable t) {
+                future.setException(t);
             }
         };
 

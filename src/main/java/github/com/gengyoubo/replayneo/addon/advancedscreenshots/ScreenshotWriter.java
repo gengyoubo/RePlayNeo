@@ -1,4 +1,4 @@
-package com.replaymod.extras.advancedscreenshots;
+package github.com.gengyoubo.replayneo.addon.advancedscreenshots;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.utils.Utils;
@@ -28,16 +28,16 @@ public class ScreenshotWriter implements FrameConsumer<BitmapFrame> {
         BitmapFrame frame = channels.get(Channel.BRGA);
 
         // skip the first frame, in which not all chunks are properly loaded
-        if (frame.getFrameId() == 0) return;
+        if (frame.frameId() == 0) return;
 
-        final ReadableDimension frameSize = frame.getSize();
+        final ReadableDimension frameSize = frame.size();
         try (Image img = new Image(frameSize.getWidth(), frameSize.getHeight())) {
             for (int y = 0; y < frameSize.getHeight(); y++) {
                 for (int x = 0; x < frameSize.getWidth(); x++) {
-                    byte b = frame.getByteBuffer().get();
-                    byte g = frame.getByteBuffer().get();
-                    byte r = frame.getByteBuffer().get();
-                    byte a = frame.getByteBuffer().get();
+                    byte b = frame.byteBuffer().get();
+                    byte g = frame.byteBuffer().get();
+                    byte r = frame.byteBuffer().get();
+                    byte a = frame.byteBuffer().get();
 
                     img.setRGBA(x, y, r, g, b, 0xff);
                 }
@@ -59,7 +59,7 @@ public class ScreenshotWriter implements FrameConsumer<BitmapFrame> {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
 
     }
 

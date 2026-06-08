@@ -1,4 +1,4 @@
-package com.replaymod.core.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.Window;
@@ -33,23 +33,19 @@ public abstract class MinecraftMixin
     @Unique
     private RenderTarget replayMod$framebufferDelegate;
 
-    @Override
-    public void replayModProcessKeyBinds() {
+    public void rePlay$replayModProcessKeyBinds() {
         handleKeybinds();
     }
 
-    @Override
-    public void replayModExecuteTaskQueue() {
+    public void rePlay$replayModExecuteTaskQueue() {
         runAllTasks();
     }
 
-    @Override
-    public void setWindowDelegate(VirtualWindow window) {
+    public void rePlay$setWindowDelegate(VirtualWindow window) {
         this.replayMod$windowDelegate = window;
     }
 
-    @Override
-    public void setFramebufferDelegate(RenderTarget framebuffer) {
+    public void rePlay$setFramebufferDelegate(RenderTarget framebuffer) {
         this.replayMod$framebufferDelegate = framebuffer;
     }
 

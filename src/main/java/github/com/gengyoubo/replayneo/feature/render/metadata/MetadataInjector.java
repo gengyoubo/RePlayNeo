@@ -1,4 +1,4 @@
-package com.replaymod.render.metadata;
+package github.com.gengyoubo.replayneo.feature.render.metadata;
 
 import com.coremedia.iso.IsoFile;
 import com.coremedia.iso.boxes.*;
@@ -61,17 +61,11 @@ public class MetadataInjector {
     public static void injectMetadata(RenderSettings.RenderMethod renderMethod, File videoFile,
                                       int videoWidth, int videoHeight,
                                       int sphericalFovX, int sphericalFovY) {
-        String xmlString;
-        switch (renderMethod) {
-            case EQUIRECTANGULAR:
-                xmlString = XML_MONO_METADATA;
-                break;
-            case ODS:
-                xmlString = XML_STEREO_METADATA;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid render method");
-        }
+        String xmlString = switch (renderMethod) {
+            case EQUIRECTANGULAR -> XML_MONO_METADATA;
+            case ODS -> XML_STEREO_METADATA;
+            default -> throw new IllegalArgumentException("Invalid render method");
+        };
 
         Dimension original = getOriginalDimensions(videoWidth, videoHeight, sphericalFovX, sphericalFovY);
         writeMetadata(videoFile, String.format(xmlString,

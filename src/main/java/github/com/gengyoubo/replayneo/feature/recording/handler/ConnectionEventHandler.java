@@ -1,4 +1,4 @@
-package com.replaymod.recording.handler;
+package github.com.gengyoubo.replayneo.feature.recording.handler;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.utils.ModCompat;
@@ -20,6 +20,8 @@ import com.replaymod.recording.mixin.ClientLoginNetworkHandlerAccessor;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.language.I18n;
@@ -54,7 +56,7 @@ public class ConnectionEventHandler {
         try {
             boolean local = networkManager.isMemoryConnection();
             if (local) {
-                if (mc.getSingleplayerServer().getLevel(Level.OVERWORLD).isDebug()) {
+                if (Objects.requireNonNull(mc.getSingleplayerServer().getLevel(Level.OVERWORLD)).isDebug()) {
                     logger.info("Debug World recording is not supported.");
                     return;
                 }

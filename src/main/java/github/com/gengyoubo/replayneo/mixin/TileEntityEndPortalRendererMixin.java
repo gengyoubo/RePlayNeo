@@ -1,4 +1,4 @@
-package com.replaymod.replay.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import org.spongepowered.asm.mixin.Mixin;

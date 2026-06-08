@@ -1,4 +1,4 @@
-package com.replaymod.simplepathing.preview;
+package github.com.gengyoubo.replayneo.feature.pathing.preview;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.events.PostRenderWorldCallback;
@@ -15,6 +15,7 @@ import com.replaymod.replaystudio.util.EntityPositionTracker;
 import com.replaymod.replaystudio.util.Location;
 import github.com.gengyoubo.replayneo.feature.pathing.ReplayModSimplePathing;
 import github.com.gengyoubo.replayneo.feature.pathing.SPTimeline;
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import com.replaymod.simplepathing.gui.GuiPathing;
 import de.johni0702.minecraft.gui.utils.EventRegistrations;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
@@ -44,7 +45,7 @@ import static com.replaymod.core.versions.MCVer.pushMatrix;
 import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
 
 public class PathPreviewRenderer extends EventRegistrations {
-    private static final ResourceLocation CAMERA_HEAD = identifier("replaymod", "camera_head.png");
+    private static final ResourceLocation CAMERA_HEAD = identifier(RePlayNeo.RESOURCE_NAMESPACE, "camera_head.png");
     private static final Minecraft mc = MCVer.getMinecraft();
 
     private static final int SLOW_PATH_COLOR = 0xffcccc;
@@ -78,7 +79,7 @@ public class PathPreviewRenderer extends EventRegistrations {
 
         path.update();
 
-        int renderDistance = (Integer) mc.options.renderDistance().get() * 16;
+        int renderDistance = mc.options.renderDistance().get() * 16;
         int renderDistanceSquared = renderDistance * renderDistance;
 
         Vector3f viewPos = new Vector3f(
@@ -129,9 +130,9 @@ public class PathPreviewRenderer extends EventRegistrations {
                             Vector3f pos = optPos.get();
                             if (prevPos != null) {
                                 double distance = Math.sqrt(distanceSquared(prevPos, pos));
-                                double speed = Math.min(distance / (diff / steps), FASTEST_PATH_SPEED);
+                                double speed = Math.min(distance / ((double) diff / steps), FASTEST_PATH_SPEED);
                                 double speedFraction = speed / FASTEST_PATH_SPEED;
-                                int color = interpolateColor(SLOW_PATH_COLOR, FAST_PATH_COLOR, speedFraction);
+                                int color = interpolateColor(speedFraction);
                                 drawConnection(viewPos, prevPos, pos, (color << 8) | 0xff, renderDistanceSquared);
                             }
                             prevPos = pos;
@@ -196,10 +197,10 @@ public class PathPreviewRenderer extends EventRegistrations {
         return new Vector3f(loc.getLeft(), loc.getMiddle(), loc.getRight());
     }
 
-    private static int interpolateColor(int c1, int c2, double weight) {
-        return (interpolateColorComponent((c1 >> 16) & 0xff, (c2 >> 16) & 0xff, weight) << 16)
-                | (interpolateColorComponent((c1 >> 8) & 0xff, (c2 >> 8) & 0xff, weight) << 8)
-                | interpolateColorComponent(c1 & 0xff, c2 & 0xff, weight);
+    private static int interpolateColor(double weight) {
+        return (interpolateColorComponent((com.replaymod.simplepathing.preview.PathPreviewRenderer.SLOW_PATH_COLOR >> 16) & 0xff, (com.replaymod.simplepathing.preview.PathPreviewRenderer.FAST_PATH_COLOR >> 16) & 0xff, weight) << 16)
+                | (interpolateColorComponent((com.replaymod.simplepathing.preview.PathPreviewRenderer.SLOW_PATH_COLOR >> 8) & 0xff, (com.replaymod.simplepathing.preview.PathPreviewRenderer.FAST_PATH_COLOR >> 8) & 0xff, weight) << 8)
+                | interpolateColorComponent(com.replaymod.simplepathing.preview.PathPreviewRenderer.SLOW_PATH_COLOR & 0xff, com.replaymod.simplepathing.preview.PathPreviewRenderer.FAST_PATH_COLOR & 0xff, weight);
     }
 
     private static int interpolateColorComponent(int c1, int c2, double weight) {
@@ -350,7 +351,7 @@ public class PathPreviewRenderer extends EventRegistrations {
         buffer.vertex(x, y, z).uv(u, v).color(255, 255, 255, alpha).endVertex();
     }
 
-    private class KeyframeComparator implements Comparator<Pair<Keyframe, Vector3f>> {
+    private static class KeyframeComparator implements Comparator<Pair<Keyframe, Vector3f>> {
         private final Vector3f viewPos;
 
         public KeyframeComparator(Vector3f viewPos) {

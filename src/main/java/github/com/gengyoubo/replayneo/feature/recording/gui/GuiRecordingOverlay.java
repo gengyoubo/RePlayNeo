@@ -1,8 +1,7 @@
-package com.replaymod.recording.gui;
+package github.com.gengyoubo.replayneo.feature.recording.gui;
 
 import com.replaymod.core.SettingsRegistry;
 import com.replaymod.recording.Setting;
-import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.MinecraftGuiRenderer;
 import de.johni0702.minecraft.gui.utils.EventRegistrations;
 import de.johni0702.minecraft.gui.versions.callbacks.RenderHudCallback;
@@ -13,7 +12,6 @@ import net.minecraft.client.resources.language.I18n;
 
 import static com.replaymod.core.ReplayMod.TEXTURE;
 import static com.replaymod.core.ReplayMod.TEXTURE_SIZE;
-import static com.mojang.blaze3d.platform.GlStateManager.*;
 
 /**
  * Renders overlay during recording.
@@ -29,9 +27,6 @@ public class GuiRecordingOverlay extends EventRegistrations {
         this.guiControls = guiControls;
     }
 
-    /**
-     * Render the recording icon and text in the top left corner of the screen.
-     */
     { on(RenderHudCallback.EVENT, (stack, partialTicks) -> renderRecordingIndicator(stack)); }
     private void renderRecordingIndicator(GuiGraphics stack) {
         if (guiControls.isStopped()) return;

@@ -32,16 +32,13 @@ public class FullBrightness extends EventRegistrations implements Extra {
         this.module = ReplayModReplay.instance;
         this.mc = mod.getMinecraft();
 
-        mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.lighting", Keyboard.KEY_Z, new Runnable() {
-            @Override
-            public void run() {
-                active = !active;
-                // need to tick once to update lightmap when replay is paused
-                mod.getMinecraft().gameRenderer.tick();
-                ReplayHandler replayHandler = module.getReplayHandler();
-                if (replayHandler != null) {
-                    updateIndicator(replayHandler.getOverlay());
-                }
+        mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.lighting", Keyboard.KEY_Z, (Runnable) () -> {
+            active = !active;
+            // need to tick once to update lightmap when replay is paused
+            mod.getMinecraft().gameRenderer.tick();
+            ReplayHandler replayHandler = module.getReplayHandler();
+            if (replayHandler != null) {
+                updateIndicator(replayHandler.getOverlay());
             }
         }, true);
 

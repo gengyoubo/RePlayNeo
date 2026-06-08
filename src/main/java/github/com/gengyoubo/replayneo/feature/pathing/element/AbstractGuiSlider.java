@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -132,7 +132,7 @@ public abstract class AbstractGuiSlider<T extends AbstractGuiSlider<T>> extends 
         int color = 0xe0e0e0;
         if (!isEnabled()) {
             color = 0xa0a0a0;
-        } else if (isMouseHovering(new Point(renderInfo.mouseX, renderInfo.mouseY))) {
+        } else if (isMouseHovering(new Point(renderInfo.mouseX(), renderInfo.mouseY()))) {
             color = 0xffffa0;
         }
         renderer.drawCenteredString(width / 2, height / 2 - 4, color, text);
@@ -165,10 +165,10 @@ public abstract class AbstractGuiSlider<T extends AbstractGuiSlider<T>> extends 
     }
 
     @Override
-    public T setValue(int value) {
+    public void setValue(int value) {
         this.value = value;
         onValueChanged();
-        return getThis();
+        getThis();
     }
 
     @Override

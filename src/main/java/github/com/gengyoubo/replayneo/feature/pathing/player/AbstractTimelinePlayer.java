@@ -1,4 +1,4 @@
-package com.replaymod.pathing.player;
+package github.com.gengyoubo.replayneo.feature.pathing.player;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
@@ -49,14 +49,10 @@ public abstract class AbstractTimelinePlayer extends EventRegistrations {
         this.timeline = timeline;
 
         Iterator<Keyframe> iter = Iterables.concat(Iterables.transform(timeline.getPaths(),
-                new Function<Path, Iterable<Keyframe>>() {
-            @Nullable
-            @Override
-            public Iterable<Keyframe> apply(@Nullable Path input) {
-                assert input != null;
-                return input.getKeyframes();
-            }
-        })).iterator();
+                (Function<Path, Iterable<Keyframe>>) input -> {
+                    assert input != null;
+                    return input.getKeyframes();
+                })).iterator();
         if (!iter.hasNext()) {
             lastTimestamp = 0;
         } else {
@@ -127,8 +123,7 @@ public abstract class AbstractTimelinePlayer extends EventRegistrations {
         float previousTimeInTicks = lastTime / 50f;
         float passedTicks = timeInTicks - previousTimeInTicks;
         Timer renderTickCounter = ((MinecraftAccessor) mc).getTimer();
-        if (renderTickCounter instanceof ReplayTimer) {
-            ReplayTimer timer = (ReplayTimer) renderTickCounter;
+        if (renderTickCounter instanceof ReplayTimer timer) {
             timer.partialTick += passedTicks;
             timer.ticksThisFrame = (int) timer.partialTick;
             timer.partialTick -= timer.ticksThisFrame;

@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.container;
+package github.com.gengyoubo.replayneo.core.gui.container;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.MinecraftGuiRenderer;
@@ -134,7 +134,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
             size = screenSize;
         }
         super.layout(size, renderInfo);
-        if (mouseVisible && renderInfo.layer == getMaxLayer()) {
+        if (mouseVisible && renderInfo.layer() == getMaxLayer()) {
             final GuiElement tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
             if (tooltip != null) {
                 tooltip.layout(tooltip.getMinSize(), renderInfo);
@@ -145,18 +145,18 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
     @Override
     public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
         super.draw(renderer, size, renderInfo);
-        if (mouseVisible && renderInfo.layer == getMaxLayer()) {
+        if (mouseVisible && renderInfo.layer() == getMaxLayer()) {
             final GuiElement tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
             if (tooltip != null) {
                 final ReadableDimension tooltipSize = tooltip.getMinSize();
                 int x, y;
-                if (renderInfo.mouseX + 8 + tooltipSize.getWidth() < screenSize.getWidth()) {
-                    x = renderInfo.mouseX + 8;
+                if (renderInfo.mouseX() + 8 + tooltipSize.getWidth() < screenSize.getWidth()) {
+                    x = renderInfo.mouseX() + 8;
                 } else {
                     x = screenSize.getWidth() - tooltipSize.getWidth() - 1;
                 }
-                if (renderInfo.mouseY + 8 + tooltipSize.getHeight() < screenSize.getHeight()) {
-                    y = renderInfo.mouseY + 8;
+                if (renderInfo.mouseY() + 8 + tooltipSize.getHeight() < screenSize.getHeight()) {
+                    y = renderInfo.mouseY() + 8;
                 } else {
                     y = screenSize.getHeight() - tooltipSize.getHeight() - 1;
                 }

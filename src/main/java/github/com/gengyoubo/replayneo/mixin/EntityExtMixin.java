@@ -10,34 +10,34 @@ import org.spongepowered.asm.mixin.Unique;
 public abstract class EntityExtMixin implements EntityExt {
 
     @Shadow
-    public float yRot;
+    private float yRot;
 
     @Shadow
-    public float xRot;
+    private float xRot;
 
     @Unique
-    private float trackedYaw = Float.NaN;
+    private float rePlay$trackedYaw = Float.NaN;
 
     @Unique
-    private float trackedPitch = Float.NaN;
+    private float rePlay$trackedPitch = Float.NaN;
 
     @Override
     public float replaymod$getTrackedYaw() {
-        return !Float.isNaN(this.trackedYaw) ? this.trackedYaw : this.yRot;
+        return !Float.isNaN(this.rePlay$trackedYaw) ? this.rePlay$trackedYaw : this.yRot;
     }
 
     @Override
     public float replaymod$getTrackedPitch() {
-        return !Float.isNaN(this.trackedPitch) ? this.trackedPitch : this.xRot;
+        return !Float.isNaN(this.rePlay$trackedPitch) ? this.rePlay$trackedPitch : this.xRot;
     }
 
     @Override
     public void replaymod$setTrackedYaw(float value) {
-        this.trackedYaw = value;
+        this.rePlay$trackedYaw = value;
     }
 
     @Override
     public void replaymod$setTrackedPitch(float value) {
-        this.trackedPitch = value;
+        this.rePlay$trackedPitch = value;
     }
 }

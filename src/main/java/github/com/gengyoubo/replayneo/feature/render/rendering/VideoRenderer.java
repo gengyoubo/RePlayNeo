@@ -1,12 +1,10 @@
-package com.replaymod.render.rendering;
+package github.com.gengyoubo.replayneo.feature.render.rendering;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
 import com.replaymod.core.mixin.MinecraftAccessor;
 import com.replaymod.core.mixin.TimerAccessor;
 import com.replaymod.core.versions.MCVer;
-import com.replaymod.core.versions.MCVer.MinecraftMethodAccessor;
 import com.replaymod.pathing.player.AbstractTimelinePlayer;
 import com.replaymod.pathing.player.ReplayTimer;
 import com.replaymod.pathing.properties.TimestampProperty;
@@ -25,7 +23,6 @@ import com.replaymod.render.gui.GuiVideoRenderer;
 import com.replaymod.render.gui.progress.VirtualWindow;
 import com.replaymod.render.hooks.ForceChunkLoadingHook;
 import com.replaymod.render.metadata.MetadataInjector;
-import com.replaymod.render.mixin.WorldRendererAccessor;
 import com.replaymod.render.utils.FlawlessFrames;
 import com.replaymod.replay.ReplayHandler;
 import com.replaymod.replaystudio.pathing.path.Keyframe;
@@ -33,7 +30,7 @@ import com.replaymod.replaystudio.pathing.path.Path;
 import com.replaymod.replaystudio.pathing.path.Timeline;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import com.mojang.blaze3d.platform.GLX;
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import org.lwjgl.glfw.GLFW;
 import net.minecraft.ReportedException;
 import net.minecraft.client.Minecraft;
@@ -43,11 +40,10 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import org.joml.Matrix4f;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexSorting;
-import org.lwjgl.opengl.GL11;
+
 import java.util.concurrent.CompletableFuture;
 
 
@@ -57,9 +53,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Queue;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.Iterables.getLast;
@@ -71,7 +65,7 @@ import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 
 public class VideoRenderer implements RenderInfo {
-    private static final ResourceLocation SOUND_RENDER_SUCCESS = identifier("replaymod", "render_success");
+    private static final ResourceLocation SOUND_RENDER_SUCCESS = identifier(RePlayNeo.RESOURCE_NAMESPACE, "render_success");
     private final Minecraft mc = MCVer.getMinecraft();
     private final RenderSettings settings;
     private final ReplayHandler replayHandler;
@@ -126,10 +120,10 @@ public class VideoRenderer implements RenderInfo {
                     BitmapFrame bgra = channels.get(Channel.BRGA);
                     if (bgra != null) {
                         synchronized (this) {
-                            int frameId = bgra.getFrameId();
+                            int frameId = bgra.frameId();
                             if (lastFrameId < frameId) {
                                 lastFrameId = frameId;
-                                gui.updatePreview(bgra.getByteBuffer(), bgra.getSize());
+                                gui.updatePreview(bgra.byteBuffer(), bgra.size());
                             }
                         }
                     }
@@ -158,9 +152,8 @@ public class VideoRenderer implements RenderInfo {
 
     /**
      * Render this video.
-     * @return {@code true} if rendering was successful, {@code false} if the user aborted rendering (or the window was closed)
      */
-    public boolean renderVideo() throws Throwable {
+    public void renderVideo() throws Throwable {
         ReplayRenderCallback.Pre.EVENT.invoker().beforeRendering(this);
 
         setup();
@@ -213,7 +206,6 @@ public class VideoRenderer implements RenderInfo {
             throw failureCause;
         }
 
-        return !cancelled;
     }
 
     @Override
@@ -296,7 +288,7 @@ public class VideoRenderer implements RenderInfo {
             path.updateAll();
             // Find end time
             Collection<Keyframe> keyframes = path.getKeyframes();
-            if (keyframes.size() > 0) {
+            if (!keyframes.isEmpty()) {
                 duration = Math.max(duration, getLast(keyframes).getTime());
             }
         }
@@ -334,7 +326,7 @@ public class VideoRenderer implements RenderInfo {
         mc.setScreen(null);
         forceChunkLoadingHook.uninstall();
 
-        if (!hasFailed() && cameraPathExporter != null) {
+        if (hasFailed() && cameraPathExporter != null) {
             try {
                 cameraPathExporter.finish();
             } catch (IOException e) {
@@ -345,7 +337,7 @@ public class VideoRenderer implements RenderInfo {
         mc.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvent.createVariableRangeEvent(SOUND_RENDER_SUCCESS), 1));
 
         try {
-            if (!hasFailed() && ffmpegWriter != null) {
+            if (hasFailed() && ffmpegWriter != null) {
                 new GuiRenderingDone(ReplayModRender.instance, ffmpegWriter.getVideoFile(), totalFrames, settings).display();
             }
         } catch (FFmpegWriter.FFmpegStartupException e) {
@@ -451,7 +443,7 @@ public class VideoRenderer implements RenderInfo {
                 mc.mouseHandler.releaseMouse();
             }
 
-            return !hasFailed() && !cancelled;
+            return hasFailed() && !cancelled;
         } while (true);
     }
 
@@ -487,7 +479,7 @@ public class VideoRenderer implements RenderInfo {
     }
 
     public boolean hasFailed() {
-        return failureCause != null;
+        return failureCause == null;
     }
 
     public synchronized void setFailure(Throwable cause) {

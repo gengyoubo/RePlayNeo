@@ -1,4 +1,4 @@
-package com.replaymod.recording.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.core.versions.MCVer;
 import com.replaymod.recording.ReplayModRecording;
@@ -11,6 +11,7 @@ import net.minecraft.network.protocol.login.ClientboundGameProfilePacket;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,15 +24,16 @@ public abstract class ClientHandshakePacketListenerImplMixin {
 
     @Inject(method = "handleCustomQuery", at=@At("HEAD"))
     private void earlyInitiateRecording(ClientboundCustomQueryPacket packet, CallbackInfo ci) {
-        initiateRecording(packet);
+        rePlay$initiateRecording(packet);
     }
 
     @Inject(method = "handleGameProfile", at=@At("HEAD"))
     private void lateInitiateRecording(ClientboundGameProfilePacket packet, CallbackInfo ci) {
-        initiateRecording(packet);
+        rePlay$initiateRecording(packet);
     }
 
-    private void initiateRecording(Packet<?> packet) {
+    @Unique
+    private void rePlay$initiateRecording(Packet<?> packet) {
         RecordingEventSender eventSender = (RecordingEventSender) MCVer.getMinecraft().levelRenderer;
         if (eventSender.getRecordingEventHandler() != null) {
             return; // already recording

@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -45,7 +45,6 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import de.johni0702.minecraft.gui.versions.MCVer;
-import de.johni0702.minecraft.gui.versions.MCVer.Keyboard;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 
@@ -128,12 +127,12 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
 
     @Override
     public int getSelectionFrom() {
-        return cursorPos > selectionPos ? selectionPos : cursorPos;
+        return Math.min(cursorPos, selectionPos);
     }
 
     @Override
     public int getSelectionTo() {
-        return cursorPos > selectionPos ? cursorPos : selectionPos;
+        return Math.max(cursorPos, selectionPos);
     }
 
     @Override
@@ -166,38 +165,40 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
     }
 
     @Override
-    public T writeText(String append) {
+    public void writeText(String append) {
         for (char c : append.toCharArray()) {
             writeChar(c);
         }
-        return getThis();
+        getThis();
     }
 
     @Override
-    public T writeChar(char c) {
+    public void writeChar(char c) {
         if (!CharInput.isValidChar(c)) {
-            return getThis();
+            getThis();
+            return;
         }
 
         deleteSelectedText();
 
         if (text.length() >= maxLength) {
-            return getThis();
+            getThis();
+            return;
         }
 
         text = text.substring(0, cursorPos) + c + text.substring(cursorPos);
         selectionPos = ++cursorPos;
 
-        return getThis();
+        getThis();
     }
 
     @Override
-    public T deleteNextChar() {
+    public void deleteNextChar() {
         if (cursorPos < text.length()) {
             text = text.substring(0, cursorPos) + text.substring(cursorPos + 1);
         }
         selectionPos = cursorPos;
-        return getThis();
+        getThis();
     }
 
     /**
@@ -225,21 +226,20 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
     }
 
     @Override
-    public String deleteNextWord() {
+    public void deleteNextWord() {
         int worldLength = getNextWordLength();
         if (worldLength > 0) {
-            return deleteText(cursorPos, cursorPos + worldLength - 1);
+            deleteText(cursorPos, cursorPos + worldLength - 1);
         }
-        return "";
     }
 
     @Override
-    public T deletePreviousChar() {
+    public void deletePreviousChar() {
         if (cursorPos > 0) {
             text = text.substring(0, cursorPos - 1) + text.substring(cursorPos);
             selectionPos = --cursorPos;
         }
-        return getThis();
+        getThis();
     }
 
     /**
@@ -267,21 +267,20 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
     }
 
     @Override
-    public String deletePreviousWord() {
+    public void deletePreviousWord() {
         int worldLength = getPreviousWordLength();
         String deleted = "";
         if (worldLength > 0) {
             deleted = deleteText(cursorPos - worldLength, cursorPos - 1);
             selectionPos = cursorPos -= worldLength;
         }
-        return deleted;
     }
 
     @Override
-    public T setCursorPosition(int pos) {
+    public void setCursorPosition(int pos) {
         Preconditions.checkArgument(pos >= 0 && pos <= text.length());
         selectionPos = cursorPos = pos;
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -317,8 +316,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
                 && pos.getX() < size.getWidth() && pos.getY() < size.getHeight();
     }
 
-    @Override
-    public T setFocused(boolean isFocused) {
+    public void setFocused(boolean isFocused) {
         if (isFocused && !this.focused) {
             this.blinkCursorTick = 0; // Restart blinking to indicate successful focus
         }
@@ -326,7 +324,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
             this.focused = isFocused;
             onFocusChanged(this.focused);
         }
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -402,8 +400,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
                 setFocused(false);
                 other.setFocused(true);
                 // If the other field is a text field, by default select all its text (saves a Ctrl+A)
-                if (other instanceof AbstractGuiTextField) {
-                    AbstractGuiTextField<?> field = (AbstractGuiTextField<?>) other;
+                if (other instanceof AbstractGuiTextField<?> field) {
                     field.cursorPos = 0;
                     field.selectionPos = field.text.length();
                 }
@@ -469,7 +466,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
                     break;
                 case Keyboard.KEY_BACK:
                     if (isEnabled()) {
-                        if (getSelectedText().length() > 0) {
+                        if (!getSelectedText().isEmpty()) {
                             deleteSelectedText();
                         } else if (words) {
                             deletePreviousWord();
@@ -480,7 +477,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
                     return true;
                 case Keyboard.KEY_DELETE:
                     if (isEnabled()) {
-                        if (getSelectedText().length() > 0) {
+                        if (!getSelectedText().isEmpty()) {
                             deleteSelectedText();
                         } else if (words) {
                             deleteNextWord();

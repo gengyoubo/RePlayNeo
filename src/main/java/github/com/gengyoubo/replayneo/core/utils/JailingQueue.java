@@ -1,12 +1,11 @@
-package com.replaymod.render.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import com.google.common.base.Preconditions;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import java.util.concurrent.PriorityBlockingQueue;
@@ -54,7 +53,7 @@ public class JailingQueue<T>
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public @NotNull Iterator<T> iterator() {
         tryAccess();
         return delegate.iterator();
     }
@@ -80,7 +79,7 @@ public class JailingQueue<T>
     }
 
     @Override
-    public T take() throws InterruptedException {
+    public @NotNull T take() throws InterruptedException {
         tryAccess();
         return delegate.take();
     }

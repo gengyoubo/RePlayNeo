@@ -1,4 +1,4 @@
-package com.replaymod.replay.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.replay.ReplayModReplay;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.TippableArrowRenderer;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(TippableArrowRenderer.class)
@@ -16,8 +17,8 @@ public abstract class RenderArrowMixin extends EntityRenderer {
 
     @SuppressWarnings("unchecked")
     @Override
-    public boolean shouldRender(Entity entity,
-                                Frustum camera,
+    public boolean shouldRender(@NotNull Entity entity,
+                                @NotNull Frustum camera,
                                 double camX, double camY, double camZ) {
         // Force arrows to always render, otherwise they stop rendering when you get close to them
         return ReplayModReplay.instance.getReplayHandler() != null || super.shouldRender(entity, camera, camX, camY, camZ);

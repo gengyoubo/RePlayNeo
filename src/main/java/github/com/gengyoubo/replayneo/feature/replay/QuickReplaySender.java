@@ -1,4 +1,4 @@
-package com.replaymod.replay;
+package github.com.gengyoubo.replayneo.feature.replay;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -19,6 +19,8 @@ import io.netty.channel.ChannelHandlerAdapter;
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.util.function.Consumer;
 
@@ -98,9 +100,9 @@ public class QuickReplaySender extends ChannelHandlerAdapter implements ReplaySe
         return initPromise;
     }
 
-    public ListenableFuture<Void> initialize(Consumer<Double> progress) {
+    public void initialize(Consumer<Double> progress) {
         if (initPromise != null) {
-            return initPromise;
+            return;
         }
         SettableFuture<Void> promise = SettableFuture.create();
         initPromise = promise;
@@ -119,7 +121,6 @@ public class QuickReplaySender extends ChannelHandlerAdapter implements ReplaySe
             }
             mod.getCore().runLaterWithoutLock(() -> promise.set(null));
         }).start();
-        return promise;
     }
 
     private void ensureInitialized(Runnable body) {
@@ -127,14 +128,14 @@ public class QuickReplaySender extends ChannelHandlerAdapter implements ReplaySe
             LOGGER.warn("QuickReplaySender used without prior initialization!", new Throwable());
             initialize(progress -> {});
         }
-        Futures.addCallback(initPromise, new FutureCallback<Void>() {
+        Futures.addCallback(initPromise, new FutureCallback<>() {
             @Override
             public void onSuccess(@Nullable Void result) {
                 body.run();
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(@NotNull Throwable t) {
                 // Error already printed by initialize method
             }
         }, Runnable::run);

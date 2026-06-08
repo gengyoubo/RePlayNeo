@@ -1,4 +1,4 @@
-package com.replaymod.core.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import net.minecraft.client.Timer;
 import org.spongepowered.asm.mixin.Mixin;

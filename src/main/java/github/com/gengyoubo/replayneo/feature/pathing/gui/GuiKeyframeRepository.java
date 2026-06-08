@@ -1,4 +1,4 @@
-package com.replaymod.pathing.gui;
+package github.com.gengyoubo.replayneo.feature.pathing.gui;
 
 import com.google.common.util.concurrent.SettableFuture;
 import com.replaymod.core.ReplayMod;
@@ -36,7 +36,6 @@ import de.johni0702.minecraft.gui.utils.Colors;
 import de.johni0702.minecraft.gui.utils.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -85,20 +84,12 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
             ).setYesI18nLabel("replaymod.gui.save").setNoI18nLabel("replaymod.gui.cancel");
             popup.getYesButton().setDisabled();
             ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
-            nameField.onEnter(new Runnable() {
-                @Override
-                public void run() {
-                    if (popup.getYesButton().isEnabled()) {
-                        popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
-                    }
+            nameField.onEnter((Runnable) () -> {
+                if (popup.getYesButton().isEnabled()) {
+                    popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
                 }
-            }).onTextChanged(new Consumer<String>() {
-                @Override
-                public void consume(String obj) {
-                    popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
-                            && !timelines.containsKey(nameField.getText()));
-                }
-            });
+            }).onTextChanged((Consumer<String>) obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
+                    && !timelines.containsKey(nameField.getText())));
             popup.onAccept(() -> {
                 String name = nameField.getText();
                 timelines.put(name, currentTimeline);
@@ -133,20 +124,12 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
             ).setYesI18nLabel("replaymod.gui.done").setNoI18nLabel("replaymod.gui.cancel");
             popup.getYesButton().setDisabled();
             ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
-            nameField.onEnter(new Runnable() {
-                @Override
-                public void run() {
-                    if (popup.getYesButton().isEnabled()) {
-                        popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
-                    }
+            nameField.onEnter((Runnable) () -> {
+                if (popup.getYesButton().isEnabled()) {
+                    popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
                 }
-            }).onTextChanged(new Consumer<String>() {
-                @Override
-                public void consume(String obj) {
-                    popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
-                            && !timelines.containsKey(nameField.getText()));
-                }
-            });
+            }).onTextChanged((Consumer<String>) obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
+                    && !timelines.containsKey(nameField.getText())));
             popup.onAccept(() -> {
                 String name = nameField.getText();
                 timelines.put(name, timelines.remove(selectedEntry.name));

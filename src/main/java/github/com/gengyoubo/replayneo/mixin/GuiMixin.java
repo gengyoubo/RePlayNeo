@@ -1,4 +1,4 @@
-package com.replaymod.replay.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.render.hooks.EntityRendererHandler;
 import com.replaymod.replay.events.RenderHotbarCallback;

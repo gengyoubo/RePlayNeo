@@ -1,4 +1,4 @@
-package com.replaymod.render.hooks;
+package github.com.gengyoubo.replayneo.feature.render.hooks;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.replaymod.render.gui.progress.VirtualWindow;

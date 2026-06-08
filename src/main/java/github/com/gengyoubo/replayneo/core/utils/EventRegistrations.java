@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 
 
@@ -7,15 +7,15 @@ import java.util.List;
 
 public class EventRegistrations {
 
-    private List<EventRegistration<?>> registrations = new ArrayList<>();
+    private final List<EventRegistration<?>> registrations = new ArrayList<>();
 
     public <T> EventRegistrations on(EventRegistration<T> registration) {
         registrations.add(registration);
         return this;
     }
 
-    public <T> EventRegistrations on(Event<T> event, T listener) {
-        return on(EventRegistration.create(event, listener));
+    public <T> void on(Event<T> event, T listener) {
+        on(EventRegistration.create(event, listener));
     }
 
     public void register() {

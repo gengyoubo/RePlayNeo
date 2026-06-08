@@ -1,6 +1,5 @@
-package com.replaymod.core.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
-import com.google.common.base.Throwables;
 import com.google.common.net.PercentEscaper;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -26,7 +25,6 @@ import de.johni0702.minecraft.gui.versions.Image;
 import de.johni0702.minecraft.gui.versions.MCVer;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
@@ -37,11 +35,10 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 import net.minecraft.CrashReport;
 import net.minecraft.client.gui.screens.Screen;
-import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -55,11 +52,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 import static com.replaymod.core.versions.MCVer.getMinecraft;
@@ -67,9 +61,9 @@ import static com.replaymod.core.versions.MCVer.getMinecraft;
 
 
 public class Utils {
-    private static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
-    public static final float DEFAULT_MS_PER_TICK = 1000 / 20;
+    public static final float DEFAULT_MS_PER_TICK = (float) 1000 / 20;
 
     private static InputStream getResourceAsStream(String path) {
         return Utils.class.getResourceAsStream(path);
@@ -204,7 +198,7 @@ public class Utils {
                 return true;
             } catch (IOException e) {
                 if (attempts++ > 100) {
-                    LOGGER.warn("Repeatedly failed to clean up temporary test file at " + path + ": ", e);
+                    LOGGER.warn("Repeatedly failed to clean up temporary test file at {}: ", path, e);
                     return false; // while we were able to use it, it's taken now and we can't get it back
                 }
             }
@@ -214,11 +208,9 @@ public class Utils {
     public static String fileNameToReplayName(String fileName) {
         String baseName = FilenameUtils.getBaseName(fileName);
         try {
-            return URLDecoder.decode(baseName, Charsets.UTF_8.name());
+            return URLDecoder.decode(baseName, Charsets.UTF_8);
         } catch (IllegalArgumentException e) {
             return baseName;
-        } catch (UnsupportedEncodingException e) {
-            throw Throwables.propagate(e);
         }
     }
 
@@ -227,7 +219,7 @@ public class Utils {
     }
 
     public static <T> void addCallback(ListenableFuture<T> future, Consumer<T> onSuccess, Consumer<Throwable> onFailure) {
-        Futures.addCallback(future, new FutureCallback<T>() {
+        Futures.addCallback(future, new FutureCallback<>() {
             @Override
             public void onSuccess(@Nullable T result) {
                 onSuccess.accept(result);
@@ -240,7 +232,7 @@ public class Utils {
         }, Runnable::run);
     }
 
-    public static GuiInfoPopup error(Logger logger, GuiContainer container, CrashReport crashReport, Runnable onClose) {
+    public static void error(Logger logger, GuiContainer container, CrashReport crashReport, Runnable onClose) {
         // Convert crash report to string
         String crashReportStr = crashReport.getFriendlyReport(
         );
@@ -249,18 +241,7 @@ public class Utils {
         logger.error(crashReportStr);
 
         // Try to save the crash report
-        if (crashReport.getSaveFile() == null) {
-            try {
-                File folder = new File(getMinecraft().gameDirectory, "crash-reports");
-                File file = new File(folder, "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
-                logger.debug("Saving crash report to file: {}", file);
-                crashReport.saveToFile(file);
-            } catch (Throwable t) {
-                logger.error("Saving crash report file:", t);
-            }
-        } else {
-            logger.debug("Not saving crash report as file already exists: {}", crashReport.getSaveFile());
-        }
+        logger.debug("Not saving crash report as file already exists: {}", crashReport.getSaveFile());
 
         logger.trace("Opening crash report popup GUI");
         GuiCrashReportPopup popup = new GuiCrashReportPopup(container, crashReportStr);
@@ -270,7 +251,6 @@ public class Utils {
                 onClose.run();
             }
         });
-        return popup;
     }
 
     private static class GuiCrashReportPopup extends GuiInfoPopup {

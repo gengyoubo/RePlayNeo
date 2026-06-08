@@ -1,4 +1,4 @@
-package com.replaymod.replay.camera;
+package github.com.gengyoubo.replayneo.feature.replay.camera;
 
 public interface CameraController {
     void update(float partialTicksPassed);

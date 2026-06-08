@@ -1,13 +1,13 @@
-package com.replaymod.core;
+package github.com.gengyoubo.replayneo.core;
 
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import net.minecraft.SharedConstants;
 import net.minecraftforge.fml.ModList;
 
 public class ReplayModBackend {
-    private final ReplayMod mod = new ReplayMod(this);
 
     public ReplayModBackend() {
+        ReplayMod mod = new ReplayMod(this);
         mod.initModules();
     }
 

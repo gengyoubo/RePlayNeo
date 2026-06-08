@@ -8,8 +8,7 @@ import org.apache.logging.log4j.Logger;
 @Mod(RePlayNeo.MODID)
 public class RePlayNeo {
     public static final String MODID = "replayneo";
-    public static final String LEGACY_MODID = "replaymod";
-    public static final String RESOURCE_NAMESPACE = LEGACY_MODID;
+    public static final String RESOURCE_NAMESPACE = MODID;
     public static final String MOD_NAME = "RePlayNeo";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 

@@ -1,4 +1,4 @@
-package com.replaymod.render.blend.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import net.minecraft.client.particle.Particle;
 import org.spongepowered.asm.mixin.Mixin;

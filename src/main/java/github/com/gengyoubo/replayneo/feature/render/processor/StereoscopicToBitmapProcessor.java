@@ -1,4 +1,4 @@
-package com.replaymod.render.processor;
+package github.com.gengyoubo.replayneo.feature.render.processor;
 
 import com.replaymod.render.frame.BitmapFrame;
 import com.replaymod.render.frame.StereoscopicOpenGlFrame;
@@ -13,14 +13,14 @@ import static com.replaymod.render.utils.Utils.openGlBytesToBitmap;
 public class StereoscopicToBitmapProcessor extends AbstractFrameProcessor<StereoscopicOpenGlFrame, BitmapFrame> {
     @Override
     public BitmapFrame process(StereoscopicOpenGlFrame rawFrame) {
-        ReadableDimension size = rawFrame.getLeft().getSize();
+        ReadableDimension size = rawFrame.left().getSize();
         int width = size.getWidth();
-        int bpp = rawFrame.getLeft().getBytesPerPixel();
+        int bpp = rawFrame.left().getBytesPerPixel();
         ByteBuffer result = ByteBufferPool.allocate(width * 2 * size.getHeight() * bpp);
-        openGlBytesToBitmap(rawFrame.getLeft(), 0, 0, result, width * 2);
-        openGlBytesToBitmap(rawFrame.getRight(), size.getWidth(), 0, result, width * 2);
-        ByteBufferPool.release(rawFrame.getLeft().getByteBuffer());
-        ByteBufferPool.release(rawFrame.getRight().getByteBuffer());
-        return new BitmapFrame(rawFrame.getFrameId(), new Dimension(width * 2, size.getHeight()), bpp, result);
+        openGlBytesToBitmap(rawFrame.left(), 0, 0, result, width * 2);
+        openGlBytesToBitmap(rawFrame.right(), size.getWidth(), 0, result, width * 2);
+        ByteBufferPool.release(rawFrame.left().getByteBuffer());
+        ByteBufferPool.release(rawFrame.right().getByteBuffer());
+        return new BitmapFrame(rawFrame.frameId(), new Dimension(width * 2, size.getHeight()), bpp, result);
     }
 }

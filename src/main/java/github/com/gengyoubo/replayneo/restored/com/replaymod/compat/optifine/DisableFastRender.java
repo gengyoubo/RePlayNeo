@@ -1,4 +1,4 @@
-package com.replaymod.compat.optifine;
+package github.com.gengyoubo.replayneo.restored.com.replaymod.compat.optifine;
 
 import de.johni0702.minecraft.gui.utils.EventRegistrations;
 import net.minecraft.client.Minecraft;

@@ -1,9 +1,8 @@
-package com.replaymod.recording;
+package github.com.gengyoubo.replayneo.feature.recording;
 
 import com.replaymod.core.KeyBindingRegistry;
 import com.replaymod.core.Module;
 import com.replaymod.core.ReplayMod;
-import com.replaymod.core.utils.Restrictions;
 import com.replaymod.core.versions.MCVer.Keyboard;
 import com.replaymod.recording.handler.ConnectionEventHandler;
 import com.replaymod.recording.handler.GuiHandler;
@@ -12,7 +11,6 @@ import com.replaymod.recording.packet.PacketListener;
 import com.replaymod.replay.ReplayHandler;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
@@ -25,9 +23,9 @@ public class ReplayModRecording implements Module {
     private static final AttributeKey<Void> ATTR_CHECKED = AttributeKey.newInstance("ReplayModRecording_checked");
 
     { instance = this; }
-    public static ReplayModRecording instance;
+    public static final ReplayModRecording instance;
 
-    private ReplayMod core;
+    private final ReplayMod core;
 
     private ConnectionEventHandler connectionEventHandler;
 
@@ -39,14 +37,11 @@ public class ReplayModRecording implements Module {
 
     @Override
     public void registerKeyBindings(KeyBindingRegistry registry) {
-        registry.registerKeyBinding("replaymod.input.marker", Keyboard.KEY_M, new Runnable() {
-            @Override
-            public void run() {
-                PacketListener packetListener = connectionEventHandler.getPacketListener();
-                if (packetListener != null) {
-                    packetListener.addMarker(null);
-                    core.printInfoToChat("replaymod.chat.addedmarker");
-                }
+        registry.registerKeyBinding("replaymod.input.marker", Keyboard.KEY_M, () -> {
+            PacketListener packetListener = connectionEventHandler.getPacketListener();
+            if (packetListener != null) {
+                packetListener.addMarker(null);
+                core.printInfoToChat("replaymod.chat.addedmarker");
             }
         }, false);
     }

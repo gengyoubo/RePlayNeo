@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

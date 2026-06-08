@@ -1,4 +1,4 @@
-package com.replaymod.pathing.player;
+package github.com.gengyoubo.replayneo.feature.pathing.player;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.replaymod.replay.ReplayHandler;

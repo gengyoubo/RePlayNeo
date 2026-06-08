@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.versions;
+package github.com.gengyoubo.replayneo.platform.versions;
 
 import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.platform.Window;
@@ -21,32 +21,9 @@ public class MCVer {
         return Minecraft.getInstance();
     }
 
-    private static class ScissorBounds {
-        private static final ScissorBounds DISABLED = new ScissorBounds(0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE);
-        private final int x;
-        private final int y;
-        private final int width;
-        private final int height;
+    private record ScissorBounds(int x, int y, int width, int height) {
+            private static final ScissorBounds DISABLED = new ScissorBounds(0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
-        private ScissorBounds(int x, int y, int width, int height) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            ScissorBounds that = (ScissorBounds) o;
-            return x == that.x && y == that.y && width == that.width && height == that.height;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y, width, height);
-        }
     }
     private static final ArrayDeque<ScissorBounds> scissorStateStack = new ArrayDeque<>();
     private static ScissorBounds scissorState = ScissorBounds.DISABLED;
@@ -143,8 +120,5 @@ public class MCVer {
         public static final int KEY_V = GLFW.GLFW_KEY_V;
         public static final int KEY_X = GLFW.GLFW_KEY_X;
 
-        public static void enableRepeatEvents(boolean enabled) {
-            // These are now always enabled and we no longer need to manually toggle it when opening screens
-        }
     }
 }

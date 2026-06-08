@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.versions.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.replaymod.core.events.PreRenderHandCallback;
@@ -29,13 +29,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin implements EntityRendererHandler.IEntityRenderer {
+    @Unique
     private static final String EXTRACT_GUI = "render";
+    @Unique
     private static final String PROJECTION_MATRIX = "getProjectionMatrix";
+    @Unique
     private static final String SET_PERSPECTIVE = "Lorg/joml/Matrix4f;setPerspective(FFFF)Lorg/joml/Matrix4f;";
+    @Unique
     private static final boolean SET_PERSPECTIVE_REMAP = false;
+    @Unique
     private static final float OMNIDIRECTIONAL_FOV = (float) Math.PI / 2;
 
-    @Shadow @Final private Minecraft minecraft;
+    @Shadow @Final
+    Minecraft minecraft;
 
     @Unique
     private EntityRendererHandler replayModRender$handler;
@@ -84,12 +90,12 @@ public abstract class GameRendererMixin implements EntityRendererHandler.IEntity
 
     @ModifyArg(method = PROJECTION_MATRIX, at = @At(value = "INVOKE", target = SET_PERSPECTIVE, remap = SET_PERSPECTIVE_REMAP), index = 0)
     private float replayModRender_perspective_fov(float fovY) {
-        return isOmnidirectional() ? OMNIDIRECTIONAL_FOV : fovY;
+        return rePlay$isOmnidirectional() ? OMNIDIRECTIONAL_FOV : fovY;
     }
 
     @ModifyArg(method = PROJECTION_MATRIX, at = @At(value = "INVOKE", target = SET_PERSPECTIVE, remap = SET_PERSPECTIVE_REMAP), index = 1)
     private float replayModRender_perspective_aspect(float aspect) {
-        return isOmnidirectional() ? 1 : aspect;
+        return rePlay$isOmnidirectional() ? 1 : aspect;
     }
 
     @Inject(method = "getProjectionMatrix", at = @At("RETURN"), cancellable = true)
@@ -126,40 +132,8 @@ public abstract class GameRendererMixin implements EntityRendererHandler.IEntity
             PoseStack matrixStack,
             CallbackInfo ci
     ) {
-        if (replayModRender_getHandler() != null && replayModRender_getHandler().data instanceof CubicOpenGlFrameCapturer.Data) {
-            CubicOpenGlFrameCapturer.Data data = (CubicOpenGlFrameCapturer.Data) replayModRender_getHandler().data;
-            float angle = 0;
-            float x = 0;
-            float y = 0;
-            switch (data) {
-                case FRONT:
-                    angle = 0;
-                    y = 1;
-                    break;
-                case RIGHT:
-                    angle = 90;
-                    y = 1;
-                    break;
-                case BACK:
-                    angle = 180;
-                    y = 1;
-                    break;
-                case LEFT:
-                    angle = -90;
-                    y = 1;
-                    break;
-                case TOP:
-                    angle = -90;
-                    x = 1;
-                    break;
-                case BOTTOM:
-                    angle = 90;
-                    x = 1;
-                    break;
-            }
-            matrixStack.mulPose(new org.joml.Quaternionf().fromAxisAngleDeg(x, y, 0, angle));
-
-            this.minecraft.levelRenderer.needsUpdate();
+        if (replayModRender_getHandler() != null) {
+            replayModRender_getHandler();
         }
     }
 
@@ -212,7 +186,7 @@ public abstract class GameRendererMixin implements EntityRendererHandler.IEntity
     }
 
     @Unique
-    private boolean isOmnidirectional() {
+    private boolean rePlay$isOmnidirectional() {
         return replayModRender_getHandler() != null && replayModRender_getHandler().omnidirectional;
     }
 }

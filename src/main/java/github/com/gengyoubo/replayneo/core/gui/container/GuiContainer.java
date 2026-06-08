@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.container;
+package github.com.gengyoubo.replayneo.core.gui.container;
 
 import de.johni0702.minecraft.gui.element.ComposedGuiElement;
 import de.johni0702.minecraft.gui.element.GuiElement;
@@ -36,7 +36,7 @@ import java.util.Map;
 
 public interface GuiContainer<T extends GuiContainer<T>> extends ComposedGuiElement<T> {
 
-    T setLayout(Layout layout);
+    void setLayout(Layout layout);
     Layout getLayout();
 
     void convertFor(GuiElement element, Point point);
@@ -51,8 +51,8 @@ public interface GuiContainer<T extends GuiContainer<T>> extends ComposedGuiElem
     void convertFor(GuiElement element, Point point, int relativeLayer);
 
     Map<GuiElement, LayoutData> getElements();
-    T addElements(LayoutData layoutData, GuiElement... elements);
-    T removeElement(GuiElement element);
+    void addElements(LayoutData layoutData, GuiElement... elements);
+    void removeElement(GuiElement element);
     T sortElements();
     T sortElements(Comparator<GuiElement> comparator);
 

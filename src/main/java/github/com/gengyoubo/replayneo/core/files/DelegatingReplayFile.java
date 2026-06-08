@@ -1,4 +1,4 @@
-package com.replaymod.core.files;
+package github.com.gengyoubo.replayneo.core.files;
 
 import com.replaymod.replaystudio.data.Marker;
 import com.replaymod.replaystudio.data.ModInfo;

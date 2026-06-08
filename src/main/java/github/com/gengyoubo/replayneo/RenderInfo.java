@@ -22,25 +22,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui;
+package github.com.gengyoubo.replayneo;
 
 import de.johni0702.minecraft.gui.versions.MCVer;
-import java.util.Objects;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 
-public class RenderInfo {
-    public final float partialTick;
-    public final int mouseX;
-    public final int mouseY;
-    public final int layer;
-
-    public RenderInfo(float partialTick, int mouseX, int mouseY, int layer) {
-        this.partialTick = partialTick;
-        this.mouseX = mouseX;
-        this.mouseY = mouseY;
-        this.layer = layer;
-    }
+public record RenderInfo(float partialTick, int mouseX, int mouseY, int layer) {
 
     public RenderInfo offsetMouse(int minusX, int minusY) {
         return new RenderInfo(partialTick, mouseX - minusX, mouseY - minusY, layer);
@@ -58,22 +46,6 @@ public class RenderInfo {
         MCVer.addDetail(category, "Layer", () -> "" + layer);
     }
 
-    public float getPartialTick() {
-        return this.partialTick;
-    }
-
-    public int getMouseX() {
-        return this.mouseX;
-    }
-
-    public int getMouseY() {
-        return this.mouseY;
-    }
-
-    public int getLayer() {
-        return this.layer;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,11 +55,6 @@ public class RenderInfo {
                 mouseX == that.mouseX &&
                 mouseY == that.mouseY &&
                 layer == that.layer;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(partialTick, mouseX, mouseY, layer);
     }
 
     @Override

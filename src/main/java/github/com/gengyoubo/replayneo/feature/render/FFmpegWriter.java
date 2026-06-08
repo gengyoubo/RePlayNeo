@@ -1,4 +1,4 @@
-package com.replaymod.render;
+package github.com.gengyoubo.replayneo.feature.render;
 
 import com.replaymod.core.versions.MCVer;
 import com.replaymod.render.frame.BitmapFrame;
@@ -38,7 +38,7 @@ public class FFmpegWriter implements FrameConsumer<BitmapFrame> {
     private final String commandArgs;
     private volatile boolean aborted;
 
-    private ByteArrayOutputStream ffmpegLog = new ByteArrayOutputStream(4096);
+    private final ByteArrayOutputStream ffmpegLog = new ByteArrayOutputStream(4096);
 
     public FFmpegWriter(final VideoRenderer renderer) throws IOException {
         this.renderer = renderer;
@@ -79,7 +79,7 @@ public class FFmpegWriter implements FrameConsumer<BitmapFrame> {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         IOUtils.closeQuietly(outputStream);
 
         long startTime = System.nanoTime();
@@ -108,8 +108,8 @@ public class FFmpegWriter implements FrameConsumer<BitmapFrame> {
     public void consume(Map<Channel, BitmapFrame> channels) {
         BitmapFrame frame = channels.get(Channel.BRGA);
         try {
-            checkSize(frame.getSize());
-            channel.write(frame.getByteBuffer());
+            checkSize(frame.size());
+            channel.write(frame.byteBuffer());
         } catch (Throwable t) {
             if (aborted) {
                 return;
@@ -130,7 +130,7 @@ public class FFmpegWriter implements FrameConsumer<BitmapFrame> {
             exportDetails.setDetail("Export args", commandArgs::toString);
             MCVer.getMinecraft().delayCrashRaw(report);
         } finally {
-            channels.values().forEach(it -> ByteBufferPool.release(it.getByteBuffer()));
+            channels.values().forEach(it -> ByteBufferPool.release(it.byteBuffer()));
         }
     }
 

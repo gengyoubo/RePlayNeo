@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import de.johni0702.minecraft.gui.versions.MCVer;
 import java.util.ArrayList;
@@ -35,17 +35,17 @@ public class StringUtils {
         Font fontRenderer = MCVer.getFontRenderer();
         List<String> rows = new ArrayList<>();
         String remaining = string;
-        while(remaining.length() > 0) {
+        while(!remaining.isEmpty()) {
             String[] split = remaining.split(" ");
-            String b = "";
+            StringBuilder b = new StringBuilder();
             for(String sp : split) {
-                b += sp + " ";
-                if (fontRenderer.width(b.trim()) > maxWidth) {
-                    b = b.substring(0, b.trim().length() - (sp.length()));
+                b.append(sp).append(" ");
+                if (fontRenderer.width(b.toString().trim()) > maxWidth) {
+                    b = new StringBuilder(b.substring(0, b.toString().trim().length() - (sp.length())));
                     break;
                 }
             }
-            String trimmed = b.trim();
+            String trimmed = b.toString().trim();
             rows.add(trimmed);
             try {
                 remaining = remaining.substring(trimmed.length() + 1);
@@ -54,6 +54,6 @@ public class StringUtils {
             }
         }
 
-        return rows.toArray(new String[rows.size()]);
+        return rows.toArray(new String[0]);
     }
 }

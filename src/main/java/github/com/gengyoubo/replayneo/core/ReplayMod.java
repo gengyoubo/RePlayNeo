@@ -1,4 +1,4 @@
-package com.replaymod.core;
+package github.com.gengyoubo.replayneo.core;
 
 import com.replaymod.compat.ReplayModCompat;
 import com.replaymod.core.files.ReplayFilesService;
@@ -24,6 +24,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PathPackResources;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
@@ -56,7 +58,7 @@ public class ReplayMod implements Module, Scheduler {
     }
 
     { instance = this; }
-    public static ReplayMod instance;
+    public static final ReplayMod instance;
 
     private final List<Module> modules = new ArrayList<>();
 
@@ -68,7 +70,7 @@ public class ReplayMod implements Module, Scheduler {
      * Whether the current MC version is supported by the embedded ReplayStudio version.
      * If this is not the case (i.e. if this is variable true), any feature of the RM which depends on the ReplayStudio
      * lib will be disabled.
-     *
+     * <p>
      * Only supported on Fabric builds, i.e. will always be false / crash the game with Forge/pre-1.14 builds.
      * (specifically the code below and MCVer#getProtocolVersion make this assumption)
      */
@@ -118,12 +120,12 @@ public class ReplayMod implements Module, Scheduler {
         }
         return new PathPackResources(JGUI_RESOURCE_PACK_NAME, folder.toPath(), true) {
             @Override
-            public String packId() {
+            public @NotNull String packId() {
                 return JGUI_RESOURCE_PACK_NAME;
             }
 
             @Override
-            public net.minecraft.server.packs.resources.IoSupplier<InputStream> getRootResource(String... segments) {
+            public net.minecraft.server.packs.resources.IoSupplier<InputStream> getRootResource(String @NotNull ... segments) {
                 if (segments.length == 1 && segments[0].equals("pack.mcmeta")) {
                     return () -> new ByteArrayInputStream(generatePackMeta());
                 }
@@ -146,9 +148,7 @@ public class ReplayMod implements Module, Scheduler {
 
     @Override
     public void registerKeyBindings(KeyBindingRegistry registry) {
-        registry.registerKeyBinding("replaymod.input.settings", 0, () -> {
-            new GuiReplaySettings(null, settingsRegistry).display();
-        }, false);
+        registry.registerKeyBinding("replaymod.input.settings", 0, () -> new GuiReplaySettings(null, settingsRegistry).display(), false);
     }
 
     @Override

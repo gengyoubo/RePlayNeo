@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.function;
+package github.com.gengyoubo.replayneo.function;
 
 import net.minecraft.Util;
 import net.minecraft.client.gui.screens.Screen;

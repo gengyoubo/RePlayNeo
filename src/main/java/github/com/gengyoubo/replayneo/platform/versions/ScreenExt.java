@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.versions;
+package github.com.gengyoubo.replayneo.platform.versions;
 
 public interface ScreenExt {
     boolean doesPassEvents();

@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element.advanced;
+package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.OffsetGuiRenderer;
@@ -98,7 +98,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
     public void layout(ReadableDimension size, RenderInfo renderInfo) {
         super.layout(size, renderInfo);
         Font fontRenderer = MCVer.getFontRenderer();
-        if (renderInfo.layer == 1) {
+        if (renderInfo.layer() == 1) {
             ReadablePoint offsetPoint = new Point(0, size.getHeight());
             ReadableDimension offsetSize = new Dimension(size.getWidth(), (fontRenderer.lineHeight + 5) *  values.length);
             dropdown.layout(offsetSize, renderInfo.offsetMouse(0, offsetPoint.getY()).layer(0));
@@ -109,7 +109,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
     public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
         super.draw(renderer, size, renderInfo);
         Font fontRenderer = MCVer.getFontRenderer();
-        if (renderInfo.layer == 0) {
+        if (renderInfo.layer() == 0) {
             int width = size.getWidth();
             int height = size.getHeight();
 
@@ -128,7 +128,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
             }
 
             renderer.drawString(3, height / 2 - fontRenderer.lineHeight / 2, ReadableColor.WHITE, toString.apply(getSelectedValue()));
-        } else if (renderInfo.layer == 1) {
+        } else if (renderInfo.layer() == 1) {
             ReadablePoint offsetPoint = new Point(0, size.getHeight());
             ReadableDimension offsetSize = new Dimension(size.getWidth(), (fontRenderer.lineHeight + 5) *  values.length);
             OffsetGuiRenderer offsetRenderer = new OffsetGuiRenderer(renderer, offsetPoint, offsetSize);
@@ -141,13 +141,14 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
         }
     }
 
+    @SafeVarargs
     @Override
-    public T setValues(V... values) {
+    public final T setValues(V... values) {
         this.values = values;
         dropdown = new GuiPanel(){
             @Override
             public void convertFor(GuiElement element, Point point, int relativeLayer) {
-                AbstractGuiDropdownMenu parent = AbstractGuiDropdownMenu.this;
+                AbstractGuiDropdownMenu<V, T> parent = AbstractGuiDropdownMenu.this;
                 if (parent.getContainer() != null) {
                     parent.getContainer().convertFor(parent, point, relativeLayer + 1);
                 }
@@ -173,10 +174,11 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
     }
 
     @Override
-    public T setSelected(V value) {
+    public void setSelected(V value) {
         for (int i = 0; i < values.length; i++) {
             if (values[i].equals(value)) {
-                return setSelected(i);
+                setSelected(i);
+                return;
             }
         }
         throw new IllegalArgumentException("The value " + value + " is not in this dropdown menu.");
@@ -188,14 +190,14 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
     }
 
     @Override
-    public T setOpened(boolean opened) {
+    public void setOpened(boolean opened) {
         this.opened = opened;
-        return getThis();
+        getThis();
     }
 
     @Override
     public Collection<GuiElement> getChildren() {
-        return opened ? Collections.<GuiElement>singletonList(dropdown) : Collections.<GuiElement>emptyList();
+        return opened ? Collections.<GuiElement>singletonList(dropdown) : Collections.emptyList();
     }
 
     @Override

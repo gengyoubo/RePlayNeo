@@ -1,4 +1,4 @@
-package com.replaymod.core;
+package github.com.gengyoubo.replayneo.core;
 
 import com.replaymod.core.events.SettingsChangedCallback;
 

@@ -1,4 +1,4 @@
-package com.replaymod.render.blend.data;
+package github.com.gengyoubo.replayneo.feature.render.blend.data;
 
 import com.replaymod.render.blend.Util;
 import org.blender.dna.MTex;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DMaterial {
     public final DId id = new DId(BlockCodes.ID_MA);
-    public List<DMTex> textures = new ArrayList<>();
+    public final List<DMTex> textures = new ArrayList<>();
 
     public CPointer<Material> serialize(Serializer serializer) throws IOException {
         return serializer.maybeMajor(this, id, Material.class, () -> {

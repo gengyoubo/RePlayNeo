@@ -1,4 +1,4 @@
-package com.replaymod.extras.advancedscreenshots;
+package github.com.gengyoubo.replayneo.addon.advancedscreenshots;
 
 import com.replaymod.core.versions.MCVer;
 import com.replaymod.render.RenderSettings;

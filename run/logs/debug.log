@@ -1,0 +1,499 @@
+[086月2026 18:48:34.326] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 5, --assetsDir, C:\Users\gengy\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.4.20, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mixin, mixins.replayneo.json, --mixin.config, mixins.replayneo.json]
+[086月2026 18:48:34.331] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.18 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[086月2026 18:48:34.388] [main/DEBUG] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Found launch services [fmlclientdev,forgeclient,minecraft,forgegametestserverdev,fmlserveruserdev,fmlclient,fmldatauserdev,forgeserverdev,forgeserveruserdev,forgeclientdev,forgeclientuserdev,forgeserver,forgedatadev,fmlserver,fmlclientuserdev,fmlserverdev,forgedatauserdev,testharness,forgegametestserveruserdev]
+[086月2026 18:48:34.405] [main/DEBUG] [cpw.mods.modlauncher.NameMappingServiceHandler/MODLAUNCHER]: Found naming services : [srgtomcp]
+[086月2026 18:48:34.419] [main/DEBUG] [cpw.mods.modlauncher.LaunchPluginHandler/MODLAUNCHER]: Found launch plugins: [mixin,eventbus,slf4jfixer,object_holder_definalize,runtime_enum_extender,capability_token_subclass,accesstransformer,runtimedistcleaner]
+[086月2026 18:48:34.428] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Discovering transformation services
+[086月2026 18:48:34.433] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path GAMEDIR is C:\Users\gengy\Desktop\RePlay\run
+[086月2026 18:48:34.434] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path MODSDIR is C:\Users\gengy\Desktop\RePlay\run\mods
+[086月2026 18:48:34.434] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path CONFIGDIR is C:\Users\gengy\Desktop\RePlay\run\config
+[086月2026 18:48:34.434] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path FMLCONFIG is C:\Users\gengy\Desktop\RePlay\run\config\fml.toml
+[086月2026 18:48:34.461] [main/WARN] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Configuration file C:\Users\gengy\Desktop\RePlay\run\config\fml.toml is not correct. Correcting
+[086月2026 18:48:34.462] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSkipGLVersions] was corrected from null to []
+[086月2026 18:48:34.463] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowLogHelpMessage] was corrected from null to true
+[086月2026 18:48:34.463] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSquir] was corrected from null to false
+[086月2026 18:48:34.463] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowShowCPU] was corrected from null to false
+[086月2026 18:48:34.475] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Found additional transformation services from discovery services: 
+[086月2026 18:48:34.484] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[086月2026 18:48:34.623] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
+[086月2026 18:48:34.623] [main/INFO] [EARLYDISPLAY/]: If this message is the only thing at the bottom of your log before a crash, you probably have a driver issue.
+
+Possible solutions:
+A) Make sure Minecraft is set to prefer high performance graphics in the OS and/or driver control panel
+B) Check for driver updates on the graphics brand's website
+C) Try reinstalling your graphics drivers
+D) If still not working after trying all of the above, ask for further help on the Forge forums or Discord
+
+You can safely ignore this message if the game starts up successfully.
+[086月2026 18:48:35.277] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
+[086月2026 18:48:35.316] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Found transformer services : [mixin,fml]
+[086月2026 18:48:35.316] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services loading
+[086月2026 18:48:35.317] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loading service mixin
+[086月2026 18:48:35.317] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loaded service mixin
+[086月2026 18:48:35.317] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loading service fml
+[086月2026 18:48:35.318] [main/DEBUG] [net.minecraftforge.fml.loading.LauncherVersion/CORE]: Found FMLLauncher version 1.0
+[086月2026 18:48:35.318] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML 1.0 loading
+[086月2026 18:48:35.318] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found ModLauncher version : 10.0.9+10.0.9+main.dcd20f30
+[086月2026 18:48:35.318] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Requesting CoreMods to not apply the fix for ASMAPI.findFirstInstructionBefore by default
+[086月2026 18:48:35.319] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found AccessTransformer version : 8.0.4+66+master.c09db6d7
+[086月2026 18:48:35.319] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found EventBus version : 6.2.33
+[086月2026 18:48:35.320] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Found Runtime Dist Cleaner
+[086月2026 18:48:35.321] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/]: CoreMods will preserve legacy behavior of ASMAPI.findFirstInstructionBefore for backwards-compatibility
+[086月2026 18:48:35.322] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found CoreMod version : 5.2.4
+[086月2026 18:48:35.322] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Found ForgeSPI package implementation version 7.0.1+7.0.1+master.d2b38bf6
+[086月2026 18:48:35.322] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Found ForgeSPI package specification 5
+[086月2026 18:48:35.322] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loaded service fml
+[086月2026 18:48:35.323] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Configuring option handling for services
+[086月2026 18:48:35.328] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services initializing
+[086月2026 18:48:35.328] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformation service mixin
+[086月2026 18:48:35.343] [main/DEBUG] [mixin/]: MixinService [ModLauncher] was successfully booted in cpw.mods.cl.ModuleClassLoader@27ce24aa
+[086月2026 18:48:35.359] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/gengy/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[086月2026 18:48:35.362] [main/DEBUG] [mixin/]: Initialising Mixin Platform Manager
+[086月2026 18:48:35.362] [main/DEBUG] [mixin/]: Adding mixin platform agents for container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[086月2026 18:48:35.363] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for ModLauncher Root Container(ModLauncher:4f56a0a2)
+[086月2026 18:48:35.363] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[086月2026 18:48:35.365] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for ModLauncher Root Container(ModLauncher:4f56a0a2)
+[086月2026 18:48:35.365] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[086月2026 18:48:35.368] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformation service mixin
+[086月2026 18:48:35.368] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformation service fml
+[086月2026 18:48:35.368] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Setting up basic FML game directories
+[086月2026 18:48:35.368] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path GAMEDIR is C:\Users\gengy\Desktop\RePlay\run
+[086月2026 18:48:35.369] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path MODSDIR is C:\Users\gengy\Desktop\RePlay\run\mods
+[086月2026 18:48:35.369] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path CONFIGDIR is C:\Users\gengy\Desktop\RePlay\run\config
+[086月2026 18:48:35.369] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path FMLCONFIG is C:\Users\gengy\Desktop\RePlay\run\config\fml.toml
+[086月2026 18:48:35.369] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Loading configuration
+[086月2026 18:48:35.371] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Preparing ModFile
+[086月2026 18:48:35.373] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Preparing launch handler
+[086月2026 18:48:35.373] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Using forgeclientuserdev as launch service
+[086月2026 18:48:35.384] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Received command line version data  : VersionInfo[forgeVersion=47.4.20, mcVersion=1.20.1, mcpVersion=20230612.114412, forgeGroup=net.minecraftforge]
+[086月2026 18:48:35.385] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformation service fml
+[086月2026 18:48:35.385] [main/DEBUG] [cpw.mods.modlauncher.NameMappingServiceHandler/MODLAUNCHER]: Current naming domain is 'mcp'
+[086月2026 18:48:35.386] [main/DEBUG] [cpw.mods.modlauncher.NameMappingServiceHandler/MODLAUNCHER]: Identified name mapping providers {srg=srgtomcp:1234}
+[086月2026 18:48:35.386] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services begin scanning
+[086月2026 18:48:35.386] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Beginning scan trigger - transformation service mixin
+[086月2026 18:48:35.386] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: End scan trigger - transformation service mixin
+[086月2026 18:48:35.386] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Beginning scan trigger - transformation service fml
+[086月2026 18:48:35.386] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Initiating mod scan
+[086月2026 18:48:35.391] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: NVIDIA GeForce RTX 3050 Laptop GPU/PCIe/SSE2 GL version 4.6.0 NVIDIA 595.71, NVIDIA Corporation
+[086月2026 18:48:35.394] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModListHandler/CORE]: Found mod coordinates from lists: []
+[086月2026 18:48:35.397] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModDiscoverer/CORE]: Found Mod Locators : (mods folder:null),(maven libs:null),(exploded directory:null),(minecraft:null),(userdev classpath:null)
+[086月2026 18:48:35.397] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModDiscoverer/CORE]: Found Dependency Locators : (JarInJar:null)
+[086月2026 18:48:35.403] [main/DEBUG] [net.minecraftforge.fml.loading.targets.CommonLaunchHandler/CORE]: Got mod coordinates replayneo%%C:\Users\gengy\Desktop\RePlay\build\resources\main;replayneo%%C:\Users\gengy\Desktop\RePlay\build\classes\java\main from env
+[086月2026 18:48:35.404] [main/DEBUG] [net.minecraftforge.fml.loading.targets.CommonLaunchHandler/CORE]: Found supplied mod coordinates [{replayneo=[C:\Users\gengy\Desktop\RePlay\build\resources\main, C:\Users\gengy\Desktop\RePlay\build\classes\java\main]}]
+[086月2026 18:48:35.608] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar with {minecraft} mods - versions {1.20.1}
+[086月2026 18:48:35.611] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.4.20\c354b21002937b393c4f86163a98dccdf1d51e72\javafmllanguage-1.20.1-47.4.20.jar
+[086月2026 18:48:35.612] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.4.20\c354b21002937b393c4f86163a98dccdf1d51e72\javafmllanguage-1.20.1-47.4.20.jar is missing mods.toml file
+[086月2026 18:48:35.615] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.4.20\865d75f8c18329ddb31db5856701ab86609108b5\lowcodelanguage-1.20.1-47.4.20.jar
+[086月2026 18:48:35.615] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.4.20\865d75f8c18329ddb31db5856701ab86609108b5\lowcodelanguage-1.20.1-47.4.20.jar is missing mods.toml file
+[086月2026 18:48:35.619] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.4.20\af599930362212ae937e392709f49047e6abbbf\mclanguage-1.20.1-47.4.20.jar
+[086月2026 18:48:35.619] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.4.20\af599930362212ae937e392709f49047e6abbbf\mclanguage-1.20.1-47.4.20.jar is missing mods.toml file
+[086月2026 18:48:35.621] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.4.20\e8cc697c69f3911e76caa2f005d9486597cd7448\fmlcore-1.20.1-47.4.20.jar
+[086月2026 18:48:35.622] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.4.20\e8cc697c69f3911e76caa2f005d9486597cd7448\fmlcore-1.20.1-47.4.20.jar is missing mods.toml file
+[086月2026 18:48:35.625] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\gengy\Desktop\RePlay\build\resources\main
+[086月2026 18:48:35.633] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file main with {replayneo} mods - versions {1.0.0}
+[086月2026 18:48:35.634] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate /
+[086月2026 18:48:35.636] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file  with {forge} mods - versions {47.4.20}
+[086月2026 18:48:35.663] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\gengy\.gradle\caches\forge_gradle\deobf_dependencies\curse\maven\changed-minecraft-mod-661527\7906615_mapped_official_1.20.1\changed-minecraft-mod-661527-7906615_mapped_official_1.20.1.jar
+[086月2026 18:48:35.664] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file changed-minecraft-mod-661527-7906615_mapped_official_1.20.1.jar with {changed} mods - versions {0.15.4}
+[086月2026 18:48:35.751] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\gengy\.gradle\caches\forge_gradle\deobf_dependencies\curse\maven\changed-minecraft-mod-661527\7906615_mapped_official_1.20.1\changed-minecraft-mod-661527-7906615_mapped_official_1.20.1.jar
+[086月2026 18:48:35.752] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file changed-minecraft-mod-661527-7906615_mapped_official_1.20.1.jar with {changed} mods - versions {0.15.4}
+[086月2026 18:48:35.815] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Found 2 mods for first modid changed, selecting most recent based on version data
+[086月2026 18:48:35.816] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Selected file changed-minecraft-mod-661527-7906615_mapped_official_1.20.1.jar for modid changed with version 0.15.4
+[086月2026 18:48:35.823] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar, it does not contain dependency information.
+[086月2026 18:48:35.824] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from main, it does not contain dependency information.
+[086月2026 18:48:35.824] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from , it does not contain dependency information.
+[086月2026 18:48:35.824] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from mclanguage-1.20.1-47.4.20.jar, it does not contain dependency information.
+[086月2026 18:48:35.824] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from javafmllanguage-1.20.1-47.4.20.jar, it does not contain dependency information.
+[086月2026 18:48:35.825] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from fmlcore-1.20.1-47.4.20.jar, it does not contain dependency information.
+[086月2026 18:48:35.825] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from lowcodelanguage-1.20.1-47.4.20.jar, it does not contain dependency information.
+[086月2026 18:48:35.908] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate 
+[086月2026 18:48:35.910] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file mixinextras-forge-0.4.1.jar with {mixinextras} mods - versions {0.4.1}
+[086月2026 18:48:35.937] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from MixinExtras-0.5.3.jar, it does not contain dependency information.
+[086月2026 18:48:35.937] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileDependencyLocator/]: Failed to load resource META-INF\jarjar\metadata.json from MixinExtras-0.4.1.jar, it does not contain dependency information.
+[086月2026 18:48:35.975] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate 
+[086月2026 18:48:35.976] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file mixinextras-forge-0.4.1.jar with {mixinextras} mods - versions {0.4.1}
+[086月2026 18:48:35.977] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[086月2026 18:48:35.978] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Found 2 mods for first modid mixinextras, selecting most recent based on version data
+[086月2026 18:48:35.978] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Selected file mixinextras-forge-0.5.3.jar for modid mixinextras with version 0.5.3
+[086月2026 18:48:35.979] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar with {minecraft} mods - versions {1.20.1}
+[086月2026 18:48:35.981] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\gengy\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.20.1-47.4.20_mapped_official_1.20.1\forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar with languages [LanguageSpec[languageName=minecraft, acceptedVersions=1]]
+[086月2026 18:48:35.982] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\gengy\Desktop\RePlay\build\resources\main
+[086月2026 18:48:35.983] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file main with {replayneo} mods - versions {1.0.0}
+[086月2026 18:48:35.984] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\gengy\Desktop\RePlay\build\resources\main with languages [LanguageSpec[languageName=javafml, acceptedVersions=[47,)]]
+[086月2026 18:48:35.984] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate /
+[086月2026 18:48:35.985] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file  with {forge} mods - versions {47.4.20}
+[086月2026 18:48:35.985] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file / with languages [LanguageSpec[languageName=javafml, acceptedVersions=[24,]]]
+[086月2026 18:48:35.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod field_to_method with Javascript path coremods/field_to_method.js
+[086月2026 18:48:35.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod field_to_instanceof with Javascript path coremods/field_to_instanceof.js
+[086月2026 18:48:35.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod add_bouncer_method with Javascript path coremods/add_bouncer_method.js
+[086月2026 18:48:35.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod method_redirector with Javascript path coremods/method_redirector.js
+[086月2026 18:48:35.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/field_to_method.js
+[086月2026 18:48:35.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/field_to_instanceof.js
+[086月2026 18:48:35.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/add_bouncer_method.js
+[086月2026 18:48:35.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/method_redirector.js
+[086月2026 18:48:35.990] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\gengy\.gradle\caches\forge_gradle\deobf_dependencies\curse\maven\changed-minecraft-mod-661527\7906615_mapped_official_1.20.1\changed-minecraft-mod-661527-7906615_mapped_official_1.20.1.jar
+[086月2026 18:48:35.990] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file changed-minecraft-mod-661527-7906615_mapped_official_1.20.1.jar with {changed} mods - versions {0.15.4}
+[086月2026 18:48:35.990] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\gengy\.gradle\caches\forge_gradle\deobf_dependencies\curse\maven\changed-minecraft-mod-661527\7906615_mapped_official_1.20.1\changed-minecraft-mod-661527-7906615_mapped_official_1.20.1.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[40,)]]
+[086月2026 18:48:35.990] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file  with languages []
+[086月2026 18:48:35.991] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-forge\0.5.3\fe08b69a00bf9fe41dd37eab99b2661f655e23f0\mixinextras-forge-0.5.3.jar with languages []
+[086月2026 18:48:35.991] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file  with languages []
+[086月2026 18:48:35.991] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\gengy\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-forge\0.5.3\fe08b69a00bf9fe41dd37eab99b2661f655e23f0\mixinextras-forge-0.5.3.jar with languages []
+[086月2026 18:48:35.991] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: End scan trigger - transformation service fml
+[086月2026 18:48:36.003] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found 3 language providers
+[086月2026 18:48:36.004] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found language provider minecraft, version 1.0
+[086月2026 18:48:36.005] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found language provider lowcodefml, version 47
+[086月2026 18:48:36.006] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found language provider javafml, version 47
+[086月2026 18:48:36.010] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Found 2 mods for first modid MixinExtras, selecting most recent based on version data
+[086月2026 18:48:36.011] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Selected file MixinExtras-0.5.3.jar for modid MixinExtras with version 0.5.3
+[086月2026 18:48:36.011] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Found 2 mods for first modid mixinextras, selecting most recent based on version data
+[086月2026 18:48:36.011] [main/DEBUG] [net.minecraftforge.fml.loading.UniqueModListBuilder/]: Selected file mixinextras-forge-0.5.3.jar for modid mixinextras with version 0.5.3
+[086月2026 18:48:36.013] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Configured system mods: [minecraft, forge]
+[086月2026 18:48:36.013] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Found system mod: minecraft
+[086月2026 18:48:36.013] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Found system mod: forge
+[086月2026 18:48:36.017] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/LOADING]: Found 4 mod requirements (4 mandatory, 0 optional)
+[086月2026 18:48:36.018] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/LOADING]: Found 0 mod requirements missing (0 mandatory, 0 optional)
+[086月2026 18:48:36.520] [main/DEBUG] [net.minecraftforge.fml.loading.MCPNamingService/CORE]: Loaded 33222 method mappings from methods.csv
+[086月2026 18:48:36.552] [main/DEBUG] [net.minecraftforge.fml.loading.MCPNamingService/CORE]: Loaded 31003 field mappings from fields.csv
+[086月2026 18:48:36.604] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services loading transformers
+[086月2026 18:48:36.605] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformers for transformation service mixin
+[086月2026 18:48:36.606] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformers for transformation service mixin
+[086月2026 18:48:36.606] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformers for transformation service fml
+[086月2026 18:48:36.606] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Loading coremod transformers
+[086月2026 18:48:36.606] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/field_to_method.js
+[086月2026 18:48:36.858] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[086月2026 18:48:36.858] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/field_to_instanceof.js
+[086月2026 18:48:36.947] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[086月2026 18:48:36.947] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/add_bouncer_method.js
+[086月2026 18:48:36.992] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[086月2026 18:48:36.992] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/method_redirector.js
+[086月2026 18:48:37.061] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[086月2026 18:48:37.075] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@1e4c6583 to Target : CLASS {Lnet/minecraft/world/level/biome/Biome;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@42383cb0 to Target : CLASS {Lnet/minecraft/world/level/levelgen/structure/Structure;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@7668892a to Target : CLASS {Lnet/minecraft/world/effect/MobEffectInstance;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@a83495d to Target : CLASS {Lnet/minecraft/world/level/block/LiquidBlock;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@7e83992 to Target : CLASS {Lnet/minecraft/world/item/BucketItem;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@4364863 to Target : CLASS {Lnet/minecraft/world/level/block/StairBlock;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@3625a016 to Target : CLASS {Lnet/minecraft/world/level/block/FlowerPotBlock;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@267cde2e to Target : CLASS {Lnet/minecraft/world/item/ItemStack;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@609e57da to Target : CLASS {Lnet/minecraft/network/play/client/CClientSettingsPacket;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/monster/Spider;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/level/levelgen/PatrolSpawner;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/ai/village/VillageSiege;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/monster/Evoker$EvokerSummonSpellGoal;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/level/levelgen/structure/structures/OceanRuinPieces$OceanRuinPiece;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/npc/CatSpawner;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/level/levelgen/structure/structures/WoodlandMansionPieces$WoodlandMansionPiece;} {} {V}
+[086月2026 18:48:37.076] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/level/NaturalSpawner;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/animal/frog/Tadpole;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/raid/Raid;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/monster/Strider;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/level/levelgen/structure/structures/OceanMonumentPieces$OceanMonumentPiece;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/level/levelgen/PhantomSpawner;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/monster/Zombie;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/monster/ZombieVillager;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/server/commands/SummonCommand;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/EntityType;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/server/commands/RaidCommand;} {} {V}
+[086月2026 18:48:37.077] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/level/levelgen/structure/structures/SwampHutPiece;} {} {V}
+[086月2026 18:48:37.078] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/npc/Villager;} {} {V}
+[086月2026 18:48:37.078] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@56dd6efa to Target : CLASS {Lnet/minecraft/world/entity/animal/horse/SkeletonTrapGoal;} {} {V}
+[086月2026 18:48:37.078] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformers for transformation service fml
+[086月2026 18:48:39.417] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[086月2026 18:48:39.417] [main/DEBUG] [mixin/]: Registering mixin config: mixins.replayneo.json
+[086月2026 18:48:39.427] [main/DEBUG] [mixin/]: Compatibility level JAVA_8 specified by mixins.replayneo.json is lower than the default level supported by the current mixin service (JAVA_16).
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: Registering mixin config: mixins.replayneo.json
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: Processing launch tasks for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(minecraft)
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(minecraft)
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(minecraft)
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(minecraft)
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(minecraft)
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minecraft)]
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(replayneo)
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(replayneo)
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(replayneo)
+[086月2026 18:48:39.428] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(replayneo)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(replayneo)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(replayneo)]
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(forge)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(forge)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(forge)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(forge)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(forge)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(forge)]
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(changed)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(changed)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(changed)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(changed)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(changed)
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(changed)]
+[086月2026 18:48:39.429] [main/DEBUG] [mixin/]: Registering mixin config: changed.mixins.json
+[086月2026 18:48:39.430] [main/DEBUG] [mixin/]: Compatibility level JAVA_17 specified by changed.mixins.json is higher than the maximum level supported by this version of mixin (JAVA_13).
+[086月2026 18:48:39.433] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[086月2026 18:48:39.433] [main/DEBUG] [mixin/]: Registering mixin config: changed.compatibility.mixins.json
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(MixinExtras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(MixinExtras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(MixinExtras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(MixinExtras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(MixinExtras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(MixinExtras)]
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(mixinextras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(mixinextras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(mixinextras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(mixinextras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(mixinextras)
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(mixinextras)]
+[086月2026 18:48:39.434] [main/DEBUG] [mixin/]: Registering mixin config: mixinextras.init.mixins.json
+[086月2026 18:48:39.436] [main/DEBUG] [mixin/]: inject() running with 7 agents
+[086月2026 18:48:39.436] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[086月2026 18:48:39.436] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minecraft)]
+[086月2026 18:48:39.436] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(replayneo)]
+[086月2026 18:48:39.436] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(forge)]
+[086月2026 18:48:39.436] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(changed)]
+[086月2026 18:48:39.436] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(MixinExtras)]
+[086月2026 18:48:39.436] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(mixinextras)]
+[086月2026 18:48:39.437] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\gengy\.gradle\caches\forge_gradle\assets, --assetIndex, 5]
+[086月2026 18:48:39.635] [main/DEBUG] [mixin/]: Error cleaning class output directory: .mixin.out
+[086月2026 18:48:39.637] [main/DEBUG] [mixin/]: Preparing mixins for MixinEnvironment[DEFAULT]
+[086月2026 18:48:39.637] [main/DEBUG] [mixin/]: Selecting config mixins.replayneo.json
+[086月2026 18:48:39.640] [main/WARN] [mixin/]: Reference map 'mixins.replayneo.refmap.json' for mixins.replayneo.json could not be read. If this is a development environment you can ignore this message
+[086月2026 18:48:39.641] [main/DEBUG] [mixin/]: Selecting config changed.mixins.json
+[086月2026 18:48:39.795] [main/INFO] [mixin/]: Remapping refMap changed.refmap.json using C:\Users\gengy\Desktop\RePlay\build\createSrgToMcp\output.srg
+[086月2026 18:48:39.796] [main/DEBUG] [mixin/]: Selecting config changed.compatibility.mixins.json
+[086月2026 18:48:39.803] [main/INFO] [mixin/]: Remapping refMap changed.refmap.json using C:\Users\gengy\Desktop\RePlay\build\createSrgToMcp\output.srg
+[086月2026 18:48:39.804] [main/DEBUG] [mixin/]: Selecting config mixinextras.init.mixins.json
+[086月2026 18:48:39.843] [main/DEBUG] [MixinExtras|Service/]: com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3) is taking over from null
+[086月2026 18:48:39.866] [main/DEBUG] [mixin/]: Registering new injector for @Inject with org.spongepowered.asm.mixin.injection.struct.CallbackInjectionInfo
+[086月2026 18:48:39.867] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArg with org.spongepowered.asm.mixin.injection.struct.ModifyArgInjectionInfo
+[086月2026 18:48:39.868] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArgs with org.spongepowered.asm.mixin.injection.struct.ModifyArgsInjectionInfo
+[086月2026 18:48:39.869] [main/DEBUG] [mixin/]: Registering new injector for @Redirect with org.spongepowered.asm.mixin.injection.struct.RedirectInjectionInfo
+[086月2026 18:48:39.869] [main/DEBUG] [mixin/]: Registering new injector for @ModifyVariable with org.spongepowered.asm.mixin.injection.struct.ModifyVariableInjectionInfo
+[086月2026 18:48:39.870] [main/DEBUG] [mixin/]: Registering new injector for @ModifyConstant with org.spongepowered.asm.mixin.injection.struct.ModifyConstantInjectionInfo
+[086月2026 18:48:39.877] [main/DEBUG] [mixin/]: Preparing mixins.replayneo.json (1)
+[086月2026 18:48:39.906] [main/DEBUG] [mixin/]: Preparing changed.mixins.json (100)
+[086月2026 18:48:39.948] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate
+[086月2026 18:48:40.199] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/npc/Villager
+[086月2026 18:48:40.260] [main/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/item/ItemStack
+[086月2026 18:48:40.487] [main/DEBUG] [mixin/]: Preparing changed.compatibility.mixins.json (55)
+[086月2026 18:48:40.507] [main/DEBUG] [mixin/]: Preparing mixinextras.init.mixins.json (0)
+[086月2026 18:48:40.530] [main/DEBUG] [mixin/]: Inner class net/ltxprogrammer/changed/mixin/EnchantmentHelperMixin$1 in net/ltxprogrammer/changed/mixin/EnchantmentHelperMixin on net/minecraft/world/item/enchantment/EnchantmentHelper gets unique name net/minecraft/world/item/enchantment/EnchantmentHelper$Anonymous$44afbc98d30d4e899a8ea057222f762c
+[086月2026 18:48:40.602] [main/DEBUG] [mixin/]: Inner class net/ltxprogrammer/changed/mixin/render/HumanoidModelMixin$1 in net/ltxprogrammer/changed/mixin/render/HumanoidModelMixin on net/minecraft/client/model/HumanoidModel gets unique name net/minecraft/client/model/HumanoidModel$Anonymous$1b7960e3ad70448b8f76ab3d94b37fcf
+[086月2026 18:48:40.602] [main/DEBUG] [mixin/]: Inner class net/ltxprogrammer/changed/mixin/render/HumanoidModelMixin$2 in net/ltxprogrammer/changed/mixin/render/HumanoidModelMixin on net/minecraft/client/model/HumanoidModel gets unique name net/minecraft/client/model/HumanoidModel$Anonymous$bbc537219e4840b0b32e2a3dc460ed13
+[086月2026 18:48:40.609] [main/DEBUG] [mixin/]: Prepared 101 mixins in 0.971 sec (9.6ms avg) (0ms load, 0ms transform, 0ms plugin)
+[086月2026 18:48:40.640] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[086月2026 18:48:40.642] [main/DEBUG] [mixin/]: Registering new injector for @SugarWrapper with com.llamalad7.mixinextras.sugar.impl.SugarWrapperInjectionInfo
+[086月2026 18:48:40.643] [main/DEBUG] [mixin/]: Registering new injector for @FactoryRedirectWrapper with com.llamalad7.mixinextras.wrapper.factory.FactoryRedirectWrapperInjectionInfo
+[086月2026 18:48:40.644] [main/DEBUG] [mixin/]: Registering new injector for @ExpressionInjectorWrapper with com.llamalad7.mixinextras.expression.impl.wrapper.ExpressionInjectorWrapperInjectionInfo
+[086月2026 18:48:40.665] [main/DEBUG] [mixin/]: Mixing client.MinecraftMixin from changed.mixins.json into net.minecraft.client.Minecraft
+[086月2026 18:48:41.181] [main/DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory/]: Using SLF4J as the default logging framework
+[086月2026 18:48:41.184] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.level: simple
+[086月2026 18:48:41.184] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.targetRecords: 4
+[086月2026 18:48:41.226] [main/DEBUG] [mixin/]: Mixing DataFixTypesMixin from changed.mixins.json into net.minecraft.util.datafix.DataFixTypes
+[086月2026 18:48:41.311] [main/DEBUG] [oshi.util.FileUtil/]: No oshi.properties file found from ClassLoader cpw.mods.modlauncher.TransformingClassLoader@431e86b1
+[086月2026 18:48:41.507] [main/DEBUG] [oshi.util.FileUtil/]: No oshi.architecture.properties file found from ClassLoader cpw.mods.modlauncher.TransformingClassLoader@431e86b1
+[086月2026 18:48:42.703] [pool-4-thread-1/DEBUG] [mixin/]: Mixing block.BlockMixin from changed.mixins.json into net.minecraft.world.level.block.Block
+[086月2026 18:48:42.721] [pool-4-thread-1/DEBUG] [mixin/]: Mixing block.BlockBehaviourMixinFixer from changed.mixins.json into net.minecraft.world.level.block.state.BlockBehaviour
+[086月2026 18:48:42.731] [pool-4-thread-1/DEBUG] [mixin/]: Mixing block.BlockStateBaseMixin from changed.mixins.json into net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase
+[086月2026 18:48:42.756] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.EntityMixin from changed.mixins.json into net.minecraft.world.entity.Entity
+[086月2026 18:48:42.758] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$carryPassengers$12(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraftforge/common/util/ITeleporter;Lnet/ltxprogrammer/changed/ability/GrabEntityAbilityInstance;)V to mde5e483$lambda$carryPassengers$12$0 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.758] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$ignoreGrabbedEntities$11(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/ltxprogrammer/changed/ability/GrabEntityAbilityInstance;)V to mde5e483$lambda$ignoreGrabbedEntities$11$1 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.758] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$ignoreGrabbedEntities$10(Lnet/ltxprogrammer/changed/ability/IAbstractChangedEntity;)Ljava/util/Optional; to mde5e483$lambda$ignoreGrabbedEntities$10$2 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.760] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$makeGrabbedEntityQuiet$9(Lnet/ltxprogrammer/changed/ability/GrabEntityAbilityInstance;)Ljava/lang/Boolean; to mde5e483$lambda$makeGrabbedEntityQuiet$9$3 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.760] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$hideSeatedEntity$8(Lnet/ltxprogrammer/changed/ability/GrabEntityAbilityInstance;)Ljava/lang/Boolean; to mde5e483$lambda$hideSeatedEntity$8$4 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.760] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$canEnterPose$7(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/Pose;Ljava/lang/Boolean;)Ljava/util/Optional; to mde5e483$lambda$canEnterPose$7$5 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.760] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$getEyePosition$6(FLorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/minecraft/world/entity/player/Player;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$getEyePosition$6$6 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.760] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$getEyePosition$5(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/minecraft/world/entity/player/Player;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$getEyePosition$5$7 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.760] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$setVariantPose$4(Lnet/minecraft/world/entity/Pose;Lnet/ltxprogrammer/changed/entity/ChangedEntity;)V to mde5e483$lambda$setVariantPose$4$8 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.760] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$getPassengersRidingOffset$3(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$getPassengersRidingOffset$3$9 in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.760] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$interact$2(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$interact$2$a in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.760] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$isSwimming$1(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$isSwimming$1$b in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.761] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$getTicksRequiredToFreeze$0(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$getTicksRequiredToFreeze$0$c in changed.mixins.json:entity.EntityMixin
+[086月2026 18:48:42.890] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.LivingEntityMixin from changed.mixins.json into net.minecraft.world.entity.LivingEntity
+[086月2026 18:48:42.894] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$andAccessorySlots$14(Lorg/apache/commons/lang3/mutable/MutableInt;Lnet/minecraft/world/damagesource/DamageSource;Lnet/ltxprogrammer/changed/data/AccessorySlotType;Lnet/minecraft/world/item/ItemStack;)V to mde5e483$lambda$andAccessorySlots$14$0 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.894] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$getStasisChamberOrientation$13(Lnet/ltxprogrammer/changed/entity/SeatEntity;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/core/Direction; to mde5e483$lambda$getStasisChamberOrientation$13$1 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.894] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$unlessIsStabilizedAndMultiplayer$12(Lnet/minecraft/server/level/ServerPlayer;)Z to mde5e483$lambda$unlessIsStabilizedAndMultiplayer$12$2 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.895] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$maybeAddAir$11(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;ILnet/ltxprogrammer/changed/fluid/TransfurGas;)V to mde5e483$lambda$maybeAddAir$11$3 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.895] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$isEyeInGas$10(Ljava/lang/Class;Lnet/ltxprogrammer/changed/fluid/Gas;)Ljava/util/Optional; to mde5e483$lambda$isEyeInGas$10$4 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.896] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$checkForGas$9(Lnet/minecraft/world/level/material/Fluid;)V to mde5e483$lambda$checkForGas$9$5 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.897] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$checkForGas$8(DLnet/ltxprogrammer/changed/block/entity/StasisChamberBlockEntity;)Z to mde5e483$lambda$checkForGas$8$6 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.897] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$handleAccessoryChanges$7()Lnet/minecraft/world/entity/Entity; to mde5e483$lambda$handleAccessoryChanges$7$7 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.897] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$handleAccessoryChanges$6(Lnet/ltxprogrammer/changed/data/AccessorySlotType;Lnet/minecraft/world/item/ItemStack;)V to mde5e483$lambda$handleAccessoryChanges$6$8 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.897] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$isVariantVisuallySwimming$5(Lcom/llamalad7/mixinextras/injector/wrapoperation/Operation;)Ljava/lang/Boolean; to mde5e483$lambda$isVariantVisuallySwimming$5$9 in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.898] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$getEffect$4(Lnet/minecraft/world/effect/MobEffect;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/minecraft/world/entity/player/Player;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$getEffect$4$a in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.899] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$hasEffect$3(Lnet/minecraft/world/effect/MobEffect;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/minecraft/world/entity/player/Player;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$hasEffect$3$b in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.899] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$onClimbable$2(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$onClimbable$2$c in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.899] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$updateFallFlying$1(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/minecraft/world/entity/player/Player;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$updateFallFlying$1$d in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.901] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$new$0(Lnet/ltxprogrammer/changed/data/AccessorySlots;)V to mde5e483$lambda$new$0$e in changed.mixins.json:entity.LivingEntityMixin
+[086月2026 18:48:42.934] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/effect/MobEffectInstance
+[086月2026 18:48:42.941] [pool-4-thread-1/DEBUG] [mixin/]: Mixing client.ClientLivingEntityMixin from changed.mixins.json into net.minecraft.world.entity.LivingEntity
+[086月2026 18:48:42.946] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/EntityType
+[086月2026 18:48:43.135] [pool-4-thread-1/DEBUG] [mixin/]: Mixing LevelMixin from changed.mixins.json into net.minecraft.world.level.Level
+[086月2026 18:48:43.156] [pool-4-thread-1/DEBUG] [mixin/]: Mixing server.ServerLevelMixin from changed.mixins.json into net.minecraft.server.level.ServerLevel
+[086月2026 18:48:43.208] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.PlayerMixin from changed.mixins.json into net.minecraft.world.entity.player.Player
+[086月2026 18:48:43.210] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$setPlayerMover$5()Lnet/minecraft/world/entity/Entity; to mde5e483$lambda$setPlayerMover$5$0 in changed.mixins.json:entity.PlayerMixin
+[086月2026 18:48:43.210] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$getDimensions$4(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/minecraft/world/entity/Pose;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$getDimensions$4$1 in changed.mixins.json:entity.PlayerMixin
+[086月2026 18:48:43.210] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$denyInvalidArmor$3(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/EquipmentSlot;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/minecraft/world/entity/player/Player;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$denyInvalidArmor$3$2 in changed.mixins.json:entity.PlayerMixin
+[086月2026 18:48:43.211] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$accessoryAttack$2(Lnet/minecraft/world/entity/Entity;Lnet/ltxprogrammer/changed/data/AccessorySlots;)V to mde5e483$lambda$accessoryAttack$2$3 in changed.mixins.json:entity.PlayerMixin
+[086月2026 18:48:43.211] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$transfurAttack$1(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/LivingEntity;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/minecraft/world/entity/player/Player;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$transfurAttack$1$4 in changed.mixins.json:entity.PlayerMixin
+[086月2026 18:48:43.211] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$getMyRidingOffset$0(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$getMyRidingOffset$0$5 in changed.mixins.json:entity.PlayerMixin
+[086月2026 18:48:43.339] [pool-4-thread-1/DEBUG] [mixin/]: Mixing item.ItemMixin from changed.mixins.json into net.minecraft.world.item.Item
+[086月2026 18:48:43.351] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/EntityType
+[086月2026 18:48:43.606] [pool-4-thread-1/DEBUG] [mixin/]: Mixing block.SpreadingSnowyDirtBlockMixin from changed.mixins.json into net.minecraft.world.level.block.SpreadingSnowyDirtBlock
+[086月2026 18:48:43.620] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/block/LiquidBlock
+[086月2026 18:48:43.641] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/block/StairBlock
+[086月2026 18:48:43.683] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/block/FlowerPotBlock
+[086月2026 18:48:43.721] [pool-4-thread-1/DEBUG] [mixin/]: Mixing block.PowderSnowBlockMixin from changed.mixins.json into net.minecraft.world.level.block.PowderSnowBlock
+[086月2026 18:48:43.722] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$canEntityWalkOnPowderSnow$0(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$canEntityWalkOnPowderSnow$0$0 in changed.mixins.json:block.PowderSnowBlockMixin
+[086月2026 18:48:43.758] [pool-4-thread-1/DEBUG] [mixin/]: Mixing fluid.LavaFluidMixin from changed.mixins.json into net.minecraft.world.level.material.LavaFluid
+[086月2026 18:48:43.972] [pool-4-thread-1/DEBUG] [mixin/]: Mixing TreeFeaturesMixin from changed.mixins.json into net.minecraft.data.worldgen.features.TreeFeatures
+[086月2026 18:48:44.109] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.PathFinderMobMixin from changed.mixins.json into net.minecraft.world.entity.PathfinderMob
+[086月2026 18:48:44.112] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.MobMixin from changed.mixins.json into net.minecraft.world.entity.Mob
+[086月2026 18:48:44.112] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$registerGoals$0(Lnet/minecraft/world/entity/animal/IronGolem;Lnet/minecraft/world/entity/LivingEntity;)Z to mde5e483$lambda$registerGoals$0$0 in changed.mixins.json:entity.MobMixin
+[086月2026 18:48:44.181] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/item/ItemStack
+[086月2026 18:48:44.182] [pool-4-thread-1/DEBUG] [mixin/]: Mixing item.ItemStackMixin from changed.mixins.json into net.minecraft.world.item.ItemStack
+[086月2026 18:48:44.182] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$canEquip$1(Z)Ljava/lang/Boolean; to mde5e483$lambda$canEquip$1$0 in changed.mixins.json:item.ItemStackMixin
+[086月2026 18:48:44.182] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$canEquip$0(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/EquipmentSlot;ZLnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)Ljava/lang/Boolean; to mde5e483$lambda$canEquip$0$1 in changed.mixins.json:item.ItemStackMixin
+[086月2026 18:48:44.575] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.LightingBoltMixin from changed.mixins.json into net.minecraft.world.entity.LightningBolt
+[086月2026 18:48:44.629] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/animal/frog/Tadpole
+[086月2026 18:48:44.649] [pool-4-thread-1/DEBUG] [mixin/]: Mixing item.SaddleItemMixin from changed.mixins.json into net.minecraft.world.item.SaddleItem
+[086月2026 18:48:44.660] [pool-4-thread-1/DEBUG] [mixin/]: Mixing item.ArmorItemMixin from changed.mixins.json into net.minecraft.world.item.ArmorItem
+[086月2026 18:48:44.674] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/item/BucketItem
+[086月2026 18:48:44.750] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.NearestAttackableTargetGoalMixin from changed.mixins.json into net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
+[086月2026 18:48:44.750] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$noTargetScary$2(Lnet/minecraft/world/entity/LivingEntity;)Z to mde5e483$lambda$noTargetScary$2$0 in changed.mixins.json:entity.NearestAttackableTargetGoalMixin
+[086月2026 18:48:44.751] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$noTargetScary$1(Lnet/minecraft/world/entity/PathfinderMob;Lnet/minecraft/world/entity/LivingEntity;)Z to mde5e483$lambda$noTargetScary$1$1 in changed.mixins.json:entity.NearestAttackableTargetGoalMixin
+[086月2026 18:48:44.751] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$noTargetScary$0(Lnet/minecraft/world/entity/PathfinderMob;Lnet/ltxprogrammer/changed/ability/IAbstractChangedEntity;)Ljava/lang/Boolean; to mde5e483$lambda$noTargetScary$0$2 in changed.mixins.json:entity.NearestAttackableTargetGoalMixin
+[086月2026 18:48:45.291] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.ArrowMixin from changed.mixins.json into net.minecraft.world.entity.projectile.Arrow
+[086月2026 18:48:45.353] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/monster/Spider
+[086月2026 18:48:45.393] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 188 Datafixer optimizations took 110 milliseconds
+[086月2026 18:48:45.449] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/monster/Zombie
+[086月2026 18:48:45.466] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/monster/ZombieVillager
+[086月2026 18:48:45.517] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/monster/Evoker$EvokerSummonSpellGoal
+[086月2026 18:48:45.650] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/animal/horse/SkeletonTrapGoal
+[086月2026 18:48:45.665] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/monster/Strider
+[086月2026 18:48:45.684] [pool-4-thread-1/DEBUG] [mixin/]: Mixing network.FriendlyByteBufMixin from changed.mixins.json into net.minecraft.network.FriendlyByteBuf
+[086月2026 18:48:45.686] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$readExtendedHitResult$1(Lnet/minecraft/world/phys/BlockHitResult;Lnet/minecraft/network/FriendlyByteBuf;)Lnet/minecraft/world/phys/BlockHitResult; to mde5e483$lambda$readExtendedHitResult$1$0 in changed.mixins.json:network.FriendlyByteBufMixin
+[086月2026 18:48:45.686] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$writeExtendedHitResult$0(Lnet/minecraft/network/FriendlyByteBuf;Lnet/ltxprogrammer/changed/world/LatexCoverHitResult;)V to mde5e483$lambda$writeExtendedHitResult$0$1 in changed.mixins.json:network.FriendlyByteBufMixin
+[086月2026 18:48:45.719] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.ServerPlayerMixin from changed.mixins.json into net.minecraft.server.level.ServerPlayer
+[086月2026 18:48:45.719] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$addAdditionalSaveData$4(Lnet/minecraft/nbt/CompoundTag;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$addAdditionalSaveData$4$0 in changed.mixins.json:entity.ServerPlayerMixin
+[086月2026 18:48:45.719] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$readTransfurVariant$3(Lnet/minecraft/nbt/CompoundTag;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$readTransfurVariant$3$1 in changed.mixins.json:entity.ServerPlayerMixin
+[086月2026 18:48:45.719] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$carryPassengers$2(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraftforge/common/util/ITeleporter;Lnet/ltxprogrammer/changed/ability/GrabEntityAbilityInstance;)V to mde5e483$lambda$carryPassengers$2$2 in changed.mixins.json:entity.ServerPlayerMixin
+[086月2026 18:48:45.719] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$restoreFrom$1(Lnet/minecraft/server/level/ServerPlayer;Lnet/ltxprogrammer/changed/data/AccessorySlots;)V to mde5e483$lambda$restoreFrom$1$3 in changed.mixins.json:entity.ServerPlayerMixin
+[086月2026 18:48:45.720] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$restoreFrom$0(ZLnet/minecraft/server/level/ServerPlayer;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$restoreFrom$0$4 in changed.mixins.json:entity.ServerPlayerMixin
+[086月2026 18:48:45.761] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.VillagerHostilesSensorMixin from changed.mixins.json into net.minecraft.world.entity.ai.sensing.VillagerHostilesSensor
+[086月2026 18:48:45.795] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/entity/npc/Villager
+[086月2026 18:48:45.807] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.VillagerMixin from changed.mixins.json into net.minecraft.world.entity.npc.Villager
+[086月2026 18:48:45.808] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$andApplyPenalty$0(Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)Z to mde5e483$lambda$andApplyPenalty$0$0 in changed.mixins.json:entity.VillagerMixin
+[086月2026 18:48:45.821] [pool-4-thread-1/DEBUG] [mixin/]: Mixing entity.WanderingTraderMixin from changed.mixins.json into net.minecraft.world.entity.npc.WanderingTrader
+[086月2026 18:48:45.823] [pool-4-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$registerGoals$0(Lnet/minecraft/world/entity/LivingEntity;)Z to mde5e483$lambda$registerGoals$0$0 in changed.mixins.json:entity.WanderingTraderMixin
+[086月2026 18:48:45.846] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/effect/MobEffectInstance
+[086月2026 18:48:45.867] [pool-4-thread-1/DEBUG] [mixin/]: Mixing server.ServerGamePacketListenerImplMixin from changed.mixins.json into net.minecraft.server.network.ServerGamePacketListenerImpl
+[086月2026 18:48:46.100] [pool-4-thread-1/DEBUG] [mixin/]: Mixing block.SimpleBlockFeatureMixin from changed.mixins.json into net.minecraft.world.level.levelgen.feature.SimpleBlockFeature
+[086月2026 18:48:46.174] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/levelgen/structure/Structure
+[086月2026 18:48:46.198] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/levelgen/structure/structures/OceanRuinPieces$OceanRuinPiece
+[086月2026 18:48:46.204] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/levelgen/structure/structures/SwampHutPiece
+[086月2026 18:48:46.208] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/levelgen/structure/structures/OceanMonumentPieces$OceanMonumentPiece
+[086月2026 18:48:46.219] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/levelgen/structure/structures/WoodlandMansionPieces$WoodlandMansionPiece
+[086月2026 18:48:46.298] [pool-4-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/biome/Biome
+[086月2026 18:48:46.474] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: -Dio.netty.noUnsafe: false
+[086月2026 18:48:46.475] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: Java version: 17
+[086月2026 18:48:46.476] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.theUnsafe: available
+[086月2026 18:48:46.476] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.copyMemory: available
+[086月2026 18:48:46.477] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.storeFence: available
+[086月2026 18:48:46.477] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Buffer.address: available
+[086月2026 18:48:46.478] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: direct buffer constructor: unavailable
+java.lang.UnsupportedOperationException: Reflective setAccessible(true) disabled
+	at io.netty.util.internal.ReflectionUtil.trySetAccessible(ReflectionUtil.java:31) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.internal.PlatformDependent0$5.run(PlatformDependent0.java:288) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at java.security.AccessController.doPrivileged(AccessController.java:318) ~[?:?]
+	at io.netty.util.internal.PlatformDependent0.<clinit>(PlatformDependent0.java:282) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.internal.PlatformDependent.isAndroid(PlatformDependent.java:333) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.internal.PlatformDependent.<clinit>(PlatformDependent.java:88) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.ConstantPool.<init>(ConstantPool.java:34) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.AttributeKey$1.<init>(AttributeKey.java:27) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.AttributeKey.<clinit>(AttributeKey.java:27) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at net.minecraftforge.network.NetworkConstants.<clinit>(NetworkConstants.java:34) ~[forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23190%23197!/:?]
+	at net.minecraftforge.network.NetworkHooks.init(NetworkHooks.java:52) ~[forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23190%23197!/:?]
+	at net.minecraft.server.Bootstrap.bootStrap(Bootstrap.java:62) ~[forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23191!/:?]
+	at net.minecraft.client.main.Main.lambda$main$0(Main.java:151) ~[forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23191!/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
+	at java.lang.Thread.run(Thread.java:840) ~[?:?]
+[086月2026 18:48:46.478] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
+[086月2026 18:48:46.479] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable
+java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent0$7 (in module io.netty.common) cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to module io.netty.common
+	at jdk.internal.reflect.Reflection.newIllegalAccessException(Reflection.java:392) ~[?:?]
+	at java.lang.reflect.AccessibleObject.checkAccess(AccessibleObject.java:674) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:561) ~[?:?]
+	at io.netty.util.internal.PlatformDependent0$7.run(PlatformDependent0.java:410) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at java.security.AccessController.doPrivileged(AccessController.java:318) ~[?:?]
+	at io.netty.util.internal.PlatformDependent0.<clinit>(PlatformDependent0.java:401) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.internal.PlatformDependent.isAndroid(PlatformDependent.java:333) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.internal.PlatformDependent.<clinit>(PlatformDependent.java:88) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.ConstantPool.<init>(ConstantPool.java:34) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.AttributeKey$1.<init>(AttributeKey.java:27) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at io.netty.util.AttributeKey.<clinit>(AttributeKey.java:27) ~[netty-common-4.1.82.Final.jar%23151!/:4.1.82.Final]
+	at net.minecraftforge.network.NetworkConstants.<clinit>(NetworkConstants.java:34) ~[forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23190%23197!/:?]
+	at net.minecraftforge.network.NetworkHooks.init(NetworkHooks.java:52) ~[forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23190%23197!/:?]
+	at net.minecraft.server.Bootstrap.bootStrap(Bootstrap.java:62) ~[forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23191!/:?]
+	at net.minecraft.client.main.Main.lambda$main$0(Main.java:151) ~[forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23191!/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
+	at java.lang.Thread.run(Thread.java:840) ~[?:?]
+[086月2026 18:48:46.479] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+[086月2026 18:48:46.479] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent/]: sun.misc.Unsafe: available
+[086月2026 18:48:46.480] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent/]: maxDirectMemory: 6442450944 bytes (maybe)
+[086月2026 18:48:46.480] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.tmpdir: C:\Users\gengy\AppData\Local\Temp (java.io.tmpdir)
+[086月2026 18:48:46.481] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[086月2026 18:48:46.481] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent/]: Platform: Windows
+[086月2026 18:48:46.481] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.maxDirectMemory: -1 bytes
+[086月2026 18:48:46.481] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+[086月2026 18:48:46.483] [pool-4-thread-1/DEBUG] [io.netty.util.internal.CleanerJava9/]: java.nio.ByteBuffer.cleaner(): available
+[086月2026 18:48:46.483] [pool-4-thread-1/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.noPreferDirect: false
+[086月2026 18:48:46.530] [pool-4-thread-1/DEBUG] [net.minecraftforge.network.NetworkHooks/]: Loading Network data for FML net version: FML3
+[086月2026 18:48:46.560] [Render thread/DEBUG] [mixin/]: Mixing render.RenderSystemMixin from changed.mixins.json into com.mojang.blaze3d.systems.RenderSystem
+[086月2026 18:48:46.632] [Render thread/DEBUG] [mixin/]: Mixing render.PoseStackMixin from changed.mixins.json into com.mojang.blaze3d.vertex.PoseStack
+[086月2026 18:48:46.648] [Render thread/DEBUG] [mixin/]: Mixing gui.GuiMixin from changed.mixins.json into net.minecraft.client.gui.Gui
+[086月2026 18:48:46.648] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$renderSelectedItemName$4(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$renderSelectedItemName$4$0 in changed.mixins.json:gui.GuiMixin
+[086月2026 18:48:46.648] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$renderHotbar$3(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/minecraft/client/gui/GuiGraphics;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$renderHotbar$3$1 in changed.mixins.json:gui.GuiMixin
+[086月2026 18:48:46.648] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$renderEffects$2(Lnet/minecraft/client/gui/GuiGraphics;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$renderEffects$2$2 in changed.mixins.json:gui.GuiMixin
+[086月2026 18:48:46.648] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$renderEffects$1(Lnet/minecraft/client/gui/GuiGraphics;FIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V to mde5e483$lambda$renderEffects$1$3 in changed.mixins.json:gui.GuiMixin
+[086月2026 18:48:46.648] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$renderHeart$0(Lnet/minecraft/client/gui/Gui$HeartType;Lnet/minecraft/client/gui/GuiGraphics;IIZZILorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$renderHeart$0$4 in changed.mixins.json:gui.GuiMixin
+[086月2026 18:48:46.675] [Render thread/DEBUG] [mixin/]: Mixing gui.ForgeIngameGuiMixin from changed.mixins.json into net.minecraftforge.client.gui.overlay.ForgeGui
+[086月2026 18:48:46.687] [Render thread/DEBUG] [mixin/]: Mixing client.ClientLevelMixin from changed.mixins.json into net.minecraft.client.multiplayer.ClientLevel
+[086月2026 18:48:46.687] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$ensureSetNoCulling$4(Lnet/minecraft/world/entity/Entity;Lnet/ltxprogrammer/changed/ability/GrabEntityAbilityInstance;)Ljava/lang/Boolean; to mde5e483$lambda$ensureSetNoCulling$4$0 in changed.mixins.json:client.ClientLevelMixin
+[086月2026 18:48:46.687] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$ensureSetNoCulling$3(Lnet/ltxprogrammer/changed/ability/GrabEntityAbilityInstance;)Ljava/lang/Boolean; to mde5e483$lambda$ensureSetNoCulling$3$1 in changed.mixins.json:client.ClientLevelMixin
+[086月2026 18:48:46.688] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$playLocalSound$2(Ljava/util/concurrent/atomic/AtomicBoolean;Lnet/minecraft/sounds/SoundEvent;FFZLcom/mojang/datafixers/util/Pair;)V to mde5e483$lambda$playLocalSound$2$2 in changed.mixins.json:client.ClientLevelMixin
+[086月2026 18:48:46.688] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$playLocalSound$1(Lnet/minecraft/sounds/SoundEvent;FFZLcom/mojang/datafixers/util/Pair;)V to mde5e483$lambda$playLocalSound$1$3 in changed.mixins.json:client.ClientLevelMixin
+[086月2026 18:48:46.688] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$getBlockStatePairsIfLoaded$0(Lnet/minecraft/core/BlockPos;)Lcom/mojang/datafixers/util/Pair; to mde5e483$lambda$getBlockStatePairsIfLoaded$0$4 in changed.mixins.json:client.ClientLevelMixin
+[086月2026 18:48:46.702] [Render thread/DEBUG] [mixin/]: Mixing entity.LocalPlayerMixin from changed.mixins.json into net.minecraft.client.player.LocalPlayer
+[086月2026 18:48:46.703] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$disableFlashOnTf$5(Lnet/minecraft/world/entity/player/Player;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$disableFlashOnTf$5$0 in changed.mixins.json:entity.LocalPlayerMixin
+[086月2026 18:48:46.703] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$isMovingSlowly$4(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$isMovingSlowly$4$1 in changed.mixins.json:entity.LocalPlayerMixin
+[086月2026 18:48:46.703] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$adjustCrouchSpeed$3(Lcom/llamalad7/mixinextras/injector/wrapoperation/Operation;Lnet/minecraft/client/player/Input;ZF)V to mde5e483$lambda$adjustCrouchSpeed$3$2 in changed.mixins.json:entity.LocalPlayerMixin
+[086月2026 18:48:46.703] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$adjustCrouchSpeed$2(Lcom/llamalad7/mixinextras/injector/wrapoperation/Operation;Lnet/minecraft/client/player/Input;ZFLnet/minecraft/client/player/LocalPlayer;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$adjustCrouchSpeed$2$3 in changed.mixins.json:entity.LocalPlayerMixin
+[086月2026 18:48:46.703] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$aiStep$1(Lnet/minecraft/client/player/LocalPlayer;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$aiStep$1$4 in changed.mixins.json:entity.LocalPlayerMixin
+[086月2026 18:48:46.704] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$getWaterVision$0(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$getWaterVision$0$5 in changed.mixins.json:entity.LocalPlayerMixin
+[086月2026 18:48:46.738] [Render thread/DEBUG] [mixin/]: Mixing gui.PauseScreenMixin from changed.mixins.json into net.minecraft.client.gui.screens.PauseScreen
+[086月2026 18:48:46.739] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$addBPIButton$0(Lnet/minecraft/client/gui/components/Button;)V to mde5e483$lambda$addBPIButton$0$0 in changed.mixins.json:gui.PauseScreenMixin
+[086月2026 18:48:46.746] [Render thread/DEBUG] [mixin/]: Mixing gui.TitleScreenMixin from changed.mixins.json into net.minecraft.client.gui.screens.TitleScreen
+[086月2026 18:48:46.746] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$initChangedBPI$0(Lnet/minecraft/client/gui/components/Button;)V to mde5e483$lambda$initChangedBPI$0$0 in changed.mixins.json:gui.TitleScreenMixin
+[086月2026 18:48:46.757] [Render thread/DEBUG] [mixin/]: Mixing gui.InventoryScreenMixin from changed.mixins.json into net.minecraft.client.gui.screens.inventory.InventoryScreen
+[086月2026 18:48:46.757] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$renderBg$2(Lnet/minecraft/client/gui/GuiGraphics;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$renderBg$2$0 in changed.mixins.json:gui.InventoryScreenMixin
+[086月2026 18:48:46.757] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$renderLabels$1(Lnet/minecraft/client/gui/GuiGraphics;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$renderLabels$1$1 in changed.mixins.json:gui.InventoryScreenMixin
+[086月2026 18:48:46.757] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$addAccessoryButton$0(Lnet/minecraft/client/gui/components/Button;)V to mde5e483$lambda$addAccessoryButton$0$2 in changed.mixins.json:gui.InventoryScreenMixin
+[086月2026 18:48:46.772] [Render thread/DEBUG] [mixin/]: Mixing gui.EffectRenderingInventoryScreenMixin from changed.mixins.json into net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen
+[086月2026 18:48:46.772] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$renderBackgrounds$0(Ljava/lang/Iterable;Lnet/minecraft/client/gui/GuiGraphics;ZIILorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$renderBackgrounds$0$0 in changed.mixins.json:gui.EffectRenderingInventoryScreenMixin
+[086月2026 18:48:46.779] [Render thread/DEBUG] [mixin/]: Mixing gui.AbstractContainerScreenMixin from changed.mixins.json into net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
+[086月2026 18:48:46.779] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$renderSlot$0(Lnet/minecraft/world/inventory/Slot;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;Lnet/minecraft/client/gui/GuiGraphics;Lnet/ltxprogrammer/changed/entity/variant/TransfurVariantInstance;)V to mde5e483$lambda$renderSlot$0$0 in changed.mixins.json:gui.AbstractContainerScreenMixin
+[086月2026 18:48:46.829] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/gengy/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.20_mapped_official_1.20.1/forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[086月2026 18:48:46.830] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/gengy/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.20_mapped_official_1.20.1/forge-1.20.1-47.4.20_mapped_official_1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[086月2026 18:48:46.858] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[086月2026 18:48:46.863] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
+[086月2026 18:48:46.867] [Render thread/DEBUG] [mixin/]: Mixing client.OptionsMixin from changed.mixins.json into net.minecraft.client.Options
+[086月2026 18:48:46.887] [Render thread/DEBUG] [mixin/]: Mixing client.TutorialMixin from changed.mixins.json into net.minecraft.client.tutorial.Tutorial
+[086月2026 18:48:46.909] [Render thread/DEBUG] [mixin/]: Mixing AbstractButtonWidgetAccessor from mixins.replayneo.json into net.minecraft.client.gui.components.AbstractWidget
+[086月2026 18:48:46.909] [Render thread/DEBUG] [mixin/]: mixins.replayneo.json:AbstractButtonWidgetAccessor: Class version 61 required is higher than the class version supported by the current version of Mixin (JAVA_8 supports class version 52)

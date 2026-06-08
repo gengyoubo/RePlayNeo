@@ -1,4 +1,4 @@
-package com.replaymod.replay.handler;
+package github.com.gengyoubo.replayneo.feature.replay.handler;
 
 import com.replaymod.core.gui.GuiReplayButton;
 import com.replaymod.replay.Setting;
@@ -11,6 +11,7 @@ import de.johni0702.minecraft.gui.versions.callbacks.InitScreenCallback;
 import com.replaymod.replay.ReplayModReplay;
 import com.replaymod.replay.gui.screen.GuiReplayViewer;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.PauseScreen;
@@ -21,6 +22,8 @@ import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
 import de.johni0702.minecraft.gui.MinecraftGuiRenderer;
 import net.minecraftforge.fml.ModList;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,11 +67,6 @@ public class GuiHandler extends EventRegistrations {
             for(AbstractButton b : new ArrayList<>(buttonList)) {
                 boolean remove = false;
                 Component id = b.getMessage();
-                if (id == null) {
-                    // likely a button of some third-part mod
-                    // e.g. https://github.com/Pokechu22/WorldDownloader/blob/b1b279f948beec2d7dac7524eea8f584a866d8eb/share_14/src/main/java/wdl/WDLHooks.java#L491
-                    continue;
-                }
                 if (id.equals(BUTTON_EXIT_SERVER)) {
                     // Replace "Exit Server" button with "Exit Replay" button
                     remove = true;
@@ -102,8 +100,8 @@ public class GuiHandler extends EventRegistrations {
             if (achievements != null && stats != null) {
                 moveAllButtonsInRect(buttonList,
                         achievements.getX(), stats.getX() + stats.getWidth(),
-                        achievements.getY(), Integer.MAX_VALUE,
-                        -24);
+                        achievements.getY(), Integer.MAX_VALUE
+                );
             }
             // In 1.13+ Forge, the Options button shares one row with the Open to LAN button
         }
@@ -111,26 +109,25 @@ public class GuiHandler extends EventRegistrations {
 
     /**
      * Moves all buttons that in any way intersect a rectangle by a given amount on the y axis.
+     *
      * @param buttons List of buttons
-     * @param yStart Top y limit of the rectangle
-     * @param yEnd Bottom y limit of the rectangle
-     * @param xStart Left x limit of the rectangle
-     * @param xEnd Right x limit of the rectangle
-     * @param moveBy Signed distance to move the buttons
+     * @param xStart  Left x limit of the rectangle
+     * @param xEnd    Right x limit of the rectangle
+     * @param yStart  Top y limit of the rectangle
+     * @param yEnd    Bottom y limit of the rectangle
      */
     private void moveAllButtonsInRect(
             Collection<AbstractButton> buttons,
             int xStart,
             int xEnd,
             int yStart,
-            int yEnd,
-            int moveBy
+            int yEnd
     ) {
         buttons.stream()
                 .filter(button -> button.getX() <= xEnd && button.getX() + button.getWidth() >= xStart)
                 .filter(button -> button.getY() <= yEnd && button.getY() + button.getHeight() >= yStart)
                 // FIXME remap bug: needs the {} to recognize the setter (it also doesn't understand +=)
-                .forEach(button -> { button.setY(button.getY() + moveBy); });
+                .forEach(button -> button.setY(button.getY() + -24));
     }
 
     { on(InitScreenCallback.EVENT, (screen, buttons) -> ensureReplayStopped(screen)); }
@@ -191,15 +188,15 @@ public class GuiHandler extends EventRegistrations {
 
             int y = targetButton
                     // if we found some button, put our button at its position (we'll move it out of the way shortly)
-                    .map(it -> it.getY())
+                    .map(AbstractWidget::getY)
                     // and if we can't even find that one, then just guess
                     .orElse(screen.height / 4 + 10 + 4 * 24);
 
             // Move all buttons above or at our one upwards
             moveAllButtonsInRect(buttonList,
                     x, x + 200,
-                    Integer.MIN_VALUE, y,
-                    -24);
+                    Integer.MIN_VALUE, y
+            );
 
             pos = new Point(x, y);
         } else {
@@ -226,7 +223,7 @@ public class GuiHandler extends EventRegistrations {
                     this::onButton
             ) {
                 @Override
-                public void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {
+                public void renderWidget(@NotNull GuiGraphics context, int mouseX, int mouseY, float delta) {
                     super.renderWidget(context, mouseX, mouseY, delta);
 
                     MinecraftGuiRenderer renderer = new MinecraftGuiRenderer(context);
@@ -297,15 +294,15 @@ public class GuiHandler extends EventRegistrations {
                 // or, if someone removed the realms button, we'll alternatively take the multiplayer one
                 .orElse(findButton(buttonList, "menu.multiplayer", 2))
                 // if we found some button, put our button at its position (we'll move it out of the way shortly)
-                .map(it -> it.getY())
+                .map(AbstractWidget::getY)
                 // and if we can't even find that one, then just guess
                 .orElse(guiScreen.height / 4 + 10 + 4 * 24);
 
         // Move all buttons above or at our one upwards
         moveAllButtonsInRect(buttonList,
                 x, x + 200,
-                Integer.MIN_VALUE, y,
-                -24);
+                Integer.MIN_VALUE, y
+        );
 
         // Add our button
         InjectedButton button = new InjectedButton(
@@ -346,42 +343,28 @@ public class GuiHandler extends EventRegistrations {
                                     && button.getY() + button.getHeight() >= it.getY()
                     ))
                     // then take the bottom-most and if there's two, the right-most
-                    .max(Comparator.<AbstractButton>comparingInt(it -> it.getY()).thenComparingInt(it -> it.getX()))
+                    .max(Comparator.<AbstractButton>comparingInt(AbstractWidget::getY).thenComparingInt(AbstractWidget::getX))
                     // and place ourselves next to it
                     .map(it -> new Point(it.getX() + it.getWidth() + 4, it.getY()))
                     // if all fails, just go with TOP_RIGHT
                     .orElse(topRight);
         } else {
             return Optional.of(buttonList).flatMap(buttons -> {
-                switch (buttonPosition) {
-                    case LEFT_OF_SINGLEPLAYER:
-                    case RIGHT_OF_SINGLEPLAYER:
-                        return findButton(buttons, "menu.singleplayer", 1);
-                    case LEFT_OF_MULTIPLAYER:
-                    case RIGHT_OF_MULTIPLAYER:
-                        return findButton(buttons, "menu.multiplayer", 2);
-                    case LEFT_OF_REALMS:
-                    case RIGHT_OF_REALMS:
-                        return findButton(buttons, "menu.online", 14);
-                    case LEFT_OF_MODS:
-                    case RIGHT_OF_MODS:
-                        return findButton(buttons, "modmenu.title", 6);
-                }
-                throw new RuntimeException();
+                return switch (buttonPosition) {
+                    case LEFT_OF_SINGLEPLAYER, RIGHT_OF_SINGLEPLAYER -> findButton(buttons, "menu.singleplayer", 1);
+                    case LEFT_OF_MULTIPLAYER, RIGHT_OF_MULTIPLAYER -> findButton(buttons, "menu.multiplayer", 2);
+                    case LEFT_OF_REALMS, RIGHT_OF_REALMS -> findButton(buttons, "menu.online", 14);
+                    case LEFT_OF_MODS, RIGHT_OF_MODS -> findButton(buttons, "modmenu.title", 6);
+                    default -> throw new RuntimeException();
+                };
             }).map(button -> {
-                switch (buttonPosition) {
-                    case LEFT_OF_SINGLEPLAYER:
-                    case LEFT_OF_MULTIPLAYER:
-                    case LEFT_OF_REALMS:
-                    case LEFT_OF_MODS:
-                        return new Point(button.getX() - 4 - 20, button.getY());
-                    case RIGHT_OF_MODS:
-                    case RIGHT_OF_SINGLEPLAYER:
-                    case RIGHT_OF_MULTIPLAYER:
-                    case RIGHT_OF_REALMS:
-                        return new Point(button.getX() + button.getWidth() + 4, button.getY());
-                }
-                throw new RuntimeException();
+                return switch (buttonPosition) {
+                    case LEFT_OF_SINGLEPLAYER, LEFT_OF_MULTIPLAYER, LEFT_OF_REALMS, LEFT_OF_MODS ->
+                            new Point(button.getX() - 4 - 20, button.getY());
+                    case RIGHT_OF_MODS, RIGHT_OF_SINGLEPLAYER, RIGHT_OF_MULTIPLAYER, RIGHT_OF_REALMS ->
+                            new Point(button.getX() + button.getWidth() + 4, button.getY());
+                    default -> throw new RuntimeException();
+                };
             }).orElse(topRight);
         }
     }
@@ -434,7 +417,7 @@ public class GuiHandler extends EventRegistrations {
     {
         public final Screen guiScreen;
         public final int id;
-        private Consumer<InjectedButton> onClick;
+
         public InjectedButton(Screen guiScreen, int buttonId, int x, int y, int width, int height, String buttonText,
                               String tooltip,
                               Consumer<InjectedButton> onClick
@@ -450,7 +433,6 @@ public class GuiHandler extends EventRegistrations {
             );
             this.guiScreen = guiScreen;
             this.id = buttonId;
-            this.onClick = onClick;
 
             if (tooltip != null) {
                 setTooltip(Tooltip.create(net.minecraft.network.chat.Component.translatable(tooltip)));

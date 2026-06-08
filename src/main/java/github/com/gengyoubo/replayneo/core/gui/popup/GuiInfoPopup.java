@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.popup;
+package github.com.gengyoubo.replayneo.core.gui.popup;
 
 import de.johni0702.minecraft.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.container.GuiPanel;
@@ -114,8 +114,7 @@ public class GuiInfoPopup extends AbstractGuiPopup<GuiInfoPopup> implements KeyH
         return this.layer;
     }
 
-    public GuiInfoPopup setLayer(int layer) {
+    public void setLayer(int layer) {
         this.layer = layer;
-        return this;
     }
 }

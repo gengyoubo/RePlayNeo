@@ -1,4 +1,4 @@
-package com.replaymod.compat.shaders;
+package github.com.gengyoubo.replayneo.restored.com.replaymod.compat.shaders;
 
 import com.replaymod.core.events.PreRenderCallback;
 import com.replaymod.render.hooks.EntityRendererHandler;
@@ -10,11 +10,6 @@ public class ShaderBeginRender extends EventRegistrations {
 
     private final Minecraft mc = Minecraft.getInstance();
 
-    /**
-     *  Invokes Shaders#beginRender when rendering a video,
-     *  as this would usually get called by EntityRenderer#renderWorld,
-     *  which we're not calling during rendering.
-     */
     { on(PreRenderCallback.EVENT, this::onRenderTickStart); }
     private void onRenderTickStart() {
         if (ShaderReflection.shaders_beginRender == null) return;

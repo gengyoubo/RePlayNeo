@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element.advanced;
+package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.OffsetGuiRenderer;
@@ -50,13 +50,13 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
     protected static final int PICKER_SIZE = 100;
     private static final ReadableColor OUTLINE_COLOR = new Color(255, 255, 255);
 
-    private Color color = new Color();
+    private final Color color = new Color();
 
     private boolean opened;
 
     private Consumer<ReadableColor> onSelection;
 
-    private GuiPicker picker = new GuiPicker();
+    private final GuiPicker picker = new GuiPicker();
 
     public AbstractGuiColorPicker() {
     }
@@ -79,7 +79,7 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
     public void layout(ReadableDimension size, RenderInfo renderInfo) {
         super.layout(size, renderInfo);
         if (size == null) return;
-        if (renderInfo.layer == 1) {
+        if (renderInfo.layer() == 1) {
             ReadableDimension offsetSize = new Dimension(PICKER_SIZE, PICKER_SIZE);
             picker.layout(offsetSize, renderInfo);
         }
@@ -88,7 +88,7 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
     @Override
     public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
         super.draw(renderer, size, renderInfo);
-        if (renderInfo.layer == 0) {
+        if (renderInfo.layer() == 0) {
             int width = size.getWidth();
             int height = size.getHeight();
 
@@ -96,7 +96,7 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
             renderer.drawRect(0, 0, width, height, OUTLINE_COLOR);
             // Draw color
             renderer.drawRect(1, 1, width - 2, height - 2, color);
-        } else if (renderInfo.layer == 1) {
+        } else if (renderInfo.layer() == 1) {
             ReadablePoint offsetPoint = new Point(0, size.getHeight());
             ReadableDimension offsetSize = new Dimension(PICKER_SIZE, PICKER_SIZE);
             OffsetGuiRenderer offsetRenderer = new OffsetGuiRenderer(renderer, offsetPoint, offsetSize);
@@ -132,14 +132,14 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
     }
 
     @Override
-    public T setOpened(boolean opened) {
+    public void setOpened(boolean opened) {
         this.opened = opened;
-        return getThis();
+        getThis();
     }
 
     @Override
     public Collection<GuiElement> getChildren() {
-        return opened ? Collections.<GuiElement>singleton(picker) : Collections.<GuiElement>emptyList();
+        return opened ? Collections.<GuiElement>singleton(picker) : Collections.emptyList();
     }
 
     @Override
@@ -217,7 +217,7 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
         public boolean mouseClick(Click click) {
             if (isEnabled()) {
                 Point pos = new Point(click);
-                AbstractGuiColorPicker parent = AbstractGuiColorPicker.this;
+                AbstractGuiColorPicker<T> parent = AbstractGuiColorPicker.this;
                 if (parent.getContainer() != null) {
                     parent.getContainer().convertFor(parent, pos, 1);
                 }

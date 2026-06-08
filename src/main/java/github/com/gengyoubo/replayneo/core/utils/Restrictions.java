@@ -1,7 +1,8 @@
-package com.replaymod.core.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
 
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
  * @see <a href="https://gist.github.com/Johni0702/2547c463e51f65f312cb">Replay Restrictions Gist</a>
  */
 public class Restrictions {
-    public static final ResourceLocation PLUGIN_CHANNEL = identifier("replaymod", "restrict");
+    public static final ResourceLocation PLUGIN_CHANNEL = identifier(RePlayNeo.RESOURCE_NAMESPACE, "restrict");
     private boolean noXray;
     private boolean noNoclip;
     private boolean onlyFirstPerson;

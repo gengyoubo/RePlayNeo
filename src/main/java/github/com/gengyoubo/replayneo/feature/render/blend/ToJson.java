@@ -1,4 +1,4 @@
-package com.replaymod.render.blend;
+package github.com.gengyoubo.replayneo.feature.render.blend;
 
 import org.blender.utils.MainLib;
 import org.cakelab.blender.generator.typemap.Renaming;
@@ -100,7 +100,7 @@ public class ToJson {
     }
 
     private static String toHexStr(byte[] buffer) {
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         for (byte v : buffer) {
             String s = Integer.toHexString(v&0xff);
             if (s.length() == 1) s = "0"+s;
@@ -123,7 +123,7 @@ public class ToJson {
     }
 
     private static Object createStruct(Block b, int index, CStruct struct) {
-        JSONObject oStruct = null;
+        JSONObject oStruct;
 
         try {
             Class<?> cStruct = Class.forName(PACKAGE + "." + Renaming.mapStruct2Class(struct.getSignature()));
@@ -147,8 +147,7 @@ public class ToJson {
             assert(value != null);
             if (isPrimitive(type)) {
                 return codec.encodeObjectJSON(value);
-            } else if (value instanceof CArrayFacade){
-                CArrayFacade<?> carray = ((CArrayFacade<?>)value);
+            } else if (value instanceof CArrayFacade<?> carray){
                 JSONArray array = new JSONArray();
                 boolean hasString = false;
                 for (int i = 0; i < carray.length(); i++) {
@@ -181,7 +180,7 @@ public class ToJson {
                 } catch (InvocationTargetException e) {
                     Throwable cause = e.getCause();
                     if (cause instanceof NullPointerException) {
-                        throw (NullPointerException)cause;
+                        throw cause;
                     } else {
                         throw e;
                     }

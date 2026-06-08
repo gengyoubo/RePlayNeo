@@ -1,4 +1,4 @@
-package com.replaymod.render.blend;
+package github.com.gengyoubo.replayneo.feature.render.blend;
 
 import com.replaymod.render.capturer.RenderInfo;
 import com.replaymod.render.capturer.WorldRenderer;

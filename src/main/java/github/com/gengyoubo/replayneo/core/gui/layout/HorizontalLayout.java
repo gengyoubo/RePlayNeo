@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.layout;
+package github.com.gengyoubo.replayneo.core.gui.layout;
 
 import de.johni0702.minecraft.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.element.GuiElement;
@@ -68,7 +68,7 @@ public class HorizontalLayout implements Layout {
             elementSize.setHeight(Math.min(size.getHeight(), elementMaxSize.getHeight()));
             int remainingHeight = size.getHeight() - elementSize.getHeight();
             int y = (int) (data.alignment * remainingHeight);
-            map.put(element, Pair.<ReadablePoint, ReadableDimension>of(new Point(x, y), elementSize));
+            map.put(element, Pair.of(new Point(x, y), elementSize));
             x += elementSize.getWidth();
         }
         if (alignment != Alignment.LEFT) {

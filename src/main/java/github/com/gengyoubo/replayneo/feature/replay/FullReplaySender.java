@@ -1,4 +1,4 @@
-package com.replaymod.replay;
+package github.com.gengyoubo.replayneo.feature.replay;
 
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
@@ -79,11 +79,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.minecraft.world.phys.Vec3;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -102,7 +98,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     /**
      * These packets are ignored completely during replay.
      */
-    private static final List<Class> BAD_PACKETS = Arrays.<Class>asList(
+    private static final List<Class> BAD_PACKETS = Arrays.asList(
             ClientboundHelloPacket.class, // workaround for an issue where ReplayMod prior to 2.6.20 would record these
             ClientboundBlockChangedAckPacket.class,
             ClientboundOpenBookPacket.class,
@@ -123,7 +119,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             ClientboundPlayerAbilitiesPacket.class
     );
 
-    private static int TP_DISTANCE_LIMIT = 128;
+    private static final int TP_DISTANCE_LIMIT = 128;
 
     /**
      * The replay handler responsible for the current replay.
@@ -132,10 +128,10 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
     /**
      * Whether to work in async mode.
-     *
+     * <p>
      * When in async mode, a separate thread send packets and waits according to their delays.
      * This is default in normal playback mode.
-     *
+     * <p>
      * When in sync mode, no packets will be sent until {@link #sendPacketsTill(int)} is called.
      * This is used during path playback and video rendering.
      */
@@ -154,7 +150,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     /**
      * The replay file.
      */
-    protected ReplayFile replayFile;
+    protected final ReplayFile replayFile;
 
     /**
      * The channel used to send packets to minecraft.
@@ -206,7 +202,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     /**
      * The minecraft instance.
      */
-    protected Minecraft mc = getMinecraft();
+    protected final Minecraft mc = getMinecraft();
 
     /**
      * The total length of this replay in milliseconds.
@@ -220,7 +216,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
     /**
      * Whether to allow (process) the next player movement packet.
-     *
+     * <p>
      * Must only be accessed from the main thread.
      */
     protected boolean allowMovement;
@@ -281,9 +277,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         if (!this.asyncMode) return;
         this.asyncMode = false;
         this.terminate = true;
-        synchronized (this) {
-            // This will wait for the worker thread to leave the synchronized code part
-        }
+        // This will wait for the worker thread to leave the synchronized code part
     }
 
     /**
@@ -320,58 +314,46 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         }
     }
 
-    private class EventHandler extends EventRegistrations {
+    private static class EventHandler extends EventRegistrations {
         { on(PreTickCallback.EVENT, this::onWorldTick); }
-        private void onWorldTick() {
-            // Spawning a player into an empty chunk (which we might do with the recording player)
-            // prevents it from being moved by teleport packets (it essentially gets stuck) because
-            // Entity#addedToChunk is not set and it is therefore not updated every tick.
-            // To counteract this, we need to manually update it's position if it hasn't been added
-            // to any chunk yet.
-            // The `updateNeeded` flag appears to have been removed in 1.17, so this should no longer be an issue.
-        }
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg)
-            throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         // When in async mode and the replay sender shut down, then don't send packets
         if(terminate && asyncMode) {
             return;
         }
 
-        if (msg instanceof Packet) {
+        if (msg instanceof Packet p) {
             try {
-                Packet p = (Packet) msg;
 
+                p = processPacket(p);
                 if (p != null) {
-                    p = processPacket(p);
-                    if (p != null) {
-                        super.channelRead(ctx, p);
-                    }
+                    super.channelRead(ctx, p);
+                }
 
-                    maybeRemoveDeadEntities(p);
+                maybeRemoveDeadEntities(p);
 
-                    if (p instanceof ClientboundLevelChunkWithLightPacket) {
-                        Runnable doLightUpdates = () -> {
-                            ClientLevel world = mc.level;
-                            if (world != null) {
-                                MutableBoolean done = new MutableBoolean();
-                                world.queueLightUpdate(done::setTrue);
-                                while (!done.booleanValue()) {
-                                    world.pollLightUpdates();
-                                }
-                                LevelLightEngine provider = world.getChunkSource().getLightEngine();
-                                while (provider.hasLightWork()) {
-                                    provider.runLightUpdates();
-                                }
+                if (p instanceof ClientboundLevelChunkWithLightPacket) {
+                    Runnable doLightUpdates = () -> {
+                        ClientLevel world = mc.level;
+                        if (world != null) {
+                            MutableBoolean done = new MutableBoolean();
+                            world.queueLightUpdate(done::setTrue);
+                            while (!done.booleanValue()) {
+                                world.pollLightUpdates();
                             }
-                        };
-                        if (mc.isSameThread()) {
-                            doLightUpdates.run();
-                        } else {
-                            mc.tell(doLightUpdates);
+                            LevelLightEngine provider = world.getChunkSource().getLightEngine();
+                            while (provider.hasLightWork()) {
+                                provider.runLightUpdates();
+                            }
                         }
+                    };
+                    if (mc.isSameThread()) {
+                        doLightUpdates.run();
+                    } else {
+                        mc.tell(doLightUpdates);
                     }
                 }
             } catch (Exception e) {
@@ -406,10 +388,6 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         });
     }
 
-    private void removeDeadEntities(ClientLevel world) {
-        // From the looks of it, this has now been resolved (thanks to EntityChangeListener)
-    }
-
     /**
      * Process a packet and return the result.
      * @param p The packet to process
@@ -421,8 +399,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             return p;
         }
 
-        if (p instanceof ClientboundCustomPayloadPacket) {
-            ClientboundCustomPayloadPacket packet = (ClientboundCustomPayloadPacket) p;
+        if (p instanceof ClientboundCustomPayloadPacket packet) {
             if (Restrictions.PLUGIN_CHANNEL.equals(packet.getIdentifier())) {
                 final String unknown = replayHandler.getRestrictions().handle(packet);
                 if (unknown == null) {
@@ -458,8 +435,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
         if(BAD_PACKETS.contains(p.getClass())) return null;
 
-        if (p instanceof ClientboundCustomPayloadPacket) {
-            ClientboundCustomPayloadPacket packet = (ClientboundCustomPayloadPacket) p;
+        if (p instanceof ClientboundCustomPayloadPacket packet) {
             ResourceLocation channelName = packet.getIdentifier();
             String channelNameStr = channelName.toString();
 
@@ -470,8 +446,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             // On 1.14+ there's a dedicated OpenWrittenBookS2CPacket now
         }
 
-        if(p instanceof ClientboundResourcePackPacket) {
-            ClientboundResourcePackPacket packet = (ClientboundResourcePackPacket) p;
+        if(p instanceof ClientboundResourcePackPacket packet) {
             String url = packet.getUrl();
             if (url.startsWith("replay://")) {
                 int id = Integer.parseInt(url.substring("replay://".length()));
@@ -490,8 +465,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             }
         }
 
-        if(p instanceof ClientboundLoginPacket) {
-            ClientboundLoginPacket packet = (ClientboundLoginPacket) p;
+        if(p instanceof ClientboundLoginPacket packet) {
             int entId = packet.playerId();
             schedulePacketHandler(() -> allowMovement = true);
             actualID = entId;
@@ -518,8 +492,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             );
         }
 
-        if(p instanceof ClientboundRespawnPacket) {
-            ClientboundRespawnPacket respawn = (ClientboundRespawnPacket) p;
+        if(p instanceof ClientboundRespawnPacket respawn) {
             p = new ClientboundRespawnPacket(
                     respawn.getDimensionType(),
                     respawn.getDimension(),
@@ -536,8 +509,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             schedulePacketHandler(() -> allowMovement = true);
         }
 
-        if(p instanceof ClientboundPlayerPositionPacket) {
-            final ClientboundPlayerPositionPacket ppl = (ClientboundPlayerPositionPacket) p;
+        if(p instanceof ClientboundPlayerPositionPacket ppl) {
             if(!hasWorldLoaded) hasWorldLoaded = true;
 
             ReplayMod.instance.runLater(() -> {
@@ -581,8 +553,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             return null;
         }
 
-        if(p instanceof ClientboundGameEventPacket) {
-            ClientboundGameEventPacket pg = (ClientboundGameEventPacket)p;
+        if(p instanceof ClientboundGameEventPacket pg) {
             // only allow the following packets:
             // 1 - End raining
             // 2 - Begin raining
@@ -670,7 +641,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     /**
      * Runnable which performs timed dispatching of packets from the input stream.
      */
-    private Runnable asyncSender = new Runnable() {
+    private final Runnable asyncSender = new Runnable() {
         public void run() {
             try {
                 REPLAY_LOOP:
@@ -830,8 +801,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         if(desiredTimeStamp - lastTimeStamp > 1000) {
             if(p instanceof ClientboundLevelParticlesPacket) return null;
 
-            if(p instanceof ClientboundAddEntityPacket) {
-                ClientboundAddEntityPacket pso = (ClientboundAddEntityPacket)p;
+            if(p instanceof ClientboundAddEntityPacket pso) {
                 if (pso.getType() == EntityType.FIREWORK_ROCKET) return null;
             }
         }
@@ -972,8 +942,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     }
 
     protected void processPacketSync(Packet p) {
-        if (p instanceof ClientboundForgetLevelChunkPacket) {
-            ClientboundForgetLevelChunkPacket packet = (ClientboundForgetLevelChunkPacket) p;
+        if (p instanceof ClientboundForgetLevelChunkPacket packet) {
             int x = packet.getX();
             int z = packet.getZ();
             // If the chunk is getting unloaded, we will have to forcefully update the position of all entities
@@ -987,7 +956,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             //        fixed (chunk unloading no longer removes the entities).
             // Get the chunk that will be unloaded
             ClientLevel world = mc.level;
-            ChunkSource chunkProvider = world.getChunkSource();
+            ChunkSource chunkProvider = Objects.requireNonNull(world).getChunkSource();
             LevelChunk chunk = chunkProvider.getChunkNow(x, z);
             if (chunk != null) {
                 List<Entity> entitiesInChunk = new ArrayList<>();

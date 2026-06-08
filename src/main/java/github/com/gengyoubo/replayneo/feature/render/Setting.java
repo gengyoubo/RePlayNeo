@@ -1,4 +1,4 @@
-package com.replaymod.render;
+package github.com.gengyoubo.replayneo.feature.render;
 
 import com.replaymod.core.SettingsRegistry;
 

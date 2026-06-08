@@ -43,12 +43,7 @@ public class HotkeyButtons extends EventRegistrations implements Extra {
         public Gui(ReplayMod mod, GuiReplayOverlay overlay) {
             toggleButton = new GuiButton(overlay).setSize(20, 20)
                     .setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(0, 120)
-                    .onClick(new Runnable() {
-                        @Override
-                        public void run() {
-                            open = !open;
-                        }
-                    });
+                    .onClick((Runnable) () -> open = !open);
 
             panel = new GuiPanel(overlay) {
                 @Override

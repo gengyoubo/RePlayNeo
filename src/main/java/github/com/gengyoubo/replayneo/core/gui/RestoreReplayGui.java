@@ -1,4 +1,4 @@
-package com.replaymod.core.gui;
+package github.com.gengyoubo.replayneo.core.gui;
 
 import com.google.common.io.Files;
 import com.google.gson.Gson;
@@ -23,7 +23,6 @@ import de.johni0702.minecraft.gui.layout.VerticalLayout;
 import de.johni0702.minecraft.gui.utils.Colors;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
@@ -36,7 +35,7 @@ import static com.replaymod.replaystudio.util.Utils.readInt;
 import static com.replaymod.replaystudio.util.Utils.writeInt;
 
 public class RestoreReplayGui extends AbstractGuiScreen<RestoreReplayGui> {
-    private static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     public final GuiScreen parent;
     public final File file;
@@ -58,15 +57,15 @@ public class RestoreReplayGui extends AbstractGuiScreen<RestoreReplayGui> {
                     new GuiLabel().setI18nText("replaymod.gui.restorereplay2", Files.getNameWithoutExtension(file.getName())),
                     new GuiLabel().setI18nText("replaymod.gui.restorereplay3"));
 
-        LOGGER.info("Found partially saved replay, offering recovery: " + file);
+        LOGGER.info("Found partially saved replay, offering recovery: {}", file);
 
         yesButton.onClick(() -> {
-            LOGGER.info("Attempting recovery: " + file);
+            LOGGER.info("Attempting recovery: {}", file);
             recoverInBackground();
             parent.display();
         });
         noButton.onClick(() -> {
-            LOGGER.info("Recovery rejected, marking for deletion: " + file);
+            LOGGER.info("Recovery rejected, marking for deletion: {}", file);
             try {
                 File tmp = new File(file.getParentFile(), file.getName() + ".tmp");
                 File deleted = new File(file.getParentFile(), file.getName() + ".del");

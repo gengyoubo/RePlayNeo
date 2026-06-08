@@ -1,4 +1,4 @@
-package com.replaymod.core.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;

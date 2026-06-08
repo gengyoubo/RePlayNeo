@@ -1,4 +1,4 @@
-package com.replaymod.replay.gui.overlay;
+package github.com.gengyoubo.replayneo.feature.replay.gui.overlay;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.events.KeyBindingEventCallback;
@@ -99,39 +99,28 @@ public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
             public void getLocation(WritablePoint dest) {
                 dest.setLocation(getX(), getY());
             }
-        }).onClick(new Runnable() {
-            @Override
-            public void run() {
-                ReplaySender replaySender = replayHandler.getReplaySender();
-                // If currently paused
-                if (replaySender.paused()) {
-                    // then play
-                    replaySender.setReplaySpeed(getSpeedSliderValue());
-                } else {
-                    // else pause
-                    replaySender.setReplaySpeed(0);
-                }
+        }).onClick((Runnable) () -> {
+            ReplaySender replaySender = replayHandler.getReplaySender();
+            // If currently paused
+            if (replaySender.paused()) {
+                // then play
+                replaySender.setReplaySpeed(getSpeedSliderValue());
+            } else {
+                // else pause
+                replaySender.setReplaySpeed(0);
             }
         });
 
-        speedSlider.onValueChanged(new Runnable() {
-            @Override
-            public void run() {
-                double speed = getSpeedSliderValue();
-                speedSlider.setText(I18n.get("replaymod.gui.speed") + ": " + speed + "x");
-                ReplaySender replaySender = replayHandler.getReplaySender();
-                if (!replaySender.paused()) {
-                    replaySender.setReplaySpeed(speed);
-                }
+        speedSlider.onValueChanged((Runnable) () -> {
+            double speed = getSpeedSliderValue();
+            speedSlider.setText(I18n.get("replaymod.gui.speed") + ": " + speed + "x");
+            ReplaySender replaySender = replayHandler.getReplaySender();
+            if (!replaySender.paused()) {
+                replaySender.setReplaySpeed(speed);
             }
         }).setValue(9);
 
-        timeline.onClick(new IGuiTimeline.OnClick() {
-            @Override
-            public void run(int time) {
-                replayHandler.doJump(time, true);
-            }
-        }).setLength(replayHandler.getReplayDuration());
+        timeline.onClick((IGuiTimeline.OnClick) time -> replayHandler.doJump(time, true)).setLength(replayHandler.getReplayDuration());
     }
 
     public double getSpeedSliderValue() {

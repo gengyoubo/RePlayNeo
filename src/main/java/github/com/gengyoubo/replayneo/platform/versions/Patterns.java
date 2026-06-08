@@ -1,4 +1,4 @@
-package com.replaymod.core.versions;
+package github.com.gengyoubo.replayneo.platform.versions;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -50,7 +50,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -166,9 +165,6 @@ class Patterns {
     }
 
     @Pattern
-    private static void getEntitySectionArray() {}
-
-    @Pattern
     private static List<? extends Player> playerEntities(Level world) {
         return world.players();
     }
@@ -197,13 +193,6 @@ class Patterns {
     private static void VertexConsumer_next(VertexConsumer buffer) {
         buffer.endVertex();
     }
-
-    @Pattern private static void BufferBuilder_beginPosCol() {}
-    @Pattern private static void BufferBuilder_addPosCol() {}
-    @Pattern private static void BufferBuilder_beginPosTex() {}
-    @Pattern private static void BufferBuilder_addPosTex() {}
-    @Pattern private static void BufferBuilder_beginPosTexCol() {}
-    @Pattern private static void BufferBuilder_addPosTexCol() {}
 
     @Pattern
     private static Tesselator Tesselator_getInstance() {
@@ -447,7 +436,7 @@ class Patterns {
     }
 
     @Pattern
-    public Integer getPacketId(ConnectionProtocol state, PacketFlow side, Packet<?> packet) throws Exception {
+    public Integer getPacketId(ConnectionProtocol state, PacketFlow side, Packet<?> packet) {
         return state.getPacketId(side, packet);
     }
 

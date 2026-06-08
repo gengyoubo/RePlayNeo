@@ -1,4 +1,4 @@
-package com.replaymod.recording.handler;
+package github.com.gengyoubo.replayneo.feature.recording.handler;
 
 import com.replaymod.core.events.PreRenderCallback;
 import com.replaymod.recording.mixin.IntegratedServerAccessor;
@@ -75,7 +75,7 @@ public class RecordingEventHandler extends EventRegistrations {
             LocalPlayer player = mc.player;
             assert player != null;
             packetListener.save(new ClientboundAddPlayerPacket(player));
-            packetListener.save(new ClientboundSetEntityDataPacket(player.getId(), player.getEntityData().getNonDefaultValues()));
+            packetListener.save(new ClientboundSetEntityDataPacket(player.getId(), Objects.requireNonNull(player.getEntityData().getNonDefaultValues())));
             lastX = lastY = lastZ = null;
             playerItems.clear();
             lastRiding = -1;
@@ -162,26 +162,6 @@ public class RecordingEventHandler extends EventRegistrations {
                 ));
             }
 
-			/*
-        //Potion Effect Handling
-		List<Integer> found = new ArrayList<Integer>();
-		for(PotionEffect pe : (Collection<PotionEffect>)player.getActivePotionEffects()) {
-			found.add(pe.getPotionID());
-			if(lastEffects.contains(found)) continue;
-			S1DPacketEntityEffect pee = new S1DPacketEntityEffect(entityID, pe);
-			packetListener.save(pee);
-		}
-
-		for(int id : lastEffects) {
-			if(!found.contains(id)) {
-				S1EPacketRemoveEntityEffect pre = new S1EPacketRemoveEntityEffect(entityID, new PotionEffect(id, 0));
-				packetListener.save(pre);
-			}
-		}
-
-		lastEffects = found;
-			 */
-
             //Inventory Handling
             for (EquipmentSlot slot : EquipmentSlot.values()) {
                 ItemStack stack = player.getItemBySlot(slot);
@@ -189,7 +169,7 @@ public class RecordingEventHandler extends EventRegistrations {
                 if (!ItemStack.matches(playerItems.get(index), stack)) {
                     // ItemStack has internal mutability, so we need to make a copy now if we want to compare its
                     // current state with future states (e.g. dropping on modern versions will set the count to zero).
-                    stack = stack != null ? stack.copy() : null;
+                    stack = stack.copy();
                     playerItems.set(index, stack);
                     packetListener.save(new ClientboundSetEquipmentPacket(player.getId(), Collections.singletonList(Pair.of(slot, stack))));
                 }

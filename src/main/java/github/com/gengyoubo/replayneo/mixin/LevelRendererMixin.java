@@ -1,4 +1,4 @@
-package com.replaymod.render.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -33,6 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LevelRenderer.class)
 public abstract class LevelRendererMixin implements IForceChunkLoading, RecordingEventHandler.RecordingEventSender {
     @Shadow @Final private Minecraft minecraft;
+    @Final
     @Shadow private ObjectArrayList<ChunkRenderDispatcher.RenderChunk> renderChunksInFrustum;
     @Shadow private ChunkRenderDispatcher chunkRenderDispatcher;
     @Shadow private boolean needsFullRenderChunkUpdate;
@@ -48,18 +49,17 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
 
     @Shadow protected abstract void setupRender(Camera camera, Frustum frustum, boolean hasForcedFrustum, boolean spectator);
 
+    @Unique
     @Override
     public void replayModRender_setHook(ForceChunkLoadingHook hook) {
         this.replayModRender$hook = hook;
     }
 
-    @Override
-    public void setRecordingEventHandler(RecordingEventHandler recordingEventHandler) {
+    public void rePlay$setRecordingEventHandler(RecordingEventHandler recordingEventHandler) {
         this.replayMod$recordingEventHandler = recordingEventHandler;
     }
 
-    @Override
-    public RecordingEventHandler getRecordingEventHandler() {
+    public RecordingEventHandler rePlay$getRecordingEventHandler() {
         return replayMod$recordingEventHandler;
     }
 

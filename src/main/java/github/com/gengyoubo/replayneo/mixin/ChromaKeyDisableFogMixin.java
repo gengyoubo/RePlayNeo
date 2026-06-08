@@ -1,4 +1,4 @@
-package com.replaymod.render.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.core.versions.MCVer;
 import com.replaymod.render.hooks.EntityRendererHandler;
@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FogRenderer.class)

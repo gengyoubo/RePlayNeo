@@ -1,4 +1,4 @@
-package com.replaymod.render.blend.data;
+package github.com.gengyoubo.replayneo.feature.render.blend.data;
 
 import org.blender.dna.Base;
 import org.blender.dna.BlenderObject;
@@ -29,8 +29,8 @@ public class DScene {
         return set;
     }
 
-    public CPointer<Scene> serialize(Serializer serializer) throws IOException {
-        return serializer.maybeMajor(this, id, Scene.class, () -> {
+    public void serialize(Serializer serializer) throws IOException {
+        serializer.maybeMajor(this, id, Scene.class, () -> {
             Set<DObject> allObjects = findAllObjects(null, new LinkedHashSet<>());
             List<CPointer<BlenderObject>> bases = new ArrayList<>(allObjects.size());
             for (DObject dObject : allObjects) {

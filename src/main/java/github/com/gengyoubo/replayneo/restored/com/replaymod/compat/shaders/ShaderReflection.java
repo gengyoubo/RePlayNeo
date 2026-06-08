@@ -1,4 +1,4 @@
-package com.replaymod.compat.shaders;
+package github.com.gengyoubo.replayneo.restored.com.replaymod.compat.shaders;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

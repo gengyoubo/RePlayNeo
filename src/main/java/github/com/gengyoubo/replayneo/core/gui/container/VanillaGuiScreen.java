@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.container;
+package github.com.gengyoubo.replayneo.core.gui.container;
 
 import de.johni0702.minecraft.gui.function.CharHandler;
 import de.johni0702.minecraft.gui.function.CharInput;
@@ -210,7 +210,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean charTyped(CharInput charInput) {
-            return getSuperMcGui().charTyped(charInput.character, charInput.modifiers);
+            return getSuperMcGui().charTyped(charInput.character(), charInput.modifiers());
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.replaymod.simplepathing.gui;
+package github.com.gengyoubo.replayneo.feature.pathing.gui;
 
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.FutureCallback;
@@ -8,7 +8,6 @@ import com.google.common.util.concurrent.SettableFuture;
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.utils.Result;
 import com.replaymod.core.utils.Utils;
-import com.replaymod.core.versions.MCVer.Keyboard;
 import com.replaymod.pathing.gui.GuiKeyframeRepository;
 import com.replaymod.pathing.player.RealtimeTimelinePlayer;
 import com.replaymod.pathing.properties.CameraProperties;
@@ -50,14 +49,14 @@ import de.johni0702.minecraft.gui.utils.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import de.johni0702.minecraft.gui.utils.lwjgl.WritablePoint;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.CrashReport;
 import net.minecraft.client.resources.language.I18n;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.concurrent.CancellationException;
@@ -161,31 +160,18 @@ public class GuiPathing {
     }.setSize(Integer.MAX_VALUE, 20).setMarkers();
 
     public final GuiHorizontalScrollbar scrollbar = new GuiHorizontalScrollbar().setSize(Integer.MAX_VALUE, 9);
-    {scrollbar.onValueChanged(new Runnable() {
-        @Override
-        public void run() {
-            timeline.setOffset((int) (scrollbar.getPosition() * timeline.getLength()));
-            timeline.setZoom(scrollbar.getZoom());
-        }
+    {scrollbar.onValueChanged((Runnable) () -> {
+        timeline.setOffset((int) (scrollbar.getPosition() * timeline.getLength()));
+        timeline.setZoom(scrollbar.getZoom());
     }).setZoom(0.1);}
 
     public final GuiTimelineTime<GuiKeyframeTimeline> timelineTime = new GuiTimelineTime<GuiKeyframeTimeline>()
             .setTimeline(timeline);
 
-    public final GuiButton zoomInButton = new GuiButton().setSize(9, 9).onClick(new Runnable() {
-        @Override
-        public void run() {
-            zoomTimeline(2d / 3d);
-        }
-    }).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 20)
+    public final GuiButton zoomInButton = new GuiButton().setSize(9, 9).onClick((Runnable) () -> zoomTimeline(2d / 3d)).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 20)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.ingame.menu.zoomin"));
 
-    public final GuiButton zoomOutButton = new GuiButton().setSize(9, 9).onClick(new Runnable() {
-        @Override
-        public void run() {
-            zoomTimeline(3d / 2d);
-        }
-    }).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 30)
+    public final GuiButton zoomOutButton = new GuiButton().setSize(9, 9).onClick((Runnable) () -> zoomTimeline(3d / 2d)).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 30)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.ingame.menu.zoomout"));
 
     public final GuiPanel zoomButtonPanel = new GuiPanel()
@@ -247,49 +233,46 @@ public class GuiPathing {
             public void getLocation(WritablePoint dest) {
                 dest.setLocation(getX(), getY());
             }
-        }).onClick(new Runnable() {
-            @Override
-            public void run() {
-                if (player.isActive()) {
-                    player.getFuture().cancel(false);
-                } else {
-                    boolean ignoreTimeKeyframes = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+        }).onClick((Runnable) () -> {
+            if (player.isActive()) {
+                player.getFuture().cancel(false);
+            } else {
+                boolean ignoreTimeKeyframes = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
 
-                    Timeline timeline = preparePathsForPlayback(ignoreTimeKeyframes).okOrElse(err -> {
-                        GuiInfoPopup.open(overlay, err);
-                        return null;
-                    });
-                    if (timeline == null) return;
+                Timeline timeline = preparePathsForPlayback(ignoreTimeKeyframes).okOrElse(err -> {
+                    GuiInfoPopup.open(overlay, err);
+                    return null;
+                });
+                if (timeline == null) return;
 
-                    Path timePath = new SPTimeline(timeline).getTimePath();
-                    timePath.setActive(!ignoreTimeKeyframes);
+                Path timePath = new SPTimeline(timeline).getTimePath();
+                timePath.setActive(!ignoreTimeKeyframes);
 
-                    // Start from cursor time unless the control key is pressed (then start from beginning)
-                    int startTime = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)? 0 : GuiPathing.this.timeline.getCursorPosition();
-                    ListenableFuture<Void> future = player.start(timeline, startTime);
-                    overlay.setCloseable(false);
-                    overlay.setMouseVisible(true);
-                    core.printInfoToChat("replaymod.chat.pathstarted");
-                    Futures.addCallback(future, new FutureCallback<Void>() {
-                        @Override
-                        public void onSuccess(@Nullable Void result) {
-                            if (future.isCancelled()) {
-                                core.printInfoToChat("replaymod.chat.pathinterrupted");
-                            } else {
-                                core.printInfoToChat("replaymod.chat.pathfinished");
-                            }
-                            overlay.setCloseable(true);
+                // Start from cursor time unless the control key is pressed (then start from beginning)
+                int startTime = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)? 0 : GuiPathing.this.timeline.getCursorPosition();
+                ListenableFuture<Void> future = player.start(timeline, startTime);
+                overlay.setCloseable(false);
+                overlay.setMouseVisible(true);
+                core.printInfoToChat("replaymod.chat.pathstarted");
+                Futures.addCallback(future, new FutureCallback<>() {
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+                        if (future.isCancelled()) {
+                            core.printInfoToChat("replaymod.chat.pathinterrupted");
+                        } else {
+                            core.printInfoToChat("replaymod.chat.pathfinished");
                         }
+                        overlay.setCloseable(true);
+                    }
 
-                        @Override
-                        public void onFailure(Throwable t) {
-                            if (!(t instanceof CancellationException)) {
-                                t.printStackTrace();
-                            }
-                            overlay.setCloseable(true);
+                    @Override
+                    public void onFailure(Throwable t) {
+                        if (!(t instanceof CancellationException)) {
+                            t.printStackTrace();
                         }
-                    }, Runnable::run);
-                }
+                        overlay.setCloseable(true);
+                    }
+                }, Runnable::run);
             }
         });
 
@@ -324,12 +307,7 @@ public class GuiPathing {
             public void getLocation(WritablePoint dest) {
                 dest.setLocation(getX(), getY());
             }
-        }).onClick(new Runnable() {
-            @Override
-            public void run() {
-                toggleKeyframe(SPPath.POSITION, false);
-            }
-        });
+        }).onClick((Runnable) () -> toggleKeyframe(SPPath.POSITION, false));
 
         timeKeyframeButton.setSpriteUV(new ReadablePoint() {
             @Override
@@ -351,12 +329,7 @@ public class GuiPathing {
             public void getLocation(WritablePoint dest) {
                 dest.setLocation(getX(), getY());
             }
-        }).onClick(new Runnable() {
-            @Override
-            public void run() {
-                toggleKeyframe(SPPath.TIME, false);
-            }
-        });
+        }).onClick((Runnable) () -> toggleKeyframe(SPPath.TIME, false));
 
         overlay.addElements(null, panel);
         overlay.setLayout(new CustomLayout<GuiReplayOverlay>(overlay.getLayout()) {
@@ -392,7 +365,7 @@ public class GuiPathing {
             Timeline currentTimeline = serialization.deserialize(serialized).get("");
             GuiKeyframeRepository gui = new GuiKeyframeRepository(
                     mod.getCurrentTimeline(), replayHandler.getReplayFile(), currentTimeline);
-            Futures.addCallback(gui.getFuture(), new FutureCallback<Timeline>() {
+            Futures.addCallback(gui.getFuture(), new FutureCallback<>() {
                 @Override
                 public void onSuccess(Timeline result) {
                     if (result != null) {
@@ -401,7 +374,7 @@ public class GuiPathing {
                 }
 
                 @Override
-                public void onFailure(Throwable t) {
+                public void onFailure(@NotNull Throwable t) {
                     t.printStackTrace();
                     core.printWarningToChat("Error loading timeline: " + t.getMessage());
                 }
@@ -541,9 +514,7 @@ public class GuiPathing {
                 return;
             }
             entityTracker = tracker;
-            mod.getCore().runLater(() -> {
-                entityTrackerFuture.set(null);
-            });
+            mod.getCore().runLater(() -> entityTrackerFuture.set(null));
         }).start();
     }
 
@@ -611,7 +582,7 @@ public class GuiPathing {
             LOGGER.debug("Entity tracker not yet loaded, delaying...");
             LoadEntityTrackerPopup popup = new LoadEntityTrackerPopup(replayHandler.getOverlay());
             entityTrackerLoadingProgress = p -> popup.progressBar.setProgress(p.floatValue());
-            Futures.addCallback(entityTrackerFuture, new FutureCallback<Void>() {
+            Futures.addCallback(entityTrackerFuture, new FutureCallback<>() {
                 @Override
                 public void onSuccess(@Nullable Void result) {
                     popup.close();
@@ -636,12 +607,12 @@ public class GuiPathing {
                     }
                 }
             }, Runnable::run);
-            return false;
+            return true;
         }
         if (mod.getCurrentTimeline().getEntityTracker() == null) {
             mod.getCurrentTimeline().setEntityTracker(entityTracker);
         }
-        return true;
+        return false;
     }
 
     /**
@@ -650,8 +621,8 @@ public class GuiPathing {
      * @param neverSpectator when true, will insert a position keyframe even when currently spectating an entity
      */
     public void toggleKeyframe(SPPath path, boolean neverSpectator) {
-        LOGGER.debug("Updating keyframe on path {}" + path);
-        if (!loadEntityTracker(() -> toggleKeyframe(path, neverSpectator))) return;
+        LOGGER.debug("Updating keyframe on path {}{}", path);
+        if (loadEntityTracker(() -> toggleKeyframe(path, neverSpectator))) return;
 
         int time = timeline.getCursorPosition();
         SPTimeline timeline = mod.getCurrentTimeline();
@@ -712,7 +683,7 @@ public class GuiPathing {
     }
 
     public void openEditKeyframePopup(SPPath path, long time) {
-        if (!loadEntityTracker(() -> openEditKeyframePopup(path, time))) return;
+        if (loadEntityTracker(() -> openEditKeyframePopup(path, time))) return;
         Keyframe keyframe = mod.getCurrentTimeline().getKeyframe(path, time);
         if (keyframe.getProperties().contains(SpectatorProperty.PROPERTY)) {
             new GuiEditKeyframe.Spectator(this, path, keyframe.getTime()).open();
@@ -723,7 +694,7 @@ public class GuiPathing {
         }
     }
 
-    private class LoadEntityTrackerPopup extends AbstractGuiPopup<LoadEntityTrackerPopup> {
+    private static class LoadEntityTrackerPopup extends AbstractGuiPopup<LoadEntityTrackerPopup> {
         private final GuiProgressBar progressBar = new GuiProgressBar(popup).setSize(300, 20)
                 .setI18nLabel("replaymod.gui.loadentitytracker");
 

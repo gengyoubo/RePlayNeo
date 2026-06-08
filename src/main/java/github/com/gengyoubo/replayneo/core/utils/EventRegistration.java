@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 public class EventRegistration<T> {
     public static <T> EventRegistration<T> create(Event<T> event, T callback) {

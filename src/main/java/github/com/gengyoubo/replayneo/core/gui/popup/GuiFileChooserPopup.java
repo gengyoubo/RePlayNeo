@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.popup;
+package github.com.gengyoubo.replayneo.core.gui.popup;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -85,12 +85,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
                 acceptButton.onClick(new Click(-1, -1, 0, 0));
             }
         }
-    }).onTextChanged(new Consumer<String>() {
-        @Override
-        public void consume(String oldName) {
-            updateButton();
-        }
-    }).setMaxLength(Integer.MAX_VALUE);
+    }).onTextChanged((Consumer<String>) oldName -> updateButton()).setMaxLength(Integer.MAX_VALUE);
 
     private final GuiButton acceptButton = new GuiButton(popup).onClick(new Runnable() {
         @Override
@@ -106,12 +101,9 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
         }
     }).setSize(50, 20);
 
-    private final GuiButton cancelButton = new GuiButton(popup).onClick(new Runnable() {
-        @Override
-        public void run() {
-            onCancel.run();
-            close();
-        }
+    private final GuiButton cancelButton = new GuiButton(popup).onClick((Runnable) () -> {
+        onCancel.run();
+        close();
     }).setI18nLabel("gui.cancel").setSize(50, 20);
 
     {
@@ -194,33 +186,20 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
 
         File[] files = folder.listFiles();
         if (files != null) {
-            Arrays.sort(files, new Comparator<File>() {
-                @Override
-                public int compare(File f1, File f2) {
-                    if (f1.isDirectory() && !f2.isDirectory()) {
-                        return -1;
-                    } else if (!f1.isDirectory() && f2.isDirectory()) {
-                        return 1;
-                    }
-                    return f1.getName().compareToIgnoreCase(f2.getName());
+            Arrays.sort(files, (f1, f2) -> {
+                if (f1.isDirectory() && !f2.isDirectory()) {
+                    return -1;
+                } else if (!f1.isDirectory() && f2.isDirectory()) {
+                    return 1;
                 }
+                return f1.getName().compareToIgnoreCase(f2.getName());
             });
             for (final File file : files) {
                 if (file.isDirectory()) {
-                    fileList.getListPanel().addElements(new VerticalLayout.Data(0), new GuiButton().onClick(new Runnable() {
-                        @Override
-                        public void run() {
-                            setFolder(file);
-                        }
-                    }).setLabel(file.getName() + File.separator));
+                    fileList.getListPanel().addElements(new VerticalLayout.Data(0), new GuiButton().onClick((Runnable) () -> setFolder(file)).setLabel(file.getName() + File.separator));
                 } else {
                     if (hasValidExtension(file.getName())) {
-                        fileList.getListPanel().addElements(new VerticalLayout.Data(0), new GuiButton().onClick(new Runnable() {
-                            @Override
-                            public void run() {
-                                setFileName(file.getName());
-                            }
-                        }).setLabel(file.getName()));
+                        fileList.getListPanel().addElements(new VerticalLayout.Data(0), new GuiButton().onClick((Runnable) () -> setFileName(file.getName())).setLabel(file.getName()));
                     }
                 }
             }
@@ -244,7 +223,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
                 @Override
                 public void layout(ReadableDimension size, RenderInfo renderInfo) {
                     super.layout(size, renderInfo);
-                    if (renderInfo.layer == 0) {
+                    if (renderInfo.layer() == 0) {
                         skin.layout(size, renderInfo);
                     }
                 }
@@ -252,7 +231,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
                 @Override
                 public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
                     super.draw(renderer, size, renderInfo);
-                    if (renderInfo.layer == 0) {
+                    if (renderInfo.layer() == 0) {
                         skin.setLabel(getSelectedValue().toString());
                         skin.draw(renderer, size, renderInfo);
                     }
@@ -271,14 +250,9 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
             }
             assert selected != null;
             // First set values and current selection
-            dropdown.setValues(actualRoots.toArray(new File[actualRoots.size()])).setSelected(selected);
+            dropdown.setValues(actualRoots.toArray(new File[0])).setSelected(selected);
             // then add selection handler afterwards
-            dropdown.onSelection(new Consumer<Integer>() {
-                @Override
-                public void consume(Integer old) {
-                    setFolder(dropdown.getSelectedValue());
-                }
-            });
+            dropdown.onSelection((Consumer<Integer>) old -> setFolder(dropdown.getSelectedValue()));
         }
         LinkedList<File> parents = new LinkedList<>();
         while (folder != null) {
@@ -286,12 +260,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
             folder = folder.getParentFile();
         }
         for (final File parent : parents) {
-            pathPanel.addElements(null, new GuiButton().onClick(new Runnable() {
-                @Override
-                public void run() {
-                    setFolder(parent);
-                }
-            }).setLabel(parent.getName() + File.separator));
+            pathPanel.addElements(null, new GuiButton().onClick((Runnable) () -> setFolder(parent)).setLabel(parent.getName() + File.separator));
         }
         pathScrollable.setOffsetX(Integer.MAX_VALUE);
     }

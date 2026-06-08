@@ -1,11 +1,10 @@
-package com.replaymod.render.blend;
+package github.com.gengyoubo.replayneo.feature.render.blend;
 
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Matrix3f;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Matrix4f;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Quaternion;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.blender.dna.Link;
@@ -36,7 +35,7 @@ public class Util {
         }
     }
 
-    private static FloatBuffer floatBuffer = BufferUtils.createByteBuffer(16 * 4).asFloatBuffer();
+    private static final FloatBuffer floatBuffer = BufferUtils.createByteBuffer(16 * 4).asFloatBuffer();
     public static Matrix4f getGlMatrix(int matrix) {
         floatBuffer.clear();
         GL11.glGetFloatv(matrix, floatBuffer);
@@ -179,10 +178,10 @@ public class Util {
     }
 
     public interface IOBiConsumer<T, U> {
-        void accept(T t, U u) throws IOException;
+        void accept(T t, U u);
     }
 
     public interface IOFunction<T, R> {
-        R apply(T t) throws IOException;
+        R apply(T t);
     }
 }

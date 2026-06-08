@@ -1,4 +1,4 @@
-package com.replaymod.simplepathing.gui;
+package github.com.gengyoubo.replayneo.feature.pathing.gui;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.versions.MCVer;
@@ -191,8 +191,8 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
 
         // Draw colored quads on spectator path segments
         for (PathSegment segment : timeline.getPositionPath().getSegments()) {
-            if (segment.getInterpolator() == null
-                    || !segment.getInterpolator().getKeyframeProperties().contains(SpectatorProperty.PROPERTY)) {
+            segment.getInterpolator();
+            if (!segment.getInterpolator().getKeyframeProperties().contains(SpectatorProperty.PROPERTY)) {
                 continue; // Not a spectator segment
             }
             drawQuadOnSegment(renderer, visibleWidth, segment, BORDER_TOP + 1, 0xFF0088FF);
@@ -319,17 +319,13 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
     // Helper method because generics cannot be defined on blocks
     private <T> void applyPropertyToGame(Property<T> property, Path path, long time) {
         Optional<T> value = path.getValue(property, time);
-        if (value.isPresent()) {
-            property.applyToGame(value.get(), ReplayModReplay.instance.getReplayHandler());
-        }
+        value.ifPresent(t -> property.applyToGame(t, ReplayModReplay.instance.getReplayHandler()));
     }
 
     // Helper method because generics cannot be defined on blocks
     private <T> void applyPropertyToGame(Property<T> property, Keyframe keyframe) {
         Optional<T> value = keyframe.getValue(property);
-        if (value.isPresent()) {
-            property.applyToGame(value.get(), ReplayModReplay.instance.getReplayHandler());
-        }
+        value.ifPresent(t -> property.applyToGame(t, ReplayModReplay.instance.getReplayHandler()));
     }
 
     @Override
@@ -354,7 +350,7 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
             }
         }
         if (actuallyDragging) {
-            if (!gui.loadEntityTracker(() -> mouseDrag(click))) return true;
+            if (gui.loadEntityTracker(() -> mouseDrag(click))) return true;
             // Threshold passed
             SPTimeline timeline = gui.getMod().getCurrentTimeline();
             Point mouse = new Point(click);

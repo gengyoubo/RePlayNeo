@@ -1,4 +1,4 @@
-package com.replaymod.core;
+package github.com.gengyoubo.replayneo.core;
 
 public class ExtrasInitMixin {
     public void onPreLaunch() {

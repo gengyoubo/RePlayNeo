@@ -1,4 +1,4 @@
-package com.replaymod.render.processor;
+package github.com.gengyoubo.replayneo.feature.render.processor;
 
 import com.replaymod.render.frame.ODSOpenGlFrame;
 import com.replaymod.render.frame.BitmapFrame;
@@ -18,17 +18,17 @@ public class ODSToBitmapProcessor extends AbstractFrameProcessor<ODSOpenGlFrame,
 
     @Override
     public BitmapFrame process(ODSOpenGlFrame rawFrame) {
-        BitmapFrame leftFrame = processor.process(rawFrame.getLeft());
-        BitmapFrame rightFrame = processor.process(rawFrame.getRight());
-        ReadableDimension size = new Dimension(leftFrame.getSize().getWidth(), leftFrame.getSize().getHeight() * 2);
-        int bpp = rawFrame.getLeft().getLeft().getBytesPerPixel();
+        BitmapFrame leftFrame = processor.process(rawFrame.left());
+        BitmapFrame rightFrame = processor.process(rawFrame.right());
+        ReadableDimension size = new Dimension(leftFrame.size().getWidth(), leftFrame.size().getHeight() * 2);
+        int bpp = rawFrame.left().getLeft().getBytesPerPixel();
         ByteBuffer result = ByteBufferPool.allocate(size.getWidth() * size.getHeight() * bpp);
-        result.put(leftFrame.getByteBuffer());
-        result.put(rightFrame.getByteBuffer());
+        result.put(leftFrame.byteBuffer());
+        result.put(rightFrame.byteBuffer());
         result.rewind();
-        ByteBufferPool.release(leftFrame.getByteBuffer());
-        ByteBufferPool.release(rightFrame.getByteBuffer());
-        return new BitmapFrame(rawFrame.getFrameId(), size, bpp, result);
+        ByteBufferPool.release(leftFrame.byteBuffer());
+        ByteBufferPool.release(rightFrame.byteBuffer());
+        return new BitmapFrame(rawFrame.frameId(), size, bpp, result);
     }
 
     @Override

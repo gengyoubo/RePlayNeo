@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -59,7 +59,7 @@ public abstract class AbstractGuiLabel<T extends AbstractGuiLabel<T>> extends Ab
         Font fontRenderer = MCVer.getFontRenderer();
         List<String> lines = fontRenderer.getSplitter().splitLines(literalText(text), size.getWidth(), Style.EMPTY).stream()
                 .map(it -> it.visit(Optional::of)).filter(Optional::isPresent).map(Optional::get)
-                .collect(Collectors.toList());
+                .toList();
         int y = 0;
         for (String line : lines) {
             renderer.drawString(0, y, isEnabled() ? color : disabledColor, line);

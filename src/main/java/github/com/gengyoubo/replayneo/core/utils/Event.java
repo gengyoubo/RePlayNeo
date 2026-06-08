@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ public class Event<T> {
     }
 
     private T invoker;
-    private Function<List<T>, T> invokerFactory;
-    private List<T> listeners = new ArrayList<>();
+    private final Function<List<T>, T> invokerFactory;
+    private final List<T> listeners = new ArrayList<>();
 
     private Event(Function<List<T>, T> invokerFactory) {
         this.invokerFactory = invokerFactory;

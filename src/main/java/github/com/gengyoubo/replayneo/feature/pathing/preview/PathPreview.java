@@ -1,4 +1,4 @@
-package com.replaymod.simplepathing.preview;
+package github.com.gengyoubo.replayneo.feature.pathing.preview;
 
 import com.replaymod.core.KeyBindingRegistry;
 import com.replaymod.core.SettingsRegistry;

@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.versions.callbacks;
+package github.com.gengyoubo.replayneo.platform.callbacks;
 
 import de.johni0702.minecraft.gui.function.Click;
 import de.johni0702.minecraft.gui.utils.Event;

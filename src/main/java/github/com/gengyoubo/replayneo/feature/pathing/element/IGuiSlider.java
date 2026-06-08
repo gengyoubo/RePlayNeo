@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 public interface IGuiSlider<T extends IGuiSlider<T>> extends GuiElement<T> {
     T setText(String text);

@@ -1,4 +1,4 @@
-package com.replaymod.render.gui;
+package github.com.gengyoubo.replayneo.feature.render.gui;
 
 import com.replaymod.core.SettingsRegistry;
 import com.replaymod.core.versions.MCVer;

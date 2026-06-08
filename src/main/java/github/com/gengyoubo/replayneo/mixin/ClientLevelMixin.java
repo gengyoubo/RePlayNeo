@@ -1,8 +1,10 @@
-package com.replaymod.recording.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.recording.handler.RecordingEventHandler;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -19,6 +21,7 @@ import net.minecraft.world.level.Level;
 
 @Mixin(ClientLevel.class)
 public abstract class ClientLevelMixin extends Level implements RecordingEventHandler.RecordingEventSender {
+    @Final
     @Shadow
     private Minecraft minecraft;
 
@@ -27,6 +30,7 @@ public abstract class ClientLevelMixin extends Level implements RecordingEventHa
         super(null, null, null, null, null, false, false, 0, 0);
     }
 
+    @Unique
     private RecordingEventHandler replayModRecording_getRecordingEventHandler() {
         return ((RecordingEventHandler.RecordingEventSender) this.minecraft.levelRenderer).getRecordingEventHandler();
     }

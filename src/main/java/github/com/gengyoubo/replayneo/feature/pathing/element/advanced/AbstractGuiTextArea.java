@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element.advanced;
+package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -44,7 +44,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import de.johni0702.minecraft.gui.versions.MCVer;
-import de.johni0702.minecraft.gui.versions.MCVer.Keyboard;
+
 import java.util.Arrays;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
@@ -114,13 +114,13 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     public String getText(int fromX, int fromY, int toX, int toY) {
         StringBuilder sb = new StringBuilder();
         if (fromY == toY) {
-            sb.append(text[fromY].substring(fromX, toX));
+            sb.append(text[fromY], fromX, toX);
         } else {
             sb.append(text[fromY].substring(fromX)).append('\n');
             for (int y = fromY + 1; y < toY; y++) {
                 sb.append(text[y]).append('\n');
             }
-            sb.append(text[toY].substring(0, toX));
+            sb.append(text[toY], 0, toX);
         }
         return sb.toString();
     }
@@ -142,7 +142,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     @Override
     public int getSelectionFromX() {
         if (cursorY == selectionY) {
-            return cursorX > selectionX ? selectionX : cursorX;
+            return Math.min(cursorX, selectionX);
         }
         return cursorY > selectionY ? selectionX : cursorX;
     }
@@ -150,19 +150,19 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     @Override
     public int getSelectionToX() {
         if (cursorY == selectionY) {
-            return cursorX > selectionX ? cursorX : selectionX;
+            return Math.max(cursorX, selectionX);
         }
         return cursorY > selectionY ? cursorX : selectionX;
     }
 
     @Override
     public int getSelectionFromY() {
-        return cursorY > selectionY ? selectionY : cursorY;
+        return Math.min(cursorY, selectionY);
     }
 
     @Override
     public int getSelectionToY() {
-        return cursorY > selectionY ? cursorY : selectionY;
+        return Math.max(cursorY, selectionY);
     }
 
     @Override
@@ -352,10 +352,10 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     }
 
     @Override
-    public T setCursorPosition(int x, int y) {
+    public void setCursorPosition(int x, int y) {
         selectionY = cursorY = clamp(y, 0, text.length - 1);
         selectionX = cursorX = clamp(x, 0, text[cursorY].length());
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -394,8 +394,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
                 && pos.getX() < size.getWidth() && pos.getY() < size.getHeight();
     }
 
-    @Override
-    public T setFocused(boolean isFocused) {
+    public void setFocused(boolean isFocused) {
         if (isFocused && !this.focused) {
             this.blinkCursorTick = 0; // Restart blinking to indicate successful focus
         }
@@ -403,7 +402,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
             this.focused = isFocused;
             onFocusChanged(this.focused);
         }
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -591,7 +590,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
                 break;
             case Keyboard.KEY_BACK:
                 if (isEnabled()) {
-                    if (getSelectedText().length() > 0) {
+                    if (!getSelectedText().isEmpty()) {
                         deleteSelectedText();
                     } else if (words) {
                         deletePreviousWord();
@@ -602,7 +601,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
                 return true;
             case Keyboard.KEY_DELETE:
                 if (isEnabled()) {
-                    if (getSelectedText().length() > 0) {
+                    if (!getSelectedText().isEmpty()) {
                         deleteSelectedText();
                     } else if (words) {
                         deleteNextWord();
@@ -696,9 +695,9 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     }
 
     @Override
-    public T setHint(String... hint) {
+    public void setHint(String... hint) {
         this.hint = hint;
-        return getThis();
+        getThis();
     }
 
     @Override

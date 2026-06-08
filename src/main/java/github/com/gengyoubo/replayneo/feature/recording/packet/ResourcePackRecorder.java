@@ -1,4 +1,4 @@
-package com.replaymod.recording.packet;
+package github.com.gengyoubo.replayneo.feature.recording.packet;
 
 import com.google.common.hash.Hashing;
 import com.replaymod.replaystudio.replay.ReplayFile;
@@ -12,7 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundResourcePackPacket;
 import net.minecraft.network.protocol.game.ServerboundResourcePackPacket;
 import net.minecraft.network.protocol.game.ServerboundResourcePackPacket.Action;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
@@ -21,6 +20,8 @@ import java.net.URL;
 
 
 import de.johni0702.minecraft.gui.utils.Consumer;
+
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.io.File;
 import java.io.IOException;
@@ -97,9 +98,7 @@ public class ResourcePackRecorder {
                 addCallback(setServerResourcePack(levelDir), result -> {
                     recordResourcePack(levelDir.toPath(), requestId);
                     netManager.send(makeStatusPacket(hash, Action.SUCCESSFULLY_LOADED));
-                }, throwable -> {
-                    netManager.send(makeStatusPacket(hash, Action.FAILED_DOWNLOAD));
-                });
+                }, throwable -> netManager.send(makeStatusPacket(hash, Action.FAILED_DOWNLOAD)));
             } else {
                 netManager.send(makeStatusPacket(hash, Action.FAILED_DOWNLOAD));
             }
@@ -123,7 +122,7 @@ public class ResourcePackRecorder {
                             netManager.send(makeStatusPacket(hash, Action.DECLINED));
                         }
 
-                        ServerList.saveSingleServer(serverData);
+                        ServerList.saveSingleServer(Objects.requireNonNull(serverData));
                         mc.setScreen(null);
                     }
                 , Component.translatable("multiplayer.texturePrompt.line1"), Component.translatable("multiplayer.texturePrompt.line2"))));

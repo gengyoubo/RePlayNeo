@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.versions.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import de.johni0702.minecraft.gui.versions.ScreenExt;
 import de.johni0702.minecraft.gui.versions.callbacks.InitScreenCallback;
@@ -28,44 +28,42 @@ public class ScreenMixin implements ScreenExt {
 
     @Inject(method = "init(Lnet/minecraft/client/Minecraft;II)V", at = @At("HEAD"))
     private void preInit(CallbackInfo ci) {
-        firePreInit();
+        rePlay$firePreInit();
     }
 
     @Inject(method = "init(Lnet/minecraft/client/Minecraft;II)V", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
-        firePostInit();
+        rePlay$firePostInit();
     }
 
     @Inject(method = "resize", at = @At("HEAD"))
     private void preResize(CallbackInfo ci) {
-        firePreInit();
+        rePlay$firePreInit();
     }
     
     @Inject(method = "resize", at = @At("TAIL"))
     private void resize(CallbackInfo ci) {
-        firePostInit();
+        rePlay$firePostInit();
     }
 
     @Unique
-    private void firePreInit() {
+    private void rePlay$firePreInit() {
         InitScreenCallback.Pre.EVENT.invoker().preInitScreen((Screen) (Object) this);
     }
 
     @Unique
-    private void firePostInit() {
+    private void rePlay$firePostInit() {
         InitScreenCallback.EVENT.invoker().initScreen(
                 (Screen) (Object) this,
                 Collections2.transform(Collections2.filter(this.children, it -> it instanceof AbstractButton), it -> (AbstractButton) it)
         );
     }
 
-    @Override
-    public boolean doesPassEvents() {
+    public boolean rePlay$doesPassEvents() {
         return this.replayMod$passEvents;
     }
 
-    @Override
-    public void setPassEvents(boolean passEvents) {
+    public void rePlay$setPassEvents(boolean passEvents) {
         this.replayMod$passEvents = passEvents;
     }
 }

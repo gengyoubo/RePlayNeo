@@ -1,4 +1,4 @@
-package com.replaymod.recording.gui;
+package github.com.gengyoubo.replayneo.feature.recording.gui;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.utils.Utils;
@@ -23,7 +23,6 @@ import de.johni0702.minecraft.gui.utils.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -67,9 +66,6 @@ public class GuiSavingReplay {
     public void close() {
         core.getBackgroundProcesses().removeProcess(panel);
         AbstractGuiScreen<?> currentScreen = GuiScreen.from(mc.screen);
-        if (currentScreen instanceof GuiReplayViewer) {
-            ((GuiReplayViewer) currentScreen).list.load();
-        }
     }
 
     public GuiProgressBar getProgressBar() {
@@ -79,7 +75,7 @@ public class GuiSavingReplay {
     public void presentRenameDialog(List<Pair<Path, ReplayMetaData>> outputPaths) {
         panel.removeElement(progressBar);
 
-        link(outputPaths.stream().map(it -> addOutput(it.getKey(), it.getValue())).toArray(Focusable[]::new));
+        link(outputPaths.stream().map(it -> addOutput(it.getKey(), it.getValue())).toArray(de.johni0702.minecraft.gui.element.GuiTextField[]::new));
 
         GuiButton applyButton = new GuiButton()
                 .setSize(150, 20)

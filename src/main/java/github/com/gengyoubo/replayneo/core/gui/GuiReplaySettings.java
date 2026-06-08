@@ -1,4 +1,4 @@
-package com.replaymod.core.gui;
+package github.com.gengyoubo.replayneo.core.gui;
 
 import com.replaymod.core.SettingsRegistry;
 import de.johni0702.minecraft.gui.container.AbstractGuiScreen;
@@ -20,12 +20,7 @@ import net.minecraft.client.resources.language.I18n;
 public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
 
     public GuiReplaySettings(final net.minecraft.client.gui.screens.Screen parent, final SettingsRegistry settingsRegistry) {
-        final GuiButton doneButton = new GuiButton(this).setI18nLabel("gui.done").setSize(200, 20).onClick(new Runnable() {
-            @Override
-            public void run() {
-                getMinecraft().setScreen(parent);
-            }
-        });
+        final GuiButton doneButton = new GuiButton(this).setI18nLabel("gui.done").setSize(200, 20).onClick((Runnable) () -> getMinecraft().setScreen(parent));
 
         final GuiPanel allElements = new GuiPanel(this).setLayout(new HorizontalLayout().setSpacing(10));
         GuiPanel leftColumn = new GuiPanel().setLayout(new VerticalLayout().setSpacing(4));
@@ -43,16 +38,11 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
                     final GuiToggleButton button = new GuiToggleButton<>().setSize(150, 20)
                             .setI18nLabel(key.getDisplayString()).setSelected(settingsRegistry.get(booleanKey) ? 0 : 1)
                             .setValues(I18n.get("options.on"), I18n.get("options.off"));
-                    element = button.onClick(new Runnable() {
-                        @Override
-                        public void run() {
-                            settingsRegistry.set(booleanKey, button.getSelected() == 0);
-                            settingsRegistry.save();
-                        }
+                    element = button.onClick((Runnable) () -> {
+                        settingsRegistry.set(booleanKey, button.getSelected() == 0);
+                        settingsRegistry.save();
                     });
-                } else if (key instanceof SettingsRegistry.MultipleChoiceSettingKey) {
-                    final SettingsRegistry.MultipleChoiceSettingKey<?> multipleChoiceKey =
-                            (SettingsRegistry.MultipleChoiceSettingKey<?>) key;
+                } else if (key instanceof MultipleChoiceSettingKey<?> multipleChoiceKey) {
                     List<?> values = multipleChoiceKey.getChoices();
                     MultipleChoiceDropdownEntry[] entries = new MultipleChoiceDropdownEntry[values.size()];
                     int selected = 0;
@@ -76,13 +66,10 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
                             }
                         }
                     }.setSize(150, 20).setValues(entries);
-                    menu.setSelected(selected).onSelection(new Consumer<Integer>() {
-                        @Override
-                        public void consume(Integer obj) {
-                            settingsRegistry.set((SettingsRegistry.SettingKey) multipleChoiceKey,
-                                    menu.getSelectedValue().value);
-                            settingsRegistry.save();
-                        }
+                    menu.setSelected(selected).onSelection((Consumer<Integer>) obj -> {
+                        settingsRegistry.set((SettingsRegistry.SettingKey) multipleChoiceKey,
+                                menu.getSelectedValue().value);
+                        settingsRegistry.save();
                     });
                     element = menu;
                 } else {
@@ -113,18 +100,11 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
         return this;
     }
 
-    private static class MultipleChoiceDropdownEntry {
-        private final Object value;
-        private final String text;
-
-        public MultipleChoiceDropdownEntry(Object value, String text) {
-            this.value = value;
-            this.text = text;
-        }
+    private record MultipleChoiceDropdownEntry(Object value, String text) {
 
         @Override
-        public String toString() {
-            return text;
+            public String toString() {
+                return text;
+            }
         }
-    }
 }

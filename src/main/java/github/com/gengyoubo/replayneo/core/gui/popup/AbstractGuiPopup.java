@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.popup;
+package github.com.gengyoubo.replayneo.core.gui.popup;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -39,17 +39,17 @@ import java.util.function.Function;
 
 public abstract class AbstractGuiPopup<T extends AbstractGuiPopup<T>> extends AbstractGuiContainer<T> {
     private final GuiPanel popupContainer = new GuiPanel(this){
-        private final int u0 = 0;
-        private final int v0 = 39;
 
         @Override
         public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
-            if (renderInfo.getLayer() == 0 && renderBackground) {
+            if (renderInfo.layer() == 0 && renderBackground) {
                 renderer.bindTexture(TEXTURE);
                 int w = size.getWidth();
                 int h = size.getHeight();
 
                 // Corners
+                int v0 = 39;
+                int u0 = 0;
                 renderer.drawTexturedRect(0, 0, u0, v0, 5, 5); // Top left
                 renderer.drawTexturedRect(w - 5, 0, u0 + 12, v0, 5, 5); // Top right
                 renderer.drawTexturedRect(0, h - 5, u0, v0 + 12, 5, 5); // Bottom left
@@ -134,10 +134,9 @@ public abstract class AbstractGuiPopup<T extends AbstractGuiPopup<T>> extends Ab
                 size(AbstractGuiPopup.this, width, height);
             }
         });
-        if (container instanceof AbstractGuiOverlay) {
+        if (container instanceof AbstractGuiOverlay overlay) {
             // Popup opened on a overlay gui. These normally allow interaction with the game world which
             // is undesirable when e.g. typing text into a input field. Therefore we disable user input.
-            AbstractGuiOverlay overlay = (AbstractGuiOverlay) container;
             wasAllowUserInput = overlay.isAllowUserInput();
             overlay.setAllowUserInput(false);
             // We also force the mouse to be visible
@@ -149,16 +148,15 @@ public abstract class AbstractGuiPopup<T extends AbstractGuiPopup<T>> extends Ab
     protected void close() {
         getContainer().setLayout(originalLayout);
         getContainer().removeElement(this);
-        if (container instanceof AbstractGuiOverlay) {
-            AbstractGuiOverlay overlay = (AbstractGuiOverlay) container;
+        if (container instanceof AbstractGuiOverlay overlay) {
             overlay.setAllowUserInput(wasAllowUserInput);
             overlay.setMouseVisible(wasMouseVisible);
         }
     }
 
-    public T setLayer(int layer) {
+    public void setLayer(int layer) {
         this.layer = layer;
-        return getThis();
+        getThis();
     }
 
     @Override

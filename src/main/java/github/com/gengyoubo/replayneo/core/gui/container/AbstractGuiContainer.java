@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.container;
+package github.com.gengyoubo.replayneo.core.gui.container;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.OffsetGuiRenderer;
@@ -69,9 +69,9 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public T setLayout(Layout layout) {
+    public void setLayout(Layout layout) {
         this.layout = layout;
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -110,7 +110,7 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public T addElements(LayoutData layoutData, GuiElement... elements) {
+    public void addElements(LayoutData layoutData, GuiElement... elements) {
         if (layoutData == null) {
             layoutData = LayoutData.NONE;
         }
@@ -118,18 +118,18 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
             this.elements.put(element, layoutData);
             element.setContainer(this);
         }
-        return getThis();
+        getThis();
     }
 
     @Override
-    public T removeElement(GuiElement element) {
+    public void removeElement(GuiElement element) {
         if (elements.remove(element) != null) {
             element.setContainer(null);
             if (layedOutElements != null) {
                 layedOutElements.remove(element);
             }
         }
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -149,37 +149,37 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
         for (final Map.Entry<GuiElement, Pair<ReadablePoint, ReadableDimension>> e : layedOutElements.entrySet()) {
             GuiElement element = e.getKey();
             if (element instanceof ComposedGuiElement) {
-                if (((ComposedGuiElement) element).getMaxLayer() < renderInfo.layer) {
+                if (((ComposedGuiElement<?>) element).getMaxLayer() < renderInfo.layer()) {
                     continue;
                 }
             } else {
-                if (element.getLayer() != renderInfo.layer) {
+                if (element.getLayer() != renderInfo.layer()) {
                     continue;
                 }
             }
             ReadablePoint ePosition = e.getValue().getLeft();
             ReadableDimension eSize = e.getValue().getRight();
             element.layout(eSize, renderInfo.offsetMouse(ePosition.getX(), ePosition.getY())
-                    .layer(renderInfo.getLayer() - element.getLayer()));
+                    .layer(renderInfo.layer() - element.getLayer()));
         }
     }
 
     @Override
     public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
         super.draw(renderer, size, renderInfo);
-        if (backgroundColor != null && renderInfo.getLayer() == 0) {
+        if (backgroundColor != null && renderInfo.layer() == 0) {
             renderer.drawRect(0, 0, size.getWidth(), size.getHeight(), backgroundColor);
         }
         for (final Map.Entry<GuiElement, Pair<ReadablePoint, ReadableDimension>> e : layedOutElements.entrySet()) {
             GuiElement element = e.getKey();
             boolean strict;
             if (element instanceof ComposedGuiElement) {
-                if (((ComposedGuiElement) element).getMaxLayer() < renderInfo.layer) {
+                if (((ComposedGuiElement<?>) element).getMaxLayer() < renderInfo.layer()) {
                     continue;
                 }
-                strict = renderInfo.layer == 0;
+                strict = renderInfo.layer() == 0;
             } else {
-                if (element.getLayer() != renderInfo.layer) {
+                if (element.getLayer() != renderInfo.layer()) {
                     continue;
                 }
                 strict = true;
@@ -190,7 +190,7 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
                 OffsetGuiRenderer eRenderer = new OffsetGuiRenderer(renderer, ePosition, eSize, strict);
                 eRenderer.startUsing();
                 e.getKey().draw(eRenderer, eSize, renderInfo.offsetMouse(ePosition.getX(), ePosition.getY())
-                        .layer(renderInfo.getLayer() - e.getKey().getLayer()));
+                        .layer(renderInfo.layer() - e.getKey().getLayer()));
                 eRenderer.stopUsing();
             } catch (Exception ex) {
                 CrashReport crashReport = CrashReport.forThrowable(ex, "Rendering Gui");
@@ -219,26 +219,22 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
 
     @Override
     public T sortElements() {
-        sortElements(new Comparator<GuiElement>() {
-            @SuppressWarnings("unchecked")
-            @Override
-            public int compare(GuiElement o1, GuiElement o2) {
-                if (o1 instanceof Comparable && o2 instanceof Comparable) {
-                    return ((Comparable) o1).compareTo(o2);
-                }
-                return o1.hashCode() - o2.hashCode();
+        sortElements((o1, o2) -> {
+            if (o1 instanceof Comparable && o2 instanceof Comparable) {
+                return ((Comparable) o1).compareTo(o2);
             }
+            return o1.hashCode() - o2.hashCode();
         });
         return getThis();
     }
 
     @Override
-    public T sortElements(final Comparator<GuiElement> comparator) {
+    public void sortElements(final Comparator<GuiElement> comparator) {
         elements = elements.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey(comparator))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, LinkedHashMap::new));
-        return getThis();
+        getThis();
     }
 
     @Override
@@ -247,8 +243,8 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public T setBackgroundColor(ReadableColor backgroundColor) {
+    public void setBackgroundColor(ReadableColor backgroundColor) {
         this.backgroundColor = backgroundColor;
-        return getThis();
+        getThis();
     }
 }

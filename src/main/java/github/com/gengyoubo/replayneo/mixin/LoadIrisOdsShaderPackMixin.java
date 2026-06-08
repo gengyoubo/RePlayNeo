@@ -1,4 +1,4 @@
-package com.replaymod.render.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.render.capturer.IrisODSFrameCapturer;
 import net.coderbot.iris.Iris;

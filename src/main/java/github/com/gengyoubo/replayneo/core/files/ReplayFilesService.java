@@ -1,4 +1,4 @@
-package com.replaymod.core.files;
+package github.com.gengyoubo.replayneo.core.files;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.gui.RestoreReplayGui;
@@ -8,6 +8,7 @@ import com.replaymod.replaystudio.studio.ReplayStudio;
 import de.johni0702.minecraft.gui.container.GuiScreen;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -116,7 +117,7 @@ public class ReplayFilesService {
         try {
             Files.walkFileTree(folders.getReplayFolder(), new SimpleFileVisitor<Path>() {
                 @Override
-                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                public @NotNull FileVisitResult preVisitDirectory(@NotNull Path dir, @NotNull BasicFileAttributes attrs) throws IOException {
                     String name = dir.getFileName().toString();
                     if (name.endsWith(".mcpr.cache")) {
                         FileUtils.deleteDirectory(dir.toFile());

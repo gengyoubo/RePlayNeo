@@ -1,4 +1,4 @@
-package com.replaymod.core.versions.scheduler;
+package github.com.gengyoubo.replayneo.platform.scheduler;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;

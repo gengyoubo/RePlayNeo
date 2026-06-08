@@ -1,10 +1,11 @@
-package com.replaymod.core.files;
+package github.com.gengyoubo.replayneo.core.files;
 
 import com.google.common.net.PercentEscaper;
 import com.replaymod.core.Setting;
 import com.replaymod.core.SettingsRegistry;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import net.minecraft.client.Minecraft;
@@ -63,7 +64,7 @@ public class ReplayFoldersService {
     }
 
     public Path getReplayPathForCache(Path cache) throws IOException {
-        String relative = URLDecoder.decode(cache.getFileName().toString(), "UTF-8");
+        String relative = URLDecoder.decode(cache.getFileName().toString(), StandardCharsets.UTF_8);
         Path replayFolder = getReplayFolder();
         return replayFolder.resolve(relative);
     }

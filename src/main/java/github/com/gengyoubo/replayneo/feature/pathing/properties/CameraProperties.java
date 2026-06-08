@@ -1,4 +1,4 @@
-package com.replaymod.pathing.properties;
+package github.com.gengyoubo.replayneo.feature.pathing.properties;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
@@ -11,6 +11,7 @@ import com.replaymod.replaystudio.pathing.property.PropertyPart;
 import com.replaymod.replaystudio.pathing.property.PropertyParts;
 import de.johni0702.minecraft.gui.utils.NonNull;
 import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -30,7 +31,7 @@ public class CameraProperties extends AbstractPropertyGroup {
     }
 
     @Override
-    public Optional<Callable<Change>> getSetter() {
+    public @NotNull Optional<Callable<Change>> getSetter() {
         return Optional.empty();
     }
 

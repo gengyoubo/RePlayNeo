@@ -1,4 +1,4 @@
-package de.johni0702.minecraft.gui.versions;
+package github.com.gengyoubo.replayneo.platform.versions;
 
 import javax.imageio.ImageIO;
 import net.minecraft.client.renderer.texture.DynamicTexture;

@@ -1,4 +1,4 @@
-package com.replaymod.render.capturer;
+package github.com.gengyoubo.replayneo.feature.render.capturer;
 
 import com.replaymod.render.frame.OpenGlFrame;
 import com.replaymod.render.rendering.Channel;
@@ -43,13 +43,13 @@ public abstract class PboOpenGlFrameCapturer<F extends Frame, D extends Enum<D> 
         return framesDone >= renderInfo.getTotalFrames() + 2;
     }
 
-    private F readFromPbo(ByteBuffer pboBuffer, int bytesPerPixel, boolean swapRB) {
+    private F readFromPbo(ByteBuffer pboBuffer) {
         OpenGlFrame[] frames = new OpenGlFrame[data.length];
-        int frameBufferSize = getFrameWidth() * getFrameHeight() * bytesPerPixel;
+        int frameBufferSize = getFrameWidth() * getFrameHeight() * 4;
         for (int i = 0; i < frames.length; i++) {
             ByteBuffer frameBuffer = ByteBufferPool.allocate(frameBufferSize);
             pboBuffer.limit(pboBuffer.position() + frameBufferSize);
-            if (swapRB) {
+            if (false) {
                 for (int j = 0; j < frameBufferSize; j += 4) {
                     byte r = pboBuffer.get();
                     byte g = pboBuffer.get();
@@ -64,7 +64,7 @@ public abstract class PboOpenGlFrameCapturer<F extends Frame, D extends Enum<D> 
                 frameBuffer.put(pboBuffer);
             }
             frameBuffer.rewind();
-            frames[i] = new OpenGlFrame(framesDone - 2, frameSize, bytesPerPixel, frameBuffer);
+            frames[i] = new OpenGlFrame(framesDone - 2, frameSize, 4, frameBuffer);
         }
         return create(frames);
     }
@@ -79,9 +79,9 @@ public abstract class PboOpenGlFrameCapturer<F extends Frame, D extends Enum<D> 
             ByteBuffer pboBuffer = pbo.mapReadOnly();
 
             channels = new HashMap<>();
-            channels.put(Channel.BRGA, readFromPbo(pboBuffer, 4, false));
+            channels.put(Channel.BRGA, readFromPbo(pboBuffer));
             if (withDepth) {
-                channels.put(Channel.DEPTH, readFromPbo(pboBuffer, 4, false));
+                channels.put(Channel.DEPTH, readFromPbo(pboBuffer));
             }
 
             pbo.unmap();

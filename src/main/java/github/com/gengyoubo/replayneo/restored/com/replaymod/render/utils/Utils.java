@@ -1,4 +1,4 @@
-package com.replaymod.render.utils;
+package github.com.gengyoubo.replayneo.restored.com.replaymod.render.utils;
 
 import com.replaymod.render.frame.OpenGlFrame;
 
@@ -15,7 +15,7 @@ public class Utils {
      */
     public static void openGlBytesToBitmap(OpenGlFrame source, int xOffset, int yOffset, ByteBuffer to, int width) {
         openGlBytesToBitmap(
-                source.getByteBuffer(), source.getSize().getWidth(), source.getBytesPerPixel(),
+                source.byteBuffer(), source.size().getWidth(), source.bytesPerPixel(),
                 xOffset, yOffset, to, width);
     }
 

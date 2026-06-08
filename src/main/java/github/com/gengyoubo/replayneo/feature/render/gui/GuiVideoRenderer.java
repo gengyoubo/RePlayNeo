@@ -1,8 +1,7 @@
-package com.replaymod.render.gui;
+package github.com.gengyoubo.replayneo.feature.render.gui;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import com.replaymod.core.utils.Utils;
-import com.replaymod.render.frame.BitmapFrame;
 import com.replaymod.render.rendering.VideoRenderer;
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -18,7 +17,7 @@ import de.johni0702.minecraft.gui.layout.CustomLayout;
 import de.johni0702.minecraft.gui.layout.HorizontalLayout;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import java.nio.ByteBuffer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.resources.language.I18n;
@@ -27,7 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
 
 public class GuiVideoRenderer extends GuiScreen implements Tickable {
-    private static final ResourceLocation NO_PREVIEW_TEXTURE = identifier("replaymod", "logo.png");
+    private static final ResourceLocation NO_PREVIEW_TEXTURE = identifier(RePlayNeo.RESOURCE_NAMESPACE, "logo.png");
 
     private final VideoRenderer renderer;
 
@@ -135,7 +134,7 @@ public class GuiVideoRenderer extends GuiScreen implements Tickable {
     private int renderTimeLeft = 0;
 
     //each of the durations the rendering process took for the last 50 frames
-    private int[] renderTimes = new int[50];
+    private final int[] renderTimes = new int[50];
     //the algorithm's current position in the renderTimes array
     private int currentIndex = 0;
 
@@ -145,7 +144,7 @@ public class GuiVideoRenderer extends GuiScreen implements Tickable {
 
         //first, update the total render time (only if rendering is not paused and has already started)
         if(!renderer.isPaused() && renderer.getFramesDone() > 0 && prevTime > -1) {
-            renderTimeTaken += (current - prevTime);
+            renderTimeTaken += (int) (current - prevTime);
         } else {
             //if the rendering process is paused, we have to update the frame start time to prevent huge render times
             //for the currently rendered frame(s)
@@ -193,7 +192,7 @@ public class GuiVideoRenderer extends GuiScreen implements Tickable {
                 }
 
                 //calculate the average render time for the previous [up to 50] frames
-                float averageRenderTime = validValues > 0 ? totalTime / validValues : 0;
+                float averageRenderTime = validValues > 0 ? (float) (float) totalTime / validValues : 0;
 
                 //calculate the remaining render time in seconds
                 renderTimeLeft = Math.round((averageRenderTime * (renderer.getTotalFrames() - renderer.getFramesDone())) / 1000);

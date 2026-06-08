@@ -1,6 +1,5 @@
-package com.replaymod.core.versions;
+package github.com.gengyoubo.replayneo.core.versions;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -22,7 +21,6 @@ import com.replaymod.render.mixin.MainWindowAccessor;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.ContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
@@ -50,23 +48,22 @@ public class MCVer {
     }
 
     public static ConnectionProtocol asMc(State state) {
-        switch (state) {
-            case HANDSHAKE: return ConnectionProtocol.HANDSHAKING;
-            case STATUS: return ConnectionProtocol.STATUS;
-            case LOGIN: return ConnectionProtocol.LOGIN;
-            case PLAY: return ConnectionProtocol.PLAY;
-        }
-        throw new IllegalArgumentException("Unexpected value: " + state);
+        return switch (state) {
+            case HANDSHAKE -> ConnectionProtocol.HANDSHAKING;
+            case STATUS -> ConnectionProtocol.STATUS;
+            case LOGIN -> ConnectionProtocol.LOGIN;
+            case PLAY -> ConnectionProtocol.PLAY;
+            default -> throw new IllegalArgumentException("Unexpected value: " + state);
+        };
     }
 
     public static State fromMc(ConnectionProtocol mcState) {
-        switch (mcState) {
-            case HANDSHAKING: return State.HANDSHAKE;
-            case STATUS: return State.STATUS;
-            case LOGIN: return State.LOGIN;
-            case PLAY: return State.PLAY;
-        }
-        throw new IllegalArgumentException("Unexpected value: " + mcState);
+        return switch (mcState) {
+            case HANDSHAKING -> State.HANDSHAKE;
+            case STATUS -> State.STATUS;
+            case LOGIN -> State.LOGIN;
+            case PLAY -> State.PLAY;
+        };
     }
 
     public static PacketTypeRegistry getPacketTypeRegistry(ConnectionProtocol state) {
@@ -149,15 +146,14 @@ public class MCVer {
                     return button;
                 }
             }
-            if (!(e instanceof AbstractButton)) {
+            if (!(e instanceof AbstractButton b)) {
                 continue;
             }
-            AbstractButton b = (AbstractButton) e;
             if (message.equals(b.getMessage())) {
                 return Optional.of(b);
             }
             // Fuzzy match (copy does not include children)
-            if (b.getMessage() != null && b.getMessage().copy().equals(message)) {
+            if (b.getMessage().copy().equals(message)) {
                 return Optional.of(b);
             }
         }

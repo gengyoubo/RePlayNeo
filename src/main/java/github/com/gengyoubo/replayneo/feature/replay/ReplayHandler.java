@@ -1,11 +1,9 @@
-package com.replaymod.replay;
+package github.com.gengyoubo.replayneo.feature.replay;
 
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.mixin.MinecraftAccessor;
@@ -46,16 +44,17 @@ import net.minecraft.network.PacketEncoder;
 import net.minecraft.network.protocol.PacketFlow;
 import java.io.IOException;
 import java.util.*;
-import org.joml.Matrix4f;
+
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexSorting;
-import org.lwjgl.opengl.GL11;
 
 import com.replaymod.replay.mixin.EntityLivingBaseAccessor;
+import org.jetbrains.annotations.NotNull;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -69,7 +68,7 @@ public class ReplayHandler {
 
     public static final String PACKET_HANDLER_NAME = "ReplayModReplay_packetHandler";
 
-    private static Minecraft mc = getMinecraft();
+    private static final Minecraft mc = getMinecraft();
 
     /**
      * The file currently being played.
@@ -93,13 +92,11 @@ public class ReplayHandler {
      */
     private boolean suppressCameraMovements;
 
-    private Set<Marker> markers;
-
     private final GuiReplayOverlay overlay;
 
     private EmbeddedChannel channel;
 
-    private int replayDuration;
+    private final int replayDuration;
 
     /**
      * The position at which the camera should be located after the next jump.
@@ -114,7 +111,7 @@ public class ReplayHandler {
 
         replayDuration = replayFile.getMetaData().getDuration();
 
-        markers = replayFile.getMarkers().or(Collections.emptySet());
+        Set<Marker> markers = replayFile.getMarkers().or(Collections.emptySet());
 
         fullReplaySender = new FullReplaySender(this, replayFile);
         quickReplaySender = new QuickReplaySender(ReplayModReplay.instance, replayFile);
@@ -159,9 +156,6 @@ public class ReplayHandler {
 
         channel.close().awaitUninterruptibly();
 
-        if (mc.player instanceof CameraEntity) {
-        }
-
         if (mc.level != null) {
             mc.clearLevel();
         }
@@ -184,7 +178,7 @@ public class ReplayHandler {
 
         Connection networkManager = new Connection(PacketFlow.CLIENTBOUND) {
             @Override
-            public void exceptionCaught(ChannelHandlerContext ctx, Throwable t) {
+            public void exceptionCaught(@NotNull ChannelHandlerContext ctx, Throwable t) {
                 t.printStackTrace();
             }
         };
@@ -243,7 +237,7 @@ public class ReplayHandler {
         if (future == null) {
             InitializingQuickModePopup popup = new InitializingQuickModePopup(overlay);
             future = quickReplaySender.initialize(progress -> popup.progressBar.setProgress(progress.floatValue()));
-            Futures.addCallback(future, new FutureCallback<Void>() {
+            Futures.addCallback(future, new FutureCallback<>() {
                 @Override
                 public void onSuccess(@Nullable Void result) {
                     popup.close();
@@ -256,7 +250,7 @@ public class ReplayHandler {
                 }
             }, Runnable::run);
         }
-        Futures.addCallback(future, new FutureCallback<Void>() {
+        Futures.addCallback(future, new FutureCallback<>() {
             @Override
             public void onSuccess(@Nullable Void result) {
                 andThen.run();
@@ -269,7 +263,7 @@ public class ReplayHandler {
         }, Runnable::run);
     }
 
-    private class InitializingQuickModePopup extends AbstractGuiPopup<InitializingQuickModePopup> {
+    private static class InitializingQuickModePopup extends AbstractGuiPopup<InitializingQuickModePopup> {
         private final GuiProgressBar progressBar = new GuiProgressBar(popup).setSize(300, 20)
                 .setI18nLabel("replaymod.gui.loadquickmode");
 
@@ -428,7 +422,7 @@ public class ReplayHandler {
             }
 
             // Update all entity positions (especially prev/lastTick values)
-            for (Entity entity : mc.level.entitiesForRendering()) {
+            for (Entity entity : Objects.requireNonNull(mc.level).entitiesForRendering()) {
                 skipTeleportInterpolation(entity);
                 entity.xOld = entity.xo = entity.getX();
                 entity.yOld = entity.yo = entity.getY();
@@ -544,7 +538,7 @@ public class ReplayHandler {
                 replaySender.setReplaySpeed(0);
 
 
-                mc.getConnection().getConnection()
+                Objects.requireNonNull(mc.getConnection()).getConnection()
                         .tick();
 
                 // If the packets we just sent somehow caused the client to disconnect, then the above connection tick
@@ -573,8 +567,7 @@ public class ReplayHandler {
     }
 
     private void skipTeleportInterpolation(Entity entity) {
-        if (entity instanceof LivingEntity && !(entity instanceof CameraEntity)) {
-            LivingEntity e = (LivingEntity) entity;
+        if (entity instanceof LivingEntity e && !(entity instanceof CameraEntity)) {
             EntityLivingBaseAccessor ea = (EntityLivingBaseAccessor) e;
             e.absMoveTo(ea.getInterpTargetX(), ea.getInterpTargetY(), ea.getInterpTargetZ());
             e.setYRot((float) ea.getInterpTargetYaw());

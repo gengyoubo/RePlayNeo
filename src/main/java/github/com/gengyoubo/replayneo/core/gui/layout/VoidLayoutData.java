@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.layout;
+package github.com.gengyoubo.replayneo.core.gui.layout;
 
 public class VoidLayoutData implements LayoutData {
     public static final VoidLayoutData INSTANCE = new VoidLayoutData();

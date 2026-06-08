@@ -1,4 +1,4 @@
-package com.replaymod.render.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.core.versions.MCVer;
 import com.replaymod.extras.playeroverview.PlayerOverview;
@@ -27,8 +27,7 @@ public abstract class EntityRendererMixin {
     @Inject(method = "shouldRender", at = @At("HEAD"), cancellable = true)
     public void replayModExtras_isPlayerHidden(Entity entity, @Coerce Object camera, double camX, double camY, double camZ, CallbackInfoReturnable<Boolean> ci) {
         ReplayModExtras.instance.get(PlayerOverview.class).ifPresent(playerOverview -> {
-            if (entity instanceof Player) {
-                Player player = (Player) entity;
+            if (entity instanceof Player player) {
                 if (playerOverview.isHidden(player.getUUID())) {
                     ci.setReturnValue(false);
                 }

@@ -1,4 +1,4 @@
-package com.replaymod.replay.gui.screen;
+package github.com.gengyoubo.replayneo.feature.replay.gui.screen;
 
 import com.replaymod.core.utils.ModCompat;
 import com.replaymod.replaystudio.data.ModInfo;

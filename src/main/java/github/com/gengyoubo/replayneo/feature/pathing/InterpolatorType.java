@@ -13,11 +13,11 @@ public enum InterpolatorType {
     CUBIC("cubic", CubicSplineInterpolator.class, CubicSplineInterpolator::new),
     LINEAR("linear", LinearInterpolator.class, LinearInterpolator::new);
 
-    private String localizationKey;
+    private final String localizationKey;
 
-    private Class<? extends Interpolator> interpolatorClass;
+    private final Class<? extends Interpolator> interpolatorClass;
 
-    private Supplier<Interpolator> interpolatorConstructor;
+    private final Supplier<Interpolator> interpolatorConstructor;
 
     InterpolatorType(String localizationKey, Class<? extends Interpolator> interpolatorClass, Supplier<Interpolator> interpolatorConstructor) {
         this.localizationKey = localizationKey;

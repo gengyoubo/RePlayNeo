@@ -1,4 +1,4 @@
-package com.replaymod.editor.gui;
+package github.com.gengyoubo.replayneo.feature.editor.gui;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.utils.Utils;
@@ -20,7 +20,6 @@ import de.johni0702.minecraft.gui.layout.VerticalLayout;
 import de.johni0702.minecraft.gui.popup.AbstractGuiPopup;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -64,7 +63,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
         super(container);
         this.inputPath = inputPath;
 
-        LOGGER.info("Opening replay in editor: " + inputPath);
+        LOGGER.info("Opening replay in editor: {}", inputPath);
 
         try (ReplayFile replayFile = ReplayMod.instance.files.open(inputPath)) {
             markers = replayFile.getMarkers().or(HashSet::new);
@@ -188,7 +187,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
         return this;
     }
 
-    private class ProgressPopup extends AbstractGuiPopup<ProgressPopup> {
+    private static class ProgressPopup extends AbstractGuiPopup<ProgressPopup> {
         private final GuiProgressBar progressBar = new GuiProgressBar(popup).setSize(300, 20);
 
         ProgressPopup(GuiContainer container) {
@@ -233,7 +232,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
         private void drawCutQuads(GuiRenderer renderer, ReadableDimension size) {
             boolean inCut = false;
             int startTime = 0;
-            for (Marker marker : markers.stream().sorted(Comparator.comparing(Marker::getTime)).collect(Collectors.toList())) {
+            for (Marker marker : markers.stream().sorted(Comparator.comparing(Marker::getTime)).toList()) {
                 if (MarkerProcessor.MARKER_NAME_START_CUT.equals(marker.getName()) && !inCut) {
                     inCut = true;
                     startTime = marker.getTime();

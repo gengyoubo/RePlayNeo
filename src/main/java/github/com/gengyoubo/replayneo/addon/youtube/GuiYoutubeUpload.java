@@ -24,6 +24,8 @@ import de.johni0702.minecraft.gui.versions.Image;
 import joptsimple.internal.Strings;
 import net.minecraft.client.resources.language.I18n;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
+
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
@@ -180,11 +182,7 @@ public class GuiYoutubeUpload extends GuiScreen {
             uploadButton.onClick(() -> {
                 setState(false);
                 new Thread(() -> {
-                    try {
-                        upload.cancel();
-                    } catch(InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    upload.cancel();
                 }).start();
             }).setI18nLabel("replaymod.gui.cancel");
         } else {
@@ -200,13 +198,13 @@ public class GuiYoutubeUpload extends GuiScreen {
                     upload = new YoutubeUploader(getMinecraft(), videoFile, videoFrames,
                             thumbnailFormat, thumbnailImage, settings, visibility, snippet);
                     ListenableFuture<Video> future = upload.upload();
-                    Futures.addCallback(future, new FutureCallback<Video>() {
+                    Futures.addCallback(future, new FutureCallback<>() {
                         @Override
                         public void onSuccess(Video result) {
                             String url = "https://youtu.be/" + result.getId();
                             try {
                                 MCVer.openURL(new URL(url).toURI());
-                            } catch(Throwable throwable) {
+                            } catch (Throwable throwable) {
                                 LOGGER.error("Failed to open video URL \"{}\":", url, throwable);
                             }
                             upload = null;
@@ -215,7 +213,7 @@ public class GuiYoutubeUpload extends GuiScreen {
                         }
 
                         @Override
-                        public void onFailure(Throwable t) {
+                        public void onFailure(@NotNull Throwable t) {
                             if (t instanceof InterruptedException || upload.isCancelled()) {
                                 progressBar.setProgress(0);
                                 progressBar.setLabel("%d%%");

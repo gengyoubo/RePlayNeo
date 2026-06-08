@@ -1,4 +1,4 @@
-package com.replaymod.recording.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import io.netty.channel.Channel;
 import net.minecraft.network.Connection;

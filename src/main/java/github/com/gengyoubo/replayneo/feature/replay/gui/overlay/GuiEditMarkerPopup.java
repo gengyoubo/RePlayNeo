@@ -1,4 +1,4 @@
-package com.replaymod.replay.gui.overlay;
+package github.com.gengyoubo.replayneo.feature.replay.gui.overlay;
 
 import com.google.common.base.Strings;
 import de.johni0702.minecraft.gui.container.GuiContainer;
@@ -74,12 +74,7 @@ public class GuiEditMarkerPopup extends AbstractGuiPopup<GuiEditMarkerPopup> imp
         }
     }).setSize(150, 20).setI18nLabel("replaymod.gui.save");
 
-    public final GuiButton cancelButton = new GuiButton().onClick(new Runnable() {
-        @Override
-        public void run() {
-            close();
-        }
-    }).setSize(150, 20).setI18nLabel("replaymod.gui.cancel");
+    public final GuiButton cancelButton = new GuiButton().onClick((Runnable) () -> close()).setSize(150, 20).setI18nLabel("replaymod.gui.cancel");
 
     public final GuiPanel buttons = new GuiPanel()
             .setLayout(new HorizontalLayout(HorizontalLayout.Alignment.CENTER).setSpacing(7))

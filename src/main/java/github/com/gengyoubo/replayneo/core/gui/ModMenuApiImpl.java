@@ -1,4 +1,4 @@
-package com.replaymod.core.gui;
+package github.com.gengyoubo.replayneo.core.gui;
 
 public class ModMenuApiImpl {
 }

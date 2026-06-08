@@ -1,4 +1,4 @@
-package com.replaymod.recording.gui;
+package github.com.gengyoubo.replayneo.feature.recording.gui;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.utils.Utils;
@@ -17,7 +17,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.AbstractButton;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -27,9 +26,9 @@ public class GuiRecordingControls extends EventRegistrations {
     private boolean paused;
     private boolean stopped;
 
-    private GuiPanel panel = new GuiPanel().setLayout(new HorizontalLayout().setSpacing(4));
+    private final GuiPanel panel = new GuiPanel().setLayout(new HorizontalLayout().setSpacing(4));
 
-    private GuiButton buttonPauseResume = new GuiButton(panel).onClick(() -> {
+    private final GuiButton buttonPauseResume = new GuiButton(panel).onClick(() -> {
         if (Utils.ifMinimalModeDoPopup(panel, () -> {})) return;
         if (paused) {
             packetListener.addMarker(MarkerProcessor.MARKER_NAME_END_CUT);
@@ -40,7 +39,7 @@ public class GuiRecordingControls extends EventRegistrations {
         updateState();
     }).setSize(98, 20);
 
-    private GuiButton buttonStartStop = new GuiButton(panel).onClick(() -> {
+    private final GuiButton buttonStartStop = new GuiButton(panel).onClick(() -> {
         if (Utils.ifMinimalModeDoPopup(panel, () -> {})) return;
         if (stopped) {
             paused = false;

@@ -21,6 +21,10 @@ plugins {
 version = mod_version
 group = mod_group_id
 
+base {
+    archivesName = mod_id
+}
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 def shouldBundleRuntimeArtifact = { String group, String name ->
@@ -56,15 +60,7 @@ def bundledRuntimeExcludes = [
         'module-info.class'
 ]
 def replayMixinConfigs = [
-        'mixins.core.replaymod.json',
-        'mixins.recording.replaymod.json',
-        'mixins.replay.replaymod.json',
-        'mixins.render.replaymod.json',
-        'mixins.render.blend.replaymod.json',
-        'mixins.extras.playeroverview.replaymod.json',
-        'mixins.compat.shaders.replaymod.json',
-        'mixins.compat.mapwriter.replaymod.json',
-        'mixins.nonmmlauncher.replaymod.json'
+        'mixins.replayneo.json'
 ]
 
 minecraft {
@@ -109,7 +105,7 @@ minecraft {
 }
 
 mixin {
-    add sourceSets.main, 'mixins.replaymod.refmap.json'
+    add sourceSets.main, 'mixins.replayneo.refmap.json'
     replayMixinConfigs.each { mixinConfig ->
         config mixinConfig
     }

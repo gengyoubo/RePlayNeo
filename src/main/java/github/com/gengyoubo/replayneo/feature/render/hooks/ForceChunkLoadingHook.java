@@ -1,4 +1,4 @@
-package com.replaymod.render.hooks;
+package github.com.gengyoubo.replayneo.feature.render.hooks;
 
 import com.replaymod.render.utils.FlawlessFrames;
 import net.minecraft.client.renderer.LevelRenderer;

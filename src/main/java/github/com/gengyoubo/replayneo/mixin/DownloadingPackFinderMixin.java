@@ -1,10 +1,11 @@
-package com.replaymod.recording.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.recording.packet.ResourcePackRecorder;
 import de.johni0702.minecraft.gui.utils.Consumer;
 import net.minecraft.client.resources.DownloadedPackSource;
 import net.minecraft.server.packs.repository.PackSource;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.io.File;
@@ -13,11 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DownloadedPackSource.class)
 public abstract class DownloadingPackFinderMixin implements ResourcePackRecorder.IDownloadingPackFinder {
-    private Consumer<File> requestCallback;
+    @Unique
+    private Consumer<File> rePlay$requestCallback;
 
-    @Override
-    public void setRequestCallback(Consumer<File> callback) {
-        requestCallback = callback;
+    public void rePlay$setRequestCallback(Consumer<File> callback) {
+        rePlay$requestCallback = callback;
     }
 
     @Inject(method = "setServerPack", at = @At("HEAD"))
@@ -26,9 +27,9 @@ public abstract class DownloadingPackFinderMixin implements ResourcePackRecorder
             PackSource arg,
             CallbackInfoReturnable<?> ci
     ) {
-        if (requestCallback != null) {
-            requestCallback.consume(file);
-            requestCallback = null;
+        if (rePlay$requestCallback != null) {
+            rePlay$requestCallback.consume(file);
+            rePlay$requestCallback = null;
         }
     }
 }

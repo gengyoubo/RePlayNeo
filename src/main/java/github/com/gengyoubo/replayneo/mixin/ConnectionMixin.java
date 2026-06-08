@@ -1,4 +1,4 @@
-package com.replaymod.recording.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.recording.packet.PacketListener;
 import io.netty.channel.Channel;

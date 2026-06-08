@@ -1,6 +1,5 @@
-package com.replaymod.render.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.replaymod.render.hooks.ForceChunkLoadingHook;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,12 +27,12 @@ import net.minecraft.util.thread.ProcessorMailbox;
 public abstract class BlockOnChunkRebuildsMixin implements ForceChunkLoadingHook.IBlockOnChunkRebuilds {
     @Shadow @Final private Queue<ChunkBufferBuilderPack> freeBuffers;
     @Unique
-    private int getAvailableBufferCount() {
+    private int rePlay$getAvailableBufferCount() {
         return freeBuffers.size();
     }
 
     @Unique
-    private boolean upload() {
+    private boolean rePlay$upload() {
         boolean anything = false;
         Runnable runnable;
         while ((runnable = this.toUpload.poll()) != null) {
@@ -48,78 +47,82 @@ public abstract class BlockOnChunkRebuildsMixin implements ForceChunkLoadingHook
     @Shadow protected abstract void runTask();
 
     @Shadow @Final private Queue<Runnable> toUpload;
-    private final Lock waitingForWorkLock = new ReentrantLock();
-    private final Condition newWork = waitingForWorkLock.newCondition();
-    private volatile boolean allDone;
+    @Unique
+    private final Lock rePlay$waitingForWorkLock = new ReentrantLock();
+    @Unique
+    private final Condition rePlay$newWork = rePlay$waitingForWorkLock.newCondition();
+    @Unique
+    private volatile boolean rePlay$allDone;
 
-    private int totalBufferCount;
+    @Unique
+    private int rePlay$totalBufferCount;
 
-    @Inject(method = "<init>", at = @At("RETURN"))
+    @Inject(method = "<init>*", at = @At("RETURN"))
     private void rememberTotalThreads(CallbackInfo ci) {
-        this.totalBufferCount = getAvailableBufferCount();
+        this.rePlay$totalBufferCount = rePlay$getAvailableBufferCount();
     }
 
     @Inject(method = "runTask", at = @At("RETURN"))
     private void notifyMainThreadIfEverythingIsDone(CallbackInfo ci) {
-        if (getAvailableBufferCount() == this.totalBufferCount) {
+        if (rePlay$getAvailableBufferCount() == this.rePlay$totalBufferCount) {
             // Looks like we're done, better notify the main thread in case the previous task didn't generate an upload
-            this.waitingForWorkLock.lock();
+            this.rePlay$waitingForWorkLock.lock();
             try {
-                this.allDone = true;
-                this.newWork.signalAll();
+                this.rePlay$allDone = true;
+                this.rePlay$newWork.signalAll();
             } finally {
-                this.waitingForWorkLock.unlock();
+                this.rePlay$waitingForWorkLock.unlock();
             }
         } else {
-            this.allDone = false;
+            this.rePlay$allDone = false;
         }
     }
 
     @Inject(method = "uploadChunkLayer", at = @At("RETURN"))
     private void notifyMainThreadOfNewUpload(CallbackInfoReturnable<CompletableFuture<Void>> ci) {
-        this.waitingForWorkLock.lock();
+        this.rePlay$waitingForWorkLock.lock();
         try {
-            this.newWork.signal();
+            this.rePlay$newWork.signal();
         } finally {
-            this.waitingForWorkLock.unlock();
+            this.rePlay$waitingForWorkLock.unlock();
         }
     }
 
-    private boolean waitForMainThreadWork() {
+    @Unique
+    private boolean rePlay$waitForMainThreadWork() {
         boolean allDone = this.mailbox.<Boolean>ask(reply -> () -> {
             runTask();
-            reply.tell(getAvailableBufferCount() == this.totalBufferCount);
+            reply.tell(rePlay$getAvailableBufferCount() == this.rePlay$totalBufferCount);
         }).join();
 
         if (allDone) {
             return true;
         } else {
-            this.waitingForWorkLock.lock();
+            this.rePlay$waitingForWorkLock.lock();
             try {
                 while (true) {
 
-                    if (this.allDone) {
+                    if (this.rePlay$allDone) {
                         return true;
                     } else if (!this.toUpload.isEmpty()) {
                         return false;
                     } else {
-                        this.newWork.awaitUninterruptibly();
+                        this.rePlay$newWork.awaitUninterruptibly();
                     }
                 }
             } finally {
-                this.waitingForWorkLock.unlock();
+                this.rePlay$waitingForWorkLock.unlock();
             }
         }
     }
 
-    @Override
-    public boolean uploadEverythingBlocking() {
+    public boolean rePlay$uploadEverythingBlocking() {
         boolean anything = false;
 
         boolean allChunksBuilt;
         do {
-            allChunksBuilt = waitForMainThreadWork();
-            while (upload()) {
+            allChunksBuilt = rePlay$waitForMainThreadWork();
+            while (rePlay$upload()) {
                 anything = true;
             }
         } while (!allChunksBuilt);

@@ -1,4 +1,4 @@
-package com.replaymod.extras.advancedscreenshots;
+package github.com.gengyoubo.replayneo.addon.advancedscreenshots;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.render.RenderSettings;
@@ -24,12 +24,8 @@ import static com.replaymod.render.ReplayModRender.LOGGER;
 
 public class GuiCreateScreenshot extends GuiRenderSettings implements Loadable {
 
-    private final ReplayMod mod;
-
     public GuiCreateScreenshot(ReplayMod mod) {
         super(GuiRenderSettings.createBaseScreen(), null, null);
-
-        this.mod = mod;
 
         resetChildren(settingsList.getListPanel()).addElements(new VerticalLayout.Data(0.5),
                 new GuiLabel().setI18nText("replaymod.gui.advancedscreenshots.title"), mainPanel, new GuiPanel(),

@@ -1,9 +1,8 @@
-package com.replaymod.extras.playeroverview;
+package github.com.gengyoubo.replayneo.addon.playeroverview;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.events.PreRenderHandCallback;
 import com.replaymod.core.utils.Utils;
-import com.replaymod.core.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.addon.Extra;
 import com.replaymod.replay.ReplayHandler;
 import com.replaymod.replay.ReplayModReplay;
@@ -30,27 +29,24 @@ public class PlayerOverview extends EventRegistrations implements Extra {
     public void register(final ReplayMod mod) throws Exception {
         this.module = ReplayModReplay.instance;
 
-        mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.playeroverview", Keyboard.KEY_B, new Runnable() {
-            @Override
-            public void run() {
-                if (module.getReplayHandler() != null) {
-                    List<Player> players = mod.getMinecraft().level.players()
-                            .stream()
-                            .map(it -> (Player) it)
-                            .filter(it -> !(it instanceof CameraEntity))
-                            .collect(Collectors.toList());
-                    if (!Utils.isCtrlDown()) {
-                        // Hide all players that have an UUID v2 (commonly used for NPCs)
-                        Iterator<Player> iter = players.iterator();
-                        while (iter.hasNext()) {
-                            UUID uuid = iter.next().getGameProfile().getId();
-                            if (uuid != null && uuid.version() == 2) {
-                                iter.remove();
-                            }
+        mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.playeroverview", Keyboard.KEY_B, (Runnable) () -> {
+            if (module.getReplayHandler() != null) {
+                List<Player> players = mod.getMinecraft().level.players()
+                        .stream()
+                        .map(it -> (Player) it)
+                        .filter(it -> !(it instanceof CameraEntity))
+                        .collect(Collectors.toList());
+                if (!Utils.isCtrlDown()) {
+                    // Hide all players that have an UUID v2 (commonly used for NPCs)
+                    Iterator<Player> iter = players.iterator();
+                    while (iter.hasNext()) {
+                        UUID uuid = iter.next().getGameProfile().getId();
+                        if (uuid != null && uuid.version() == 2) {
+                            iter.remove();
                         }
                     }
-                    new PlayerOverviewGui(PlayerOverview.this, players).display();
                 }
+                new PlayerOverviewGui(PlayerOverview.this, players).display();
             }
         }, true);
 

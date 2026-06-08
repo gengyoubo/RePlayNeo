@@ -1,4 +1,4 @@
-package com.replaymod.render;
+package github.com.gengyoubo.replayneo.feature.render;
 
 import com.replaymod.core.versions.MCVer;
 import com.replaymod.render.blend.Util.IOConsumer;
@@ -34,23 +34,23 @@ public class PNGWriter implements FrameConsumer<BitmapFrame> {
         try {
             if (bgraFrame != null) {
                 withImage(bgraFrame, image ->
-                        image.writePNG(outputFolder.resolve(bgraFrame.getFrameId() + ".png").toFile()));
+                        image.writePNG(outputFolder.resolve(bgraFrame.frameId() + ".png").toFile()));
             }
             if (depthFrame != null) {
                 withImage(depthFrame, image ->
-                        image.writePNG(outputFolder.resolve(depthFrame.getFrameId() + ".depth.png").toFile()));
+                        image.writePNG(outputFolder.resolve(depthFrame.frameId() + ".depth.png").toFile()));
             }
         } catch (Throwable t) {
             MCVer.getMinecraft().delayCrashRaw(CrashReport.forThrowable(t, "Exporting EXR frame"));
         } finally {
-            channels.values().forEach(it -> ByteBufferPool.release(it.getByteBuffer()));
+            channels.values().forEach(it -> ByteBufferPool.release(it.byteBuffer()));
         }
     }
 
     private void withImage(BitmapFrame frame, IOConsumer<Image> consumer) throws IOException {
         byte alphaMask = (byte) (keepAlpha ? 0 : 0xff);
-        ByteBuffer buffer = frame.getByteBuffer();
-        ReadableDimension size = frame.getSize();
+        ByteBuffer buffer = frame.byteBuffer();
+        ReadableDimension size = frame.size();
         int width = size.getWidth();
         int height = size.getHeight();
         try (Image image = new Image(width, height)) {

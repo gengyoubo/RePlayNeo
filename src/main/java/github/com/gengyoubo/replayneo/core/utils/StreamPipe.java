@@ -1,4 +1,4 @@
-package com.replaymod.render.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import org.apache.commons.io.IOUtils;
 

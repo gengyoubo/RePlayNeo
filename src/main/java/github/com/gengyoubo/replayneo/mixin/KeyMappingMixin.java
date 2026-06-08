@@ -1,4 +1,4 @@
-package com.replaymod.core.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.replay.ReplayModReplay;
@@ -25,9 +25,9 @@ import java.util.Set;
 @Mixin(KeyMapping.class)
 public class KeyMappingMixin {
     @Shadow @Final private static Map<String, KeyMapping> ALL;
-    @Unique private static Collection<KeyMapping> keyBindings() { return KeyMappingMixin.ALL.values(); }
+    @Unique private static Collection<KeyMapping> rePlay$keyBindings() { return KeyMappingMixin.ALL.values(); }
 
-    @Unique private static final List<KeyMapping> temporarilyRemoved = new ArrayList<>();
+    @Unique private static final List<KeyMapping> rePlay$temporarilyRemoved = new ArrayList<>();
 
     @Inject(method = "resetMapping", at = @At("HEAD"))
     private static void preContextualKeyBindings(CallbackInfo ci) {
@@ -38,10 +38,10 @@ public class KeyMappingMixin {
         Set<KeyMapping> onlyInReplay = mod.getKeyBindingRegistry().getOnlyInReplay();
         if (ReplayModReplay.instance.getReplayHandler() != null) {
             // In replay, remove any conflicting key bindings, so that ours are guaranteed in
-            keyBindings().removeIf(KeyMapping -> {
+            rePlay$keyBindings().removeIf(KeyMapping -> {
                 for (KeyMapping exclusiveBinding : onlyInReplay) {
                     if (KeyMapping.equals(exclusiveBinding) && KeyMapping != exclusiveBinding) {
-                        temporarilyRemoved.add(KeyMapping);
+                        rePlay$temporarilyRemoved.add(KeyMapping);
                         return true;
                     }
                 }
@@ -49,9 +49,9 @@ public class KeyMappingMixin {
             });
         } else {
             // Not in a replay, remove all replay-exclusive keybindings
-            keyBindings().removeIf(KeyMapping -> {
+            rePlay$keyBindings().removeIf(KeyMapping -> {
                 if (onlyInReplay.contains(KeyMapping)) {
-                    temporarilyRemoved.add(KeyMapping);
+                    rePlay$temporarilyRemoved.add(KeyMapping);
                     return true;
                 }
                 return false;
@@ -61,9 +61,9 @@ public class KeyMappingMixin {
 
     @Inject(method = "resetMapping", at = @At("RETURN"))
     private static void postContextualKeyBindings(CallbackInfo ci) {
-        for (KeyMapping keyMapping : temporarilyRemoved) {
+        for (KeyMapping keyMapping : rePlay$temporarilyRemoved) {
             KeyMappingMixin.ALL.put(keyMapping.getName(), keyMapping);
         }
-        temporarilyRemoved.clear();
+        rePlay$temporarilyRemoved.clear();
     }
 }

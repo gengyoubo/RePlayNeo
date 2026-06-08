@@ -22,19 +22,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.function;
+package github.com.gengyoubo.replayneo.function;
 
 import net.minecraft.SharedConstants;
 
-public class CharInput {
-    public final char character;
-    public final int modifiers;
-
-    public CharInput(char character, int modifiers) {
-        this.character = character;
-        this.modifiers = modifiers;
-    }
-
+public record CharInput(char character, int modifiers) {
 
 
     public boolean isValidChar() {

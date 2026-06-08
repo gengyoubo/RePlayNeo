@@ -1,4 +1,4 @@
-package com.replaymod.extras.playeroverview;
+package github.com.gengyoubo.replayneo.addon.playeroverview;
 
 import com.replaymod.replay.ReplayModReplay;
 import de.johni0702.minecraft.gui.GuiRenderer;
@@ -20,7 +20,7 @@ import de.johni0702.minecraft.gui.layout.HorizontalLayout;
 import de.johni0702.minecraft.gui.utils.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import java.util.Collections;
+
 import java.util.Comparator;
 import java.util.List;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -84,7 +84,7 @@ public class PlayerOverviewGui extends GuiScreen implements Closeable {
     public PlayerOverviewGui(final PlayerOverview extra, List<Player> players) {
         this.extra = extra;
 
-        Collections.sort(players, new PlayerComparator()); // Sort by name, spectators last
+        players.sort(new PlayerComparator()); // Sort by name, spectators last
         for (final Player p : players) {
             if (!(p instanceof AbstractClientPlayer)) continue;
             final ResourceLocation texture = ((AbstractClientPlayer) p).getSkinTextureLocation();
@@ -102,17 +102,12 @@ public class PlayerOverviewGui extends GuiScreen implements Closeable {
                     new GuiLabel().setText(
                             p.getName().getString()
                     ).setColor(isSpectator(p) ? Colors.DKGREY : Colors.WHITE)
-            ).onClick(new Runnable() {
-                @Override
-                public void run() {
-                    ReplayModReplay.instance.getReplayHandler().spectateEntity(p);
-                }
-            });
+            ).onClick((Runnable) () -> ReplayModReplay.instance.getReplayHandler().spectateEntity(p));
             final GuiCheckbox checkbox = new GuiCheckbox() {
                 @Override
-                public GuiCheckbox setChecked(boolean checked) {
+                public void setChecked(boolean checked) {
                     extra.setHidden(p.getUUID(), !checked);
-                    return super.setChecked(checked);
+                    super.setChecked(checked);
                 }
             }.setChecked(!extra.isHidden(p.getUUID()));
             new GuiPanel(playersScrollable.getListPanel()).setLayout(new CustomLayout<GuiPanel>() {
@@ -128,12 +123,7 @@ public class PlayerOverviewGui extends GuiScreen implements Closeable {
                 }
             }).addElements(null, panel, checkbox);
         }
-        saveCheckbox.setChecked(extra.isSavingEnabled()).onClick(new Runnable() {
-            @Override
-            public void run() {
-                extra.setSavingEnabled(saveCheckbox.isChecked());
-            }
-        });
+        saveCheckbox.setChecked(extra.isSavingEnabled()).onClick((Runnable) () -> extra.setSavingEnabled(saveCheckbox.isChecked()));
 
         ReplayModReplay.instance.getReplayHandler().getOverlay().setVisible(false);
     }

@@ -1,9 +1,10 @@
-package com.replaymod.recording.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.recording.ServerInfoExt;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -11,23 +12,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerData.class)
 public abstract class ServerInfoMixin implements ServerInfoExt {
-    private Boolean autoRecording;
+    @Unique
+    private Boolean rePlay$autoRecording;
 
-    @Override
-    public Boolean getAutoRecording() {
-        return autoRecording;
+    public Boolean rePlay$getAutoRecording() {
+        return rePlay$autoRecording;
     }
 
-    @Override
-    public void setAutoRecording(Boolean autoRecording) {
-        this.autoRecording = autoRecording;
+    public void rePlay$setAutoRecording(Boolean autoRecording) {
+        this.rePlay$autoRecording = autoRecording;
     }
 
     @Inject(method = "write", at = @At("RETURN"))
     private void serialize(CallbackInfoReturnable<CompoundTag> ci) {
         CompoundTag tag = ci.getReturnValue();
-        if (autoRecording != null) {
-            tag.putBoolean("autoRecording", autoRecording);
+        if (rePlay$autoRecording != null) {
+            tag.putBoolean("autoRecording", rePlay$autoRecording);
         }
     }
 
@@ -42,6 +42,6 @@ public abstract class ServerInfoMixin implements ServerInfoExt {
     @Inject(method = "copyNameIconFrom", at = @At("RETURN"))
     public void copyFrom(ServerData serverInfo, CallbackInfo ci) {
         ServerInfoExt from = ServerInfoExt.from(serverInfo);
-        this.autoRecording = from.getAutoRecording();
+        this.rePlay$autoRecording = from.getAutoRecording();
     }
 }

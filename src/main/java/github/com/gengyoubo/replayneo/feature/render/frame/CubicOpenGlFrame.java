@@ -1,12 +1,11 @@
-package com.replaymod.render.frame;
+package github.com.gengyoubo.replayneo.feature.render.frame;
 
 import com.replaymod.render.rendering.Frame;
 import org.apache.commons.lang3.Validate;
 
-public class CubicOpenGlFrame implements Frame {
-    private final OpenGlFrame left, right, front, back, top, bottom;
-
-    public CubicOpenGlFrame(OpenGlFrame left, OpenGlFrame right, OpenGlFrame front, OpenGlFrame back, OpenGlFrame top, OpenGlFrame bottom) {
+public record CubicOpenGlFrame(OpenGlFrame left, OpenGlFrame right, OpenGlFrame front, OpenGlFrame back,
+                               OpenGlFrame top, OpenGlFrame bottom) implements Frame {
+    public CubicOpenGlFrame {
         Validate.isTrue(left.getFrameId() == right.getFrameId()
                 && right.getFrameId() == front.getFrameId()
                 && front.getFrameId() == back.getFrameId()
@@ -17,40 +16,10 @@ public class CubicOpenGlFrame implements Frame {
                 && front.getByteBuffer().remaining() == back.getByteBuffer().remaining()
                 && back.getByteBuffer().remaining() == top.getByteBuffer().remaining()
                 && top.getByteBuffer().remaining() == bottom.getByteBuffer().remaining(), "Buffer size does not match.");
-        this.left = left;
-        this.right = right;
-        this.front = front;
-        this.back = back;
-        this.top = top;
-        this.bottom = bottom;
     }
 
     @Override
-    public int getFrameId() {
+    public int frameId() {
         return left.getFrameId();
-    }
-
-    public OpenGlFrame getLeft() {
-        return this.left;
-    }
-
-    public OpenGlFrame getRight() {
-        return this.right;
-    }
-
-    public OpenGlFrame getFront() {
-        return this.front;
-    }
-
-    public OpenGlFrame getBack() {
-        return this.back;
-    }
-
-    public OpenGlFrame getTop() {
-        return this.top;
-    }
-
-    public OpenGlFrame getBottom() {
-        return this.bottom;
     }
 }

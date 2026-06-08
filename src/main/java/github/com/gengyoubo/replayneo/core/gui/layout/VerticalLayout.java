@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.layout;
+package github.com.gengyoubo.replayneo.core.gui.layout;
 
 import de.johni0702.minecraft.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.element.GuiElement;
@@ -68,7 +68,7 @@ public class VerticalLayout implements Layout {
             elementSize.setWidth(Math.min(size.getWidth(), (data.maximizeWidth ? elementMaxSize : elementSize).getWidth()));
             int remainingWidth = size.getWidth() - elementSize.getWidth();
             int x = (int) (data.alignment * remainingWidth);
-            map.put(element, Pair.<ReadablePoint, ReadableDimension>of(new Point(x, y), elementSize));
+            map.put(element, Pair.of(new Point(x, y), elementSize));
             y += elementSize.getHeight();
         }
         if (alignment != Alignment.TOP) {

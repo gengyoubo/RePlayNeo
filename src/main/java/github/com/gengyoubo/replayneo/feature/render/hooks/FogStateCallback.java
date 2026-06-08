@@ -1,4 +1,4 @@
-package com.replaymod.render.hooks;
+package github.com.gengyoubo.replayneo.feature.render.hooks;
 
 import de.johni0702.minecraft.gui.utils.Event;
 

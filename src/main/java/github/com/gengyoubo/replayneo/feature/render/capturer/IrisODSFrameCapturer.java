@@ -1,4 +1,4 @@
-package com.replaymod.render.capturer;
+package github.com.gengyoubo.replayneo.feature.render.capturer;
 
 import com.replaymod.render.RenderSettings;
 import com.replaymod.render.frame.CubicOpenGlFrame;
@@ -44,11 +44,10 @@ public class IrisODSFrameCapturer implements FrameCapturer<ODSOpenGlFrame> {
             }
 
             @Override
-            public float updateForNextFrame() {
+            public void updateForNextFrame() {
                 if (call++ % 2 == 0) {
                     partialTicks = renderInfo.updateForNextFrame();
                 }
-                return partialTicks;
             }
 
             @Override

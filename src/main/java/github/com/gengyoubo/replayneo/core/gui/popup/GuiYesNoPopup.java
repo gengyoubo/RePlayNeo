@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.popup;
+package github.com.gengyoubo.replayneo.core.gui.popup;
 
 import de.johni0702.minecraft.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.container.GuiPanel;
@@ -50,22 +50,16 @@ public class GuiYesNoPopup extends AbstractGuiPopup<GuiYesNoPopup> implements Ke
     private Runnable onAccept = () -> {};
     private Runnable onReject = () -> {};
 
-    private final GuiButton yesButton = new GuiButton().setSize(150, 20).onClick(new Runnable() {
-        @Override
-        public void run() {
-            close();
-            onAccept.run();
-            onClosed.accept(true);
-        }
+    private final GuiButton yesButton = new GuiButton().setSize(150, 20).onClick((Runnable) () -> {
+        close();
+        onAccept.run();
+        onClosed.accept(true);
     });
 
-    private final GuiButton noButton = new GuiButton().setSize(150, 20).onClick(new Runnable() {
-        @Override
-        public void run() {
-            close();
-            onReject.run();
-            onClosed.accept(false);
-        }
+    private final GuiButton noButton = new GuiButton().setSize(150, 20).onClick((Runnable) () -> {
+        close();
+        onReject.run();
+        onClosed.accept(false);
     });
 
     private final GuiPanel info = new GuiPanel().setMinSize(new Dimension(320, 50))
@@ -155,8 +149,7 @@ public class GuiYesNoPopup extends AbstractGuiPopup<GuiYesNoPopup> implements Ke
         return this.layer;
     }
 
-    public GuiYesNoPopup setLayer(int layer) {
+    public void setLayer(int layer) {
         this.layer = layer;
-        return this;
     }
 }

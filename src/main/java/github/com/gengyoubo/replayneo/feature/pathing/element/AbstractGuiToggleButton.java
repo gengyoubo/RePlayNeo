@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -58,8 +58,9 @@ public abstract class AbstractGuiToggleButton<V, T extends AbstractGuiToggleButt
         super.onClick(click);
     }
 
+    @SafeVarargs
     @Override
-    public T setValues(V... values) {
+    public final T setValues(V... values) {
         this.values = values;
         return getThis();
     }

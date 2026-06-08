@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.utils;
+package github.com.gengyoubo.replayneo.core.guiutils;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.function.Focusable;
@@ -92,6 +92,6 @@ public class Utils {
     }
 
     public static int clamp(int val, int min, int max) {
-        return val < min ? min : val > max ? max : val;
+        return val < min ? min : Math.min(val, max);
     }
 }

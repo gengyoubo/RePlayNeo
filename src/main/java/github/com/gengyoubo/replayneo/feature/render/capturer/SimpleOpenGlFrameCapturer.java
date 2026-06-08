@@ -1,4 +1,4 @@
-package com.replaymod.render.capturer;
+package github.com.gengyoubo.replayneo.feature.render.capturer;
 
 import com.replaymod.render.frame.OpenGlFrame;
 import com.replaymod.render.rendering.Channel;

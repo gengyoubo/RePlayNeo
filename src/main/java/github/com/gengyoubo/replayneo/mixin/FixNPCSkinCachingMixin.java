@@ -1,4 +1,4 @@
-package com.replaymod.replay.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -8,13 +8,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.RemotePlayer;
 
 @Mixin(AbstractClientPlayer.class)
 public abstract class FixNPCSkinCachingMixin {
-    @Shadow @Nullable protected abstract PlayerInfo getPlayerInfo();
+    @Shadow @Nullable protected abstract void getPlayerInfo();
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void forceCachePlayerListEntry(CallbackInfo ci) {

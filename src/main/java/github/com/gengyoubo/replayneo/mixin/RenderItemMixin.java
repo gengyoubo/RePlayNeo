@@ -1,4 +1,4 @@
-package com.replaymod.replay.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.replay.ReplayHandler;
 import com.replaymod.replay.ReplayModReplay;

@@ -1,4 +1,4 @@
-package com.replaymod.replay.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.replay.camera.CameraEntity;
 import net.minecraft.client.gui.components.spectator.SpectatorGui;

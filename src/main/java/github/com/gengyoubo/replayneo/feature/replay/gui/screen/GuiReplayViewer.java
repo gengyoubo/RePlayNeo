@@ -1,4 +1,4 @@
-package com.replaymod.replay.gui.screen;
+package github.com.gengyoubo.replayneo.feature.replay.gui.screen;
 
 import com.google.common.util.concurrent.SettableFuture;
 import com.replaymod.render.gui.GuiRenderQueue;
@@ -52,16 +52,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -130,49 +121,43 @@ public class GuiReplayViewer extends GuiScreen {
         }
     }).setSize(150, 20).setI18nLabel("replaymod.gui.viewer.replayfolder");
 
-    public final GuiButton renameButton = new GuiButton().onClick(new Runnable() {
-        @Override
-        public void run() {
-            final Path path = list.getSelected().get(0).file.toPath();
-            String name = Utils.fileNameToReplayName(path.getFileName().toString());
-            final GuiTextField nameField = new GuiTextField().setSize(200, 20).setFocused(true).setText(name);
-            final GuiYesNoPopup popup = GuiYesNoPopup.open(GuiReplayViewer.this,
-                    new GuiLabel().setI18nText("replaymod.gui.viewer.rename.name").setColor(Colors.BLACK),
-                    nameField
-            ).setYesI18nLabel("replaymod.gui.rename").setNoI18nLabel("replaymod.gui.cancel");
-            ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
-            nameField.onEnter(new Runnable() {
-                @Override
-                public void run() {
-                    if (popup.getYesButton().isEnabled()) {
-                        popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
-                    }
-                }
-            }).onTextChanged(obj -> {
-                popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
-                        && Files.notExists(Utils.replayNameToPath(path.getParent(), nameField.getText())));
-            });
-            popup.onAccept(() -> {
-                // Sanitize their input
-                String newName = nameField.getText().trim();
-                // This file is what they want
-                Path targetPath = Utils.replayNameToPath(path.getParent(), newName);
-                try {
-                    // Finally, try to move it
-                    Files.move(path, targetPath);
-                } catch (IOException e) {
-                    // We failed (might also be their OS)
-                    e.printStackTrace();
-                    getMinecraft().setScreen(new AlertScreen(
-                            GuiReplayViewer.this::display,
-                            Component.translatable("replaymod.gui.viewer.delete.failed1"),
-                            Component.translatable("replaymod.gui.viewer.delete.failed2")
-                    ));
-                    return;
-                }
-                list.load();
-            });
-        }
+    public final GuiButton renameButton = new GuiButton().onClick((Runnable) () -> {
+        final Path path = list.getSelected().get(0).file.toPath();
+        String name = Utils.fileNameToReplayName(path.getFileName().toString());
+        final GuiTextField nameField = new GuiTextField().setSize(200, 20).setFocused(true).setText(name);
+        final GuiYesNoPopup popup = GuiYesNoPopup.open(GuiReplayViewer.this,
+                new GuiLabel().setI18nText("replaymod.gui.viewer.rename.name").setColor(Colors.BLACK),
+                nameField
+        ).setYesI18nLabel("replaymod.gui.rename").setNoI18nLabel("replaymod.gui.cancel");
+        ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
+        nameField.onEnter((Runnable) () -> {
+            if (popup.getYesButton().isEnabled()) {
+                popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
+            }
+        }).onTextChanged(obj -> {
+            popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
+                    && Files.notExists(Utils.replayNameToPath(path.getParent(), nameField.getText())));
+        });
+        popup.onAccept(() -> {
+            // Sanitize their input
+            String newName = nameField.getText().trim();
+            // This file is what they want
+            Path targetPath = Utils.replayNameToPath(path.getParent(), newName);
+            try {
+                // Finally, try to move it
+                Files.move(path, targetPath);
+            } catch (IOException e) {
+                // We failed (might also be their OS)
+                e.printStackTrace();
+                getMinecraft().setScreen(new AlertScreen(
+                        GuiReplayViewer.this::display,
+                        Component.translatable("replaymod.gui.viewer.delete.failed1"),
+                        Component.translatable("replaymod.gui.viewer.delete.failed2")
+                ));
+                return;
+            }
+            list.load();
+        });
     }).setSize(73, 20).setI18nLabel("replaymod.gui.rename").setDisabled();
     public final GuiButton deleteButton = new GuiButton().onClick(() -> {
         for (GuiReplayEntry entry : list.getSelected()) {
@@ -197,15 +182,10 @@ public class GuiReplayViewer extends GuiScreen {
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.settings"))
             .onClick(() -> new GuiReplaySettings(toMinecraft(), getMod().getCore().getSettingsRegistry()).display());
 
-    public final GuiButton cancelButton = new GuiButton().onClick(new Runnable() {
-        @Override
-        public void run() {
-            getMinecraft().setScreen(null);
-        }
-    }).setSize(73, 20).setI18nLabel("replaymod.gui.cancel");
+    public final GuiButton cancelButton = new GuiButton().onClick((Runnable) () -> getMinecraft().setScreen(null)).setSize(73, 20).setI18nLabel("replaymod.gui.cancel");
 
     public final List<GuiButton> replaySpecificButtons = new ArrayList<>();
-    { replaySpecificButtons.addAll(Arrays.asList(renameButton)); }
+    { replaySpecificButtons.addAll(Collections.singletonList(renameButton)); }
     public final GuiPanel editorButton = new GuiPanel();
 
     public final GuiPanel upperButtonPanel = new GuiPanel().setLayout(new HorizontalLayout().setSpacing(5))
@@ -293,9 +273,7 @@ public class GuiReplayViewer extends GuiScreen {
 
             list.setFolder(folder);
 
-            list.onSelectionChanged(() -> {
-                acceptButton.setEnabled(list.getSelected() != null);
-            }).onSelectionDoubleClicked(() -> {
+            list.onSelectionChanged(() -> acceptButton.setEnabled(list.getSelected() != null)).onSelectionDoubleClicked(() -> {
                 close();
                 future.set(list.getSelected().get(0).file);
             });

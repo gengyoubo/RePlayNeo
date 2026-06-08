@@ -79,7 +79,7 @@ public class YoutubeUploader {
 
     }
 
-    public ListenableFuture<Video> upload() throws IOException {
+    public ListenableFuture<Video> upload() {
         cancelled = false;
 
         final SettableFuture<Video> future = SettableFuture.create();
@@ -114,7 +114,7 @@ public class YoutubeUploader {
 
     //I blame the Google SDK for not supporting "proper" upload cancellation
     @SuppressWarnings("unchecked")
-    public void cancel() throws InterruptedException {
+    public void cancel() {
         thread.stop();
         cancelled = true;
     }

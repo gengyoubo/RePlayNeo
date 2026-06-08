@@ -1,4 +1,4 @@
-package com.replaymod.render.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.replaymod.render.RenderSettings;
 import com.replaymod.render.hooks.EntityRendererHandler;
@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -16,19 +17,27 @@ import static com.replaymod.core.versions.MCVer.*;
 
 @Mixin(value = Camera.class)
 public abstract class StabilizeCameraMixin {
-    private EntityRendererHandler getHandler() {
+    @Unique
+    private EntityRendererHandler rePlay$getHandler() {
         return ((EntityRendererHandler.IEntityRenderer) getMinecraft().gameRenderer).replayModRender_getHandler();
     }
 
-    private float orgYaw;
-    private float orgPitch;
-    private float orgPrevYaw;
-    private float orgPrevPitch;
-    private float orgRoll;
+    @Unique
+    private float rePlay$orgYaw;
+    @Unique
+    private float rePlay$orgPitch;
+    @Unique
+    private float rePlay$orgPrevYaw;
+    @Unique
+    private float rePlay$orgPrevPitch;
+    @Unique
+    private float rePlay$orgRoll;
 
     // Only relevant on 1.13+ (previously MC always used the non-head yaw) and only for LivingEntity view entities.
-    private float orgHeadYaw;
-    private float orgPrevHeadYaw;
+    @Unique
+    private float rePlay$orgHeadYaw;
+    @Unique
+    private float rePlay$orgPrevHeadYaw;
 
     @Inject(method = "setup", at = @At("HEAD"))
     private void replayModRender_beforeSetupCameraTransform(
@@ -39,19 +48,19 @@ public abstract class StabilizeCameraMixin {
             float partialTicks,
             CallbackInfo ci
     ) {
-        if (getHandler() != null) {
-            orgYaw = entity.getYRot();
-            orgPitch = entity.getXRot();
-            orgPrevYaw = entity.yRotO;
-            orgPrevPitch = entity.xRotO;
-            orgRoll = entity instanceof CameraEntity ? ((CameraEntity) entity).roll : 0;
+        if (rePlay$getHandler() != null) {
+            rePlay$orgYaw = entity.getYRot();
+            rePlay$orgPitch = entity.getXRot();
+            rePlay$orgPrevYaw = entity.yRotO;
+            rePlay$orgPrevPitch = entity.xRotO;
+            rePlay$orgRoll = entity instanceof CameraEntity ? ((CameraEntity) entity).roll : 0;
             if (entity instanceof LivingEntity) {
-                orgHeadYaw = ((LivingEntity) entity).yHeadRot;
-                orgPrevHeadYaw = ((LivingEntity) entity).yHeadRotO;
+                rePlay$orgHeadYaw = ((LivingEntity) entity).yHeadRot;
+                rePlay$orgPrevHeadYaw = ((LivingEntity) entity).yHeadRotO;
             }
         }
-        if (getHandler() != null) {
-            RenderSettings settings = getHandler().getSettings();
+        if (rePlay$getHandler() != null) {
+            RenderSettings settings = rePlay$getHandler().getSettings();
             if (settings.isStabilizeYaw()) {
                 entity.yRotO = 0;
                 entity.setYRot(0);
@@ -78,17 +87,17 @@ public abstract class StabilizeCameraMixin {
             float partialTicks,
             CallbackInfo ci
     ) {
-        if (getHandler() != null) {
-            entity.setYRot(orgYaw);
-            entity.setXRot(orgPitch);
-            entity.yRotO = orgPrevYaw;
-            entity.xRotO = orgPrevPitch;
+        if (rePlay$getHandler() != null) {
+            entity.setYRot(rePlay$orgYaw);
+            entity.setXRot(rePlay$orgPitch);
+            entity.yRotO = rePlay$orgPrevYaw;
+            entity.xRotO = rePlay$orgPrevPitch;
             if (entity instanceof CameraEntity) {
-                ((CameraEntity) entity).roll = orgRoll;
+                ((CameraEntity) entity).roll = rePlay$orgRoll;
             }
             if (entity instanceof LivingEntity) {
-                ((LivingEntity) entity).yHeadRot = orgHeadYaw;
-                ((LivingEntity) entity).yHeadRotO = orgPrevHeadYaw;
+                ((LivingEntity) entity).yHeadRot = rePlay$orgHeadYaw;
+                ((LivingEntity) entity).yHeadRotO = rePlay$orgPrevHeadYaw;
             }
         }
     }

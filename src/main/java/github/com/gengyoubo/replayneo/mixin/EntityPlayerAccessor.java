@@ -1,4 +1,4 @@
-package com.replaymod.replay.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

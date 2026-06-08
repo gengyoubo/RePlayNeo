@@ -1,4 +1,4 @@
-package com.replaymod.replay.camera;
+package github.com.gengyoubo.replayneo.feature.replay.camera;
 
 import com.replaymod.replay.ReplayModReplay;
 import net.minecraft.client.Minecraft;
@@ -42,13 +42,4 @@ public class SpectatorCameraController implements CameraController {
         }
     }
 
-    @Override
-    public void increaseSpeed() {
-
-    }
-
-    @Override
-    public void decreaseSpeed() {
-
-    }
 }

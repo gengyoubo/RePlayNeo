@@ -1,4 +1,4 @@
-package com.replaymod.render.processor;
+package github.com.gengyoubo.replayneo.feature.render.processor;
 
 import com.replaymod.render.frame.OpenGlFrame;
 import com.replaymod.render.frame.BitmapFrame;
@@ -14,13 +14,13 @@ public class OpenGlToBitmapProcessor extends AbstractFrameProcessor<OpenGlFrame,
 
     @Override
     public BitmapFrame process(OpenGlFrame rawFrame) {
-        ReadableDimension size = rawFrame.getSize();
+        ReadableDimension size = rawFrame.size();
         int width = size.getWidth();
         int height = size.getHeight();
-        int bpp = rawFrame.getBytesPerPixel();
+        int bpp = rawFrame.bytesPerPixel();
         ByteBuffer result = ByteBufferPool.allocate(width * height * bpp);
         openGlBytesToBitmap(rawFrame, 0, 0, result, width);
-        ByteBufferPool.release(rawFrame.getByteBuffer());
-        return new BitmapFrame(rawFrame.getFrameId(), new Dimension(width, height), bpp, result);
+        ByteBufferPool.release(rawFrame.byteBuffer());
+        return new BitmapFrame(rawFrame.frameId(), new Dimension(width, height), bpp, result);
     }
 }

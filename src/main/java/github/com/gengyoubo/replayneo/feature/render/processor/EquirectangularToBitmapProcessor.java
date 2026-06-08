@@ -1,4 +1,4 @@
-package com.replaymod.render.processor;
+package github.com.gengyoubo.replayneo.feature.render.processor;
 
 import com.replaymod.render.frame.CubicOpenGlFrame;
 import com.replaymod.render.frame.BitmapFrame;
@@ -104,14 +104,14 @@ public class EquirectangularToBitmapProcessor extends AbstractFrameProcessor<Cub
 
     @Override
     public BitmapFrame process(CubicOpenGlFrame rawFrame) {
-        Validate.isTrue(rawFrame.getLeft().getSize().getWidth() == frameSize, "Frame size must be %d but was %d",
-                frameSize, rawFrame.getLeft().getSize().getWidth());
-        int bpp = rawFrame.getLeft().getBytesPerPixel();
+        Validate.isTrue(rawFrame.left().getSize().getWidth() == frameSize, "Frame size must be %d but was %d",
+                frameSize, rawFrame.left().getSize().getWidth());
+        int bpp = rawFrame.left().getBytesPerPixel();
         ByteBuffer result = ByteBufferPool.allocate(width * height * bpp);
         ByteBuffer[] images = {
-                rawFrame.getBack().getByteBuffer(), rawFrame.getFront().getByteBuffer(),
-                rawFrame.getLeft().getByteBuffer(), rawFrame.getRight().getByteBuffer(),
-                rawFrame.getTop().getByteBuffer(), rawFrame.getBottom().getByteBuffer()
+                rawFrame.back().getByteBuffer(), rawFrame.front().getByteBuffer(),
+                rawFrame.left().getByteBuffer(), rawFrame.right().getByteBuffer(),
+                rawFrame.top().getByteBuffer(), rawFrame.bottom().getByteBuffer()
         };
         byte[] pixel = new byte[bpp];
         byte[] image;
@@ -129,13 +129,13 @@ public class EquirectangularToBitmapProcessor extends AbstractFrameProcessor<Cub
         }
         result.rewind();
 
-        ByteBufferPool.release(rawFrame.getLeft().getByteBuffer());
-        ByteBufferPool.release(rawFrame.getRight().getByteBuffer());
-        ByteBufferPool.release(rawFrame.getFront().getByteBuffer());
-        ByteBufferPool.release(rawFrame.getBack().getByteBuffer());
-        ByteBufferPool.release(rawFrame.getTop().getByteBuffer());
-        ByteBufferPool.release(rawFrame.getBottom().getByteBuffer());
-        return new BitmapFrame(rawFrame.getFrameId(), new Dimension(width, height), bpp, result);
+        ByteBufferPool.release(rawFrame.left().getByteBuffer());
+        ByteBufferPool.release(rawFrame.right().getByteBuffer());
+        ByteBufferPool.release(rawFrame.front().getByteBuffer());
+        ByteBufferPool.release(rawFrame.back().getByteBuffer());
+        ByteBufferPool.release(rawFrame.top().getByteBuffer());
+        ByteBufferPool.release(rawFrame.bottom().getByteBuffer());
+        return new BitmapFrame(rawFrame.frameId(), new Dimension(width, height), bpp, result);
     }
 
     public int getFrameSize() {

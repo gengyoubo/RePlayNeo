@@ -1,4 +1,4 @@
-package com.replaymod.render.processor;
+package github.com.gengyoubo.replayneo.feature.render.processor;
 
 import com.replaymod.render.frame.BitmapFrame;
 
@@ -17,10 +17,9 @@ public class GlToAbsoluteDepthProcessor extends AbstractFrameProcessor<BitmapFra
         c = far - near;
     }
 
-    @Override
-    public BitmapFrame process(BitmapFrame frame) {
+    public void process(BitmapFrame frame) {
 
-        FloatBuffer buffer = frame.getByteBuffer().asFloatBuffer();
+        FloatBuffer buffer = frame.byteBuffer().asFloatBuffer();
         int len = buffer.remaining();
         for (int i = 0; i < len; i++) {
             float z = buffer.get(i);
@@ -28,6 +27,5 @@ public class GlToAbsoluteDepthProcessor extends AbstractFrameProcessor<BitmapFra
             buffer.put(i, z);
         }
 
-        return frame;
     }
 }

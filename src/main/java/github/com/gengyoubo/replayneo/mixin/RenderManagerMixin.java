@@ -1,4 +1,4 @@
-package com.replaymod.render.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.replaymod.core.versions.MCVer;
@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import org.joml.Vector3f;
 import org.joml.Quaternionf;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;

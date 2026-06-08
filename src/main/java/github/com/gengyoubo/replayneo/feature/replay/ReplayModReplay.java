@@ -1,4 +1,4 @@
-package com.replaymod.replay;
+package github.com.gengyoubo.replayneo.feature.replay;
 
 import com.google.common.base.Function;
 import com.google.common.util.concurrent.FutureCallback;
@@ -22,7 +22,6 @@ import com.replaymod.replaystudio.replay.ReplayFile;
 import de.johni0702.minecraft.gui.function.Click;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
@@ -35,14 +34,14 @@ import java.util.Optional;
 public class ReplayModReplay implements Module {
 
     { instance = this; }
-    public static ReplayModReplay instance;
+    public static final ReplayModReplay instance;
 
-    private ReplayMod core;
+    private final ReplayMod core;
     public KeyBindingRegistry.Binding keyPlayPause;
 
     private final CameraControllerRegistry cameraControllerRegistry = new CameraControllerRegistry();
 
-    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     private ReplayHandler replayHandler;
 
@@ -58,67 +57,58 @@ public class ReplayModReplay implements Module {
 
     @Override
     public void registerKeyBindings(KeyBindingRegistry registry) {
-        registry.registerKeyBinding("replaymod.input.marker", Keyboard.KEY_M, new Runnable() {
-            @Override
-            public void run() {
-                if (replayHandler != null ) {
-                    CameraEntity camera = replayHandler.getCameraEntity();
-                    if (camera != null) {
-                        Marker marker = new Marker();
-                        marker.setTime(replayHandler.getReplaySender().currentTimeStamp());
-                        marker.setX(camera.getX());
-                        marker.setY(camera.getY());
-                        marker.setZ(camera.getZ());
-                        marker.setYaw(camera.getYRot());
-                        marker.setPitch(camera.getXRot());
-                        marker.setRoll(camera.roll);
-                        replayHandler.getOverlay().timeline.addMarker(marker);
+        registry.registerKeyBinding("replaymod.input.marker", Keyboard.KEY_M, () -> {
+            if (replayHandler != null ) {
+                CameraEntity camera = replayHandler.getCameraEntity();
+                if (camera != null) {
+                    Marker marker = new Marker();
+                    marker.setTime(replayHandler.getReplaySender().currentTimeStamp());
+                    marker.setX(camera.getX());
+                    marker.setY(camera.getY());
+                    marker.setZ(camera.getZ());
+                    marker.setYaw(camera.getYRot());
+                    marker.setPitch(camera.getXRot());
+                    marker.setRoll(camera.roll);
+                    replayHandler.getOverlay().timeline.addMarker(marker);
+                }
+            }
+        }, true);
+
+        registry.registerKeyBinding("replaymod.input.thumbnail", Keyboard.KEY_N, () -> {
+            if (replayHandler != null) {
+                Minecraft mc = MCVer.getMinecraft();
+                ListenableFuture<NoGuiScreenshot> future = NoGuiScreenshot.take(mc, 1280, 720);
+                Futures.addCallback(future, new FutureCallback<>() {
+                    @Override
+                    public void onSuccess(NoGuiScreenshot result) {
+                        try {
+                            core.printInfoToChat("replaymod.chat.savingthumb");
+                            @SuppressWarnings("deprecation") // there's no easy way to produce jpg images from NativeImage
+                            BufferedImage image = result.getImage().toBufferedImage();
+                            // Encoding with alpha fails on OpenJDK and produces broken image on Sun JDK.
+                            BufferedImage bgrImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+                            Graphics graphics = bgrImage.getGraphics();
+                            graphics.drawImage(image, 0, 0, null);
+                            graphics.dispose();
+                            replayHandler.getReplayFile().writeThumb(bgrImage);
+                            core.printInfoToChat("replaymod.chat.savedthumb");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        t.printStackTrace();
+                        core.printWarningToChat("replaymod.chat.failedthumb");
+                    }
+                }, Runnable::run);
             }
         }, true);
 
-        registry.registerKeyBinding("replaymod.input.thumbnail", Keyboard.KEY_N, new Runnable() {
-            @Override
-            public void run() {
-                if (replayHandler != null) {
-                    Minecraft mc = MCVer.getMinecraft();
-                    ListenableFuture<NoGuiScreenshot> future = NoGuiScreenshot.take(mc, 1280, 720);
-                    Futures.addCallback(future, new FutureCallback<NoGuiScreenshot>() {
-                        @Override
-                        public void onSuccess(NoGuiScreenshot result) {
-                            try {
-                                core.printInfoToChat("replaymod.chat.savingthumb");
-                                @SuppressWarnings("deprecation") // there's no easy way to produce jpg images from NativeImage
-                                BufferedImage image = result.getImage().toBufferedImage();
-                                // Encoding with alpha fails on OpenJDK and produces broken image on Sun JDK.
-                                BufferedImage bgrImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
-                                Graphics graphics = bgrImage.getGraphics();
-                                graphics.drawImage(image, 0, 0, null);
-                                graphics.dispose();
-                                replayHandler.getReplayFile().writeThumb(bgrImage);
-                                core.printInfoToChat("replaymod.chat.savedthumb");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Throwable t) {
-                            t.printStackTrace();
-                            core.printWarningToChat("replaymod.chat.failedthumb");
-                        }
-                    }, Runnable::run);
-                }
-            }
-        }, true);
-
-        keyPlayPause = registry.registerKeyBinding("replaymod.input.playpause", Keyboard.KEY_P, new Runnable() {
-            @Override
-            public void run() {
-                if (replayHandler != null) {
-                    replayHandler.getOverlay().playPauseButton.onClick(new Click(-1, -1, 0, 0));
-                }
+        keyPlayPause = registry.registerKeyBinding("replaymod.input.playpause", Keyboard.KEY_P, () -> {
+            if (replayHandler != null) {
+                replayHandler.getOverlay().playPauseButton.onClick(new Click(-1, -1, 0, 0));
             }
         }, true);
 
@@ -130,27 +120,13 @@ public class ReplayModReplay implements Module {
             // Noop, actual handling logic in CameraEntity#update
         }, true);
 
-        core.getKeyBindingRegistry().registerKeyBinding("replaymod.input.resettilt", Keyboard.KEY_K, () -> {
-            Optional.ofNullable(replayHandler).map(ReplayHandler::getCameraEntity).ifPresent(c -> c.roll = 0);
-        }, true);
+        core.getKeyBindingRegistry().registerKeyBinding("replaymod.input.resettilt", Keyboard.KEY_K, () -> Optional.ofNullable(replayHandler).map(ReplayHandler::getCameraEntity).ifPresent(c -> c.roll = 0), true);
     }
 
     @Override
     public void initClient() {
-        cameraControllerRegistry.register("replaymod.camera.classic", new Function<CameraEntity, CameraController>() {
-            @Nullable
-            @Override
-            public CameraController apply(CameraEntity cameraEntity) {
-                return new ClassicCameraController(cameraEntity);
-            }
-        });
-        cameraControllerRegistry.register("replaymod.camera.vanilla", new Function<CameraEntity, CameraController>() {
-            @Nullable
-            @Override
-            public CameraController apply(@Nullable CameraEntity cameraEntity) {
-                return new VanillaCameraController(core.getMinecraft(), cameraEntity);
-            }
-        });
+        cameraControllerRegistry.register("replaymod.camera.classic", (Function<CameraEntity, CameraController>) cameraEntity -> new ClassicCameraController(cameraEntity));
+        cameraControllerRegistry.register("replaymod.camera.vanilla", (Function<CameraEntity, CameraController>) cameraEntity -> new VanillaCameraController(core.getMinecraft(), cameraEntity));
 
         new GuiHandler(this).register();
     }

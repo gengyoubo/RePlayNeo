@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -42,7 +42,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
-import static com.mojang.blaze3d.platform.GlStateManager.*;
 import static de.johni0702.minecraft.gui.versions.MCVer.*;
 
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
@@ -79,7 +78,7 @@ public abstract class AbstractGuiButton<T extends AbstractGuiButton<T>> extends 
         if (!isEnabled()) {
             texture = 0;
             color = 0xa0a0a0;
-        } else if (isMouseHovering(new Point(renderInfo.mouseX, renderInfo.mouseY))) {
+        } else if (isMouseHovering(new Point(renderInfo.mouseX(), renderInfo.mouseY()))) {
             texture = 2;
             color = 0xffffa0;
         }

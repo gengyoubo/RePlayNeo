@@ -1,4 +1,4 @@
-package com.replaymod.render;
+package github.com.gengyoubo.replayneo.feature.render;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -20,6 +20,7 @@ import java.util.Comparator;
 import java.util.Optional;
 import net.minecraft.Util;
 import net.minecraft.client.resources.language.I18n;
+import org.jetbrains.annotations.NotNull;
 
 import static com.replaymod.render.ReplayModRender.LOGGER;
 
@@ -328,9 +329,9 @@ public class RenderSettings {
                 // We retain above check to have a fast path for any old installations.
                 try {
                     Path[] result = new Path[1];
-                    Files.walkFileTree(dotMinecraft.toPath(), new SimpleFileVisitor<Path>() {
+                    Files.walkFileTree(dotMinecraft.toPath(), new SimpleFileVisitor<>() {
                         @Override
-                        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                        public @NotNull FileVisitResult visitFile(@NotNull Path file, @NotNull BasicFileAttributes attrs) throws IOException {
                             if ("ffmpeg.exe".equals(file.getFileName().toString())) {
                                 result[0] = file;
                                 return FileVisitResult.TERMINATE;

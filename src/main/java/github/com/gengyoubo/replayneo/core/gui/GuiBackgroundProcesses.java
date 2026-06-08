@@ -1,4 +1,4 @@
-package com.replaymod.core.gui;
+package github.com.gengyoubo.replayneo.core.gui;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -17,7 +17,7 @@ import de.johni0702.minecraft.gui.versions.callbacks.InitScreenCallback;
 import static com.replaymod.core.versions.MCVer.getMinecraft;
 
 public class GuiBackgroundProcesses extends EventRegistrations {
-    private GuiPanel panel = new GuiPanel().setLayout(new VerticalLayout().setSpacing(10));
+    private final GuiPanel panel = new GuiPanel().setLayout(new VerticalLayout().setSpacing(10));
     private boolean reentrant;
 
     { on(InitScreenCallback.EVENT, (screen, buttons) -> onGuiInit(screen)); }
@@ -60,7 +60,7 @@ public class GuiBackgroundProcesses extends EventRegistrations {
     }
 
     private static class Element extends AbstractGuiContainer<Element> {
-        private GuiElement inner;
+        private final GuiElement inner;
 
         Element(GuiElement inner) {
             this.inner = inner;

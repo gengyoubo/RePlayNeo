@@ -1,4 +1,4 @@
-package com.replaymod.recording.handler;
+package github.com.gengyoubo.replayneo.feature.recording.handler;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.SettingsRegistry;

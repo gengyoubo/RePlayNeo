@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element.advanced;
+package github.com.gengyoubo.replayneo.feature.pathing.element.advanced;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -112,30 +112,14 @@ public abstract class AbstractGuiResourceLoadingList
         onSelectionChanged();
 
         // Load new data
-        loaderThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    onLoad.consume(new Consumer<Supplier<U>>() {
-                        @Override
-                        public void consume(final Supplier<U> obj) {
-                            resourcesQueue.offer(new Runnable() {
-                                @Override
-                                public void run() {
-                                    resourcesPanel.addElements(null, new Element(obj.get()));
-                                    resourcesPanel.sortElements();
-                                }
-                            });
-                        }
-                    });
-                } finally {
-                    resourcesQueue.offer(new Runnable() {
-                        @Override
-                        public void run() {
-                            getListPanel().removeElement(loadingElement);
-                        }
-                    });
-                }
+        loaderThread = new Thread(() -> {
+            try {
+                onLoad.consume(obj -> resourcesQueue.offer(() -> {
+                    resourcesPanel.addElements(null, new Element(obj.get()));
+                    resourcesPanel.sortElements();
+                }));
+            } finally {
+                resourcesQueue.offer(() -> getListPanel().removeElement(loadingElement));
             }
         });
         getListPanel().addElements(new VerticalLayout.Data(0.5), loadingElement);
@@ -227,7 +211,7 @@ public abstract class AbstractGuiResourceLoadingList
 
         @Override
         public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
-            if (renderInfo.layer == 0 && selected.contains(this)) {
+            if (renderInfo.layer() == 0 && selected.contains(this)) {
                 // Draw selection
                 int w = size.getWidth();
                 int h = size.getHeight();

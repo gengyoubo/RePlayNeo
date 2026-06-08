@@ -22,21 +22,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.function;
+package github.com.gengyoubo.replayneo.function;
 
 import de.johni0702.minecraft.gui.utils.Consumer;
 
 public interface Focusable<T extends Focusable<T>> {
 
     boolean isFocused();
-    T setFocused(boolean focused);
+    void setFocused(boolean focused);
 
     T onFocusChange(Consumer<Boolean> consumer);
 
     Focusable getNext();
-    T setNext(Focusable next);
+    void setNext(Focusable next);
 
     Focusable getPrevious();
-    T setPrevious(Focusable previous);
+    void setPrevious(Focusable previous);
 
 }

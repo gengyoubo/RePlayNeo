@@ -1,4 +1,4 @@
-package com.replaymod.render.blend;
+package github.com.gengyoubo.replayneo.feature.render.blend;
 
 import com.replaymod.render.blend.data.DScene;
 import com.replaymod.render.blend.data.Serializer;
@@ -16,7 +16,6 @@ import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 
-import static com.replaymod.core.versions.MCVer.*;
 import static com.replaymod.render.ReplayModRender.LOGGER;
 
 // Note:

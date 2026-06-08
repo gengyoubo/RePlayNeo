@@ -1,4 +1,4 @@
-package com.replaymod.recording.packet;
+package github.com.gengyoubo.replayneo.feature.recording.packet;
 
 import com.github.steveice10.netty.buffer.PooledByteBufAllocator;
 import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
@@ -46,7 +46,6 @@ import net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket;
 import net.minecraft.world.entity.Entity;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -89,7 +88,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private final ExecutorService saveService = Executors.newSingleThreadExecutor();
     private final ReplayOutputStream packetOutputStream;
 
-    private ReplayMetaData metaData;
+    private final ReplayMetaData metaData;
 
     private final Channel channel;
     private Packet currentRawPacket;
@@ -287,9 +286,8 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         ConnectionProtocol connectionState = getConnectionState();
 
         Packet packet = null;
-        if (msg instanceof ByteBuf) {
+        if (msg instanceof ByteBuf buf) {
             // for regular connections, we're expecting to observe `ByteBuf`s here
-            ByteBuf buf = (ByteBuf) msg;
             if (buf.readableBytes() > 0) {
                 packet = decodePacket(connectionState, buf);
             }
@@ -331,9 +329,6 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
 
     private Packet encodeMcPacket(ConnectionProtocol connectionState, net.minecraft.network.protocol.Packet packet) throws Exception {
         Integer packetId = connectionState.getPacketId(PacketFlow.CLIENTBOUND, packet);
-        if (packetId == null) {
-            throw new IOException("Unknown packet type:" + packet.getClass());
-        }
         ByteBuf byteBuf = Unpooled.buffer();
         try {
             packet.write(new FriendlyByteBuf(byteBuf));
@@ -419,8 +414,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                 return;
             }
 
-            if (msg instanceof ClientboundCustomPayloadPacket) {
-                ClientboundCustomPayloadPacket packet = (ClientboundCustomPayloadPacket) msg;
+            if (msg instanceof ClientboundCustomPayloadPacket packet) {
                 if (Restrictions.PLUGIN_CHANNEL.equals(packet.getIdentifier())) {
                     save(new ClientboundDisconnectPacket(Component.literal("Please update to view this replay.")));
                 }
@@ -430,7 +424,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                 UUID uuid = ((ClientboundAddPlayerPacket) msg).getPlayerId();
                 Set<String> uuids = new HashSet<>(Arrays.asList(metaData.getPlayers()));
                 uuids.add(uuid.toString());
-                metaData.setPlayers(uuids.toArray(new String[uuids.size()]));
+                metaData.setPlayers(uuids.toArray(new String[0]));
                 saveMetaData();
             }
 

@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui;
+package github.com.gengyoubo.replayneo;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import de.johni0702.minecraft.gui.utils.NonNull;
@@ -38,18 +38,14 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import org.joml.Matrix4f;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.blaze3d.platform.GlStateManager;
-import static com.mojang.blaze3d.platform.GlStateManager.*;
 
 import static de.johni0702.minecraft.gui.versions.MCVer.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -139,7 +135,7 @@ public class MinecraftGuiRenderer implements GuiRenderer {
 
     @Override
     public void drawTexturedRect(int x, int y, int u, int v, int width, int height, int uWidth, int vHeight, int textureWidth, int textureHeight) {
-        color(1, 1, 1);
+        color(1, 1);
 
         if (boundTexture != null) {
             MCVer.bindTexture(boundTexture);
@@ -166,7 +162,7 @@ public class MinecraftGuiRenderer implements GuiRenderer {
     @Override
     public void drawRect(int x, int y, int width, int height, int color) {
         context.fill(x, y, x + width, y + height, color);
-        color(1, 1, 1);
+        color(1, 1);
         com.mojang.blaze3d.systems.RenderSystem.enableBlend();
     }
 
@@ -225,10 +221,9 @@ public class MinecraftGuiRenderer implements GuiRenderer {
     public int drawString(int x, int y, int color, String text, boolean shadow) {
         Font fontRenderer = MCVer.getFontRenderer();
         try {
-            int nx = context.drawString(fontRenderer, text, x, y, color, shadow);
-            return nx;
+            return context.drawString(fontRenderer, text, x, y, color, shadow);
         } finally {
-            color(1, 1, 1);
+            color(1, 1);
         }
     }
 
@@ -260,21 +255,21 @@ public class MinecraftGuiRenderer implements GuiRenderer {
         return new Color((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, (color >> 24) & 0xff);
     }
 
-    private void color(float r, float g, float b) {
-        RenderSystem.setShaderColor(r, g, b, 1);
+    private void color(float r, float g) {
+        RenderSystem.setShaderColor(r, g, (float) 1, 1);
     }
 
     @Override
     public void invertColors(int right, int bottom, int left, int top) {
         if (left >= right || top >= bottom) return;
 
-        color(0, 0, 1);
+        color(0, 0);
         com.mojang.blaze3d.systems.RenderSystem.enableColorLogicOp();
         com.mojang.blaze3d.systems.RenderSystem.logicOp(GlStateManager.LogicOp.OR_REVERSE);
 
         drawRect(right, bottom, right - left, bottom - top, ReadableColor.WHITE, ReadableColor.WHITE, ReadableColor.WHITE, ReadableColor.WHITE, true);
 
         com.mojang.blaze3d.systems.RenderSystem.disableColorLogicOp();
-        color(1, 1, 1);
+        color(1, 1);
     }
 }

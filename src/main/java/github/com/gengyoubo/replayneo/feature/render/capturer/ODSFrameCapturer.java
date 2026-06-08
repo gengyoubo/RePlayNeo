@@ -1,4 +1,4 @@
-package com.replaymod.render.capturer;
+package github.com.gengyoubo.replayneo.feature.render.capturer;
 
 import com.replaymod.render.rendering.Channel;
 import de.johni0702.minecraft.gui.utils.EventRegistrations;
@@ -11,6 +11,7 @@ import com.replaymod.render.hooks.Texture2DStateCallback;
 import com.replaymod.render.rendering.FrameCapturer;
 import com.replaymod.render.shader.Program;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +22,8 @@ import net.minecraft.resources.ResourceLocation;
 import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
 
 public class ODSFrameCapturer implements FrameCapturer<ODSOpenGlFrame> {
-    private static final ResourceLocation vertexResource = identifier("replaymod", "shader/ods.vert");
-    private static final ResourceLocation fragmentResource = identifier("replaymod", "shader/ods.frag");
+    private static final ResourceLocation vertexResource = identifier(RePlayNeo.RESOURCE_NAMESPACE, "shader/ods.vert");
+    private static final ResourceLocation fragmentResource = identifier(RePlayNeo.RESOURCE_NAMESPACE, "shader/ods.frag");
 
     private final CubicPboOpenGlFrameCapturer left, right;
     private final Program shaderProgram;
@@ -51,13 +52,12 @@ public class ODSFrameCapturer implements FrameCapturer<ODSOpenGlFrame> {
             }
 
             @Override
-            public float updateForNextFrame() {
+            public void updateForNextFrame() {
                 if (call++ % 2 == 0) {
                     unbindProgram();
                     partialTicks = renderInfo.updateForNextFrame();
                     bindProgram();
                 }
-                return partialTicks;
             }
 
             @Override

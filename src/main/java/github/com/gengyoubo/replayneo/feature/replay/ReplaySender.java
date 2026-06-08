@@ -1,4 +1,4 @@
-package com.replaymod.replay;
+package github.com.gengyoubo.replayneo.feature.replay;
 
 import com.replaymod.core.mixin.MinecraftAccessor;
 import com.replaymod.core.mixin.TimerAccessor;
@@ -13,7 +13,7 @@ public interface ReplaySender {
      * Whether the replay is currently paused.
      * @return {@code true} if it is paused, {@code false} otherwise
      */
-    public default boolean paused() {
+    default boolean paused() {
         Minecraft mc = getMinecraft();
         TimerAccessor timer = (TimerAccessor) ((MinecraftAccessor) mc).getTimer();
         return timer.getTickLength() == Float.POSITIVE_INFINITY;

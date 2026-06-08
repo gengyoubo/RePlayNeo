@@ -1,4 +1,4 @@
-package com.replaymod.render.rendering;
+package github.com.gengyoubo.replayneo.feature.render.rendering;
 
 public enum Channel {
     BRGA,

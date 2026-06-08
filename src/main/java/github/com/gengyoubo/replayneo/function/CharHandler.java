@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.function;
+package github.com.gengyoubo.replayneo.function;
 
 public interface CharHandler {
     boolean handleChar(CharInput charInput);

@@ -1,4 +1,4 @@
-package com.replaymod.recording.mixin;
+package github.com.gengyoubo.replayneo.mixin;
 
 import net.minecraft.client.gui.screens.EditServerScreen;
 import net.minecraft.client.multiplayer.ServerData;

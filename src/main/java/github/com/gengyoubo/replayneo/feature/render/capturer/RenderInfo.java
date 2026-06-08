@@ -1,4 +1,4 @@
-package com.replaymod.render.capturer;
+package github.com.gengyoubo.replayneo.feature.render.capturer;
 
 import com.replaymod.render.RenderSettings;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
@@ -10,7 +10,7 @@ public interface RenderInfo {
 
     int getTotalFrames();
 
-    float updateForNextFrame();
+    void updateForNextFrame();
 
     RenderSettings getRenderSettings();
 }

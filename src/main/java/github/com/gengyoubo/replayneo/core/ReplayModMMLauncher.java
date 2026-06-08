@@ -1,4 +1,4 @@
-package com.replaymod.core;
+package github.com.gengyoubo.replayneo.core;
 
 import org.spongepowered.asm.mixin.Mixins;
 
@@ -17,13 +17,6 @@ public class ReplayModMMLauncher implements Runnable {
         }
         ran = true;
 
-        Mixins.addConfiguration("mixins.compat.mapwriter.replaymod.json");
-        Mixins.addConfiguration("mixins.compat.shaders.replaymod.json");
-        Mixins.addConfiguration("mixins.core.replaymod.json");
-        Mixins.addConfiguration("mixins.extras.playeroverview.replaymod.json");
-        Mixins.addConfiguration("mixins.recording.replaymod.json");
-        Mixins.addConfiguration("mixins.render.blend.replaymod.json");
-        Mixins.addConfiguration("mixins.render.replaymod.json");
-        Mixins.addConfiguration("mixins.replay.replaymod.json");
+        Mixins.addConfiguration("mixins.replayneo.json");
     }
 }

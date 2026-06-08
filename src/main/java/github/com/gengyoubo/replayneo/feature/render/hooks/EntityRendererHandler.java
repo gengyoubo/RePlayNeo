@@ -1,4 +1,4 @@
-package com.replaymod.render.hooks;
+package github.com.gengyoubo.replayneo.feature.render.hooks;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.events.PreRenderHandCallback;
@@ -87,7 +87,7 @@ public class EntityRendererHandler extends EventRegistrations implements WorldRe
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         ((IEntityRenderer) mc.gameRenderer).replayModRender_setHandler(null);
         unregister();
     }

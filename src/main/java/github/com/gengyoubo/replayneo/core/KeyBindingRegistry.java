@@ -1,4 +1,4 @@
-package com.replaymod.core;
+package github.com.gengyoubo.replayneo.core;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -40,8 +40,8 @@ public class KeyBindingRegistry extends EventRegistrations {
     private static final List<KeyMapping> PENDING_KEY_MAPPINGS = new ArrayList<>();
 
     private final Map<String, Binding> bindings = new HashMap<>();
-    private Set<KeyMapping> onlyInReplay = new HashSet<>();
-    private Multimap<Integer, Function<KeyInput, Boolean>> rawHandlers = ArrayListMultimap.create();
+    private final Set<KeyMapping> onlyInReplay = new HashSet<>();
+    private final Multimap<Integer, Function<KeyInput, Boolean>> rawHandlers = ArrayListMultimap.create();
 
     public Binding registerKeyBinding(String name, int keyCode, Runnable whenPressed, boolean onlyInRepay) {
         Binding binding = registerKeyBinding(name, keyCode, onlyInRepay);

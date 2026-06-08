@@ -1,4 +1,4 @@
-package com.replaymod.replay.ext;
+package github.com.gengyoubo.replayneo.feature.replay.ext;
 
 public interface EntityExt {
     float replaymod$getTrackedYaw();

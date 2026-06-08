@@ -1,4 +1,4 @@
-package com.replaymod.core.versions;
+package github.com.gengyoubo.replayneo.platform.versions;
 
 import com.google.gson.Gson;
 import com.replaymod.core.ReplayMod;
@@ -6,43 +6,37 @@ import github.com.gengyoubo.replayneo.RePlayNeo;
 import org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.AbstractPackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.IoSupplier;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 
 /**
  * Resource pack which on-the-fly converts pre-1.13 language files into 1.13 json format.
- * Also duplicates `replaymod.input.*` bindings to `key.replaymod.*` as convention on Fabric.
+ * Also duplicates legacy `replaymod.input.*` bindings to the active mod namespace.
  */
 public class LangResourcePack extends AbstractPackResources {
     private static final Gson GSON = new Gson();
-    public static final String NAME = "replaymod_lang";
+    public static final String NAME = RePlayNeo.MODID + "_lang";
     private static final Pattern JSON_FILE_PATTERN = Pattern.compile("^assets/" + RePlayNeo.RESOURCE_NAMESPACE + "/lang/([a-z][a-z])_([a-z][a-z]).json$");
     private static final Pattern LANG_FILE_NAME_PATTERN = Pattern.compile("^([a-z][a-z])_([a-z][a-z]).lang$");
 
@@ -56,7 +50,7 @@ public class LangResourcePack extends AbstractPackResources {
         try {
             this.basePath = Paths.get(ReplayMod.class.getProtectionDomain().getCodeSource().getLocation().toURI());
         } catch (URISyntaxException e) {
-            throw new IllegalStateException("Unable to locate ReplayMod resources", e);
+            throw new IllegalStateException("Unable to locate RePlayNeo resources", e);
         }
     }
 
@@ -82,7 +76,7 @@ public class LangResourcePack extends AbstractPackResources {
     }
 
     @Override
-    public IoSupplier<InputStream> getRootResource(String... segments) {
+    public IoSupplier<InputStream> getRootResource(String @NotNull ... segments) {
         byte[] bytes;
         try {
             bytes = readFile(String.join("/", segments));
@@ -102,7 +96,7 @@ public class LangResourcePack extends AbstractPackResources {
 
     private byte[] readFile(String path) throws IOException {
         if ("pack.mcmeta".equals(path)) {
-            return "{\"pack\": {\"description\": \"ReplayMod language files\", \"pack_format\": 4}}".getBytes(StandardCharsets.UTF_8);
+            return "{\"pack\": {\"description\": \"RePlayNeo language files\", \"pack_format\": 4}}".getBytes(StandardCharsets.UTF_8);
         }
 
         Path langPath = langPath(path);
@@ -134,7 +128,7 @@ public class LangResourcePack extends AbstractPackResources {
 
 
     @Override
-    public void listResources(PackType type, String namespace, String prefix, ResourceOutput consumer) {
+    public void listResources(@NotNull PackType type, @NotNull String namespace, @NotNull String prefix, @NotNull ResourceOutput consumer) {
         findResources(type, prefix, id -> consumer.accept(id, () -> new ByteArrayInputStream(Objects.requireNonNull(readFile(id.getPath())))));
     }
 
@@ -158,7 +152,7 @@ public class LangResourcePack extends AbstractPackResources {
     }
 
     @Override
-    public Set<String> getNamespaces(PackType resourcePackType) {
+    public @NotNull Set<String> getNamespaces(@NotNull PackType resourcePackType) {
         if (resourcePackType == PackType.CLIENT_RESOURCES) {
             return Collections.singleton(RePlayNeo.RESOURCE_NAMESPACE);
         } else {

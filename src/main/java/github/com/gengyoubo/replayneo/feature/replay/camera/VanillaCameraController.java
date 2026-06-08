@@ -1,4 +1,4 @@
-package com.replaymod.replay.camera;
+package github.com.gengyoubo.replayneo.feature.replay.camera;
 
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
 import net.minecraft.client.Minecraft;

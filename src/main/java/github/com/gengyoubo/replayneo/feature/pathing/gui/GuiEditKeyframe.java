@@ -1,4 +1,4 @@
-package com.replaymod.simplepathing.gui;
+package github.com.gengyoubo.replayneo.feature.pathing.gui;
 
 import com.replaymod.pathing.properties.CameraProperties;
 import com.replaymod.pathing.properties.TimestampProperty;
@@ -36,7 +36,6 @@ import de.johni0702.minecraft.gui.popup.AbstractGuiPopup;
 import net.minecraft.client.resources.language.I18n;
 import de.johni0702.minecraft.gui.utils.Colors;
 import de.johni0702.minecraft.gui.utils.Consumer;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
@@ -347,9 +346,8 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
 
             protected InterpolatorType getInterpolatorTypeNoDefault(InterpolatorType interpolatorType) {
                 if (interpolatorType == InterpolatorType.DEFAULT || interpolatorType == null) {
-                    InterpolatorType defaultType = InterpolatorType.fromString(
+                    return InterpolatorType.fromString(
                             guiPathing.getMod().getCore().getSettingsRegistry().get(Setting.DEFAULT_INTERPOLATION));
-                    return defaultType;
                 }
                 return interpolatorType;
             }
@@ -363,7 +361,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
                 return this;
             }
 
-            public abstract class SettingsPanel<I extends Interpolator, T extends SettingsPanel<I, T>> extends AbstractGuiContainer<T> {
+            public abstract static class SettingsPanel<I extends Interpolator, T extends SettingsPanel<I, T>> extends AbstractGuiContainer<T> {
 
                 public abstract void loadSettings(I interpolator);
 

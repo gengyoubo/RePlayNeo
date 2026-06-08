@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.layout;
+package github.com.gengyoubo.replayneo.core.gui.layout;
 
 import com.google.common.base.Preconditions;
 import de.johni0702.minecraft.gui.container.GuiContainer;
@@ -104,7 +104,7 @@ public class GridLayout implements Layout {
                 int remainingHeight = cellHeight - elementSize.getHeight();
                 x += (int) (data.alignmentX * remainingWidth);
                 y += (int) (data.alignmentY * remainingHeight);
-                map.put(element, Pair.<ReadablePoint, ReadableDimension>of(new Point(x, y), elementSize));
+                map.put(element, Pair.of(new Point(x, y), elementSize));
             }
         }
         return map;

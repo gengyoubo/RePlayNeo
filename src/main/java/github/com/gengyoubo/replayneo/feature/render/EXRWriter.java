@@ -1,4 +1,4 @@
-package com.replaymod.render;
+package github.com.gengyoubo.replayneo.feature.render;
 
 import com.replaymod.core.versions.MCVer;
 import com.replaymod.render.frame.BitmapFrame;
@@ -55,19 +55,19 @@ public class EXRWriter implements FrameConsumer<BitmapFrame> {
         BitmapFrame bgraFrame = channels.get(Channel.BRGA);
         BitmapFrame depthFrame = channels.get(Channel.DEPTH);
 
-        Path path = outputFolder.resolve(bgraFrame.getFrameId() + ".exr");
-        ReadableDimension size = bgraFrame.getSize();
-        ByteBuffer bgra = bgraFrame.getByteBuffer();
+        Path path = outputFolder.resolve(bgraFrame.frameId() + ".exr");
+        ReadableDimension size = bgraFrame.size();
+        ByteBuffer bgra = bgraFrame.byteBuffer();
         int width = size.getWidth();
         int height = size.getHeight();
         int numChannels = 4 + (depthFrame != null ? 1 : 0);
 
         stackPush();
-        EXRHeader header = EXRHeader.mallocStack(); InitEXRHeader(header);
-        EXRChannelInfo.Buffer channelInfos = EXRChannelInfo.mallocStack(numChannels);
+        EXRHeader header = EXRHeader.malloc(); InitEXRHeader(header);
+        EXRChannelInfo.Buffer channelInfos = EXRChannelInfo.malloc(numChannels);
         IntBuffer pixelTypes = stackMallocInt(numChannels);
         IntBuffer requestedPixelTypes = stackMallocInt(numChannels);
-        EXRImage image = EXRImage.mallocStack(); InitEXRImage(image);
+        EXRImage image = EXRImage.malloc(); InitEXRImage(image);
         PointerBuffer imagePointers = stackMallocPointer(numChannels);
         FloatBuffer images = memAllocFloat(width * height * numChannels);
         PointerBuffer err = stackMallocPointer(1);
@@ -120,7 +120,7 @@ public class EXRWriter implements FrameConsumer<BitmapFrame> {
                 }
             }
             if (depthFrame != null && depthChannel != null) {
-                depthChannel.put(depthFrame.getByteBuffer().asFloatBuffer());
+                depthChannel.put(depthFrame.byteBuffer().asFloatBuffer());
             }
 
             int ret = SaveEXRImageToFile(image, header, path.toString(), err);
@@ -134,7 +134,7 @@ public class EXRWriter implements FrameConsumer<BitmapFrame> {
         } finally {
             memFree(images);
             stackPop();
-            channels.values().forEach(it -> ByteBufferPool.release(it.getByteBuffer()));
+            channels.values().forEach(it -> ByteBufferPool.release(it.byteBuffer()));
         }
     }
 

@@ -1,4 +1,4 @@
-package com.replaymod.core;
+package github.com.gengyoubo.replayneo.core;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +27,7 @@ public class ReplayModMixinConfigPlugin implements IMixinConfigPlugin {
     private final boolean hasIris = ModList.get().isLoaded("iris");
 
     {
-        logger.debug("hasOF: " + hasOF);
+        logger.debug("hasOF: {}", hasOF);
     }
 
     @Override

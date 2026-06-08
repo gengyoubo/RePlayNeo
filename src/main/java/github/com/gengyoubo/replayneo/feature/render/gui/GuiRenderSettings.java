@@ -1,4 +1,4 @@
-package com.replaymod.render.gui;
+package github.com.gengyoubo.replayneo.feature.render.gui;
 
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
@@ -18,7 +18,6 @@ import de.johni0702.minecraft.gui.container.GuiVerticalList;
 import de.johni0702.minecraft.gui.element.*;
 import de.johni0702.minecraft.gui.element.advanced.GuiColorPicker;
 import de.johni0702.minecraft.gui.element.advanced.GuiDropdownMenu;
-import de.johni0702.minecraft.gui.function.Click;
 import de.johni0702.minecraft.gui.layout.CustomLayout;
 import de.johni0702.minecraft.gui.layout.GridLayout;
 import de.johni0702.minecraft.gui.layout.HorizontalLayout;
@@ -282,18 +281,8 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
                         new GuiLabel().setI18nText("replaymod.gui.rendersettings.advanced"), advancedPanel, new GuiPanel(),
                         new GuiLabel().setI18nText("replaymod.gui.rendersettings.commandline"), commandlinePanel);
 
-        videoWidth.onTextChanged(new Consumer<String>() {
-            @Override
-            public void consume(String old) {
-                updateInputs();
-            }
-        });
-        videoHeight.onTextChanged(new Consumer<String>() {
-            @Override
-            public void consume(String obj) {
-                updateInputs();
-            }
-        });
+        videoWidth.onTextChanged((Consumer<String>) old -> updateInputs());
+        videoHeight.onTextChanged((Consumer<String>) obj -> updateInputs());
     }
 
     private final AbstractGuiScreen<?> screen;
@@ -310,7 +299,7 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
 
         String json = "{}";
         try {
-            json = new String(Files.readAllBytes(getSettingsPath()), StandardCharsets.UTF_8);
+            json = Files.readString(getSettingsPath());
         } catch (NoSuchFileException | FileNotFoundException ignored) {
         } catch (IOException e) {
             LOGGER.error("Reading render settings:", e);
@@ -623,7 +612,7 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
         RenderSettings settings = save(true, false);
         String json = new Gson().toJson(settings);
         try {
-            Files.write(getSettingsPath(), json.getBytes(StandardCharsets.UTF_8));
+            Files.writeString(getSettingsPath(), json);
         } catch (IOException e) {
             LOGGER.error("Saving render settings:", e);
         }

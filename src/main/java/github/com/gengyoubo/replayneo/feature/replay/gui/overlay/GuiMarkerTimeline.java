@@ -1,4 +1,4 @@
-package com.replaymod.replay.gui.overlay;
+package github.com.gengyoubo.replayneo.feature.replay.gui.overlay;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.versions.MCVer.Keyboard;
@@ -16,7 +16,7 @@ import de.johni0702.minecraft.gui.function.KeyHandler;
 import de.johni0702.minecraft.gui.function.KeyInput;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.client.resources.language.I18n;
@@ -188,8 +188,7 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
         return super.mouseClick(click);
     }
 
-    @Override
-    public boolean mouseDrag(Click click) {
+    public void mouseDrag(Click click) {
         if (selectedMarker != null) {
             int diff = click.y - draggingStartX;
             if (Math.abs(diff) > MARKER_SIZE) {
@@ -200,10 +199,8 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
                 if (timeAt != -1) {
                     selectedMarker.setTime(draggingTimeDelta + timeAt);
                 }
-                return true;
             }
         }
-        return false;
     }
 
     @Override
@@ -221,7 +218,7 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
 
     @Override
     protected String getTooltipText(RenderInfo renderInfo) {
-        Marker marker = getMarkerAt(renderInfo.mouseX, renderInfo.mouseY);
+        Marker marker = getMarkerAt(renderInfo.mouseX(), renderInfo.mouseY());
         if (marker != null) {
             return marker.getName() != null ? marker.getName() : I18n.get("replaymod.gui.ingame.unnamedmarker");
         }

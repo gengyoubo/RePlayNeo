@@ -1,4 +1,4 @@
-package com.replaymod.render.gui;
+package github.com.gengyoubo.replayneo.feature.render.gui;
 
 import com.google.common.collect.Iterables;
 import com.replaymod.core.ReplayMod;
@@ -328,7 +328,7 @@ public class GuiRenderQueue extends AbstractGuiPopup<GuiRenderQueue> implements 
         addButton.setEnabled(timelineSupplier != null);
         editButton.setEnabled(selected == 1);
         removeButton.setEnabled(selected >= 1);
-        renderButton.setEnabled(jobs.size() > 0);
+        renderButton.setEnabled(!jobs.isEmpty());
         renderButton.setI18nLabel("replaymod.gui.renderqueue.render" + (selected > 0 ? "selected" : "all"));
 
         String[] compatError = VideoRenderer.checkCompat(jobs.stream().map(RenderJob::getSettings));

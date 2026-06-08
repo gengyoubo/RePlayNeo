@@ -1,4 +1,4 @@
-package com.replaymod.editor.gui;
+package github.com.gengyoubo.replayneo.feature.editor.gui;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.versions.MCVer;
@@ -70,7 +70,7 @@ public class MarkerProcessor {
 
     private static List<String> getOutputSuffixes(ReplayFile inputReplayFile) throws IOException {
         List<Marker> markers = inputReplayFile.getMarkers().or(HashSet::new)
-                .stream().sorted(Comparator.comparing(Marker::getTime)).collect(Collectors.toList());
+                .stream().sorted(Comparator.comparing(Marker::getTime)).toList();
         int nextSuffix = 0;
         List<String> suffixes = new ArrayList<>();
         OutputState state = OutputState.Writing;
@@ -90,7 +90,6 @@ public class MarkerProcessor {
                         break;
                     case Writing:
                         suffixes.add("_" + nextSuffix++);
-                        state = OutputState.Writing;
                         break;
                     case Paused:
                         suffixes.add("_" + nextSuffix++);
@@ -138,7 +137,7 @@ public class MarkerProcessor {
 
         try (ReplayFile inputReplayFile = mod.files.open(inputPath)) {
             List<Marker> markers = inputReplayFile.getMarkers().or(HashSet::new)
-                    .stream().sorted(Comparator.comparing(Marker::getTime)).collect(Collectors.toList());
+                    .stream().sorted(Comparator.comparing(Marker::getTime)).toList();
             Iterator<Marker> markerIterator = markers.iterator();
             Iterator<String> outputFileSuffixes = getOutputSuffixes(inputReplayFile).iterator();
             boolean anySplit = markers.stream().anyMatch(m -> MARKER_NAME_SPLIT.equals(m.getName()));

@@ -22,7 +22,6 @@ import com.replaymod.replaystudio.replay.ReplayFile;
 import github.com.gengyoubo.replayneo.feature.pathing.SPTimeline.SPPath;
 import com.replaymod.simplepathing.gui.GuiPathing;
 import com.replaymod.simplepathing.preview.PathPreview;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -37,17 +36,17 @@ import net.minecraft.ReportedException;
 
 public class ReplayModSimplePathing extends EventRegistrations implements Module {
     { instance = this; }
-    public static ReplayModSimplePathing instance;
+    public static final ReplayModSimplePathing instance;
 
-    private ReplayMod core;
+    private final ReplayMod core;
     public KeyBindingRegistry.Binding keyPositionKeyframe;
     public KeyBindingRegistry.Binding keyTimeKeyframe;
     public KeyBindingRegistry.Binding keySyncTime;
 
-    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     private GuiPathing guiPathing;
-    private PathPreview pathPreview = new PathPreview(this);
+    private final PathPreview pathPreview = new PathPreview(this);
 
     public ReplayModSimplePathing(ReplayMod core) {
         this.core = core;

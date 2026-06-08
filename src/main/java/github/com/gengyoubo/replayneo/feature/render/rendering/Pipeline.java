@@ -1,10 +1,11 @@
-package com.replaymod.render.rendering;
+package github.com.gengyoubo.replayneo.feature.render.rendering;
 
 import com.replaymod.core.mixin.MinecraftAccessor;
 import com.replaymod.core.versions.MCVer;
 import com.replaymod.render.capturer.WorldRenderer;
 import com.replaymod.render.frame.BitmapFrame;
 import com.replaymod.render.processor.GlToAbsoluteDepthProcessor;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class Pipeline<R extends Frame, P extends Frame> implements Runnable {
         this.consumer = new ParallelSafeConsumer<>(consumer);
 
         float near = 0.05f;
-        float far = (Integer) getMinecraft().options.renderDistance().get() * 16 * 4;
+        float far = getMinecraft().options.renderDistance().get() * 16 * 4;
         this.depthProcessor = new GlToAbsoluteDepthProcessor(near, far);
     }
 
@@ -47,9 +48,9 @@ public class Pipeline<R extends Frame, P extends Frame> implements Runnable {
         int processThreads = Math.max(1, processors - 2); // One processor for the main thread and one for ffmpeg, sorry OS :(
         ExecutorService processService = new ThreadPoolExecutor(processThreads, processThreads,
                 0L, TimeUnit.MILLISECONDS,
-                new ArrayBlockingQueue<Runnable>(2) {
+                new ArrayBlockingQueue<>(2) {
                     @Override
-                    public boolean offer(Runnable runnable) {
+                    public boolean offer(@NotNull Runnable runnable) {
                         try {
                             put(runnable);
                         } catch (InterruptedException e) {

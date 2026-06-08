@@ -1,4 +1,4 @@
-package com.replaymod.render.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -12,7 +12,7 @@ import static com.replaymod.core.ReplayMod.MOD_ID;
  * beyond the point where it can no longer achieve interactive frame rates) in exchange for a noticeable boost to
  * quality.
  * In particular also to force-load all chunks with Canvas/Sodium/Bobby.
- *
+ * <p>
  * See https://github.com/grondag/frex/pull/9
  */
 public class FlawlessFrames {

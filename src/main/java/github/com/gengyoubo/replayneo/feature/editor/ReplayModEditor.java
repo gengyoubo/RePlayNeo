@@ -1,18 +1,17 @@
-package com.replaymod.editor;
+package github.com.gengyoubo.replayneo.feature.editor;
 
 import com.replaymod.core.Module;
 import com.replaymod.core.ReplayMod;
 import com.replaymod.editor.handler.GuiHandler;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ReplayModEditor implements Module {
     { instance = this; }
-    public static ReplayModEditor instance;
+    public static final ReplayModEditor instance;
 
-    private ReplayMod core;
+    private final ReplayMod core;
 
-    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     public ReplayModEditor(ReplayMod core) {
         this.core = core;

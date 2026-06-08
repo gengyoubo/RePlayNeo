@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -71,10 +71,10 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
             if (getContainer() == null) {
                 throw new RuntimeException("Any top containers must implement layout(null, ...) themselves!");
             }
-            getContainer().layout(size, renderInfo.layer(renderInfo.layer + getLayer()));
+            getContainer().layout(null, renderInfo.layer(renderInfo.layer() + getLayer()));
             return;
         }
-        if (renderInfo.layer == 0) {
+        if (renderInfo.layer() == 0) {
             lastSize = size;
         }
     }
@@ -102,7 +102,7 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
     @Override
     public GuiElement getTooltip(RenderInfo renderInfo) {
         if (tooltip != null && lastSize != null) {
-            Point mouse = new Point(renderInfo.mouseX, renderInfo.mouseY);
+            Point mouse = new Point(renderInfo.mouseX(), renderInfo.mouseY());
             if (container != null) {
                 container.convertFor(this, mouse);
             }
@@ -117,20 +117,20 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
     }
 
     @Override
-    public T setTooltip(GuiElement tooltip) {
+    public void setTooltip(GuiElement tooltip) {
         this.tooltip = tooltip;
-        return getThis();
+        getThis();
     }
 
     @Override
-    public T setContainer(GuiContainer container) {
+    public void setContainer(GuiContainer container) {
         this.container = container;
-        return getThis();
+        getThis();
     }
 
-    public T setMinSize(ReadableDimension minSize) {
+    public void setMinSize(ReadableDimension minSize) {
         this.minSize = new Dimension(minSize);
-        return getThis();
+        getThis();
     }
 
     public T setMaxSize(ReadableDimension maxSize) {

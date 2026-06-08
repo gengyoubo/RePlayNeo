@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.container;
+package github.com.gengyoubo.replayneo.core.gui.container;
 
 import de.johni0702.minecraft.gui.element.GuiElement;
 import de.johni0702.minecraft.gui.layout.Layout;
@@ -86,8 +86,8 @@ public class GuiPanel extends AbstractGuiContainer<GuiPanel> {
 
         public GuiPanelBuilder with(GuiElement withKey, LayoutData withValue) {
             if (this.withElements$key == null) {
-                this.withElements$key = new ArrayList<GuiElement>();
-                this.withElements$value = new ArrayList<LayoutData>();
+                this.withElements$key = new ArrayList<>();
+                this.withElements$value = new ArrayList<>();
             }
             this.withElements$key.add(withKey);
             this.withElements$value.add(withValue);
@@ -96,8 +96,8 @@ public class GuiPanel extends AbstractGuiContainer<GuiPanel> {
 
         public GuiPanelBuilder withElements(Map<? extends GuiElement, ? extends LayoutData> withElements) {
             if (this.withElements$key == null) {
-                this.withElements$key = new ArrayList<GuiElement>();
-                this.withElements$value = new ArrayList<LayoutData>();
+                this.withElements$key = new ArrayList<>();
+                this.withElements$value = new ArrayList<>();
             }
             for (final Map.Entry<? extends GuiElement, ? extends LayoutData> $lombokEntry : withElements.entrySet()) {
                 this.withElements$key.add($lombokEntry.getKey());
@@ -124,9 +124,9 @@ public class GuiPanel extends AbstractGuiContainer<GuiPanel> {
                     withElements = java.util.Collections.singletonMap(this.withElements$key.get(0), this.withElements$value.get(0));
                     break;
                 default:
-                    withElements = new java.util.LinkedHashMap<GuiElement, LayoutData>(this.withElements$key.size() < 1073741824 ? 1 + this.withElements$key.size() + (this.withElements$key.size() - 3) / 3 : Integer.MAX_VALUE);
+                    withElements = new java.util.LinkedHashMap<>(this.withElements$key.size() < 1073741824 ? 1 + this.withElements$key.size() + (this.withElements$key.size() - 3) / 3 : Integer.MAX_VALUE);
                     for (int $i = 0; $i < this.withElements$key.size(); $i++)
-                        withElements.put(this.withElements$key.get($i), (LayoutData) this.withElements$value.get($i));
+                        withElements.put(this.withElements$key.get($i), this.withElements$value.get($i));
                     withElements = java.util.Collections.unmodifiableMap(withElements);
             }
 

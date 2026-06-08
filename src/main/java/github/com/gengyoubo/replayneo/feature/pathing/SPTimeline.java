@@ -95,13 +95,10 @@ public class SPTimeline implements PathingRegistry {
     }
 
     public Path getPath(SPPath path) {
-        switch (path) {
-            case TIME:
-                return getTimePath();
-            case POSITION:
-                return getPositionPath();
-        }
-        throw new IllegalArgumentException("Unknown path " + path);
+        return switch (path) {
+            case TIME -> getTimePath();
+            case POSITION -> getPositionPath();
+        };
     }
 
     public Keyframe getKeyframe(SPPath path, long keyframe) {
@@ -132,7 +129,7 @@ public class SPTimeline implements PathingRegistry {
         Change change = CombinedChange.create(
                 positionPath.getSegments().stream()
                         // Ignore explicitly set segments
-                        .filter(s -> !s.getStartKeyframe().getValue(ExplicitInterpolationProperty.PROPERTY).isPresent())
+                        .filter(s -> s.getStartKeyframe().getValue(ExplicitInterpolationProperty.PROPERTY).isEmpty())
                         // Ignore spectator segments
                         .filter(s -> !isSpectatorSegment(s))
                         // Update interpolator for every remaining segment
@@ -208,7 +205,7 @@ public class SPTimeline implements PathingRegistry {
         Keyframe keyframe = positionPath.getKeyframe(time);
 
         Preconditions.checkState(keyframe != null, "Keyframe does not exists");
-        Preconditions.checkState(!keyframe.getValue(SpectatorProperty.PROPERTY).isPresent(), "Cannot update spectator keyframe");
+        Preconditions.checkState(keyframe.getValue(SpectatorProperty.PROPERTY).isEmpty(), "Cannot update spectator keyframe");
 
         Change change = UpdateKeyframeProperties.create(positionPath, keyframe)
                 .setValue(CameraProperties.POSITION, Triple.of(posX, posY, posZ))
@@ -463,7 +460,7 @@ public class SPTimeline implements PathingRegistry {
         // Then, if required, replace old default interpolators with new ones
         pathSegments.stream()
                 // Ignore explicitly set segments
-                .filter(s -> !s.getStartKeyframe().getValue(ExplicitInterpolationProperty.PROPERTY).isPresent())
+                .filter(s -> s.getStartKeyframe().getValue(ExplicitInterpolationProperty.PROPERTY).isEmpty())
                 // Ignore spectator segments
                 .filter(s -> !isSpectatorSegment(s))
                 // Ignore already correct segments, should ignore all if default hasn't changed
@@ -541,7 +538,7 @@ public class SPTimeline implements PathingRegistry {
             Optional<Integer> spectator = keyframe.getValue(SpectatorProperty.PROPERTY);
             if (spectator.isPresent()) {
                 Optional<Integer> time = timePath.getValue(TimestampProperty.PROPERTY, keyframe.getTime());
-                if (!time.isPresent()) {
+                if (time.isEmpty()) {
                     continue; // No time keyframes set at this video time, cannot determine replay time
                 }
                 Location expected = entityTracker.getEntityPositionAtTimestamp(spectator.get(), time.get());
@@ -559,7 +556,7 @@ public class SPTimeline implements PathingRegistry {
                 }
             }
         }
-        return CombinedChange.create(changes.toArray(new Change[changes.size()]));
+        return CombinedChange.create(changes.toArray(new Change[0]));
     }
 
     private Interpolator createDefaultInterpolator() {
@@ -622,26 +619,23 @@ public class SPTimeline implements PathingRegistry {
                 args = null;
                 break;
             case BEGIN_OBJECT:
-                args = new JsonParser().parse(reader).getAsJsonObject();
+                args = JsonParser.parseReader(reader).getAsJsonObject();
                 type = args.get("type").getAsString();
                 break;
             default:
                 throw new IOException("Unexpected token: " + reader.peek());
         }
-        switch (type) {
-            case "linear":
-                return new LinearInterpolator();
-            case "cubic-spline":
-                return new CubicSplineInterpolator();
-            case "catmull-rom-spline":
+        return switch (type) {
+            case "linear" -> new LinearInterpolator();
+            case "cubic-spline" -> new CubicSplineInterpolator();
+            case "catmull-rom-spline" -> {
                 if (args == null || !args.has("alpha")) {
                     throw new IOException("Missing alpha value for catmull-rom-spline.");
                 }
-                return new CatmullRomSplineInterpolator(args.get("alpha").getAsDouble());
-            default:
-                throw new IOException("Unknown interpolation type: " + type);
-
-        }
+                yield new CatmullRomSplineInterpolator(args.get("alpha").getAsDouble());
+            }
+            default -> throw new IOException("Unknown interpolation type: " + type);
+        };
     }
 
     /**

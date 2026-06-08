@@ -1,4 +1,4 @@
-package com.replaymod.render.blend.data;
+package github.com.gengyoubo.replayneo.feature.render.blend.data;
 
 import com.replaymod.render.blend.Util;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Quaternion;
@@ -22,16 +22,16 @@ import java.util.List;
 
 public class DObject {
     public final DId id = new DId(BlockCodes.ID_OB);
-    public Vector3f loc = new Vector3f(0, 0, 0);
-    public Vector3f scale = new Vector3f(1, 1, 1);
-    public Quaternion rot = new Quaternion();
+    public final Vector3f loc = new Vector3f(0, 0, 0);
+    public final Vector3f scale = new Vector3f(1, 1, 1);
+    public final Quaternion rot = new Quaternion();
     private DObject parent;
-    private List<DObject> children = new ArrayList<>();
+    private final List<DObject> children = new ArrayList<>();
     private List<DObject> unmodifiableChildren;
     public DAction action;
     public DMesh mesh;
-    public Type type;
-    public int layers = 1;
+    public final Type type;
+    public final int layers = 1;
     public DObject pointAt;
     public int lastFrame;
     private int lastVisibleFrame = -2;

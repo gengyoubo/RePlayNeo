@@ -1,4 +1,4 @@
-package com.replaymod.core;
+package github.com.gengyoubo.replayneo.core;
 
 // Required for ReplayModMMLauncher.
 //
@@ -8,6 +8,4 @@ package com.replaymod.core;
 // So, instead of relying on the bad assumption that Main doesn't have any mixins, we'll instead register this
 // dummy pre-launch entry point which is practically guaranteed to not have any mixins and gets called before Main.
 public class DummyChainLoadEntryPoint {
-    public void onPreLaunch() {
-    }
 }

@@ -1,4 +1,4 @@
-package com.replaymod.core.utils;
+package github.com.gengyoubo.replayneo.core.utils;
 
 import java.util.regex.Pattern;
 

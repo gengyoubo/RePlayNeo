@@ -1,15 +1,16 @@
-package com.replaymod.core.gui;
+package github.com.gengyoubo.replayneo.core.gui;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
 import de.johni0702.minecraft.gui.element.GuiButton;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import net.minecraft.resources.ResourceLocation;
 
 import static de.johni0702.minecraft.gui.versions.MCVer.identifier;
 
 public class GuiReplayButton extends GuiButton {
-    public static final ResourceLocation ICON = identifier("replaymod", "logo_button.png");
+    public static final ResourceLocation ICON = identifier(RePlayNeo.RESOURCE_NAMESPACE, "logo_button.png");
 
     @Override
     public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {

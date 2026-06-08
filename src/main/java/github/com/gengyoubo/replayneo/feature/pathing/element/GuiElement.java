@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -35,7 +35,7 @@ public interface GuiElement<T extends GuiElement<T>> {
     Minecraft getMinecraft();
 
     GuiContainer getContainer();
-    T setContainer(GuiContainer container);
+    void setContainer(GuiContainer container);
 
     void layout(ReadableDimension size, RenderInfo renderInfo);
     void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo);

@@ -1,4 +1,4 @@
-package com.replaymod.render.rendering;
+package github.com.gengyoubo.replayneo.feature.render.rendering;
 
 import com.replaymod.render.RenderSettings;
 import com.replaymod.render.blend.BlendFrameCapturer;
@@ -25,25 +25,16 @@ import com.replaymod.render.processor.OpenGlToBitmapProcessor;
 import com.replaymod.render.processor.StereoscopicToBitmapProcessor;
 import com.replaymod.render.utils.PixelBufferObject;
 
-import java.util.Map;
-
 public class Pipelines {
     public static Pipeline newPipeline(RenderSettings.RenderMethod method, RenderInfo renderInfo, FrameConsumer<BitmapFrame> consumer) {
-        switch (method) {
-            case DEFAULT:
-                return newDefaultPipeline(renderInfo, consumer);
-            case STEREOSCOPIC:
-                return newStereoscopicPipeline(renderInfo, consumer);
-            case CUBIC:
-                return newCubicPipeline(renderInfo, consumer);
-            case EQUIRECTANGULAR:
-                return newEquirectangularPipeline(renderInfo, consumer);
-            case ODS:
-                return newODSPipeline(renderInfo, consumer);
-            case BLEND:
-                throw new UnsupportedOperationException("Use newBlendPipeline instead!");
-        }
-        throw new UnsupportedOperationException("Unknown method: " + method);
+        return switch (method) {
+            case DEFAULT -> newDefaultPipeline(renderInfo, consumer);
+            case STEREOSCOPIC -> newStereoscopicPipeline(renderInfo, consumer);
+            case CUBIC -> newCubicPipeline(renderInfo, consumer);
+            case EQUIRECTANGULAR -> newEquirectangularPipeline(renderInfo, consumer);
+            case ODS -> newODSPipeline(renderInfo, consumer);
+            case BLEND -> throw new UnsupportedOperationException("Use newBlendPipeline instead!");
+        };
     }
 
     public static Pipeline<OpenGlFrame, BitmapFrame> newDefaultPipeline(RenderInfo renderInfo, FrameConsumer<BitmapFrame> consumer) {
@@ -117,13 +108,6 @@ public class Pipelines {
         WorldRenderer worldRenderer = new EntityRendererHandler(settings, renderInfo);
         FrameCapturer<BitmapFrame> capturer = new BlendFrameCapturer(worldRenderer, renderInfo);
         FrameConsumer<BitmapFrame> consumer = new FrameConsumer<BitmapFrame>() {
-            @Override
-            public void consume(Map<Channel, BitmapFrame> channels) {
-            }
-
-            @Override
-            public void close() {
-            }
 
             @Override
             public boolean isParallelCapable() {

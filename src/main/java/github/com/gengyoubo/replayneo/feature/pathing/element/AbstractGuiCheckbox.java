@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import de.johni0702.minecraft.gui.GuiRenderer;
 import de.johni0702.minecraft.gui.RenderInfo;
@@ -107,9 +107,9 @@ public abstract class AbstractGuiCheckbox<T extends AbstractGuiCheckbox<T>>
     }
 
     @Override
-    public T setChecked(boolean checked) {
+    public void setChecked(boolean checked) {
         this.checked = checked;
-        return getThis();
+        getThis();
     }
 
     public String getLabel() {

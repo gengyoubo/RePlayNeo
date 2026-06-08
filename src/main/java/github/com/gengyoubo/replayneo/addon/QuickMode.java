@@ -25,14 +25,12 @@ public class QuickMode extends EventRegistrations implements Extra {
                 return;
             }
             replayHandler.getReplaySender().setSyncModeAndWait();
-            mod.runLaterWithoutLock(() -> {
-                replayHandler.ensureQuickModeInitialized(() -> {
-                    boolean enabled = !replayHandler.isQuickMode();
-                    updateIndicator(replayHandler.getOverlay(), enabled);
-                    replayHandler.setQuickMode(enabled);
-                    replayHandler.getReplaySender().setAsyncMode(true);
-                });
-            });
+            mod.runLaterWithoutLock(() -> replayHandler.ensureQuickModeInitialized(() -> {
+                boolean enabled = !replayHandler.isQuickMode();
+                updateIndicator(replayHandler.getOverlay(), enabled);
+                replayHandler.setQuickMode(enabled);
+                replayHandler.getReplaySender().setAsyncMode(true);
+            }));
         }, true);
 
         register();

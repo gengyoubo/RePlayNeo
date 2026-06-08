@@ -1,4 +1,4 @@
-package com.replaymod.render;
+package github.com.gengyoubo.replayneo.feature.render;
 
 import com.replaymod.core.Module;
 import com.replaymod.core.ReplayMod;
@@ -11,7 +11,6 @@ import com.replaymod.replaystudio.replay.ReplayFile;
 import de.johni0702.minecraft.gui.container.VanillaGuiScreen;
 import de.johni0702.minecraft.gui.utils.EventRegistrations;
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
@@ -24,11 +23,11 @@ import net.minecraft.ReportedException;
 
 public class ReplayModRender extends EventRegistrations implements Module {
     { instance = this; }
-    public static ReplayModRender instance;
+    public static final ReplayModRender instance;
 
-    private ReplayMod core;
+    private final ReplayMod core;
 
-    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     private ReplayFile replayFile;
     private final List<RenderJob> renderQueue = new ArrayList<>();

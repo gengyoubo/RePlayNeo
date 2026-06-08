@@ -1,4 +1,4 @@
-package com.replaymod.replay.camera;
+package github.com.gengyoubo.replayneo.feature.replay.camera;
 
 import com.replaymod.core.KeyBindingRegistry;
 import com.replaymod.core.ReplayMod;
@@ -40,8 +40,11 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.NotNull;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -266,7 +269,7 @@ public class CameraEntity
 
     @Override
     public boolean isEyeInFluid(
-            TagKey<Fluid> fluid
+            @NotNull TagKey<Fluid> fluid
     ) {
         return falseUnlessSpectating(entity -> entity.isEyeInFluid(fluid));
     }
@@ -328,13 +331,13 @@ public class CameraEntity
     public boolean isInvisible() {
         Entity view = this.minecraft.getCameraEntity();
         if (view != this) {
-            return view.isInvisible();
+            return Objects.requireNonNull(view).isInvisible();
         }
         return super.isInvisible();
     }
 
     @Override
-    public ResourceLocation getSkinTextureLocation() {
+    public @NotNull ResourceLocation getSkinTextureLocation() {
         Entity view = this.minecraft.getCameraEntity();
         if (view != this && view instanceof AbstractClientPlayer) {
             return ((AbstractClientPlayer) view).getSkinTextureLocation();
@@ -343,7 +346,7 @@ public class CameraEntity
     }
 
     @Override
-    public String getModelName() {
+    public @NotNull String getModelName() {
         Entity view = this.minecraft.getCameraEntity();
         if (view != this && view instanceof AbstractClientPlayer) {
             return ((AbstractClientPlayer) view).getModelName();
@@ -352,7 +355,7 @@ public class CameraEntity
     }
 
     @Override
-    public boolean isModelPartShown(PlayerModelPart modelPart) {
+    public boolean isModelPartShown(@NotNull PlayerModelPart modelPart) {
         Entity view = this.minecraft.getCameraEntity();
         if (view != this && view instanceof Player) {
             return ((Player) view).isModelPartShown(modelPart);
@@ -361,7 +364,7 @@ public class CameraEntity
     }
 
     @Override
-    public HumanoidArm getMainArm() {
+    public @NotNull HumanoidArm getMainArm() {
         Entity view = this.minecraft.getCameraEntity();
         if (view != this && view instanceof Player) {
             return ((Player) view).getMainArm();
@@ -398,7 +401,7 @@ public class CameraEntity
     }
 
     @Override
-    public InteractionHand getUsedItemHand() {
+    public @NotNull InteractionHand getUsedItemHand() {
         Entity view = this.minecraft.getCameraEntity();
         if (view != this && view instanceof Player) {
             return ((Player) view).getUsedItemHand();
@@ -416,17 +419,16 @@ public class CameraEntity
     }
 
     @Override
-    public void onEquipItem(EquipmentSlot slot, ItemStack stack, ItemStack itemStack) {
+    public void onEquipItem(@NotNull EquipmentSlot slot, @NotNull ItemStack stack, @NotNull ItemStack itemStack) {
         // Suppress equip sounds
     }
 
     @Override
-    public HitResult pick(double maxDistance, float tickDelta, boolean fluids) {
+    public @NotNull HitResult pick(double maxDistance, float tickDelta, boolean fluids) {
         HitResult result = super.pick(maxDistance, tickDelta, fluids);
 
         // Make sure we can never look at blocks (-> no outline)
-        if (result instanceof BlockHitResult) {
-            BlockHitResult blockResult = (BlockHitResult) result;
+        if (result instanceof BlockHitResult blockResult) {
             result = BlockHitResult.miss(result.getLocation(), blockResult.getDirection(), blockResult.getBlockPos());
         }
 
@@ -435,7 +437,7 @@ public class CameraEntity
 
 
     @Override
-    public void remove(RemovalReason reason) {
+    public void remove(@NotNull RemovalReason reason) {
         super.remove(reason);
         if (eventHandler != null) {
             eventHandler.unregister();
@@ -462,10 +464,10 @@ public class CameraEntity
 
         Map<String, KeyBindingRegistry.Binding> keyBindings = ReplayMod.instance.getKeyBindingRegistry().getBindings();
         if (keyBindings.get("replaymod.input.rollclockwise").keyBinding.isDown()) {
-            roll += Utils.isCtrlDown() ? 0.2 : 1;
+            roll += Utils.isCtrlDown() ? (float) 0.2 : 1;
         }
         if (keyBindings.get("replaymod.input.rollcounterclockwise").keyBinding.isDown()) {
-            roll -= Utils.isCtrlDown() ? 0.2 : 1;
+            roll -= Utils.isCtrlDown() ? (float) 0.2 : 1;
         }
 
         this.noPhysics = this.isSpectator();
@@ -517,10 +519,10 @@ public class CameraEntity
     }
 
     /**
-     * Minecraft renders the arm offset based on the difference between {@link #yaw} and {@link #yBob}. It does not
-     * wrap around the difference though, so if {@link #yaw} just wrapped around from 350 to 10 but {@link #yBob}
+     * Minecraft renders the arm offset based on the difference between  and {@link #yBob}. It does not
+     * wrap around the difference though, so if  just wrapped around from 350 to 10 but {@link #yBob}
      * is still at 355, then the difference will be inappropriately large. To fix this, we always wrap the
-     * {@link #yBob} such that it is no more than 180 degrees away from {@link #yaw}, even if that requires going
+     * {@link #yBob} such that it is no more than 180 degrees away from , even if that requires going
      * outside the normal range.
      */
     private void wrapArmYaw() {
@@ -592,10 +594,9 @@ public class CameraEntity
         private boolean onRenderHand() {
             // Unless we are spectating another player, don't render our hand
             Entity view = mc.getCameraEntity();
-            if (view == CameraEntity.this || !(view instanceof Player)) {
+            if (view == CameraEntity.this || !(view instanceof Player player)) {
                 return true; // cancel hand rendering
             } else {
-                Player player = (Player) view;
                 // When the spectated player has changed, force equip their items to prevent the equip animation
                 if (lastHandRendered != player) {
                     lastHandRendered = player;
@@ -609,7 +610,7 @@ public class CameraEntity
                     acc.setItemStackOffHand(player.getItemBySlot(EquipmentSlot.OFFHAND));
 
 
-                    mc.player.yBob = mc.player.yBobO = player.getYRot();
+                    Objects.requireNonNull(mc.player).yBob = mc.player.yBobO = player.getYRot();
                     mc.player.xBob = mc.player.xBobO = player.getXRot();
                 }
                 return false;

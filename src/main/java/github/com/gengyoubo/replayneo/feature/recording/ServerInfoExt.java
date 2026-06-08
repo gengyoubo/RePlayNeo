@@ -1,4 +1,4 @@
-package com.replaymod.recording;
+package github.com.gengyoubo.replayneo.feature.recording;
 
 import net.minecraft.client.multiplayer.ServerData;
 
@@ -9,9 +9,9 @@ public interface ServerInfoExt {
         return (ServerInfoExt) base;
     }
 
-    /** Per-server optional overwrite for {@link Setting#AUTO_START_RECORDING}. */
+    /** Per-server optional overwrite for . */
     Boolean getAutoRecording();
 
-    /** Per-server optional overwrite for {@link Setting#AUTO_START_RECORDING}. */
+    /** Per-server optional overwrite for . */
     void setAutoRecording(Boolean autoRecording);
 }

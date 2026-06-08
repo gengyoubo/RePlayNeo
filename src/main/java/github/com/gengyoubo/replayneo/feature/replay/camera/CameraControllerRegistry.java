@@ -1,4 +1,4 @@
-package com.replaymod.replay.camera;
+package github.com.gengyoubo.replayneo.feature.replay.camera;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;

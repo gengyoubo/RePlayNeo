@@ -1,4 +1,4 @@
-package com.replaymod.pathing.player;
+package github.com.gengyoubo.replayneo.feature.pathing.player;
 
 import de.johni0702.minecraft.gui.utils.Event;
 import net.minecraft.client.Timer;

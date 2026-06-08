@@ -5,7 +5,6 @@ import com.replaymod.core.ReplayMod;
 import com.replaymod.extras.advancedscreenshots.AdvancedScreenshots;
 import com.replaymod.extras.playeroverview.PlayerOverview;
 import github.com.gengyoubo.replayneo.addon.youtube.YoutubeUpload;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
@@ -16,7 +15,7 @@ import java.util.Optional;
 
 public class ReplayModExtras implements Module {
     { instance = this; }
-    public static ReplayModExtras instance;
+    public static final ReplayModExtras instance;
 
     private static final List<Class<? extends Extra>> builtin = Arrays.asList(
             AdvancedScreenshots.class,
@@ -29,7 +28,7 @@ public class ReplayModExtras implements Module {
 
     private final Map<Class<? extends Extra>, Extra> instances = new HashMap<>();
 
-    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     public ReplayModExtras(ReplayMod core) {
         core.getSettingsRegistry().register(Setting.class);
@@ -43,7 +42,7 @@ public class ReplayModExtras implements Module {
                 extra.register(ReplayMod.instance);
                 instances.put(cls, extra);
             } catch (Throwable t) {
-                LOGGER.warn("Failed to load extra " + cls.getName() + ": ", t);
+                LOGGER.warn("Failed to load extra {}: ", cls.getName(), t);
             }
         }
     }

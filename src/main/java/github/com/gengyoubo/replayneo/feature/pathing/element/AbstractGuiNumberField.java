@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.johni0702.minecraft.gui.element;
+package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import com.google.common.base.Preconditions;
 import de.johni0702.minecraft.gui.container.GuiContainer;
@@ -55,11 +55,11 @@ public abstract class AbstractGuiNumberField<T extends AbstractGuiNumberField<T>
     }
 
     @Override
-    public T setText(String text) {
+    public void setText(String text) {
         if (!isTextValid(text, !validateOnFocusChange)) {
             throw new IllegalArgumentException(text + " is not a valid number!");
         }
-        return super.setText(text);
+        super.setText(text);
     }
 
     @Override
@@ -153,15 +153,15 @@ public abstract class AbstractGuiNumberField<T extends AbstractGuiNumberField<T>
     }
 
     @Override
-    public T setValue(int value) {
+    public void setValue(int value) {
         setText(Integer.toString(value));
-        return getThis();
+        getThis();
     }
 
     @Override
-    public T setValue(double value) {
+    public void setValue(double value) {
         setText(String.format(Locale.ROOT, "%." + precision + "f", value));
-        return getThis();
+        getThis();
     }
 
     @Override
