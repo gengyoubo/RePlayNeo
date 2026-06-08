@@ -1,0 +1,26 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.fabricmc:fabric-loom:1.14.10'
+    }
+}
+
+apply plugin: 'fabric-loom'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.fabricmc.net/' }
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+dependencies {
+    minecraft "com.mojang:minecraft:1.20.1"
+    mappings "net.fabricmc:yarn:1.20.1+build.10:v2"
+    modCompileOnly "net.fabricmc:fabric-loader:0.15.0"
+    modCompileOnly "net.fabricmc.fabric-api:fabric-api:0.92.2+1.20.1"
+}
