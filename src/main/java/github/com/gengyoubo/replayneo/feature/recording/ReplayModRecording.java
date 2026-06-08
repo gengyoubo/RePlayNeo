@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 
 import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.PacketFlow;
 
 
 public class ReplayModRecording implements Module {
@@ -55,6 +56,10 @@ public class ReplayModRecording implements Module {
 
 
     public void initiateRecording(Connection networkManager) {
+        if (networkManager.getReceiving() != PacketFlow.CLIENTBOUND) {
+            LOGGER.warn("Skipping recording setup for non-clientbound connection: {}", networkManager.getReceiving());
+            return;
+        }
         Channel channel = ((NetworkManagerAccessor) networkManager).getChannel();
         if (channel.pipeline().get(ReplayHandler.PACKET_HANDLER_NAME) != null) return;
         if (channel.hasAttr(ATTR_CHECKED)) return;

@@ -34,6 +34,9 @@ public abstract class ClientHandshakePacketListenerImplMixin {
 
     @Unique
     private void rePlay$initiateRecording(Packet<?> packet) {
+        if (this.connection.isMemoryConnection()) {
+            return;
+        }
         RecordingEventSender eventSender = (RecordingEventSender) MCVer.getMinecraft().levelRenderer;
         if (eventSender.getRecordingEventHandler() != null) {
             return; // already recording

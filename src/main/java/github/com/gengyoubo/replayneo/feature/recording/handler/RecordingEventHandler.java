@@ -10,6 +10,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket;
 import net.minecraft.network.protocol.game.ClientboundAnimatePacket;
@@ -68,6 +69,14 @@ public class RecordingEventHandler extends EventRegistrations {
 
     public void onPacket(Packet<?> packet) {
         packetListener.save(packet);
+    }
+
+    public void onPacket(Connection connection, Packet<?> packet) {
+        packetListener.saveObservedPacket(connection, packet);
+    }
+
+    public void onDisconnected() {
+        packetListener.close();
     }
 
     public void spawnRecordingPlayer() {

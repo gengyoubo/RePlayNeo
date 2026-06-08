@@ -1,6 +1,7 @@
 package github.com.gengyoubo.replayneo.mixin;
 
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.feature.recording.ReplayModRecording;
 import github.com.gengyoubo.replayneo.feature.recording.handler.RecordingEventHandler;
 import github.com.gengyoubo.replayneo.feature.replay.ext.EntityExt;
 import java.util.Map;
@@ -8,6 +9,8 @@ import java.util.UUID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundLoginPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.network.protocol.game.ClientboundRespawnPacket;
 import net.minecraft.world.entity.Entity;
@@ -30,6 +33,10 @@ public abstract class ClientPacketListenerMixin {
     @Final
     @Shadow
     private Map<UUID, PlayerInfo> playerInfoMap;
+
+    @Final
+    @Shadow
+    private Connection connection;
 
     @Unique
     private Entity replayMod$entity;
@@ -84,6 +91,21 @@ public abstract class ClientPacketListenerMixin {
     @Unique
     public RecordingEventHandler rePlay$getRecordingEventHandler() {
         return ((RecordingEventHandler.RecordingEventSender) rePlay$mcStatic.levelRenderer).getRecordingEventHandler();
+    }
+
+    @Inject(method = "handleLogin", at = @At("HEAD"))
+    private void replayneo$initiateLocalRecording(ClientboundLoginPacket packet, CallbackInfo ci) {
+        if (!this.connection.isMemoryConnection()) {
+            return;
+        }
+        if (rePlay$getRecordingEventHandler() != null) {
+            return;
+        }
+        ReplayModRecording.instance.initiateRecording(this.connection);
+        RecordingEventHandler handler = rePlay$getRecordingEventHandler();
+        if (handler != null) {
+            handler.onPacket(packet);
+        }
     }
 
     @Inject(method = "handlePlayerInfoUpdate", at = @At("HEAD"))

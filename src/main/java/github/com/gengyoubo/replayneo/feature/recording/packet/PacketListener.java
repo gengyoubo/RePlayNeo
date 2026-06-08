@@ -97,6 +97,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private long lastSentPacket;
     private long timePassedWhilePaused;
     private volatile boolean serverWasPaused;
+    private volatile boolean closed;
 
     /**
      * Used to keep track of the last metadata save job submitted to the save service and
@@ -146,14 +147,42 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     }
 
     public void save(net.minecraft.network.protocol.Packet packet) {
-        Packet encoded;
         try {
-            encoded = encodeMcPacket(getConnectionState(), packet);
+            for (Packet encoded : encodeObservedPackets(packet)) {
+                save(encoded);
+            }
         } catch (Exception e) {
             logger.error("Encoding packet:", e);
+        }
+    }
+
+    public void saveObservedPacket(Connection connection, net.minecraft.network.protocol.Packet<?> packet) {
+        if (packet instanceof ClientboundHelloPacket) {
             return;
         }
-        save(encoded);
+        if (packet instanceof ClientboundLoginCompressionPacket) {
+            return;
+        }
+
+        if (packet instanceof ClientboundCustomPayloadPacket customPayloadPacket
+                && Restrictions.PLUGIN_CHANNEL.equals(customPayloadPacket.getIdentifier())) {
+            save(new ClientboundDisconnectPacket(Component.literal("Please update to view this replay.")));
+        }
+
+        if (packet instanceof ClientboundAddPlayerPacket addPlayerPacket) {
+            UUID uuid = addPlayerPacket.getPlayerId();
+            Set<String> uuids = new HashSet<>(Arrays.asList(metaData.getPlayers()));
+            uuids.add(uuid.toString());
+            metaData.setPlayers(uuids.toArray(new String[0]));
+            saveMetaData();
+        }
+
+        if (packet instanceof ClientboundResourcePackPacket resourcePackPacket) {
+            save(resourcePackRecorder.handleResourcePack(connection, resourcePackPacket));
+            return;
+        }
+
+        save(packet);
     }
 
     public void save(Packet packet) {
@@ -208,6 +237,15 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
+        close();
+    }
+
+    public void close() {
+        if (closed) {
+            return;
+        }
+        closed = true;
+
         metaData.setDuration((int) lastSentPacket);
         saveMetaData();
 
@@ -294,15 +332,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         } else if (msg instanceof net.minecraft.network.protocol.Packet) {
             // for integrated server connections MC is passing the packet objects directly, so we need to encode them
             // ourselves to be able to store them
-            BundlerInfo bundleHandler = ctx.channel().attr(BundlerInfo.BUNDLER_PROVIDER).get().getBundlerInfo(PacketFlow.CLIENTBOUND);
-            List<Packet> packets = new ArrayList<>(1);
-            bundleHandler.unbundlePacket((net.minecraft.network.protocol.Packet<?>) msg, unbundledPacket -> {
-                try {
-                    packets.add(encodeMcPacket(connectionState, unbundledPacket));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
+            List<Packet> packets = encodeObservedPackets((net.minecraft.network.protocol.Packet<?>) msg);
             if (packets.size() > 1) {
                 packets.forEach(this::save);
                 super.channelRead(ctx, msg);
@@ -344,6 +374,28 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         } finally {
             byteBuf.release();
         }
+    }
+
+    private List<Packet> encodeObservedPackets(net.minecraft.network.protocol.Packet<?> packet) throws Exception {
+        BundlerInfo.Provider bundlerProvider = channel.attr(BundlerInfo.BUNDLER_PROVIDER).get();
+        if (bundlerProvider == null) {
+            return Collections.singletonList(encodeMcPacket(getConnectionState(), packet));
+        }
+
+        BundlerInfo bundlerInfo = bundlerProvider.getBundlerInfo(PacketFlow.CLIENTBOUND);
+        if (bundlerInfo == null) {
+            return Collections.singletonList(encodeMcPacket(getConnectionState(), packet));
+        }
+
+        List<Packet> packets = new ArrayList<>(1);
+        bundlerInfo.unbundlePacket(packet, unbundledPacket -> {
+            try {
+                packets.add(encodeMcPacket(getConnectionState(), unbundledPacket));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return packets;
     }
 
     private static Packet decodePacket(ConnectionProtocol connectionState, ByteBuf buf) {
