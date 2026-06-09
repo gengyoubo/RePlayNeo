@@ -26,8 +26,8 @@ import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -38,7 +38,7 @@ public class KeyBindingRegistry extends EventRegistrations {
     private static final String CATEGORY = "replaymod.title";
     private static final List<KeyMapping> PENDING_KEY_MAPPINGS = new ArrayList<>();
 
-    private final Map<String, Binding> bindings = new HashMap<>();
+    private final Map<String, Binding> bindings = new LinkedHashMap<>();
     private final Set<KeyMapping> onlyInReplay = new HashSet<>();
     private final Multimap<Integer, Function<KeyInput, Boolean>> rawHandlers = ArrayListMultimap.create();
 
@@ -103,6 +103,20 @@ public class KeyBindingRegistry extends EventRegistrations {
             while (binding.keyBinding.consumeClick()) {
                 invokeKeyBindingHandlers(binding, binding.handlers);
                 invokeKeyBindingHandlers(binding, binding.repeatedHandlers);
+                drainConflictingReplayKeyClicks(binding);
+            }
+        }
+    }
+
+    private void drainConflictingReplayKeyClicks(Binding handledBinding) {
+        for (Binding binding : bindings.values()) {
+            if (binding == handledBinding) {
+                continue;
+            }
+            if (binding.keyBinding.same(handledBinding.keyBinding)) {
+                while (binding.keyBinding.consumeClick()) {
+                    // Drain duplicate replay-only clicks so one physical key does not trigger multiple replay actions.
+                }
             }
         }
     }

@@ -15,8 +15,9 @@ public abstract class ForgeGuiMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void replayneo$skipHudRender(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (((EntityRendererHandler.IEntityRenderer) minecraft.gameRenderer).replayModRender_getHandler() != null
-                || minecraft.level != null && minecraft.player == null) {
+        if (((EntityRendererHandler.IEntityRenderer) minecraft.gameRenderer).replayModRender_getHandler() != null) {
+            ci.cancel();
+        } else if (minecraft.level != null && minecraft.player == null) {
             RenderHudCallback.EVENT.invoker().renderHud(guiGraphics, partialTick);
             ci.cancel();
         }

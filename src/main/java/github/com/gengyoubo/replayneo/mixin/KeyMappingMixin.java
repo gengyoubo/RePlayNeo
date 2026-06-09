@@ -39,8 +39,11 @@ public class KeyMappingMixin {
         if (ReplayModReplay.instance.getReplayHandler() != null) {
             // In replay, remove any conflicting key bindings, so that ours are guaranteed in
             rePlay$keyBindings().removeIf(KeyMapping -> {
+                if (onlyInReplay.contains(KeyMapping)) {
+                    return false;
+                }
                 for (KeyMapping exclusiveBinding : onlyInReplay) {
-                    if (KeyMapping.equals(exclusiveBinding) && KeyMapping != exclusiveBinding) {
+                    if (KeyMapping.same(exclusiveBinding) && KeyMapping != exclusiveBinding) {
                         rePlay$temporarilyRemoved.add(KeyMapping);
                         return true;
                     }
