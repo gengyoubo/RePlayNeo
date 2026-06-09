@@ -188,7 +188,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
                 onGuiClosed();
                 return false;
             }
-            return getSuperMcGui().mouseClicked(click.x, click.y, click.button);
+            return getSuperMcGui().mouseClicked(click.getX(), click.getY(), click.button());
         }
 
         @Override
@@ -197,7 +197,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
                 onGuiClosed();
                 return false;
             }
-            return getSuperMcGui().mouseDragged(click.x, click.y, click.button, dx, dy);
+            return getSuperMcGui().mouseDragged(click.getX(), click.getY(), click.button(), dx, dy);
         }
 
         @Override
@@ -206,7 +206,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
                 onGuiClosed();
                 return false;
             }
-            return getSuperMcGui().mouseReleased(click.x, click.y, click.button);
+            return getSuperMcGui().mouseReleased(click.getX(), click.getY(), click.button());
         }
 
         @Override
@@ -253,3 +253,4 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
         }
     }
 }
+

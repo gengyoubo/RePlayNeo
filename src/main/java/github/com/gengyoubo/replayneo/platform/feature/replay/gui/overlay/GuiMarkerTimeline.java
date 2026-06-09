@@ -150,14 +150,14 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
 
     @Override
     public boolean mouseClick(Click click) {
-        Marker marker = getMarkerAt(click.x, click.y);
+        Marker marker = getMarkerAt(click.getX(), click.getY());
         if (marker != null) {
-            if (click.button == 0) { // Left click
+            if (click.button() == 0) { // Left click
                 long now = System.currentTimeMillis();
                 selectedMarker = marker;
                 if (Math.abs(lastClickTime - now) > 500) { // Single click
-                    draggingStartX = click.x;
-                    draggingTimeDelta = marker.getTime() - getTimeAt(click.x, click.y);
+                    draggingStartX = click.getX();
+                    draggingTimeDelta = marker.getTime() - getTimeAt(click.getX(), click.getY());
                 } else { // Double click
                     new GuiEditMarkerPopup(getContainer(), marker, (updatedMarker) -> {
                         markers.remove(marker);
@@ -166,7 +166,7 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
                     }).open();
                 }
                 lastClickTime = now;
-            } else if (click.button == 1) { // Right click
+            } else if (click.button() == 1) { // Right click
                 selectedMarker = null;
                 if (replayHandler != null) {
                     CameraEntity cameraEntity = replayHandler.getCameraEntity();
@@ -190,12 +190,12 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
 
     public boolean mouseDrag(Click click) {
         if (selectedMarker != null) {
-            int diff = click.y - draggingStartX;
+            int diff = click.getY() - draggingStartX;
             if (Math.abs(diff) > MARKER_SIZE) {
                 dragging = true;
             }
             if (dragging) {
-                int timeAt = getTimeAt(click.x, click.y);
+                int timeAt = getTimeAt(click.getX(), click.getY());
                 if (timeAt != -1) {
                     selectedMarker.setTime(draggingTimeDelta + timeAt);
                 }
@@ -255,3 +255,4 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
         return super.getLastSize();
     }
 }
+

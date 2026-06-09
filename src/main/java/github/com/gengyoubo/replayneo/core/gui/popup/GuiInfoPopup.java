@@ -24,6 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.popup;
 
+import github.com.gengyoubo.replayneo.core.function.MouseClick;
+
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
@@ -96,7 +98,7 @@ public class GuiInfoPopup extends AbstractGuiPopup<GuiInfoPopup> implements KeyH
     @Override
     public boolean handleKey(KeyInput keyInput) {
         if (keyInput.isEscape()) {
-            closeButton.onClick(new Click(-1, -1, 0, keyInput.modifiers()));
+            closeButton.onClick(new MouseClick(-1, -1, 0, keyInput.modifiers()));
             return true;
         }
         return false;
@@ -118,3 +120,4 @@ public class GuiInfoPopup extends AbstractGuiPopup<GuiInfoPopup> implements KeyH
         this.layer = layer;
     }
 }
+

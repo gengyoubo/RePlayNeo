@@ -297,7 +297,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
         }
         boolean hovering = isMouseHovering(position);
 
-        if (hovering && isFocused() && click.button == 0) {
+        if (hovering && isFocused() && click.button() == 0) {
             updateCurrentOffset();
             int mouseX = position.getX() - BORDER;
             Font fontRenderer = MCVer.getFontRenderer();
@@ -634,3 +634,4 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
         return this.hint;
     }
 }
+

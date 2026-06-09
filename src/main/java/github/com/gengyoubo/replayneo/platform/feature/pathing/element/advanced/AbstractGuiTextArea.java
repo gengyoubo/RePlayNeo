@@ -371,7 +371,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
         }
         boolean hovering = isMouseHovering(position);
 
-        if (hovering && isFocused() && click.button == 0) {
+        if (hovering && isFocused() && click.button() == 0) {
             updateCurrentOffset();
             int mouseX = position.getX() - BORDER;
             int mouseY = position.getY() - BORDER;
@@ -730,3 +730,4 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
         return this.maxCharCount;
     }
 }
+

@@ -25,43 +25,7 @@
 package github.com.gengyoubo.replayneo.api.function;
 
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import de.johni0702.minecraft.gui.utils.lwjgl.WritablePoint;
 
-public class Click implements InputWithModifiers, ReadablePoint {
-    public int x;
-    public int y;
-    public int button;
-    public int modifiers;
-
-    public Click(int x, int y, int button, int modifiers) {
-        this.x = x;
-        this.y = y;
-        this.button = button;
-        this.modifiers = modifiers;
-    }
-
-    public Click(double x, double y, int button) {
-        this((int) Math.round(x), (int) Math.round(y), button, InputWithModifiers.currentModifiers());
-    }
-
-
-    @Override
-    public int modifiers() {
-        return modifiers;
-    }
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-
-    @Override
-    public void getLocation(WritablePoint writablePoint) {
-        writablePoint.setLocation(x, y);
-    }
+public interface Click extends InputWithModifiers, ReadablePoint {
+    int button();
 }

@@ -24,6 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.container;
 
+import github.com.gengyoubo.replayneo.core.function.MouseClick;
+
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.MinecraftGuiRenderer;
 import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
@@ -223,21 +225,21 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
 
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-            Click click = new Click(mouseX, mouseY, mouseButton);
+            Click click = new MouseClick(mouseX, mouseY, mouseButton);
             return
             invokeHandlers(Clickable.class, e -> e.mouseClick(click));
         }
 
         @Override
         public boolean mouseReleased(double mouseX, double mouseY, int mouseButton) {
-            Click click = new Click(mouseX, mouseY, mouseButton);
+            Click click = new MouseClick(mouseX, mouseY, mouseButton);
             return
             invokeHandlers(Draggable.class, e -> e.mouseRelease(click));
         }
 
         @Override
         public boolean mouseDragged(double mouseX, double mouseY, int mouseButton, double deltaX, double deltaY) {
-            Click click = new Click(mouseX, mouseY, mouseButton);
+            Click click = new MouseClick(mouseX, mouseY, mouseButton);
             return
             invokeHandlers(Draggable.class, e -> e.mouseDrag(click));
         }
@@ -280,3 +282,4 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
         NONE, DEFAULT, TRANSPARENT, DIRT
     }
 }
+

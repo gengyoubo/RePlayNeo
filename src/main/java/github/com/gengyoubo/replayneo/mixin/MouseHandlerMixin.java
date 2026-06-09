@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.mixin;
 
+import github.com.gengyoubo.replayneo.core.function.MouseClick;
+
 import github.com.gengyoubo.replayneo.api.events.KeyBindingEventCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.InputReplayTimer;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
@@ -41,7 +43,7 @@ public abstract class MouseHandlerMixin {
         if (this.minecraft.screen == null) {
             return;
         }
-        Click click = new Click(this.replayneo$scaledMouseX(this.xpos), this.replayneo$scaledMouseY(this.ypos), button);
+        Click click = new MouseClick(this.replayneo$scaledMouseX(this.xpos), this.replayneo$scaledMouseY(this.ypos), button);
         if (action == 1 && MouseCallback.EVENT.invoker().mouseDown(click)) {
             ci.cancel();
         } else if (action == 0 && MouseCallback.EVENT.invoker().mouseUp(click)) {
@@ -63,7 +65,7 @@ public abstract class MouseHandlerMixin {
         double scaledY = this.replayneo$scaledMouseY(y);
         double scaledPreviousX = this.replayneo$scaledMouseX(this.xpos);
         double scaledPreviousY = this.replayneo$scaledMouseY(this.ypos);
-        if (MouseCallback.EVENT.invoker().mouseDrag(new Click(scaledX, scaledY, this.activeButton), scaledX - scaledPreviousX, scaledY - scaledPreviousY)) {
+        if (MouseCallback.EVENT.invoker().mouseDrag(new MouseClick(scaledX, scaledY, this.activeButton), scaledX - scaledPreviousX, scaledY - scaledPreviousY)) {
             ci.cancel();
         }
     }
@@ -112,3 +114,4 @@ public abstract class MouseHandlerMixin {
         }
     }
 }
+

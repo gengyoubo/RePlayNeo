@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay;
 
+import github.com.gengyoubo.replayneo.core.function.MouseClick;
+
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -107,7 +109,7 @@ public class ReplayModReplay implements Module {
 
         keyPlayPause = registry.registerKeyBinding("replaymod.input.playpause", Keyboard.KEY_P, () -> {
             if (replayHandler != null) {
-                replayHandler.getOverlay().playPauseButton.onClick(new Click(-1, -1, 0, 0));
+                replayHandler.getOverlay().playPauseButton.onClick(new MouseClick(-1, -1, 0, 0));
             }
         }, true);
 
@@ -185,3 +187,4 @@ public class ReplayModReplay implements Module {
         return cameraControllerRegistry.create(controllerName, cameraEntity);
     }
 }
+

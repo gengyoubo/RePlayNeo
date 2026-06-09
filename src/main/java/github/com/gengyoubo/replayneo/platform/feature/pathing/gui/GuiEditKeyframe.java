@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.gui;
 
+import github.com.gengyoubo.replayneo.core.function.MouseClick;
+
 import github.com.gengyoubo.replayneo.core.pathing.properties.CameraProperties;
 import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
@@ -130,7 +132,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
     @Override
     public boolean handleKey(KeyInput keyInput) {
         if (keyInput.isEscape()) {
-            cancelButton.onClick(new Click(-1, -1, 0, keyInput.modifiers()));
+            cancelButton.onClick(new MouseClick(-1, -1, 0, keyInput.modifiers()));
             return true;
         }
         return false;
@@ -431,3 +433,4 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
         }
     }
 }
+

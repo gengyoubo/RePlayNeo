@@ -24,6 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.popup;
 
+import github.com.gengyoubo.replayneo.core.function.MouseClick;
+
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
@@ -82,7 +84,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
         @Override
         public void run() {
             if (acceptButton.isEnabled()) {
-                acceptButton.onClick(new Click(-1, -1, 0, 0));
+                acceptButton.onClick(new MouseClick(-1, -1, 0, 0));
             }
         }
     }).onTextChanged(oldName -> updateButton()).setMaxLength(Integer.MAX_VALUE);
@@ -298,7 +300,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
     @Override
     public boolean handleKey(KeyInput keyInput) {
         if (keyInput.isEscape()) {
-            cancelButton.onClick(new Click(-1, -1, 0, keyInput.modifiers()));
+            cancelButton.onClick(new MouseClick(-1, -1, 0, keyInput.modifiers()));
             return true;
         }
         return false;
@@ -312,3 +314,4 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
         return this.cancelButton;
     }
 }
+

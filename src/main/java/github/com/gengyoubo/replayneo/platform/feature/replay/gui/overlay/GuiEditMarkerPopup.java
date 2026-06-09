@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay;
 
+import github.com.gengyoubo.replayneo.core.function.MouseClick;
+
 import com.google.common.base.Strings;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
@@ -113,9 +115,10 @@ public class GuiEditMarkerPopup extends AbstractGuiPopup<GuiEditMarkerPopup> imp
     @Override
     public boolean handleKey(KeyInput keyInput) {
         if (keyInput.isEscape()) {
-            cancelButton.onClick(new Click(-1, -1, 0, keyInput.modifiers()));
+            cancelButton.onClick(new MouseClick(-1, -1, 0, keyInput.modifiers()));
             return true;
         }
         return false;
     }
 }
+

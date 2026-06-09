@@ -284,7 +284,7 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
 
     @Override
     public boolean mouseClick(Click click) {
-        int time = getTimeAt(click.x, click.y);
+        int time = getTimeAt(click.getX(), click.getY());
         if (time != -1) {
             onClick(time);
             return true;
@@ -357,3 +357,4 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
         return super.getLastSize();
     }
 }
+

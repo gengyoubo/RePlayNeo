@@ -1,4 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay.gui.screen;
+
+import github.com.gengyoubo.replayneo.core.function.MouseClick;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import com.google.common.util.concurrent.SettableFuture;
@@ -70,7 +72,7 @@ public class GuiReplayViewer extends GuiScreen {
 
     public final GuiReplayList list = new GuiReplayList(this).onSelectionChanged(this::updateButtons).onSelectionDoubleClicked(() -> {
         if (this.loadButton.isEnabled()) {
-            this.loadButton.onClick(new Click(-1, -1, 0, 0));
+            this.loadButton.onClick(new MouseClick(-1, -1, 0, 0));
         }
     });
 
@@ -133,7 +135,7 @@ public class GuiReplayViewer extends GuiScreen {
         ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
         nameField.onEnter(() -> {
             if (popup.getYesButton().isEnabled()) {
-                popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
+                popup.getYesButton().onClick(new MouseClick(-1, -1, 0, 0));
             }
         }).onTextChanged(obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
                 && Files.notExists(Utils.replayNameToPath(path.getParent(), nameField.getText()))));
@@ -555,3 +557,4 @@ public class GuiReplayViewer extends GuiScreen {
         }
     }
 }
+

@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.gui;
 
+import github.com.gengyoubo.replayneo.core.function.MouseClick;
+
 import com.google.common.util.concurrent.SettableFuture;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
@@ -86,7 +88,7 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
             ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
             nameField.onEnter(() -> {
                 if (popup.getYesButton().isEnabled()) {
-                    popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
+                    popup.getYesButton().onClick(new MouseClick(-1, -1, 0, 0));
                 }
             }).onTextChanged(obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
                     && !timelines.containsKey(nameField.getText())));
@@ -126,7 +128,7 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
             ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
             nameField.onEnter(() -> {
                 if (popup.getYesButton().isEnabled()) {
-                    popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
+                    popup.getYesButton().onClick(new MouseClick(-1, -1, 0, 0));
                 }
             }).onTextChanged(obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
                     && !timelines.containsKey(nameField.getText())));
@@ -346,10 +348,10 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
                     updateButtons();
                     return true;
                 case MCVer.Keyboard.KEY_C:
-                    copyButton.onClick(new Click(-1, -1, 0, 0));
+                    copyButton.onClick(new MouseClick(-1, -1, 0, 0));
                     return true;
                 case MCVer.Keyboard.KEY_V:
-                    pasteButton.onClick(new Click(-1, -1, 0, 0));
+                    pasteButton.onClick(new MouseClick(-1, -1, 0, 0));
                     return true;
             }
         }
@@ -405,3 +407,4 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
         }
     }
 }
+
