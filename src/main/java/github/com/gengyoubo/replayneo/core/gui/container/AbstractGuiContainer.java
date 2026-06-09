@@ -64,7 +64,7 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     public AbstractGuiContainer() {
     }
 
-    public AbstractGuiContainer(GuiContainer container) {
+    public AbstractGuiContainer(GuiContainer<?> container) {
         super(container);
     }
 
@@ -205,7 +205,7 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
                 MCVer.addDetail(category, "Position", ePosition::toString);
                 MCVer.addDetail(category, "Size", eSize::toString);
                 if (e.getKey() instanceof GuiContainer) {
-                    MCVer.addDetail(category, "Layout", () -> ((GuiContainer) e.getKey()).getLayout().toString());
+                    MCVer.addDetail(category, "Layout", () -> ((GuiContainer<?>) e.getKey()).getLayout().toString());
                 }
                 throw new ReportedException(crashReport);
             }

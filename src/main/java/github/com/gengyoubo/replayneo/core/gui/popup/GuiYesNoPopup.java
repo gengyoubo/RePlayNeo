@@ -50,13 +50,13 @@ public class GuiYesNoPopup extends AbstractGuiPopup<GuiYesNoPopup> implements Ke
     private Runnable onAccept = () -> {};
     private Runnable onReject = () -> {};
 
-    private final GuiButton yesButton = new GuiButton().setSize(150, 20).onClick((Runnable) () -> {
+    private final GuiButton yesButton = new GuiButton().setSize(150, 20).onClick(() -> {
         close();
         onAccept.run();
         onClosed.accept(true);
     });
 
-    private final GuiButton noButton = new GuiButton().setSize(150, 20).onClick((Runnable) () -> {
+    private final GuiButton noButton = new GuiButton().setSize(150, 20).onClick(() -> {
         close();
         onReject.run();
         onClosed.accept(false);
@@ -123,7 +123,7 @@ public class GuiYesNoPopup extends AbstractGuiPopup<GuiYesNoPopup> implements Ke
     @Override
     public boolean handleKey(KeyInput keyInput) {
         if (keyInput.isEscape()) {
-            noButton.onClick(new Click(-1, -1, 0, keyInput.modifiers));
+            noButton.onClick(new Click(-1, -1, 0, keyInput.modifiers()));
             return true;
         }
         return false;

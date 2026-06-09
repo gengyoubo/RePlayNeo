@@ -43,7 +43,7 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
 
     private final Minecraft minecraft = MCVer.getMinecraft();
 
-    private GuiContainer container;
+    private GuiContainer<?> container;
 
     private GuiElement tooltip;
 
@@ -60,7 +60,7 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
     public AbstractGuiElement() {
     }
 
-    public AbstractGuiElement(GuiContainer container) {
+    public AbstractGuiElement(GuiContainer<?> container) {
         container.addElements(null, this);
     }
 
@@ -124,7 +124,7 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
     }
 
     @Override
-    public T setContainer(GuiContainer container) {
+    public T setContainer(GuiContainer<?> container) {
         this.container = container;
         return getThis();
     }
@@ -208,7 +208,7 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
         return this.minecraft;
     }
 
-    public GuiContainer getContainer() {
+    public GuiContainer<?> getContainer() {
         return this.container;
     }
 

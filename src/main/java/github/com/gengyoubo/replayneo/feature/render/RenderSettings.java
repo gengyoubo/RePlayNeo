@@ -45,7 +45,6 @@ public class RenderSettings {
             return this == EQUIRECTANGULAR || this == ODS || this == CUBIC;
         }
 
-        @SuppressWarnings("RedundantIfStatement")
         public boolean isSupported() {
             return true;
         }

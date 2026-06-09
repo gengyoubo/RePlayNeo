@@ -235,93 +235,54 @@ public class DMesh {
         }
     }
 
-    public static class Edge {
-        public final int v1;
-        public final int v2;
-
-        public Edge(int v1, int v2) {
-            this.v1 = v1;
-            this.v2 = v2;
-        }
+    public record Edge(int v1, int v2) {
 
         public void serialize(MEdge mEdge) throws IOException {
-            mEdge.setV1(v1);
-            mEdge.setV2(v2);
+                mEdge.setV1(v1);
+                mEdge.setV2(v2);
+            }
         }
-    }
 
-    public static class Loop {
-        public final int vertex;
-        public final int edge;
-        public final float u;
-        public final float v;
-        public final int col;
-
-        public Loop(int vertex, int edge,
-                    float u, float v,
-                    int col) {
-            this.vertex = vertex;
-            this.edge = edge;
-            this.u = u;
-            this.v = v;
-            this.col = col;
-        }
+    public record Loop(int vertex, int edge, float u, float v, int col) {
 
         public void serialize(MLoop mLoop) throws IOException {
-            mLoop.setV(vertex);
-            mLoop.setE(edge);
+                mLoop.setV(vertex);
+                mLoop.setE(edge);
+            }
+
+            public void serialize(MLoopUV mLoop) throws IOException {
+                CArrayFacade<Float> uv = mLoop.getUv();
+                uv.set(0, u);
+                uv.set(1, v);
+            }
+
+            public void serialize(MLoopCol mLoop) throws IOException {
+                mLoop.setR((byte) ((col) & 0xff));
+                mLoop.setG((byte) ((col >> 8) & 0xff));
+                mLoop.setB((byte) ((col >> 16) & 0xff));
+                mLoop.setA((byte) ((col >> 24) & 0xff));
+            }
         }
 
-        public void serialize(MLoopUV mLoop) throws IOException {
-            CArrayFacade<Float> uv = mLoop.getUv();
-            uv.set(0, u);
-            uv.set(1, v);
+    public record Poly(int loopStart, int size, short materialSlot) {
+            public Poly(int loopStart, int size, int materialSlot) {
+                this(loopStart, size, (short) materialSlot);
+            }
+
+            public void serialize(MPoly mPoly) throws IOException {
+                mPoly.setLoopstart(loopStart);
+                mPoly.setTotloop(size);
+                mPoly.setMat_nr(materialSlot);
+            }
         }
 
-        public void serialize(MLoopCol mLoop) throws IOException {
-            mLoop.setR((byte) ((col      ) & 0xff));
-            mLoop.setG((byte) ((col >>  8) & 0xff));
-            mLoop.setB((byte) ((col >> 16) & 0xff));
-            mLoop.setA((byte) ((col >> 24) & 0xff));
-        }
-    }
-
-    public static class Poly {
-        public final int loopStart;
-        public final int size;
-        public final short materialSlot;
-
-        public Poly(int loopStart, int size, int materialSlot) {
-            this.loopStart = loopStart;
-            this.size = size;
-            this.materialSlot = (short) materialSlot;
-        }
-
-        public void serialize(MPoly mPoly) throws IOException {
-            mPoly.setLoopstart(loopStart);
-            mPoly.setTotloop(size);
-            mPoly.setMat_nr(materialSlot);
-        }
-    }
-
-    public static class Face {
-        public final int v1;
-        public final int v2;
-        public final int v3;
-        public final int v4;
-
-        public Face(int v1, int v2, int v3, int v4) {
-            this.v1 = v1;
-            this.v2 = v2;
-            this.v3 = v3;
-            this.v4 = v4;
-        }
+    public record Face(int v1, int v2, int v3, int v4) {
 
         public void serialize(MFace mFace) throws IOException {
-            mFace.setV1(v1);
-            mFace.setV2(v2);
-            mFace.setV3(v3);
-            mFace.setV4(v4);
+                mFace.setV1(v1);
+                mFace.setV2(v2);
+                mFace.setV3(v3);
+                mFace.setV4(v4);
+            }
         }
-    }
 }

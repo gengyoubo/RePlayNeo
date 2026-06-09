@@ -27,6 +27,7 @@ package github.com.gengyoubo.replayneo;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
+import org.jetbrains.annotations.NotNull;
 
 public record RenderInfo(float partialTick, int mouseX, int mouseY, int layer) {
 
@@ -58,7 +59,7 @@ public record RenderInfo(float partialTick, int mouseX, int mouseY, int layer) {
     }
 
     @Override
-    public String toString() {
+    public @NotNull String toString() {
         return "RenderInfo{" +
                 "partialTick=" + partialTick +
                 ", mouseX=" + mouseX +

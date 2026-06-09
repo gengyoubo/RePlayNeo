@@ -20,8 +20,8 @@ import net.minecraft.network.protocol.PacketFlow;
 
 public class ReplayModRecording implements Module {
 
-    private static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
-    private static AttributeKey<Void> ATTR_CHECKED = AttributeKey.newInstance("ReplayModRecording_checked");
+    private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    private static final AttributeKey<Void> ATTR_CHECKED = AttributeKey.newInstance("ReplayModRecording_checked");
 
     { instance = this; }
     public static ReplayModRecording instance;

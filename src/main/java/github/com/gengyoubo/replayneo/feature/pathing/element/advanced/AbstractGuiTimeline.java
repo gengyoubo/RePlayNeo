@@ -94,6 +94,14 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
     }
 
     @Override
+    public void layout(ReadableDimension size, RenderInfo renderInfo) {
+        super.layout(size, renderInfo);
+        if (size != null) {
+            this.size = size;
+        }
+    }
+
+    @Override
     public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
         this.size = size;
         super.draw(renderer, size, renderInfo);
@@ -172,7 +180,8 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
      * @return The time or -1 if the mouse isn't on the timeline
      */
     protected int getTimeAt(int mouseX, int mouseY) {
-        if (getLastSize() == null) {
+        ReadableDimension lastSize = getLastSize();
+        if (lastSize == null) {
             return -1;
         }
         Point mouse = new Point(mouseX, mouseY);
@@ -181,11 +190,11 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
         mouseY = mouse.getY();
 
         if (mouseX < 0 || mouseY < 0
-                || mouseX > size.getWidth() || mouseY > size.getHeight()) {
+                || mouseX > lastSize.getWidth() || mouseY > lastSize.getHeight()) {
             return -1;
         }
 
-        int width = size.getWidth();
+        int width = lastSize.getWidth();
         int bodyWidth = width - BORDER_LEFT - BORDER_RIGHT;
         double segmentLength = length * zoom;
         double segmentTime =  segmentLength * (mouseX - BORDER_LEFT) / bodyWidth;

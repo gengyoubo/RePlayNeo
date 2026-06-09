@@ -84,11 +84,11 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
             ).setYesI18nLabel("replaymod.gui.save").setNoI18nLabel("replaymod.gui.cancel");
             popup.getYesButton().setDisabled();
             ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
-            nameField.onEnter((Runnable) () -> {
+            nameField.onEnter(() -> {
                 if (popup.getYesButton().isEnabled()) {
                     popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
                 }
-            }).onTextChanged((Consumer<String>) obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
+            }).onTextChanged(obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
                     && !timelines.containsKey(nameField.getText())));
             popup.onAccept(() -> {
                 String name = nameField.getText();
@@ -124,11 +124,11 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
             ).setYesI18nLabel("replaymod.gui.done").setNoI18nLabel("replaymod.gui.cancel");
             popup.getYesButton().setDisabled();
             ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
-            nameField.onEnter((Runnable) () -> {
+            nameField.onEnter(() -> {
                 if (popup.getYesButton().isEnabled()) {
                     popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
                 }
-            }).onTextChanged((Consumer<String>) obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
+            }).onTextChanged(obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
                     && !timelines.containsKey(nameField.getText())));
             popup.onAccept(() -> {
                 String name = nameField.getText();
@@ -332,7 +332,7 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
     @Override
     public boolean handleKey(KeyInput keyInput) {
         if (keyInput.hasCtrl()) {
-            switch (keyInput.key) {
+            switch (keyInput.key()) {
                 case MCVer.Keyboard.KEY_A:
                     if (selectedEntries.size() < timelines.size()) {
                         for (GuiElement<?> child : list.getListPanel().getChildren()) {

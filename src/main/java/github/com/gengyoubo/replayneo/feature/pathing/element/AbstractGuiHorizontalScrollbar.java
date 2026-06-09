@@ -28,6 +28,7 @@ import github.com.gengyoubo.replayneo.GuiRenderer;
 import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.function.Click;
 import github.com.gengyoubo.replayneo.function.Clickable;
 import github.com.gengyoubo.replayneo.function.Draggable;
@@ -63,7 +64,7 @@ public abstract class AbstractGuiHorizontalScrollbar<T extends AbstractGuiHorizo
     public AbstractGuiHorizontalScrollbar() {
     }
 
-    public AbstractGuiHorizontalScrollbar(GuiContainer container) {
+    public AbstractGuiHorizontalScrollbar(GuiContainer<GuiPanel> container) {
         super(container);
     }
 

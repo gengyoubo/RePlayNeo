@@ -131,6 +131,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
     @Override
     public void layout(ReadableDimension size, RenderInfo renderInfo) {
         if (size == null) {
+            updateScreenSize();
             size = screenSize;
         }
         super.layout(size, renderInfo);
@@ -144,6 +145,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
 
     @Override
     public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
+        updateScreenSize();
         super.draw(renderer, size, renderInfo);
         if (mouseVisible && renderInfo.layer() == getMaxLayer()) {
             final GuiElement tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
@@ -183,12 +185,24 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
 
     @Override
     public ReadableDimension getMinSize() {
+        updateScreenSize();
         return screenSize;
     }
 
     @Override
     public ReadableDimension getMaxSize() {
+        updateScreenSize();
         return screenSize;
+    }
+
+    private void updateScreenSize() {
+        Minecraft mc = getMinecraft();
+        Window res = MCVer.newScaledResolution(mc);
+        if (screenSize == null
+                || screenSize.getWidth() != res.getGuiScaledWidth()
+                || screenSize.getHeight() != res.getGuiScaledHeight()) {
+            screenSize = new Dimension(res.getGuiScaledWidth(), res.getGuiScaledHeight());
+        }
     }
 
     private class EventHandler extends EventRegistrations {
@@ -197,7 +211,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
         { on(RenderHudCallback.EVENT, this::renderOverlay); }
         private void renderOverlay(GuiGraphics stack, float partialTicks) {
             updateUserInputGui();
-            updateRenderer();
+            updateScreenSize();
             int layers = getMaxLayer();
             int mouseX = -1, mouseY = -1;
             if (mouseVisible) {
@@ -216,17 +230,6 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
         }
 
         { on(PreTickCallback.EVENT, () -> invokeAll(Tickable.class, Tickable::tick)); }
-
-        private void updateRenderer() {
-            Minecraft mc = getMinecraft();
-            Window
-                    res = MCVer.newScaledResolution(mc);
-            if (screenSize == null
-                    || screenSize.getWidth() != res.getGuiScaledWidth()
-                    || screenSize.getHeight() != res.getGuiScaledHeight()) {
-                screenSize = new Dimension(res.getGuiScaledWidth(), res.getGuiScaledHeight());
-            }
-        }
     }
 
     protected class UserInputGuiScreen extends net.minecraft.client.gui.screens.Screen {

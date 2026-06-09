@@ -102,7 +102,7 @@ public class PlayerOverviewGui extends GuiScreen implements Closeable {
                     new GuiLabel().setText(
                             p.getName().getString()
                     ).setColor(isSpectator(p) ? Colors.DKGREY : Colors.WHITE)
-            ).onClick((Runnable) () -> ReplayModReplay.instance.getReplayHandler().spectateEntity(p));
+            ).onClick(() -> ReplayModReplay.instance.getReplayHandler().spectateEntity(p));
             final GuiCheckbox checkbox = new GuiCheckbox() {
                 @Override
                 public GuiCheckbox setChecked(boolean checked) {
@@ -123,7 +123,7 @@ public class PlayerOverviewGui extends GuiScreen implements Closeable {
                 }
             }).addElements(null, panel, checkbox);
         }
-        saveCheckbox.setChecked(extra.isSavingEnabled()).onClick((Runnable) () -> extra.setSavingEnabled(saveCheckbox.isChecked()));
+        saveCheckbox.setChecked(extra.isSavingEnabled()).onClick(() -> extra.setSavingEnabled(saveCheckbox.isChecked()));
 
         ReplayModReplay.instance.getReplayHandler().getOverlay().setVisible(false);
     }

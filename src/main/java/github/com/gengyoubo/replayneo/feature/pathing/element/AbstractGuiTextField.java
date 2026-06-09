@@ -393,7 +393,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
             return false;
         }
 
-        int keyCode = keyInput.key;
+        int keyCode = keyInput.key();
 
         if (keyCode == Keyboard.KEY_TAB) {
             Focusable other = keyInput.hasShift() ? previous : next;

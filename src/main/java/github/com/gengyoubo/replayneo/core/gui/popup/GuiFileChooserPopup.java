@@ -85,7 +85,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
                 acceptButton.onClick(new Click(-1, -1, 0, 0));
             }
         }
-    }).onTextChanged((Consumer<String>) oldName -> updateButton()).setMaxLength(Integer.MAX_VALUE);
+    }).onTextChanged(oldName -> updateButton()).setMaxLength(Integer.MAX_VALUE);
 
     private final GuiButton acceptButton = new GuiButton(popup).onClick(new Runnable() {
         @Override
@@ -101,7 +101,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
         }
     }).setSize(50, 20);
 
-    private final GuiButton cancelButton = new GuiButton(popup).onClick((Runnable) () -> {
+    private final GuiButton cancelButton = new GuiButton(popup).onClick(() -> {
         onCancel.run();
         close();
     }).setI18nLabel("gui.cancel").setSize(50, 20);
@@ -196,10 +196,10 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
             });
             for (final File file : files) {
                 if (file.isDirectory()) {
-                    fileList.getListPanel().addElements(new VerticalLayout.Data(0), new GuiButton().onClick((Runnable) () -> setFolder(file)).setLabel(file.getName() + File.separator));
+                    fileList.getListPanel().addElements(new VerticalLayout.Data(0), new GuiButton().onClick(() -> setFolder(file)).setLabel(file.getName() + File.separator));
                 } else {
                     if (hasValidExtension(file.getName())) {
-                        fileList.getListPanel().addElements(new VerticalLayout.Data(0), new GuiButton().onClick((Runnable) () -> setFileName(file.getName())).setLabel(file.getName()));
+                        fileList.getListPanel().addElements(new VerticalLayout.Data(0), new GuiButton().onClick(() -> setFileName(file.getName())).setLabel(file.getName()));
                     }
                 }
             }
@@ -210,7 +210,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
         if (roots != null && roots.length > 1) {
             // Windows can have multiple file system roots
             // So we place a dropdown menu (skinned like a button) at the front of the path
-            final GuiDropdownMenu<File> dropdown = new GuiDropdownMenu<File>(pathPanel) {
+            final GuiDropdownMenu<File> dropdown = new GuiDropdownMenu<>(pathPanel) {
                 private final GuiButton skin = new GuiButton();
 
                 @Override
@@ -252,7 +252,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
             // First set values and current selection
             dropdown.setValues(actualRoots.toArray(new File[0])).setSelected(selected);
             // then add selection handler afterwards
-            dropdown.onSelection((Consumer<Integer>) old -> setFolder(dropdown.getSelectedValue()));
+            dropdown.onSelection(old -> setFolder(dropdown.getSelectedValue()));
         }
         LinkedList<File> parents = new LinkedList<>();
         while (folder != null) {
@@ -260,7 +260,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
             folder = folder.getParentFile();
         }
         for (final File parent : parents) {
-            pathPanel.addElements(null, new GuiButton().onClick((Runnable) () -> setFolder(parent)).setLabel(parent.getName() + File.separator));
+            pathPanel.addElements(null, new GuiButton().onClick(() -> setFolder(parent)).setLabel(parent.getName() + File.separator));
         }
         pathScrollable.setOffsetX(Integer.MAX_VALUE);
     }
@@ -298,7 +298,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
     @Override
     public boolean handleKey(KeyInput keyInput) {
         if (keyInput.isEscape()) {
-            cancelButton.onClick(new Click(-1, -1, 0, keyInput.modifiers));
+            cancelButton.onClick(new Click(-1, -1, 0, keyInput.modifiers()));
             return true;
         }
         return false;

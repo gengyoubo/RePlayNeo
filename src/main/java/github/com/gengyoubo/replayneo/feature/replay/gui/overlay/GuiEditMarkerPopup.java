@@ -74,7 +74,7 @@ public class GuiEditMarkerPopup extends AbstractGuiPopup<GuiEditMarkerPopup> imp
         }
     }).setSize(150, 20).setI18nLabel("replaymod.gui.save");
 
-    public final GuiButton cancelButton = new GuiButton().onClick((Runnable) () -> close()).setSize(150, 20).setI18nLabel("replaymod.gui.cancel");
+    public final GuiButton cancelButton = new GuiButton().onClick(this::close).setSize(150, 20).setI18nLabel("replaymod.gui.cancel");
 
     public final GuiPanel buttons = new GuiPanel()
             .setLayout(new HorizontalLayout(HorizontalLayout.Alignment.CENTER).setSpacing(7))
@@ -113,7 +113,7 @@ public class GuiEditMarkerPopup extends AbstractGuiPopup<GuiEditMarkerPopup> imp
     @Override
     public boolean handleKey(KeyInput keyInput) {
         if (keyInput.isEscape()) {
-            cancelButton.onClick(new Click(-1, -1, 0, keyInput.modifiers));
+            cancelButton.onClick(new Click(-1, -1, 0, keyInput.modifiers()));
             return true;
         }
         return false;

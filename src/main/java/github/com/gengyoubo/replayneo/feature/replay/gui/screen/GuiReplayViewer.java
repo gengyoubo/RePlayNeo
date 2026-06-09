@@ -88,7 +88,7 @@ public class GuiReplayViewer extends GuiScreen {
             List<GuiReplayEntry> selected = list.getSelected();
             if (selected.size() == 1) {
                 File file = selected.get(0).file;
-                LOGGER.info("Opening replay in viewer: " + file);
+                LOGGER.info("Opening replay in viewer: {}", file);
                 try {
                     mod.startReplay(file);
                 } catch (IOException e) {
@@ -121,7 +121,7 @@ public class GuiReplayViewer extends GuiScreen {
         }
     }).setSize(150, 20).setI18nLabel("replaymod.gui.viewer.replayfolder");
 
-    public final GuiButton renameButton = new GuiButton().onClick((Runnable) () -> {
+    public final GuiButton renameButton = new GuiButton().onClick(() -> {
         final Path path = list.getSelected().get(0).file.toPath();
         String name = Utils.fileNameToReplayName(path.getFileName().toString());
         final GuiTextField nameField = new GuiTextField().setSize(200, 20).setFocused(true).setText(name);
@@ -130,14 +130,12 @@ public class GuiReplayViewer extends GuiScreen {
                 nameField
         ).setYesI18nLabel("replaymod.gui.rename").setNoI18nLabel("replaymod.gui.cancel");
         ((VerticalLayout) popup.getInfo().getLayout()).setSpacing(7);
-        nameField.onEnter((Runnable) () -> {
+        nameField.onEnter(() -> {
             if (popup.getYesButton().isEnabled()) {
                 popup.getYesButton().onClick(new Click(-1, -1, 0, 0));
             }
-        }).onTextChanged(obj -> {
-            popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
-                    && Files.notExists(Utils.replayNameToPath(path.getParent(), nameField.getText())));
-        });
+        }).onTextChanged(obj -> popup.getYesButton().setEnabled(!nameField.getText().isEmpty()
+                && Files.notExists(Utils.replayNameToPath(path.getParent(), nameField.getText()))));
         popup.onAccept(() -> {
             // Sanitize their input
             String newName = nameField.getText().trim();
@@ -182,10 +180,10 @@ public class GuiReplayViewer extends GuiScreen {
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.settings"))
             .onClick(() -> new GuiReplaySettings(toMinecraft(), getMod().getCore().getSettingsRegistry()).display());
 
-    public final GuiButton cancelButton = new GuiButton().onClick((Runnable) () -> getMinecraft().setScreen(null)).setSize(73, 20).setI18nLabel("replaymod.gui.cancel");
+    public final GuiButton cancelButton = new GuiButton().onClick(() -> getMinecraft().setScreen(null)).setSize(73, 20).setI18nLabel("replaymod.gui.cancel");
 
     public final List<GuiButton> replaySpecificButtons = new ArrayList<>();
-    { replaySpecificButtons.addAll(Collections.singletonList(renameButton)); }
+    { replaySpecificButtons.add(renameButton); }
     public final GuiPanel editorButton = new GuiPanel();
 
     public final GuiPanel upperButtonPanel = new GuiPanel().setLayout(new HorizontalLayout().setSpacing(5))
@@ -390,7 +388,7 @@ public class GuiReplayViewer extends GuiScreen {
 
         @Override
         public boolean handleKey(KeyInput keyInput) {
-            if (keyInput.key == Keyboard.KEY_F1) {
+            if (keyInput.key() == Keyboard.KEY_F1) {
                 SettingsRegistry reg = ReplayMod.instance.getSettingsRegistry();
                 reg.set(Setting.SHOW_SERVER_IPS, !reg.get(Setting.SHOW_SERVER_IPS));
                 reg.save();

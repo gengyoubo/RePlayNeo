@@ -14,13 +14,16 @@ import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
+
+import java.util.Arrays;
 import java.util.List;
 import net.minecraft.client.resources.language.I18n;
+import org.jetbrains.annotations.NotNull;
 
 public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
 
     public GuiReplaySettings(final net.minecraft.client.gui.screens.Screen parent, final SettingsRegistry settingsRegistry) {
-        final GuiButton doneButton = new GuiButton(this).setI18nLabel("gui.done").setSize(200, 20).onClick((Runnable) () -> getMinecraft().setScreen(parent));
+        final GuiButton doneButton = new GuiButton(this).setI18nLabel("gui.done").setSize(200, 20).onClick(() -> getMinecraft().setScreen(parent));
 
         final GuiPanel allElements = new GuiPanel(this).setLayout(new HorizontalLayout().setSpacing(10));
         GuiPanel leftColumn = new GuiPanel().setLayout(new VerticalLayout().setSpacing(4));
@@ -35,10 +38,10 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
                 if (key.getDefault() instanceof Boolean) {
                     @SuppressWarnings("unchecked")
                     final SettingsRegistry.SettingKey<Boolean> booleanKey = (SettingsRegistry.SettingKey<Boolean>) key;
-                    final GuiToggleButton button = new GuiToggleButton<>().setSize(150, 20)
+                    final GuiToggleButton<Object> button = new GuiToggleButton<>().setSize(150, 20)
                             .setI18nLabel(key.getDisplayString()).setSelected(settingsRegistry.get(booleanKey) ? 0 : 1)
-                            .setValues(I18n.get("options.on"), I18n.get("options.off"));
-                    element = button.onClick((Runnable) () -> {
+                            .setValues(I18n.get("options.on"), Arrays.toString(new String[]{I18n.get("options.off")}));
+                    element = button.onClick(() -> {
                         settingsRegistry.set(booleanKey, button.getSelected() == 0);
                         settingsRegistry.save();
                     });
@@ -66,7 +69,7 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
                             }
                         }
                     }.setSize(150, 20).setValues(entries);
-                    menu.setSelected(selected).onSelection((Consumer<Integer>) obj -> {
+                    menu.setSelected(selected).onSelection(obj -> {
                         settingsRegistry.set((SettingsRegistry.SettingKey) multipleChoiceKey,
                                 menu.getSelectedValue().value);
                         settingsRegistry.save();
@@ -103,7 +106,7 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
     private record MultipleChoiceDropdownEntry(Object value, String text) {
 
         @Override
-            public String toString() {
+            public @NotNull String toString() {
                 return text;
             }
         }

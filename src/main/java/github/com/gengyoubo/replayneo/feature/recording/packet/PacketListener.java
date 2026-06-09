@@ -100,6 +100,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private volatile boolean serverWasPaused;
     private volatile boolean closed;
     private final AtomicInteger pendingMainThreadSaves = new AtomicInteger();
+    private final Object pendingMainThreadSavesLock = new Object();
     private final AtomicReference<Throwable> saveFailure = new AtomicReference<>();
 
     /**
@@ -205,7 +206,11 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                 try {
                     save(packet, true);
                 } finally {
-                    pendingMainThreadSaves.decrementAndGet();
+                    if (pendingMainThreadSaves.decrementAndGet() <= 0) {
+                        synchronized (pendingMainThreadSavesLock) {
+                            pendingMainThreadSavesLock.notifyAll();
+                        }
+                    }
                 }
             });
             return;
@@ -276,14 +281,15 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         new Thread(() -> {
             core.runLater(guiSavingReplay::open);
 
-            while (pendingMainThreadSaves.get() > 0) {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    logger.error("Waiting for main-thread packet saves:", e);
-                    Thread.currentThread().interrupt();
-                    break;
+            try {
+                synchronized (pendingMainThreadSavesLock) {
+                    while (pendingMainThreadSaves.get() > 0) {
+                        pendingMainThreadSavesLock.wait();
+                    }
                 }
+            } catch (InterruptedException e) {
+                logger.error("Waiting for main-thread packet saves:", e);
+                Thread.currentThread().interrupt();
             }
             metaData.setDuration((int) lastSentPacket);
             saveMetaData();
@@ -401,7 +407,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     }
 
     private Packet encodeMcPacket(ConnectionProtocol connectionState, net.minecraft.network.protocol.Packet packet) throws Exception {
-        Integer packetId = connectionState.getPacketId(PacketFlow.CLIENTBOUND, packet);
+        int packetId = connectionState.getPacketId(PacketFlow.CLIENTBOUND, packet);
         ByteBuf byteBuf = Unpooled.buffer();
         try {
             packet.write(new FriendlyByteBuf(byteBuf));

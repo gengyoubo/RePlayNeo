@@ -112,7 +112,7 @@ public class VideoRenderer implements RenderInfo {
                 frameConsumer = new FFmpegWriter(this);
             }
             ffmpegWriter = frameConsumer instanceof FFmpegWriter ? (FFmpegWriter) frameConsumer : null;
-            FrameConsumer<BitmapFrame> previewingFrameConsumer = new FrameConsumer<BitmapFrame>() {
+            FrameConsumer<BitmapFrame> previewingFrameConsumer = new FrameConsumer<>() {
                 private int lastFrameId = -1;
 
                 @Override

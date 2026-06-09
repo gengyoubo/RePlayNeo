@@ -36,7 +36,6 @@ import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
-import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;

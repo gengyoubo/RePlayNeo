@@ -72,7 +72,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
     public AbstractGuiDropdownMenu() {
     }
 
-    public AbstractGuiDropdownMenu(GuiContainer container) {
+    public AbstractGuiDropdownMenu(GuiContainer<GuiPanel> container) {
         super(container);
     }
 
@@ -196,7 +196,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
 
     @Override
     public Collection<GuiElement> getChildren() {
-        return opened ? Collections.<GuiElement>singletonList(dropdown) : Collections.emptyList();
+        return opened ? Collections.singletonList(dropdown) : Collections.emptyList();
     }
 
     @Override

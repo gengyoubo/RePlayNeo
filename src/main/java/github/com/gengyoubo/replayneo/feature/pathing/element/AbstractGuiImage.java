@@ -30,6 +30,7 @@ import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.versions.Image;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
@@ -51,7 +52,7 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     public AbstractGuiImage() {
     }
 
-    public AbstractGuiImage(GuiContainer container) {
+    public AbstractGuiImage(GuiContainer<GuiPanel> container) {
         super(container);
     }
 

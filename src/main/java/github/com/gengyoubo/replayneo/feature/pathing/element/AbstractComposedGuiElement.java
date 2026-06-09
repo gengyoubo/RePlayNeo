@@ -34,7 +34,7 @@ public abstract class AbstractComposedGuiElement<T extends AbstractComposedGuiEl
     public AbstractComposedGuiElement() {
     }
 
-    public AbstractComposedGuiElement(GuiContainer container) {
+    public AbstractComposedGuiElement(GuiContainer<?> container) {
         super(container);
     }
 
@@ -62,8 +62,7 @@ public abstract class AbstractComposedGuiElement<T extends AbstractComposedGuiEl
         }
         for (final GuiElement<?> element : getChildren()) {
             R result = null;
-            if (element instanceof ComposedGuiElement) {
-                ComposedGuiElement<?> composed = (ComposedGuiElement<?>) element;
+            if (element instanceof ComposedGuiElement<?> composed) {
                 if (layer <= composed.getMaxLayer()) {
                     result = recurse.apply(composed, layer - composed.getLayer());
                 }

@@ -181,9 +181,7 @@ public class GuiYoutubeUpload extends GuiScreen {
         if (uploading) {
             uploadButton.onClick(() -> {
                 setState(false);
-                new Thread(() -> {
-                    upload.cancel();
-                }).start();
+                new Thread(() -> upload.cancel()).start();
             }).setI18nLabel("replaymod.gui.cancel");
         } else {
             uploadButton.onClick(() -> {

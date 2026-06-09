@@ -36,7 +36,7 @@ public class GuiPanel extends AbstractGuiContainer<GuiPanel> {
     public GuiPanel() {
     }
 
-    public GuiPanel(GuiContainer container) {
+    public GuiPanel(GuiContainer<?> container) {
         super(container);
     }
 

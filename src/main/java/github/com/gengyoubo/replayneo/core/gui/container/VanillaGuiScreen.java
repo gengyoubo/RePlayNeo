@@ -228,7 +228,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
                 onGuiClosed();
                 return false;
             }
-            return getSuperMcGui().keyPressed(keyInput.key, keyInput.scancode, keyInput.modifiers);
+            return getSuperMcGui().keyPressed(keyInput.key(), keyInput.scancode(), keyInput.modifiers());
         }
 
         @Override
@@ -237,7 +237,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
                 onGuiClosed();
                 return false;
             }
-            return getSuperMcGui().keyReleased(keyInput.key, keyInput.scancode, keyInput.modifiers);
+            return getSuperMcGui().keyReleased(keyInput.key(), keyInput.scancode(), keyInput.modifiers());
         }
 
         @Override

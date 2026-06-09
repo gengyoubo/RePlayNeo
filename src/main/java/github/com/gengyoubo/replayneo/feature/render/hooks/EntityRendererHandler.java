@@ -13,7 +13,6 @@ import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.core.events.PostRenderCallback;
 import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
-import java.io.IOException;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;

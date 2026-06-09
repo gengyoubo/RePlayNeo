@@ -83,7 +83,6 @@ public class MCVer {
     public static void resizeMainWindow(Minecraft mc, int width, int height) {
         Window window = mc.getWindow();
         MainWindowAccessor mainWindow = (MainWindowAccessor) (Object) window;
-        //noinspection ConstantConditions
         mainWindow.invokeOnFramebufferResize(window.getWindow(), width, height);
     }
 
@@ -108,7 +107,6 @@ public class MCVer {
         });
     }
 
-    @SuppressWarnings("unchecked")
     public static List<VertexFormatElement> getElements(VertexFormat vertexFormat) {
         return vertexFormat.getElements();
     }

@@ -119,9 +119,7 @@ public class GuiRecordingControls extends EventRegistrations {
             return; // menu-less pause (F3+Esc)
         }
         Function<Integer, Integer> yPos =
-                MCVer.findButton(buttonList, "menu.returnToMenu", 1)
-                        .map(Optional::of)
-                        .orElse(MCVer.findButton(buttonList, "menu.disconnect", 1))
+                MCVer.findButton(buttonList, "menu.returnToMenu", 1).or(() -> MCVer.findButton(buttonList, "menu.disconnect", 1))
                         .<Function<Integer, Integer>>map(it -> (height) -> it.getY())
                         .orElse((height) -> height / 4 + 120 - 16);
         VanillaGuiScreen vanillaGui = VanillaGuiScreen.wrap(guiScreen);

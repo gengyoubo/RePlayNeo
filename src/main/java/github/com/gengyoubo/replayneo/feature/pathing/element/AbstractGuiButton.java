@@ -27,6 +27,7 @@ package github.com.gengyoubo.replayneo.feature.pathing.element;
 import github.com.gengyoubo.replayneo.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.function.Click;
 import github.com.gengyoubo.replayneo.function.Clickable;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
@@ -64,7 +65,7 @@ public abstract class AbstractGuiButton<T extends AbstractGuiButton<T>> extends 
     public AbstractGuiButton() {
     }
 
-    public AbstractGuiButton(GuiContainer container) {
+    public AbstractGuiButton(GuiContainer<GuiPanel> container) {
         super(container);
     }
 

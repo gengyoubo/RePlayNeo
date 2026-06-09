@@ -56,7 +56,7 @@ public class ConnectionEventHandler {
         try {
             boolean local = networkManager.isMemoryConnection();
             if (local) {
-                if (Objects.requireNonNull(mc.getSingleplayerServer().getLevel(Level.OVERWORLD)).isDebug()) {
+                if (mc.getSingleplayerServer() != null && Objects.requireNonNull(mc.getSingleplayerServer().getLevel(Level.OVERWORLD)).isDebug()) {
                     logger.info("Debug World recording is not supported.");
                     return;
                 }

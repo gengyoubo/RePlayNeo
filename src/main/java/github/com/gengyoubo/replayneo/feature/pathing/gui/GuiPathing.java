@@ -8,7 +8,6 @@ import com.google.common.util.concurrent.SettableFuture;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Result;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.feature.pathing.gui.GuiKeyframeRepository;
 import github.com.gengyoubo.replayneo.feature.pathing.player.RealtimeTimelinePlayer;
 import github.com.gengyoubo.replayneo.feature.pathing.properties.CameraProperties;
 import github.com.gengyoubo.replayneo.feature.pathing.properties.SpectatorProperty;
@@ -161,7 +160,7 @@ public class GuiPathing {
     }.setSize(Integer.MAX_VALUE, 20).setMarkers();
 
     public final GuiHorizontalScrollbar scrollbar = new GuiHorizontalScrollbar().setSize(Integer.MAX_VALUE, 9);
-    {scrollbar.onValueChanged((Runnable) () -> {
+    {scrollbar.onValueChanged(() -> {
         timeline.setOffset((int) (scrollbar.getPosition() * timeline.getLength()));
         timeline.setZoom(scrollbar.getZoom());
     }).setZoom(0.1);}
@@ -169,10 +168,10 @@ public class GuiPathing {
     public final GuiTimelineTime<GuiKeyframeTimeline> timelineTime = new GuiTimelineTime<GuiKeyframeTimeline>()
             .setTimeline(timeline);
 
-    public final GuiButton zoomInButton = new GuiButton().setSize(9, 9).onClick((Runnable) () -> zoomTimeline(2d / 3d)).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 20)
+    public final GuiButton zoomInButton = new GuiButton().setSize(9, 9).onClick(() -> zoomTimeline(2d / 3d)).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 20)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.ingame.menu.zoomin"));
 
-    public final GuiButton zoomOutButton = new GuiButton().setSize(9, 9).onClick((Runnable) () -> zoomTimeline(3d / 2d)).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 30)
+    public final GuiButton zoomOutButton = new GuiButton().setSize(9, 9).onClick(() -> zoomTimeline(3d / 2d)).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 30)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.ingame.menu.zoomout"));
 
     public final GuiPanel zoomButtonPanel = new GuiPanel()
@@ -234,7 +233,7 @@ public class GuiPathing {
             public void getLocation(WritablePoint dest) {
                 dest.setLocation(getX(), getY());
             }
-        }).onClick((Runnable) () -> {
+        }).onClick(() -> {
             if (player.isActive()) {
                 player.getFuture().cancel(false);
             } else {
@@ -267,7 +266,7 @@ public class GuiPathing {
                     }
 
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void onFailure(@NotNull Throwable t) {
                         if (!(t instanceof CancellationException)) {
                             t.printStackTrace();
                         }
@@ -308,7 +307,7 @@ public class GuiPathing {
             public void getLocation(WritablePoint dest) {
                 dest.setLocation(getX(), getY());
             }
-        }).onClick((Runnable) () -> toggleKeyframe(SPPath.POSITION, false));
+        }).onClick(() -> toggleKeyframe(SPPath.POSITION, false));
 
         timeKeyframeButton.setSpriteUV(new ReadablePoint() {
             @Override
@@ -330,7 +329,7 @@ public class GuiPathing {
             public void getLocation(WritablePoint dest) {
                 dest.setLocation(getX(), getY());
             }
-        }).onClick((Runnable) () -> toggleKeyframe(SPPath.TIME, false));
+        }).onClick(() -> toggleKeyframe(SPPath.TIME, false));
 
         overlay.addElements(null, panel);
         overlay.setLayout(new CustomLayout<GuiReplayOverlay>(overlay.getLayout()) {
@@ -505,7 +504,7 @@ public class GuiPathing {
                         entityTrackerLoadingProgress.accept(p);
                     }
                 });
-                logger.info("Loaded entity tracker in " + (System.currentTimeMillis() - start) + "ms");
+                logger.info("Loaded entity tracker in {}ms", System.currentTimeMillis() - start);
             } catch (Throwable e) {
                 logger.error("Loading entity tracker:", e);
                 mod.getCore().runLater(() -> {
@@ -665,7 +664,9 @@ public class GuiPathing {
                     CameraEntity camera = replayHandler.getCameraEntity();
                     int spectatedId = -1;
                     if (!replayHandler.isCameraView() && !neverSpectator) {
-                        spectatedId = replayHandler.getOverlay().getMinecraft().getCameraEntity().getId();
+                        if (replayHandler.getOverlay().getMinecraft().getCameraEntity() != null) {
+                            spectatedId = replayHandler.getOverlay().getMinecraft().getCameraEntity().getId();
+                        }
                     }
                     timeline.addPositionKeyframe(time, camera.getX(), camera.getY(), camera.getZ(),
                             camera.getYRot(), camera.getXRot(), camera.roll, spectatedId);

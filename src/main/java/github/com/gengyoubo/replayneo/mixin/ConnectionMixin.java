@@ -47,7 +47,7 @@ public abstract class ConnectionMixin {
     public abstract void disconnect(Component reason);
 
     @Shadow
-    public abstract ConnectionProtocol getCurrentProtocol();
+    protected abstract ConnectionProtocol getCurrentProtocol();
 
     @Inject(method = "sendPacket", at = @At("HEAD"), cancellable = true)
     private void replayneo$blockWrongLocalOutboundPacket(Packet<?> packet, PacketSendListener listener, CallbackInfo ci) {

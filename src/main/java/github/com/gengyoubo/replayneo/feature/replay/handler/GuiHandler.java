@@ -181,10 +181,7 @@ public class GuiHandler extends EventRegistrations {
         if (buttonPosition == MainMenuButtonPosition.BIG) {
             int x = screen.width / 2 - 100;
             // We want to position our button below the realms button
-            Optional<AbstractButton> targetButton = findButton(buttonList, "menu.online", 14)
-                    .map(Optional::of)
-                    // or, if someone removed the realms button, we'll alternatively take the multiplayer one
-                    .orElseGet(() -> findButton(buttonList, "menu.multiplayer", 2));
+            Optional<AbstractButton> targetButton = findButton(buttonList, "menu.online", 14).or(() -> findButton(buttonList, "menu.multiplayer", 2));
 
             int y = targetButton
                     // if we found some button, put our button at its position (we'll move it out of the way shortly)
@@ -289,10 +286,7 @@ public class GuiHandler extends EventRegistrations {
 
         int x = guiScreen.width / 2 - 100;
         // We want to position our button below the realms button
-        int y = findButton(buttonList, "menu.online", 14)
-                .map(Optional::of)
-                // or, if someone removed the realms button, we'll alternatively take the multiplayer one
-                .orElse(findButton(buttonList, "menu.multiplayer", 2))
+        int y = findButton(buttonList, "menu.online", 14).or(() -> findButton(buttonList, "menu.multiplayer", 2))
                 // if we found some button, put our button at its position (we'll move it out of the way shortly)
                 .map(AbstractWidget::getY)
                 // and if we can't even find that one, then just guess
@@ -334,7 +328,7 @@ public class GuiHandler extends EventRegistrations {
                     findButton(buttonList, "modmenu.title", 6)
             )
                     // skip buttons which do not exist
-                    .flatMap(it -> it.map(Stream::of).orElseGet(Stream::empty))
+                    .flatMap(it -> it.stream())
                     // skip buttons which already have something next to them
                     .filter(it -> buttonList.stream().noneMatch(button ->
                             button.getX() <= it.getX() + it.getWidth() + 4 + 20
@@ -349,22 +343,18 @@ public class GuiHandler extends EventRegistrations {
                     // if all fails, just go with TOP_RIGHT
                     .orElse(topRight);
         } else {
-            return Optional.of(buttonList).flatMap(buttons -> {
-                return switch (buttonPosition) {
-                    case LEFT_OF_SINGLEPLAYER, RIGHT_OF_SINGLEPLAYER -> findButton(buttons, "menu.singleplayer", 1);
-                    case LEFT_OF_MULTIPLAYER, RIGHT_OF_MULTIPLAYER -> findButton(buttons, "menu.multiplayer", 2);
-                    case LEFT_OF_REALMS, RIGHT_OF_REALMS -> findButton(buttons, "menu.online", 14);
-                    case LEFT_OF_MODS, RIGHT_OF_MODS -> findButton(buttons, "modmenu.title", 6);
-                    default -> throw new RuntimeException();
-                };
-            }).map(button -> {
-                return switch (buttonPosition) {
-                    case LEFT_OF_SINGLEPLAYER, LEFT_OF_MULTIPLAYER, LEFT_OF_REALMS, LEFT_OF_MODS ->
-                            new Point(button.getX() - 4 - 20, button.getY());
-                    case RIGHT_OF_MODS, RIGHT_OF_SINGLEPLAYER, RIGHT_OF_MULTIPLAYER, RIGHT_OF_REALMS ->
-                            new Point(button.getX() + button.getWidth() + 4, button.getY());
-                    default -> throw new RuntimeException();
-                };
+            return Optional.of(buttonList).flatMap(buttons -> switch (buttonPosition) {
+                case LEFT_OF_SINGLEPLAYER, RIGHT_OF_SINGLEPLAYER -> findButton(buttons, "menu.singleplayer", 1);
+                case LEFT_OF_MULTIPLAYER, RIGHT_OF_MULTIPLAYER -> findButton(buttons, "menu.multiplayer", 2);
+                case LEFT_OF_REALMS, RIGHT_OF_REALMS -> findButton(buttons, "menu.online", 14);
+                case LEFT_OF_MODS, RIGHT_OF_MODS -> findButton(buttons, "modmenu.title", 6);
+                default -> throw new RuntimeException();
+            }).map(button -> switch (buttonPosition) {
+                case LEFT_OF_SINGLEPLAYER, LEFT_OF_MULTIPLAYER, LEFT_OF_REALMS, LEFT_OF_MODS ->
+                        new Point(button.getX() - 4 - 20, button.getY());
+                case RIGHT_OF_MODS, RIGHT_OF_SINGLEPLAYER, RIGHT_OF_MULTIPLAYER, RIGHT_OF_REALMS ->
+                        new Point(button.getX() + button.getWidth() + 4, button.getY());
+                default -> throw new RuntimeException();
             }).orElse(topRight);
         }
     }

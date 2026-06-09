@@ -345,16 +345,11 @@ public class PathPreviewRenderer extends EventRegistrations {
         buffer.vertex(poseStack.last().pose(), x, y, z).uv(u, v).color(255, 255, 255, alpha).endVertex();
     }
 
-    private static class KeyframeComparator implements Comparator<Pair<Keyframe, Vector3f>> {
-        private final Vector3f viewPos;
-
-        public KeyframeComparator(Vector3f viewPos) {
-            this.viewPos = viewPos;
-        }
+    private record KeyframeComparator(Vector3f viewPos) implements Comparator<Pair<Keyframe, Vector3f>> {
 
         @Override
-        public int compare(Pair<Keyframe, Vector3f> o1, Pair<Keyframe, Vector3f> o2) {
-            return -Double.compare(distanceSquared(o1.getRight(), viewPos), distanceSquared(o2.getRight(), viewPos));
+            public int compare(Pair<Keyframe, Vector3f> o1, Pair<Keyframe, Vector3f> o2) {
+                return -Double.compare(distanceSquared(o1.getRight(), viewPos), distanceSquared(o2.getRight(), viewPos));
+            }
         }
-    }
 }

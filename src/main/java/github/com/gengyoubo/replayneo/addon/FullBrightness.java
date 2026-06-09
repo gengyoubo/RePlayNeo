@@ -20,7 +20,7 @@ public class FullBrightness extends EventRegistrations implements Extra {
     private ReplayMod core;
     private ReplayModReplay module;
 
-    private final IGuiImage indicator = new GuiImage().setTexture(ReplayMod.TEXTURE, 90, 20, 19, 16).setSize(19, 16);
+    private final IGuiImage<GuiImage> indicator = new GuiImage().setTexture(ReplayMod.TEXTURE, 90, 20, 19, 16).setSize(19, 16);
 
     private Minecraft mc;
     private boolean active;
@@ -32,7 +32,7 @@ public class FullBrightness extends EventRegistrations implements Extra {
         this.module = ReplayModReplay.instance;
         this.mc = mod.getMinecraft();
 
-        mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.lighting", Keyboard.KEY_Z, (Runnable) () -> {
+        mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.lighting", Keyboard.KEY_Z, () -> {
             active = !active;
             // need to tick once to update lightmap when replay is paused
             mod.getMinecraft().gameRenderer.tick();

@@ -115,7 +115,7 @@ public class ReplayFilesService {
 
         // Cleanup any cache folders still remaining in the recording folder (we once used to put them there)
         try {
-            Files.walkFileTree(folders.getReplayFolder(), new SimpleFileVisitor<Path>() {
+            Files.walkFileTree(folders.getReplayFolder(), new SimpleFileVisitor<>() {
                 @Override
                 public @NotNull FileVisitResult preVisitDirectory(@NotNull Path dir, @NotNull BasicFileAttributes attrs) throws IOException {
                     String name = dir.getFileName().toString();

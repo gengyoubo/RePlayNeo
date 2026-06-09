@@ -9,6 +9,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -42,11 +43,11 @@ public abstract class SingleQuadParticleMixin extends Particle {
      * @reason Orient billboard particles per render direction during omnidirectional rendering without mutating the camera.
      */
     @Overwrite
-    public void render(VertexConsumer vertexConsumer, Camera camera, float partialTicks) {
+    public void render(@NotNull VertexConsumer vertexConsumer, Camera camera, float partialTicks) {
         Vec3 cameraPos = camera.getPosition();
-        float x = (float) (Mth.lerp((double) partialTicks, this.xo, this.x) - cameraPos.x());
-        float y = (float) (Mth.lerp((double) partialTicks, this.yo, this.y) - cameraPos.y());
-        float z = (float) (Mth.lerp((double) partialTicks, this.zo, this.z) - cameraPos.z());
+        float x = (float) (Mth.lerp(partialTicks, this.xo, this.x) - cameraPos.x());
+        float y = (float) (Mth.lerp(partialTicks, this.yo, this.y) - cameraPos.y());
+        float z = (float) (Mth.lerp(partialTicks, this.zo, this.z) - cameraPos.z());
 
         Quaternionf quaternion;
         if (replayneo$useOmnidirectionalParticleRotation()) {

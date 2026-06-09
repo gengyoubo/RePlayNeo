@@ -25,7 +25,6 @@
 package github.com.gengyoubo.replayneo.core.gui.container;
 
 public class GuiOverlay extends AbstractGuiOverlay<GuiOverlay> {
-    @SuppressWarnings("unchecked")
     public static AbstractGuiOverlay from(net.minecraft.client.gui.screens.Screen minecraft) {
         if (!(minecraft instanceof AbstractGuiOverlay.UserInputGuiScreen)) {
             return null;

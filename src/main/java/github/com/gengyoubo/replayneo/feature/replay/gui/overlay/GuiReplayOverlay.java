@@ -99,7 +99,7 @@ public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
             public void getLocation(WritablePoint dest) {
                 dest.setLocation(getX(), getY());
             }
-        }).onClick((Runnable) () -> {
+        }).onClick(() -> {
             ReplaySender replaySender = replayHandler.getReplaySender();
             // If currently paused
             if (replaySender.paused()) {
@@ -111,7 +111,7 @@ public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
             }
         });
 
-        speedSlider.onValueChanged((Runnable) () -> {
+        speedSlider.onValueChanged(() -> {
             double speed = getSpeedSliderValue();
             speedSlider.setText(I18n.get("replaymod.gui.speed") + ": " + speed + "x");
             ReplaySender replaySender = replayHandler.getReplaySender();
@@ -120,7 +120,7 @@ public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
             }
         }).setValue(9);
 
-        timeline.onClick((IGuiTimeline.OnClick) time -> replayHandler.doJump(time, true)).setLength(replayHandler.getReplayDuration());
+        timeline.onClick(time -> replayHandler.doJump(time, true)).setLength(replayHandler.getReplayDuration());
     }
 
     public double getSpeedSliderValue() {
@@ -175,7 +175,7 @@ public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
         private boolean onKeyInput(KeyInput keyInput, int action) {
             if (action != KeyEventCallback.ACTION_PRESS) return false;
             // Allow F1 to be used to hide the replay gui (e.g. for recording with OBS)
-            if (isMouseVisible() && keyInput.key == Keyboard.KEY_F1) {
+            if (isMouseVisible() && keyInput.key() == Keyboard.KEY_F1) {
                 hidden = !hidden;
                 return true;
             }

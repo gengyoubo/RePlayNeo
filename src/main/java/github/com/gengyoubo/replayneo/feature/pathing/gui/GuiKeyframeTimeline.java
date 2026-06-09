@@ -255,9 +255,7 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
                 int visibleTime = (int) (getZoom() * getLength());
                 int tolerance = visibleTime * KEYFRAME_SIZE / (getLastSize().getWidth() - BORDER_LEFT - BORDER_RIGHT) / 2;
                 Optional<Keyframe> keyframe = gui.getMod().getCurrentTimeline().getPath(path).getKeyframes().stream()
-                        .filter(k -> Math.abs(k.getTime() - time) <= tolerance)
-                        .sorted(Comparator.comparing(k -> Math.abs(k.getTime() - time)))
-                        .findFirst();
+                        .filter(k -> Math.abs(k.getTime() - time) <= tolerance).min(Comparator.comparing(k -> Math.abs(k.getTime() - time)));
                 return Pair.of(path, keyframe.map(Keyframe::getTime).orElse(null));
             }
         }

@@ -47,7 +47,7 @@ public class ReplayMod implements Module, Scheduler {
     public static int TEXTURE_SIZE = 256;
     public static ResourceLocation LOGO_FAVICON = identifier(RePlayNeo.RESOURCE_NAMESPACE, "favicon_logo.png");
 
-    private static Minecraft mc = MCVer.getMinecraft();
+    private static final Minecraft mc = MCVer.getMinecraft();
 
     private final ReplayModBackend backend;
     private final SchedulerImpl scheduler = new SchedulerImpl();
@@ -118,26 +118,29 @@ public class ReplayMod implements Module, Scheduler {
                 return null;
             }
         }
-        return new PathPackResources(JGUI_RESOURCE_PACK_NAME, folder.toPath(), true) {
-            @Override
-            public @NotNull String packId() {
-                return JGUI_RESOURCE_PACK_NAME;
-            }
-
-            @Override
-            public net.minecraft.server.packs.resources.IoSupplier<InputStream> getRootResource(String @NotNull ... segments) {
-                if (segments.length == 1 && segments[0].equals("pack.mcmeta")) {
-                    return () -> new ByteArrayInputStream(generatePackMeta());
+        if (JGUI_RESOURCE_PACK_NAME != null) {
+            return new PathPackResources(JGUI_RESOURCE_PACK_NAME, folder.toPath(), true) {
+                @Override
+                public @NotNull String packId() {
+                    return JGUI_RESOURCE_PACK_NAME;
                 }
-                return super.getRootResource(segments);
-            }
 
-            private byte[] generatePackMeta() {
-                int version = 4;
-                return ("{\"pack\": {\"description\": \"dummy pack for jGui resources in dev-env\", \"pack_format\": "
-                        + version + "}}").getBytes(StandardCharsets.UTF_8);
-            }
-        };
+                @Override
+                public net.minecraft.server.packs.resources.IoSupplier<InputStream> getRootResource(String @NotNull ... segments) {
+                    if (segments.length == 1 && segments[0].equals("pack.mcmeta")) {
+                        return () -> new ByteArrayInputStream(generatePackMeta());
+                    }
+                    return super.getRootResource(segments);
+                }
+
+                private byte[] generatePackMeta() {
+                    int version = 4;
+                    return ("{\"pack\": {\"description\": \"dummy pack for jGui resources in dev-env\", \"pack_format\": "
+                            + version + "}}").getBytes(StandardCharsets.UTF_8);
+                }
+            };
+        }
+        return null;
     }
 
     void initModules() {

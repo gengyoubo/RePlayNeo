@@ -27,6 +27,7 @@ package github.com.gengyoubo.replayneo.feature.pathing.element;
 import github.com.gengyoubo.replayneo.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.function.Click;
 import github.com.gengyoubo.replayneo.function.Clickable;
 import github.com.gengyoubo.replayneo.core.utils.Consumer;
@@ -40,7 +41,7 @@ public abstract class AbstractGuiClickable<T extends AbstractGuiClickable<T>> ex
     public AbstractGuiClickable() {
     }
 
-    public AbstractGuiClickable(GuiContainer container) {
+    public AbstractGuiClickable(GuiContainer<GuiPanel> container) {
         super(container);
     }
 

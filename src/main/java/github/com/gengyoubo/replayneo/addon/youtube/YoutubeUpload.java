@@ -2,7 +2,6 @@ package github.com.gengyoubo.replayneo.addon.youtube;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.addon.Extra;
-import github.com.gengyoubo.replayneo.feature.render.gui.GuiRenderingDone;
 import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiScreen;
 import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;

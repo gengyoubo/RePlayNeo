@@ -501,7 +501,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
 
     @Override
     public boolean handleKey(KeyInput keyInput) {
-        int keyCode = keyInput.key;
+        int keyCode = keyInput.key();
 
         if (keyCode == Keyboard.KEY_TAB) {
             Focusable other = keyInput.hasShift() ? previous : next;

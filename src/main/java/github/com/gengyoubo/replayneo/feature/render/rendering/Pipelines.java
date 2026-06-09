@@ -109,7 +109,7 @@ public class Pipelines {
         RenderSettings settings = renderInfo.getRenderSettings();
         WorldRenderer worldRenderer = new EntityRendererHandler(settings, renderInfo);
         FrameCapturer<BitmapFrame> capturer = new BlendFrameCapturer(worldRenderer, renderInfo);
-        FrameConsumer<BitmapFrame> consumer = new FrameConsumer<BitmapFrame>() {
+        FrameConsumer<BitmapFrame> consumer = new FrameConsumer<>() {
             @Override
             public void consume(Map<Channel, BitmapFrame> channels) {
             }

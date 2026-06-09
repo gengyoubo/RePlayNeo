@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class RenderJob {
+    private static final Object RENDER_QUEUE_FILE_LOCK = new Object();
+
     private Timeline timeline;
     private RenderSettings settings;
 
@@ -74,7 +76,7 @@ public class RenderJob {
     }
 
     public static List<RenderJob> readQueue(ReplayFile replayFile) throws IOException {
-        synchronized (replayFile) {
+        synchronized (RENDER_QUEUE_FILE_LOCK) {
             Optional<InputStream> optIn = replayFile.get("renderQueue.json");
             if (!optIn.isPresent()) {
                 return new ArrayList<>();
@@ -94,7 +96,7 @@ public class RenderJob {
     }
 
     public static void writeQueue(ReplayFile replayFile, List<RenderJob> renderQueue) throws IOException {
-        synchronized (replayFile) {
+        synchronized (RENDER_QUEUE_FILE_LOCK) {
             try (OutputStream out = replayFile.write("renderQueue.json");
                  OutputStreamWriter writer = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
                 new GsonBuilder()

@@ -23,8 +23,8 @@ import github.com.gengyoubo.replayneo.function.Click;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -98,7 +98,7 @@ public class ReplayModReplay implements Module {
                     }
 
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void onFailure(@NotNull Throwable t) {
                         t.printStackTrace();
                         core.printWarningToChat("replaymod.chat.failedthumb");
                     }
@@ -125,8 +125,8 @@ public class ReplayModReplay implements Module {
 
     @Override
     public void initClient() {
-        cameraControllerRegistry.register("replaymod.camera.classic", (Function<CameraEntity, CameraController>) cameraEntity -> new ClassicCameraController(cameraEntity));
-        cameraControllerRegistry.register("replaymod.camera.vanilla", (Function<CameraEntity, CameraController>) cameraEntity -> new VanillaCameraController(core.getMinecraft(), cameraEntity));
+        cameraControllerRegistry.register("replaymod.camera.classic", ClassicCameraController::new);
+        cameraControllerRegistry.register("replaymod.camera.vanilla", cameraEntity -> new VanillaCameraController(core.getMinecraft(), cameraEntity));
 
         new GuiHandler(this).register();
     }

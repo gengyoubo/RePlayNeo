@@ -33,7 +33,6 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
@@ -54,7 +53,7 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
     public final GuiVerticalList settingsList = new GuiVerticalList(contentPanel).setDrawSlider(true);
 
     public final GuiDropdownMenu<RenderSettings.RenderMethod> renderMethodDropdown =
-            new GuiDropdownMenu<RenderSettings.RenderMethod>().onSelection(new Consumer<Integer>() {
+            new GuiDropdownMenu<RenderSettings.RenderMethod>().onSelection(new Consumer<>() {
                 @Override
                 public void consume(Integer old) {
                     if (renderMethodDropdown.getSelectedValue() == RenderSettings.RenderMethod.BLEND
@@ -77,7 +76,7 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
     }
 
     public final GuiDropdownMenu<RenderSettings.EncodingPreset> encodingPresetDropdown =
-            new GuiDropdownMenu<RenderSettings.EncodingPreset>().onSelection(new Consumer<Integer>() {
+            new GuiDropdownMenu<RenderSettings.EncodingPreset>().onSelection(new Consumer<>() {
                 @Override
                 public void consume(Integer old) {
                     RenderSettings.EncodingPreset newPreset = encodingPresetDropdown.getSelectedValue();
@@ -292,8 +291,8 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
                         new GuiLabel().setI18nText("replaymod.gui.rendersettings.advanced"), advancedPanel, new GuiPanel(),
                         new GuiLabel().setI18nText("replaymod.gui.rendersettings.commandline"), commandlinePanel);
 
-        videoWidth.onTextChanged((Consumer<String>) old -> updateInputs());
-        videoHeight.onTextChanged((Consumer<String>) obj -> updateInputs());
+        videoWidth.onTextChanged(old -> updateInputs());
+        videoHeight.onTextChanged(obj -> updateInputs());
     }
 
     private final AbstractGuiScreen<?> screen;

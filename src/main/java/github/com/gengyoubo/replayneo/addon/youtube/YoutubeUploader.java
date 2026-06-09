@@ -113,7 +113,6 @@ public class YoutubeUploader {
     }
 
     //I blame the Google SDK for not supporting "proper" upload cancellation
-    @SuppressWarnings("unchecked")
     public void cancel() {
         thread.stop();
         cancelled = true;

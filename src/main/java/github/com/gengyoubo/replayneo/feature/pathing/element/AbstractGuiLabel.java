@@ -30,11 +30,12 @@ import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import java.util.List;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Style;
@@ -49,7 +50,7 @@ public abstract class AbstractGuiLabel<T extends AbstractGuiLabel<T>> extends Ab
     public AbstractGuiLabel() {
     }
 
-    public AbstractGuiLabel(GuiContainer container) {
+    public AbstractGuiLabel(GuiContainer<GuiPanel> container) {
         super(container);
     }
 

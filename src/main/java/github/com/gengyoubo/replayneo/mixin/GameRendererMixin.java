@@ -2,7 +2,6 @@ package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import github.com.gengyoubo.replayneo.core.events.PreRenderHandCallback;
-import github.com.gengyoubo.replayneo.feature.render.capturer.CubicOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.feature.render.capturer.StereoscopicOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
 import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
@@ -107,18 +106,6 @@ public abstract class GameRendererMixin implements EntityRendererHandler.IEntity
             } else if (replayModRender_getHandler().data == StereoscopicOpenGlFrameCapturer.Data.RIGHT_EYE) {
                 matrixStack.translate(-0.1f, 0, 0);
             }
-        }
-    }
-
-    @Inject(method = "renderLevel", at = @At("HEAD"))
-    private void replayModRender_setupCubicFrameRotation(
-            float partialTicks,
-            long frameStartNano,
-            PoseStack matrixStack,
-            CallbackInfo ci
-    ) {
-        if (replayModRender_getHandler() != null) {
-            replayModRender_getHandler();
         }
     }
 

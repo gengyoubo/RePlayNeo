@@ -26,23 +26,10 @@ package github.com.gengyoubo.replayneo.function;
 
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 
-public class KeyInput implements InputWithModifiers {
-    public final int key;
-    public final int scancode; // Note: unavailable on 1.12.2 and below
-    public final int modifiers;
-
-    public KeyInput(int key, int scancode, int modifiers) {
-        this.key = key;
-        this.scancode = scancode;
-        this.modifiers = modifiers;
-    }
-
-
-
-    @Override
-    public int modifiers() {
-        return modifiers;
-    }
+/**
+ * @param scancode Note: unavailable on 1.12.2 and below
+ */
+public record KeyInput(int key, int scancode, int modifiers) implements InputWithModifiers {
 
     public boolean isEscape() {
         return key == Keyboard.KEY_ESCAPE;

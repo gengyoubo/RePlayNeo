@@ -43,7 +43,10 @@ public class ScreenshotWriter implements FrameConsumer<BitmapFrame> {
                 }
             }
 
-            outputFile.getParentFile().mkdirs();
+            File parent = outputFile.getParentFile();
+            if (parent != null && !parent.isDirectory() && !parent.mkdirs()) {
+                throw new IOException("Could not create screenshot directory: " + parent);
+            }
             img.writePNG(outputFile);
         } catch (OutOfMemoryError e) {
             e.printStackTrace();

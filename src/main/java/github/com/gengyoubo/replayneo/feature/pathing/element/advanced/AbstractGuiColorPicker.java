@@ -28,6 +28,7 @@ import github.com.gengyoubo.replayneo.GuiRenderer;
 import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractComposedGuiElement;
 import github.com.gengyoubo.replayneo.feature.pathing.element.AbstractGuiElement;
 import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
@@ -61,7 +62,7 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
     public AbstractGuiColorPicker() {
     }
 
-    public AbstractGuiColorPicker(GuiContainer container) {
+    public AbstractGuiColorPicker(GuiContainer<GuiPanel> container) {
         super(container);
     }
 
@@ -139,7 +140,7 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
 
     @Override
     public Collection<GuiElement> getChildren() {
-        return opened ? Collections.<GuiElement>singleton(picker) : Collections.emptyList();
+        return opened ? Collections.singleton(picker) : Collections.emptyList();
     }
 
     @Override

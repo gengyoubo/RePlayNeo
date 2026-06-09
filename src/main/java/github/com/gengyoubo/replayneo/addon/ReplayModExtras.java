@@ -17,7 +17,7 @@ public class ReplayModExtras implements Module {
     { instance = this; }
     public static ReplayModExtras instance;
 
-    private static List<Class<? extends Extra>> builtin = Arrays.asList(
+    private static final List<Class<? extends Extra>> builtin = Arrays.asList(
             AdvancedScreenshots.class,
             PlayerOverview.class,
             YoutubeUpload.class,

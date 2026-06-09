@@ -124,7 +124,7 @@ public class KeyBindingRegistry extends EventRegistrations {
     { on(KeyEventCallback.EVENT, this::handleRaw); }
     private boolean handleRaw(KeyInput keyInput, int action) {
         if (action != KeyEventCallback.ACTION_PRESS) return false;
-        for (final Function<KeyInput, Boolean> handler : rawHandlers.get(keyInput.key)) {
+        for (final Function<KeyInput, Boolean> handler : rawHandlers.get(keyInput.key())) {
             try {
                 if (handler.apply(keyInput)) {
                     return true;
@@ -132,7 +132,7 @@ public class KeyBindingRegistry extends EventRegistrations {
             } catch (Throwable cause) {
                 CrashReport crashReport = CrashReport.forThrowable(cause, "Handling Raw Key Binding");
                 CrashReportCategory category = crashReport.addCategory("Key Binding");
-                category.setDetail("Key Code", () -> "" + keyInput.key);
+                category.setDetail("Key Code", () -> "" + keyInput.key());
                 category.setDetail("Handler", handler::toString);
                 throw new ReportedException(crashReport);
             }

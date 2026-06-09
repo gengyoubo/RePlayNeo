@@ -26,7 +26,8 @@ public class JailingQueue<T>
             try {
                 wait();
             } catch (InterruptedException e) {
-                Thread.interrupted();
+                Thread.currentThread().interrupt();
+                return;
             }
         }
     }
@@ -48,7 +49,8 @@ public class JailingQueue<T>
             try {
                 wait();
             } catch (InterruptedException e) {
-                Thread.interrupted();
+                Thread.currentThread().interrupt();
+                return;
             }
         }
     }

@@ -75,8 +75,11 @@ public class Pipeline<R extends Frame, P extends Frame> implements Runnable {
 
         processService.shutdown();
         try {
-            processService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            if (!processService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)) {
+                throw new IllegalStateException("Frame processing service stopped waiting before termination.");
+            }
         } catch (InterruptedException e) {
+            processService.shutdownNow();
             Thread.currentThread().interrupt();
         }
 

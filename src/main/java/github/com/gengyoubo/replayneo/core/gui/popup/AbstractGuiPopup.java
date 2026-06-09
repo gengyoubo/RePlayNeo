@@ -111,9 +111,9 @@ public abstract class AbstractGuiPopup<T extends AbstractGuiPopup<T>> extends Ab
     private boolean wasMouseVisible;
     private boolean renderBackground = true;
 
-    private final GuiContainer container;
+    private final GuiContainer<?> container;
 
-    public AbstractGuiPopup(GuiContainer container) {
+    public AbstractGuiPopup(GuiContainer<?> container) {
         while (container.getContainer() != null) {
             container = container.getContainer();
         }

@@ -26,6 +26,7 @@ package github.com.gengyoubo.replayneo.feature.pathing.element;
 
 import com.google.common.base.Preconditions;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -46,7 +47,7 @@ public abstract class AbstractGuiNumberField<T extends AbstractGuiNumberField<T>
     public AbstractGuiNumberField() {
     }
 
-    public AbstractGuiNumberField(GuiContainer container) {
+    public AbstractGuiNumberField(GuiContainer<GuiPanel> container) {
         super(container);
     }
 

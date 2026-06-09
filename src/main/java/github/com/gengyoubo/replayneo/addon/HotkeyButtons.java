@@ -43,17 +43,17 @@ public class HotkeyButtons extends EventRegistrations implements Extra {
         public Gui(ReplayMod mod, GuiReplayOverlay overlay) {
             toggleButton = new GuiButton(overlay).setSize(20, 20)
                     .setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(0, 120)
-                    .onClick((Runnable) () -> open = !open);
+                    .onClick(() -> open = !open);
 
             panel = new GuiPanel(overlay) {
                 @Override
                 public Collection<GuiElement> getChildren() {
-                    return open ? super.getChildren() : Collections.<GuiElement>emptyList();
+                    return open ? super.getChildren() : Collections.emptyList();
                 }
 
                 @Override
                 public Map<GuiElement, LayoutData> getElements() {
-                    return open ? super.getElements() : Collections.<GuiElement, LayoutData>emptyMap();
+                    return open ? super.getElements() : Collections.emptyMap();
                 }
             }.setLayout(panelLayout = new GridLayout().setSpacingX(5).setSpacingY(5).setColumns(1));
 

@@ -130,7 +130,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
     @Override
     public boolean handleKey(KeyInput keyInput) {
         if (keyInput.isEscape()) {
-            cancelButton.onClick(new Click(-1, -1, 0, keyInput.modifiers));
+            cancelButton.onClick(new Click(-1, -1, 0, keyInput.modifiers()));
             return true;
         }
         return false;
@@ -368,7 +368,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
                 public abstract I createInterpolator();
             }
 
-            public class CatmullRomSettingsPanel extends SettingsPanel<CatmullRomSplineInterpolator, CatmullRomSettingsPanel> {
+            public static class CatmullRomSettingsPanel extends SettingsPanel<CatmullRomSplineInterpolator, CatmullRomSettingsPanel> {
                 public final GuiLabel alphaLabel = new GuiLabel().setColor(Colors.BLACK)
                         .setI18nText("replaymod.gui.editkeyframe.interpolator.catmullrom.alpha");
                 public final GuiNumberField alphaField = new GuiNumberField().setSize(100, 20).setPrecision(5)
@@ -395,7 +395,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
                 }
             }
 
-            public class CubicSettingsPanel extends SettingsPanel<CubicSplineInterpolator, CubicSettingsPanel> {
+            public static class CubicSettingsPanel extends SettingsPanel<CubicSplineInterpolator, CubicSettingsPanel> {
 
                 @Override
                 public void loadSettings(CubicSplineInterpolator interpolator) {
@@ -412,7 +412,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
                 }
             }
 
-            public class LinearSettingsPanel extends SettingsPanel<LinearInterpolator, LinearSettingsPanel> {
+            public static class LinearSettingsPanel extends SettingsPanel<LinearInterpolator, LinearSettingsPanel> {
 
                 @Override
                 public void loadSettings(LinearInterpolator interpolator) {

@@ -110,7 +110,7 @@ public class QuickReplaySender extends ChannelHandlerAdapter implements ReplaySe
             try {
                 long start = System.currentTimeMillis();
                 replay.load(progress);
-                LOGGER.info("Initialized quick replay sender in " + (System.currentTimeMillis() - start) + "ms");
+                LOGGER.info("Initialized quick replay sender in {}ms", System.currentTimeMillis() - start);
             } catch (Throwable e) {
                 LOGGER.error("Initializing quick replay sender:", e);
                 mod.getCore().runLaterWithoutLock(() -> {

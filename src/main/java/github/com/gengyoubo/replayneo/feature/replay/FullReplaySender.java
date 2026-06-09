@@ -89,7 +89,8 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.Future;
+import java.util.concurrent.locks.LockSupport;
 
 import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
 import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
@@ -269,10 +270,16 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         if (this.asyncMode == asyncMode) return;
         this.asyncMode = asyncMode;
         if (asyncMode) {
-            this.terminate = false;
+            synchronized (this) {
+                this.terminate = false;
+                notifyAll();
+            }
             new Thread(asyncSender, "replaymod-async-sender").start();
         } else {
-            this.terminate = true;
+            synchronized (this) {
+                this.terminate = true;
+                notifyAll();
+            }
         }
     }
 
@@ -290,7 +297,10 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     public void setSyncModeAndWait() {
         if (!this.asyncMode) return;
         this.asyncMode = false;
-        this.terminate = true;
+        synchronized (this) {
+            this.terminate = true;
+            notifyAll();
+        }
         // This will wait for the worker thread to leave the synchronized code part
     }
 
@@ -316,7 +326,10 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         if (terminate) {
             return;
         }
-        terminate = true;
+        synchronized (this) {
+            terminate = true;
+            notifyAll();
+        }
         syncSender.shutdown();
         events.unregister();
         try {
@@ -332,6 +345,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         { on(PreTickCallback.EVENT, this::onWorldTick); }
 
         private void onWorldTick() {
+            LOGGER.debug("World tick event received");
         }
     }
 
@@ -519,7 +533,9 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     private void removeDeadEntities(ClientLevel world) {
         for (Entity entity : world.entitiesForRendering()) {
             if (entity.isRemoved()) {
-                world.removeEntity(entity.getId(), entity.getRemovalReason());
+                if (entity.getRemovalReason() != null) {
+                    world.removeEntity(entity.getId(), entity.getRemovalReason());
+                }
             }
         }
     }
@@ -665,7 +681,6 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
             schedulePacketHandler(new Runnable() {
                 @Override
-                @SuppressWarnings("unchecked")
                 public void run() {
                     // FIXME: world shouldn't ever be null at this point, now that we use the packet queue
                     //        probably fine to remove on the next non-patch version (don't want to break stuff now)
@@ -741,10 +756,13 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
      */
     @Override
     public void setReplaySpeed(final double d) {
-        if (d != 0) {
-            this.replaySpeed = d;
-            this.realTimeStartSpeed = d;
-            this.realTimeStart = System.currentTimeMillis() - (long) (lastTimeStamp / d);
+        synchronized (this) {
+            if (d != 0) {
+                this.replaySpeed = d;
+                this.realTimeStartSpeed = d;
+                this.realTimeStart = System.currentTimeMillis() - (long) (lastTimeStamp / d);
+            }
+            notifyAll();
         }
         TimerAccessor timer = (TimerAccessor) ((MinecraftAccessor) mc).getTimer();
         timer.setTickLength(DEFAULT_MS_PER_TICK / (float) d);
@@ -795,7 +813,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                                     if (terminate || startFromBeginning || desiredTimeStamp != -1) {
                                         break;
                                     }
-                                    Thread.sleep(10);
+                                    FullReplaySender.this.wait();
                                 }
 
                                 if (terminate && !inBundle) {
@@ -824,7 +842,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                                     long now = System.currentTimeMillis();
                                     // If the packet should not yet be sent, wait a bit
                                     if (expectedTime > now) {
-                                        Thread.sleep(expectedTime - now);
+                                        FullReplaySender.this.wait(expectedTime - now);
                                     }
                                 }
 
@@ -858,13 +876,16 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                                 setReplaySpeed(0);
                                 // Then wait until the user tells us to continue
                                 while (paused() && hasWorldLoaded && desiredTimeStamp == -1 && !terminate) {
-                                    Thread.sleep(10);
+                                    FullReplaySender.this.wait();
                                 }
 
                                 if (terminate) {
                                     break REPLAY_LOOP;
                                 }
                                 break;
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                                break REPLAY_LOOP;
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -904,7 +925,10 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
      * Cancels the hurrying.
      */
     public void stopHurrying() {
-        desiredTimeStamp = -1;
+        synchronized (this) {
+            desiredTimeStamp = -1;
+            notifyAll();
+        }
     }
 
     /**
@@ -925,11 +949,14 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     @Override
     public void jumpToTime(int millis) {
         Preconditions.checkState(asyncMode, "Can only jump in async mode. Use sendPacketsTill(int) instead.");
-        if(millis < lastTimeStamp && !isHurrying()) {
-            startFromBeginning = true;
-        }
+        synchronized (this) {
+            if(millis < lastTimeStamp && !isHurrying()) {
+                startFromBeginning = true;
+            }
 
-        desiredTimeStamp = millis;
+            desiredTimeStamp = millis;
+            notifyAll();
+        }
     }
 
     protected Packet processPacketAsync(Packet p) {
@@ -962,25 +989,15 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         Preconditions.checkState(!asyncMode, "This method cannot be used in async mode. Use jumpToTime(int) instead.");
 
         // Submit our target to the sender thread and track its progress
-        AtomicBoolean doneSending = new AtomicBoolean();
-        syncSender.submit(() -> {
-            try {
-                doSendPacketsTill(timestamp);
-            } finally {
-                doneSending.set(true);
-            }
-        });
+        Future<?> sending = syncSender.submit(() -> doSendPacketsTill(timestamp));
 
         // Drain the task queue while we are sending (in case a mod blocks the io thread waiting for the main thread)
-        while (!doneSending.get()) {
+        while (!sending.isDone()) {
             executeTaskQueue();
 
             // Wait until the sender thread has made progress
-            try {
-                //noinspection BusyWait
-                Thread.sleep(0, 100_000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+            LockSupport.parkNanos(100_000);
+            if (Thread.currentThread().isInterrupted()) {
                 return;
             }
         }

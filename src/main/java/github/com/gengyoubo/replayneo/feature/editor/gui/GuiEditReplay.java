@@ -28,7 +28,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
+
 import net.minecraft.CrashReport;
 
 public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
@@ -206,7 +206,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
         }
     }
 
-    private class EditTimeline extends GuiMarkerTimeline {
+    private static class EditTimeline extends GuiMarkerTimeline {
         EditTimeline(Set<Marker> markers, Consumer<Set<Marker>> saveMarkers) {
             super(markers, saveMarkers);
         }

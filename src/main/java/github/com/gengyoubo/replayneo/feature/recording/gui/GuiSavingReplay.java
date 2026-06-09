@@ -15,7 +15,6 @@ import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
 import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTextField;
 import github.com.gengyoubo.replayneo.feature.pathing.element.GuiTooltip;
 import github.com.gengyoubo.replayneo.feature.pathing.element.advanced.GuiProgressBar;
-import github.com.gengyoubo.replayneo.function.Focusable;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;

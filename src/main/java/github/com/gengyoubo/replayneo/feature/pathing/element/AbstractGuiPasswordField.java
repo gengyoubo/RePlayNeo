@@ -28,13 +28,14 @@ import github.com.gengyoubo.replayneo.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractGuiPasswordField<T extends AbstractGuiPasswordField<T>> extends AbstractGuiTextField<T> {
     public AbstractGuiPasswordField() {
     }
 
-    public AbstractGuiPasswordField(GuiContainer container) {
+    public AbstractGuiPasswordField(GuiContainer<GuiPanel> container) {
         super(container);
     }
 

@@ -29,13 +29,16 @@ public class PlayerOverview extends EventRegistrations implements Extra {
     public void register(final ReplayMod mod) throws Exception {
         this.module = ReplayModReplay.instance;
 
-        mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.playeroverview", Keyboard.KEY_B, (Runnable) () -> {
+        mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.playeroverview", Keyboard.KEY_B, () -> {
             if (module.getReplayHandler() != null) {
-                List<Player> players = mod.getMinecraft().level.players()
-                        .stream()
-                        .map(it -> (Player) it)
-                        .filter(it -> !(it instanceof CameraEntity))
-                        .collect(Collectors.toList());
+                List<Player> players = null;
+                if (mod.getMinecraft().level != null) {
+                    players = mod.getMinecraft().level.players()
+                            .stream()
+                            .map(it -> (Player) it)
+                            .filter(it -> !(it instanceof CameraEntity))
+                            .collect(Collectors.toList());
+                }
                 if (!Utils.isCtrlDown()) {
                     // Hide all players that have an UUID v2 (commonly used for NPCs)
                     Iterator<Player> iter = players.iterator();

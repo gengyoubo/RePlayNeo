@@ -192,7 +192,7 @@ public class GuiVideoRenderer extends GuiScreen implements Tickable {
                 }
 
                 //calculate the average render time for the previous [up to 50] frames
-                float averageRenderTime = validValues > 0 ? (float) (float) totalTime / validValues : 0;
+                float averageRenderTime = validValues > 0 ? (float) totalTime / validValues : 0;
 
                 //calculate the remaining render time in seconds
                 renderTimeLeft = Math.round((averageRenderTime * (renderer.getTotalFrames() - renderer.getFramesDone())) / 1000);

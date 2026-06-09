@@ -237,7 +237,7 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
 
     @Override
     public boolean handleKey(KeyInput keyInput) {
-        if (keyInput.key == Keyboard.KEY_DELETE && selectedMarker != null) {
+        if (keyInput.key() == Keyboard.KEY_DELETE && selectedMarker != null) {
             markers.remove(selectedMarker);
             saveMarkers.accept(markers);
             return true;

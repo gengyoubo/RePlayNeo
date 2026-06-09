@@ -47,6 +47,7 @@ public class ReplayModSimplePathing extends EventRegistrations implements Module
 
     private GuiPathing guiPathing;
     private final PathPreview pathPreview = new PathPreview(this);
+    private final Object timelineFileLock = new Object();
 
     public ReplayModSimplePathing(ReplayMod core) {
         this.core = core;
@@ -145,7 +146,7 @@ public class ReplayModSimplePathing extends EventRegistrations implements Module
     private void onReplayOpened(ReplayHandler replayHandler) {
         ReplayFile replayFile = replayHandler.getReplayFile();
         try {
-            synchronized (replayFile) {
+            synchronized (timelineFileLock) {
                 Timeline timeline = replayFile.getTimelines(new SPTimeline()).get("");
                 if (timeline != null) {
                     setCurrentTimeline(new SPTimeline(timeline), false);
@@ -175,8 +176,12 @@ public class ReplayModSimplePathing extends EventRegistrations implements Module
     private void onReplayClosing() {
         saveService.shutdown();
         try {
-            saveService.awaitTermination(1, TimeUnit.MINUTES);
+            if (!saveService.awaitTermination(1, TimeUnit.MINUTES)) {
+                LOGGER.warn("Timeline save service did not stop within one minute; forcing shutdown.");
+                saveService.shutdownNow();
+            }
         } catch (InterruptedException e) {
+            saveService.shutdownNow();
             Thread.currentThread().interrupt();
         }
         saveService = null;
@@ -302,7 +307,7 @@ public class ReplayModSimplePathing extends EventRegistrations implements Module
     }
 
     private void saveTimeline(ReplayFile replayFile, PathingRegistry pathingRegistry, Timeline timeline) throws IOException {
-        synchronized (replayFile) {
+        synchronized (timelineFileLock) {
             Map<String, Timeline> timelineMap = replayFile.getTimelines(pathingRegistry);
             timelineMap.put("", timeline);
             replayFile.writeTimelines(pathingRegistry, timelineMap);
