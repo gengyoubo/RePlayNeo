@@ -100,16 +100,11 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
             do {
                 setupRender(camera, frustum, hasForcedFrustum, spectator);
 
-                for (Object renderChunkInfo : this.renderChunksInFrustum) {
-                    ChunkRenderDispatcher.RenderChunk builtChunk = ((RenderChunkInfoAccessor) renderChunkInfo).getChunk();
-                    if (builtChunk.hasAllNeighbors()) {
-                        builtChunk.setDirty(true);
-                    }
-                    builtChunk.setNotDirty();
+                boolean uploadedChunks = ((ForceChunkLoadingHook.IBlockOnChunkRebuilds) this.chunkRenderDispatcher).uploadEverythingBlocking();
+                this.needsFullRenderChunkUpdate |= uploadedChunks;
+                if (this.needsFullRenderChunkUpdate) {
+                    this.renderChunksInFrustum.clear();
                 }
-                this.renderChunksInFrustum.clear();
-
-                this.needsFullRenderChunkUpdate |= ((ForceChunkLoadingHook.IBlockOnChunkRebuilds) this.chunkRenderDispatcher).uploadEverythingBlocking();
             } while (this.needsFullRenderChunkUpdate);
         } finally {
             replayModRender$passThrough = false;
