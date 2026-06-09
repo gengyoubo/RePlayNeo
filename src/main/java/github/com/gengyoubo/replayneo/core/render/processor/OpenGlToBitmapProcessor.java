@@ -1,14 +1,14 @@
-package github.com.gengyoubo.replayneo.platform.feature.render.processor;
+package github.com.gengyoubo.replayneo.core.render.processor;
 
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.OpenGlFrame;
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
 import java.nio.ByteBuffer;
 
-import static github.com.gengyoubo.replayneo.platform.restored.com.replaymod.render.utils.Utils.openGlBytesToBitmap;
+import static github.com.gengyoubo.replayneo.core.render.utils.Utils.openGlBytesToBitmap;
 
 public class OpenGlToBitmapProcessor extends AbstractFrameProcessor<OpenGlFrame, BitmapFrame> {
 

@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing;
 
+import github.com.gengyoubo.replayneo.core.pathing.InterpolatorType;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 
 import java.util.Arrays;

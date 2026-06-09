@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.capturer;
 
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
 
 public class SimplePboOpenGlFrameCapturer extends PboOpenGlFrameCapturer<OpenGlFrame, SimplePboOpenGlFrameCapturer.SinglePass> {
 

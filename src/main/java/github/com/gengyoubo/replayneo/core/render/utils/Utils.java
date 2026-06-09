@@ -1,6 +1,6 @@
-package github.com.gengyoubo.replayneo.platform.restored.com.replaymod.render.utils;
+package github.com.gengyoubo.replayneo.core.render.utils;
 
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
 
 import java.nio.ByteBuffer;
 

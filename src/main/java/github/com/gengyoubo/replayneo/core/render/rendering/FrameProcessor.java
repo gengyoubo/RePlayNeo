@@ -1,4 +1,4 @@
-package github.com.gengyoubo.replayneo.platform.feature.render.rendering;
+package github.com.gengyoubo.replayneo.core.render.rendering;
 
 import java.io.Closeable;
 

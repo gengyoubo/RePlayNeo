@@ -2,9 +2,9 @@ package github.com.gengyoubo.replayneo.platform.feature.render.blend;
 
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.WorldRenderer;
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.BitmapFrame;
-import github.com.gengyoubo.replayneo.platform.feature.render.rendering.Channel;
-import github.com.gengyoubo.replayneo.platform.feature.render.rendering.FrameCapturer;
+import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.core.render.rendering.FrameCapturer;
 import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import java.io.IOException;

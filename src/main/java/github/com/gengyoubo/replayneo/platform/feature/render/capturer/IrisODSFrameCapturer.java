@@ -1,11 +1,11 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.capturer;
 
 import github.com.gengyoubo.replayneo.platform.feature.render.RenderSettings;
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.CubicOpenGlFrame;
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.ODSOpenGlFrame;
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.OpenGlFrame;
-import github.com.gengyoubo.replayneo.platform.feature.render.rendering.Channel;
-import github.com.gengyoubo.replayneo.platform.feature.render.rendering.FrameCapturer;
+import github.com.gengyoubo.replayneo.core.render.frame.CubicOpenGlFrame;
+import github.com.gengyoubo.replayneo.core.render.frame.ODSOpenGlFrame;
+import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.core.render.rendering.FrameCapturer;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import net.coderbot.iris.Iris;
 import net.coderbot.iris.config.IrisConfig;

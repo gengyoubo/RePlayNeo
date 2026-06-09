@@ -1,6 +1,6 @@
-package github.com.gengyoubo.replayneo.platform.feature.render.processor;
+package github.com.gengyoubo.replayneo.core.render.processor;
 
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.BitmapFrame;
+import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 
 import java.nio.FloatBuffer;
 

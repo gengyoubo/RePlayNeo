@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.capturer;
 
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.CubicOpenGlFrame;
-import github.com.gengyoubo.replayneo.platform.feature.render.rendering.Channel;
+import github.com.gengyoubo.replayneo.core.render.frame.CubicOpenGlFrame;
+import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 
 import java.util.Collections;
 import java.util.Map;

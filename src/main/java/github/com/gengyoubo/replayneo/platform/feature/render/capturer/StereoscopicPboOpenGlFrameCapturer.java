@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.capturer;
 
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.OpenGlFrame;
-import github.com.gengyoubo.replayneo.platform.feature.render.frame.StereoscopicOpenGlFrame;
+import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
+import github.com.gengyoubo.replayneo.core.render.frame.StereoscopicOpenGlFrame;
 
 public class StereoscopicPboOpenGlFrameCapturer
         extends PboOpenGlFrameCapturer<StereoscopicOpenGlFrame, StereoscopicOpenGlFrameCapturer.Data> {

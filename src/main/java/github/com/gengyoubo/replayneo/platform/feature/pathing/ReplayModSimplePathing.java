@@ -1,6 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing;
 
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
+import github.com.gengyoubo.replayneo.core.pathing.InterpolatorType;
 import github.com.gengyoubo.replayneo.core.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;

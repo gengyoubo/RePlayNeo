@@ -1,4 +1,4 @@
-package github.com.gengyoubo.replayneo.platform.feature.pathing.properties;
+package github.com.gengyoubo.replayneo.core.pathing.properties;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;

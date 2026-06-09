@@ -1,4 +1,4 @@
-package github.com.gengyoubo.replayneo.platform.feature.pathing;
+package github.com.gengyoubo.replayneo.core.pathing;
 
 import com.replaymod.replaystudio.pathing.interpolation.CatmullRomSplineInterpolator;
 import com.replaymod.replaystudio.pathing.interpolation.CubicSplineInterpolator;
