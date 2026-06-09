@@ -21,3 +21,11 @@ The target architecture is:
 3. Network packet capture/playback.
 4. Entity/world adapters.
 5. Camera and video export adapters.
+
+## Current Slice
+
+- Added the loader-neutral `api` package for client, input, render, network, entity, world, and camera boundaries.
+- Added a Forge platform entry point and moved key binding registration behind `ReplayInput` / `ReplayKeyBindingRegistry`.
+- Moved runtime environment queries behind `ReplayRuntime`, including mod version, Minecraft version, game directory, and installed network mods.
+- Moved config/replay folder path resolution and mouse coordinate lookup away from direct Minecraft access in `core`.
+- Added `verifyReplayLayering` so `api` fails on Minecraft/Forge/mixin imports, while `core` reports remaining migration work.

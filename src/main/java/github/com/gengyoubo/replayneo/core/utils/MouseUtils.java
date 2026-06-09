@@ -24,27 +24,15 @@
  */
 package github.com.gengyoubo.replayneo.core.utils;
 
-import com.mojang.blaze3d.platform.Window;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
-import github.com.gengyoubo.replayneo.platform.versions.MCVer;
-import net.minecraft.client.Minecraft;
+import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 
 public class MouseUtils {
-    private static final Minecraft mc = MCVer.getMinecraft();
-
     public static Point getMousePos() {
-        int mouseX = (int) mc.mouseHandler.xpos();
-        int mouseY = (int) mc.mouseHandler.ypos();
-        Window mainWindow = MCVer.newScaledResolution(mc);
-        mouseX = (int) Math.round((double) mouseX * mainWindow.getGuiScaledWidth() / mainWindow.getScreenWidth());
-        mouseY = (int) Math.round((double) mouseY * mainWindow.getGuiScaledHeight() / mainWindow.getScreenHeight());
-
-        return new Point(mouseX, mouseY);
+        return ReplayPlatforms.get().input().mousePosition();
     }
 
     public static Point getScaledDimensions() {
-        Window
-                res = MCVer.newScaledResolution(mc);
-        return new Point(res.getGuiScaledWidth(), res.getGuiScaledHeight());
+        return ReplayPlatforms.get().input().scaledDimensions();
     }
 }

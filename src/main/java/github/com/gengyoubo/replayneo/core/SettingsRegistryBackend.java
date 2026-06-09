@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -18,18 +19,16 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.client.Minecraft;
 
 import static github.com.gengyoubo.replayneo.core.utils.Utils.ensureDirectoryExists;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
 
 class SettingsRegistryBackend {
     private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
     private final Map<SettingsRegistry.SettingKey<?>, Object> settings;
+    private final Path configFile;
 
-    private final Path configFile = getMinecraft().gameDirectory.toPath().resolve("config/replaymod.json");
-
-    SettingsRegistryBackend(Map<SettingsRegistry.SettingKey<?>, Object> settings) {
+    SettingsRegistryBackend(Path configFile, Map<SettingsRegistry.SettingKey<?>, Object> settings) {
+        this.configFile = configFile;
         this.settings = settings;
     }
 
@@ -123,7 +122,7 @@ class SettingsRegistryBackend {
                     }
                     Path fileName = ((Path) event.context());
                     if (fileName.equals(configFile.getFileName())) {
-                        Minecraft.getInstance().tell(this::reload);
+                        ReplayPlatforms.get().client().execute(this::reload);
                     }
                 }
                 if (!nextKey.reset()) {

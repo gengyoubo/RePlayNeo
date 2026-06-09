@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public interface ReplayKeyBindingRegistry {
+    void register();
+
     Binding registerKeyBinding(String name, int keyCode, Runnable whenPressed, boolean onlyInReplay);
 
     Binding registerRepeatedKeyBinding(String name, int keyCode, Runnable whenPressed, boolean onlyInReplay);

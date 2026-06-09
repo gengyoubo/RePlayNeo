@@ -2,6 +2,7 @@ package github.com.gengyoubo.replayneo.core;
 
 import github.com.gengyoubo.replayneo.restored.com.replaymod.compat.ReplayModCompat;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
+import github.com.gengyoubo.replayneo.api.ReplayRuntime;
 import github.com.gengyoubo.replayneo.core.files.ReplayFilesService;
 import github.com.gengyoubo.replayneo.core.files.ReplayFoldersService;
 import github.com.gengyoubo.replayneo.core.gui.GuiBackgroundProcesses;
@@ -33,6 +34,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -51,13 +53,10 @@ public class ReplayMod implements Module, Scheduler {
 
     private static final Minecraft mc = MCVer.getMinecraft();
 
-    private final ReplayModBackend backend;
+    private final ReplayRuntime backend;
     private final SchedulerImpl scheduler = new SchedulerImpl();
     private final ReplayKeyBindingRegistry keyBindingRegistry = ReplayPlatforms.get().input().keyBindingRegistry();
-    private final SettingsRegistry settingsRegistry = new SettingsRegistry();
-    {
-        settingsRegistry.register(Setting.class);
-    }
+    private final SettingsRegistry settingsRegistry;
 
     { instance = this; }
     public static ReplayMod instance;
@@ -65,8 +64,8 @@ public class ReplayMod implements Module, Scheduler {
     private final List<Module> modules = new ArrayList<>();
 
     private final GuiBackgroundProcesses backgroundProcesses = new GuiBackgroundProcesses();
-    public final ReplayFoldersService folders = new ReplayFoldersService(settingsRegistry);
-    public final ReplayFilesService files = new ReplayFilesService(folders);
+    public final ReplayFoldersService folders;
+    public final ReplayFilesService files;
 
     /**
      * Whether the current MC version is supported by the embedded ReplayStudio version.
@@ -78,8 +77,12 @@ public class ReplayMod implements Module, Scheduler {
      */
     private boolean minimalMode;
 
-    public ReplayMod(ReplayModBackend backend) {
+    public ReplayMod(ReplayRuntime backend) {
         this.backend = backend;
+        this.settingsRegistry = new SettingsRegistry(backend.getGameDirectory());
+        this.settingsRegistry.register(Setting.class);
+        this.folders = new ReplayFoldersService(backend.getGameDirectory(), settingsRegistry);
+        this.files = new ReplayFilesService(folders);
 
         I18n.setI18n(net.minecraft.client.resources.language.I18n::get);
 
@@ -145,7 +148,7 @@ public class ReplayMod implements Module, Scheduler {
         return null;
     }
 
-    void initModules() {
+    public void initModules() {
         modules.forEach(Module::initCommon);
         modules.forEach(Module::initClient);
         modules.forEach(m -> m.registerKeyBindings(keyBindingRegistry));
@@ -202,6 +205,10 @@ public class ReplayMod implements Module, Scheduler {
 
     public boolean isModLoaded(String id) {
         return backend.isModLoaded(id);
+    }
+
+    public Collection<com.replaymod.replaystudio.data.ModInfo> getInstalledNetworkMods() {
+        return backend.getInstalledNetworkMods();
     }
 
     public Minecraft getMinecraft() {

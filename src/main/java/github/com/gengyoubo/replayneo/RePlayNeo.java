@@ -1,7 +1,8 @@
 package github.com.gengyoubo.replayneo;
 
-import github.com.gengyoubo.replayneo.core.ReplayModBackend;
+import github.com.gengyoubo.replayneo.api.ReplayRuntime;
 import github.com.gengyoubo.replayneo.platform.ForgeReplayPlatform;
+import github.com.gengyoubo.replayneo.platform.ForgeReplayRuntime;
 import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
@@ -16,16 +17,16 @@ public class RePlayNeo {
 
     public static RePlayNeo instance;
 
-    private final ReplayModBackend backend;
+    private final ReplayRuntime backend;
 
     public RePlayNeo() {
         instance = this;
         LOGGER.info("Loading {}", MOD_NAME);
         ReplayPlatforms.install(new ForgeReplayPlatform());
-        this.backend = new ReplayModBackend();
+        this.backend = new ForgeReplayRuntime();
     }
 
-    public ReplayModBackend getBackend() {
+    public ReplayRuntime getBackend() {
         return backend;
     }
 }

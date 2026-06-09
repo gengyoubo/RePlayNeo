@@ -8,15 +8,15 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import net.minecraft.client.Minecraft;
 
 import static github.com.gengyoubo.replayneo.core.utils.Utils.ensureDirectoryExists;
 
 public class ReplayFoldersService {
-    private final Path mcDir = Minecraft.getInstance().gameDirectory.toPath();
+    private final Path mcDir;
     private final SettingsRegistry settings;
 
-    public ReplayFoldersService(SettingsRegistry settings) {
+    public ReplayFoldersService(Path mcDir, SettingsRegistry settings) {
+        this.mcDir = mcDir;
         this.settings = settings;
     }
 
