@@ -393,6 +393,12 @@ public class RenderSettings {
         return encodingPreset;
     }
 
+    public boolean requiresFFmpeg() {
+        return renderMethod != RenderMethod.BLEND
+                && encodingPreset != EncodingPreset.EXR
+                && encodingPreset != EncodingPreset.PNG;
+    }
+
     public int getFramesPerSecond() {
         return framesPerSecond;
     }

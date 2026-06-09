@@ -161,6 +161,10 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         { on(PostRenderScreenCallback.EVENT, this::onGuiRender); }
         private void onGuiRender(GuiGraphics stack, float partialTicks) {
+            if (!isCurrentScreen()) {
+                onGuiClosed();
+                return;
+            }
             stack.flush(); // flush any buffered changes before we draw using legacy primitives
             Point mousePos = MouseUtils.getMousePos();
             getSuperMcGui().render(
@@ -170,6 +174,10 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         { on(PreTickCallback.EVENT, this::tickOverlay); }
         private void tickOverlay() {
+            if (!isCurrentScreen()) {
+                onGuiClosed();
+                return;
+            }
             getSuperMcGui().tick();
         }
 
@@ -177,21 +185,37 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean mouseDown(Click click) {
+            if (!isCurrentScreen()) {
+                onGuiClosed();
+                return false;
+            }
             return getSuperMcGui().mouseClicked(click.x, click.y, click.button);
         }
 
         @Override
         public boolean mouseDrag(Click click, double dx, double dy) {
+            if (!isCurrentScreen()) {
+                onGuiClosed();
+                return false;
+            }
             return getSuperMcGui().mouseDragged(click.x, click.y, click.button, dx, dy);
         }
 
         @Override
         public boolean mouseUp(Click click) {
+            if (!isCurrentScreen()) {
+                onGuiClosed();
+                return false;
+            }
             return getSuperMcGui().mouseReleased(click.x, click.y, click.button);
         }
 
         @Override
         public boolean mouseScroll(double x, double y, double horizontal, double vertical) {
+            if (!isCurrentScreen()) {
+                onGuiClosed();
+                return false;
+            }
             return getSuperMcGui().mouseScrolled(x, y,
                     vertical);
         }
@@ -200,17 +224,33 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean keyPressed(KeyInput keyInput) {
+            if (!isCurrentScreen()) {
+                onGuiClosed();
+                return false;
+            }
             return getSuperMcGui().keyPressed(keyInput.key, keyInput.scancode, keyInput.modifiers);
         }
 
         @Override
         public boolean keyReleased(KeyInput keyInput) {
+            if (!isCurrentScreen()) {
+                onGuiClosed();
+                return false;
+            }
             return getSuperMcGui().keyReleased(keyInput.key, keyInput.scancode, keyInput.modifiers);
         }
 
         @Override
         public boolean charTyped(CharInput charInput) {
+            if (!isCurrentScreen()) {
+                onGuiClosed();
+                return false;
+            }
             return getSuperMcGui().charTyped(charInput.character(), charInput.modifiers());
+        }
+
+        private boolean isCurrentScreen() {
+            return active && getMinecraft().screen == mcScreen;
         }
     }
 }

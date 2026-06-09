@@ -78,6 +78,21 @@ public class FFmpegWriter implements FrameConsumer<BitmapFrame> {
         channel = Channels.newChannel(outputStream);
     }
 
+    public static void assertFFmpegAvailable(RenderSettings settings) throws NoFFmpegException {
+        String executable = settings.getExportCommandOrDefault();
+        Process process;
+        try {
+            process = new ProcessBuilder(executable, "-version").start();
+        } catch (IOException e) {
+            throw new NoFFmpegException(e);
+        }
+
+        IOUtils.closeQuietly(process.getInputStream());
+        IOUtils.closeQuietly(process.getErrorStream());
+        IOUtils.closeQuietly(process.getOutputStream());
+        process.destroy();
+    }
+
     @Override
     public void close() {
         IOUtils.closeQuietly(outputStream);

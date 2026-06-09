@@ -4,7 +4,10 @@ import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.feature.editor.gui.MarkerProcessor;
+import github.com.gengyoubo.replayneo.feature.recording.ReplayModRecording;
+import github.com.gengyoubo.replayneo.feature.recording.handler.RecordingEventHandler;
 import github.com.gengyoubo.replayneo.feature.recording.packet.PacketListener;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.core.gui.container.VanillaGuiScreen;
 import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
@@ -12,6 +15,7 @@ import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -35,6 +39,7 @@ public class GuiRecordingControls extends EventRegistrations {
         if (Utils.ifMinimalModeDoPopup(panel, () -> {})) return;
         if (paused) {
             packetListener.addMarker(MarkerProcessor.MARKER_NAME_END_CUT);
+            spawnRecordingPlayer();
         } else {
             packetListener.addMarker(MarkerProcessor.MARKER_NAME_START_CUT);
         }
@@ -48,6 +53,7 @@ public class GuiRecordingControls extends EventRegistrations {
         if (stopped) {
             paused = false;
             packetListener.addMarker(MarkerProcessor.MARKER_NAME_END_CUT);
+            spawnRecordingPlayer();
             core.printInfoToChat("replaymod.chat.recordingstarted");
         } else {
             int timestamp = (int) packetListener.getCurrentDuration();
@@ -84,6 +90,13 @@ public class GuiRecordingControls extends EventRegistrations {
         buttonStartStop.setDisabled();
     }
 
+    private void spawnRecordingPlayer() {
+        RecordingEventHandler handler = ReplayModRecording.instance.getConnectionEventHandler().getRecordingEventHandler();
+        if (handler != null) {
+            handler.spawnRecordingPlayer();
+        }
+    }
+
     private void updateState() {
         buttonPauseResume.setI18nLabel("replaymod.gui.recording." + (paused ? "resume" : "pause"));
         buttonStartStop.setI18nLabel("replaymod.gui.recording." + (stopped ? "start" : "stop"));
@@ -99,10 +112,7 @@ public class GuiRecordingControls extends EventRegistrations {
     private void injectIntoIngameMenu(Screen guiScreen,
                                       Collection<AbstractButton> buttonList
     ) {
-        if (closed) {
-            return;
-        }
-        if (!(guiScreen instanceof PauseScreen)) {
+        if (!shouldShowOn(guiScreen)) {
             return;
         }
         if (buttonList.isEmpty()) {
@@ -115,15 +125,36 @@ public class GuiRecordingControls extends EventRegistrations {
                         .<Function<Integer, Integer>>map(it -> (height) -> it.getY())
                         .orElse((height) -> height / 4 + 120 - 16);
         VanillaGuiScreen vanillaGui = VanillaGuiScreen.wrap(guiScreen);
+        if (panel.getContainer() != null && panel.getContainer() != vanillaGui) {
+            panel.getContainer().removeElement(panel);
+        }
         vanillaGui.setLayout(new CustomLayout<github.com.gengyoubo.replayneo.core.gui.container.GuiScreen>(vanillaGui.getLayout()) {
             @Override
             protected void layout(github.com.gengyoubo.replayneo.core.gui.container.GuiScreen container, int width, int height) {
-                if (closed) {
+                if (!shouldShowOn(guiScreen)) {
+                    size(panel, 0, 0);
+                    pos(panel, -10000, -10000);
+                    if (panel.getContainer() != null) {
+                        panel.getContainer().removeElement(panel);
+                    }
                     return;
                 }
                 pos(panel, width / 2 - 100, yPos.apply(height) + 16 + 8);
             }
         }).addElements(null, panel);
+    }
+
+    private boolean shouldShowOn(Screen guiScreen) {
+        if (closed || packetListener == null || guiScreen == null || guiScreen.getClass() != PauseScreen.class) {
+            return false;
+        }
+
+        Minecraft minecraft = core.getMinecraft();
+        if (minecraft.screen != guiScreen || minecraft.level == null || minecraft.player == null || minecraft.getConnection() == null) {
+            return false;
+        }
+
+        return ReplayModReplay.instance == null || ReplayModReplay.instance.getReplayHandler() == null;
     }
 
     public boolean isPaused() {

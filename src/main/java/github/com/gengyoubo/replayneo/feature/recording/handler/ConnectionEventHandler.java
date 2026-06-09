@@ -178,4 +178,8 @@ public class ConnectionEventHandler {
     public PacketListener getPacketListener() {
         return packetListener;
     }
+
+    public RecordingEventHandler getRecordingEventHandler() {
+        return recordingEventHandler;
+    }
 }

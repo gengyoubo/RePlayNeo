@@ -73,6 +73,7 @@ public class GuiSavingReplay {
     }
 
     public void presentRenameDialog(List<Pair<Path, ReplayMetaData>> outputPaths) {
+        label.setI18nText("replaymod.gui.rename");
         panel.removeElement(progressBar);
 
         link(outputPaths.stream().map(it -> addOutput(it.getKey(), it.getValue())).toArray(github.com.gengyoubo.replayneo.feature.pathing.element.GuiTextField[]::new));

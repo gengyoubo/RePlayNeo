@@ -20,6 +20,7 @@ import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.thread.ReentrantBlockableEventLoop;
+import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin
@@ -41,13 +42,18 @@ public abstract class MinecraftMixin
         runAllTasks();
     }
 
-    @Unique
-    public void rePlay$setWindowDelegate(VirtualWindow window) {
+    @Inject(method = "runTick", at = @At("HEAD"))
+    private void preTick(boolean unused, CallbackInfo ci) {
+        PreTickCallback.EVENT.invoker().preTick();
+    }
+
+    @Override
+    public void setWindowDelegate(VirtualWindow window) {
         this.replayMod$windowDelegate = window;
     }
 
-    @Unique
-    public void rePlay$setFramebufferDelegate(RenderTarget framebuffer) {
+    @Override
+    public void setFramebufferDelegate(RenderTarget framebuffer) {
         this.replayMod$framebufferDelegate = framebuffer;
     }
 

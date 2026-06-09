@@ -38,7 +38,7 @@ import java.util.List;
 public abstract class LevelRendererMixin implements IForceChunkLoading, RecordingEventHandler.RecordingEventSender {
     @Shadow @Final private Minecraft minecraft;
     @Final
-    @Shadow private ObjectArrayList<ChunkRenderDispatcher.RenderChunk> renderChunksInFrustum;
+    @Shadow private ObjectArrayList<?> renderChunksInFrustum;
     @Shadow private ChunkRenderDispatcher chunkRenderDispatcher;
     @Shadow private boolean needsFullRenderChunkUpdate;
     @Shadow private ViewArea viewArea;
@@ -100,7 +100,8 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
             do {
                 setupRender(camera, frustum, hasForcedFrustum, spectator);
 
-                for (ChunkRenderDispatcher.RenderChunk builtChunk : this.renderChunksInFrustum) {
+                for (Object renderChunkInfo : this.renderChunksInFrustum) {
+                    ChunkRenderDispatcher.RenderChunk builtChunk = ((RenderChunkInfoAccessor) renderChunkInfo).getChunk();
                     if (builtChunk.hasAllNeighbors()) {
                         builtChunk.setDirty(true);
                     }

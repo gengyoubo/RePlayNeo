@@ -1,22 +1,26 @@
 package github.com.gengyoubo.replayneo.feature.recording.handler;
 
+import com.mojang.authlib.GameProfile;
 import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
 import github.com.gengyoubo.replayneo.mixin.IntegratedServerAccessor;
 import github.com.gengyoubo.replayneo.feature.recording.packet.PacketListener;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
+import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.Connection;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket;
 import net.minecraft.network.protocol.game.ClientboundAnimatePacket;
 import net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket;
 import net.minecraft.network.protocol.game.ClientboundLevelEventPacket;
 import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.network.protocol.game.ClientboundRotateHeadPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityLinkPacket;
@@ -30,6 +34,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.mojang.datafixers.util.Pair;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,6 +52,8 @@ public class RecordingEventHandler extends EventRegistrations {
     private boolean wasSleeping;
     private int lastRiding = -1;
     private Integer rotationYawHeadBefore;
+    private boolean spawnedRecordingPlayer;
+    private int loggedPlayerMovementPackets;
 
     public RecordingEventHandler(PacketListener packetListener) {
         this.packetListener = packetListener;
@@ -83,14 +90,38 @@ public class RecordingEventHandler extends EventRegistrations {
         try {
             LocalPlayer player = mc.player;
             assert player != null;
+            packetListener.save(createOwnPlayerInfoPacket(player));
             packetListener.save(new ClientboundAddPlayerPacket(player));
             packetListener.save(new ClientboundSetEntityDataPacket(player.getId(), Objects.requireNonNull(player.getEntityData().getNonDefaultValues())));
+            spawnedRecordingPlayer = true;
+            github.com.gengyoubo.replayneo.RePlayNeo.LOGGER.warn(
+                    "Recording player spawn packet. entityId={}, uuid={}, pos=({}, {}, {}), time={}",
+                    player.getId(), player.getUUID(), player.getX(), player.getY(), player.getZ(),
+                    packetListener.getCurrentDuration());
             lastX = lastY = lastZ = null;
             playerItems.clear();
             lastRiding = -1;
             wasSleeping = false;
+            loggedPlayerMovementPackets = 0;
         } catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private ClientboundPlayerInfoUpdatePacket createOwnPlayerInfoPacket(LocalPlayer player) {
+        GameProfile profile = player.getGameProfile();
+        FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+        try {
+            buf.writeEnumSet(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER),
+                    ClientboundPlayerInfoUpdatePacket.Action.class);
+            buf.writeCollection(Collections.singletonList(profile), (out, entry) -> {
+                out.writeUUID(entry.getId());
+                out.writeUtf(entry.getName(), 16);
+                out.writeGameProfileProperties(entry.getProperties());
+            });
+            return new ClientboundPlayerInfoUpdatePacket(buf);
+        } finally {
+            buf.release();
         }
     }
 
@@ -108,6 +139,9 @@ public class RecordingEventHandler extends EventRegistrations {
         if (mc.player == null) return;
         LocalPlayer player = mc.player;
         try {
+            if (!spawnedRecordingPlayer) {
+                spawnRecordingPlayer();
+            }
 
             boolean force = false;
             if(lastX == null || lastY == null || lastZ == null) {
@@ -148,6 +182,13 @@ public class RecordingEventHandler extends EventRegistrations {
                 );
             }
 
+            if (loggedPlayerMovementPackets++ < 16) {
+                github.com.gengyoubo.replayneo.RePlayNeo.LOGGER.warn(
+                        "Recording player movement packet. type={}, entityId={}, force={}, dx={}, dy={}, dz={}, pos=({}, {}, {}), time={}",
+                        packet instanceof ClientboundTeleportEntityPacket ? "TeleportEntity" : "MoveEntity",
+                        player.getId(), force, dx, dy, dz, player.getX(), player.getY(), player.getZ(),
+                        packetListener.getCurrentDuration());
+            }
             packetListener.save(packet);
 
             //HEAD POS

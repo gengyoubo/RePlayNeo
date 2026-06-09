@@ -2,9 +2,11 @@ package github.com.gengyoubo.replayneo.feature.replay;
 
 import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
+import com.mojang.authlib.GameProfile;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.mixin.ClientboundMoveEntityPacketAccessor;
 import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import github.com.gengyoubo.replayneo.core.utils.Restrictions;
@@ -25,6 +27,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.AlertScreen;
 import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -44,11 +48,13 @@ import net.minecraft.network.protocol.game.ClientboundHorseScreenOpenPacket;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.network.protocol.game.ClientboundLoginPacket;
+import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundOpenBookPacket;
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import net.minecraft.network.protocol.game.ClientboundOpenSignEditorPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerAbilitiesPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
 import net.minecraft.network.protocol.game.ClientboundResourcePackPacket;
@@ -59,6 +65,7 @@ import net.minecraft.network.protocol.game.ClientboundSetExperiencePacket;
 import net.minecraft.network.protocol.game.ClientboundSetHealthPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
+import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket;
 import net.minecraft.network.protocol.login.ClientboundGameProfilePacket;
@@ -87,6 +94,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
 import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
 import static com.replaymod.replaystudio.util.Utils.readInt;
+import static github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay.LOGGER;
 
 /**
  * Sends replay packets to netty channels.
@@ -198,6 +206,12 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
      * Whether we are currently in the middle of a bundle packet.
      */
     protected boolean inBundle;
+    private boolean replayneo$loggedFirstMovePacket;
+    private int replayneo$missingMoveEntityWarnings;
+    private int replayneo$controlledMoveEntityWarnings;
+    private int replayneo$addPlayerWarnings;
+    private int replayneo$lastReplayPlayerEntityId = -1;
+    private int replayneo$loggedReplayPlayerMovePackets;
 
     /**
      * The minecraft instance.
@@ -333,6 +347,9 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
                 p = processPacket(p);
                 if (p != null) {
+                    replayneo$ensurePlayerInfoBeforeAddPlayer(ctx, p);
+                    replayneo$logReplayAddPlayerPacket(p);
+                    replayneo$logReplayMovementPacket(p);
                     super.channelRead(ctx, p);
                 }
 
@@ -365,6 +382,114 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             }
         }
 
+    }
+
+    private void replayneo$logReplayMovementPacket(Packet<?> packet) {
+        ClientLevel world = mc.level;
+        if (world == null) {
+            return;
+        }
+
+        Integer entityId = null;
+        String packetType;
+        Entity entity;
+        if (packet instanceof ClientboundMoveEntityPacket movePacket) {
+            packetType = "MoveEntity";
+            entityId = ((ClientboundMoveEntityPacketAccessor) movePacket).replayneo$getEntityId();
+            entity = movePacket.getEntity(world);
+        } else if (packet instanceof ClientboundTeleportEntityPacket teleportPacket) {
+            entityId = teleportPacket.getId();
+            packetType = "TeleportEntity";
+            entity = world.getEntity(entityId);
+        } else {
+            return;
+        }
+
+        if (entity == null) {
+            if (entityId != null && entityId == replayneo$lastReplayPlayerEntityId && replayneo$loggedReplayPlayerMovePackets++ < 16) {
+                LOGGER.warn("Replay player movement packet has no target entity. type={}, entityId={}, time={}",
+                        packetType, entityId, currentTimeStamp());
+            }
+            if (replayneo$missingMoveEntityWarnings++ < 8) {
+                LOGGER.warn("Replay movement packet has no target entity. type={}, entityId={}, time={}",
+                        packetType, entityId, currentTimeStamp());
+            }
+            return;
+        }
+
+        if (entityId == null) {
+            entityId = entity.getId();
+        }
+
+        if (entityId == replayneo$lastReplayPlayerEntityId && replayneo$loggedReplayPlayerMovePackets++ < 16) {
+            LOGGER.warn("Replay player movement packet. type={}, entityId={}, entityClass={}, controlled={}, pos=({}, {}, {}), time={}",
+                    packetType, entityId, entity.getClass().getName(), entity.isControlledByLocalInstance(),
+                    entity.getX(), entity.getY(), entity.getZ(), currentTimeStamp());
+        }
+
+        if (entity.isControlledByLocalInstance()) {
+            if (replayneo$controlledMoveEntityWarnings++ < 8) {
+                LOGGER.warn("Replay movement packet targets a locally controlled entity and vanilla will ignore it. type={}, entityId={}, entityClass={}, time={}",
+                        packetType, entityId, entity.getClass().getName(), currentTimeStamp());
+            }
+            return;
+        }
+
+        if (!replayneo$loggedFirstMovePacket) {
+            replayneo$loggedFirstMovePacket = true;
+            LOGGER.info("Replay movement packets are reaching entity. type={}, entityId={}, entityClass={}, pos=({}, {}, {}), time={}",
+                    packetType, entityId, entity.getClass().getName(), entity.getX(), entity.getY(), entity.getZ(), currentTimeStamp());
+        }
+    }
+
+    private void replayneo$ensurePlayerInfoBeforeAddPlayer(ChannelHandlerContext ctx, Packet<?> packet) throws Exception {
+        if (!(packet instanceof ClientboundAddPlayerPacket addPlayerPacket)) {
+            return;
+        }
+
+        ClientPacketListener connection = mc.getConnection();
+        if (connection == null || connection.getPlayerInfo(addPlayerPacket.getPlayerId()) != null) {
+            return;
+        }
+
+        ClientboundPlayerInfoUpdatePacket infoPacket = replayneo$createReplayPlayerInfo(addPlayerPacket.getPlayerId());
+        LOGGER.warn("Replay AddPlayer had no PlayerInfo; injecting fallback PlayerInfo. entityId={}, uuid={}, time={}",
+                addPlayerPacket.getEntityId(), addPlayerPacket.getPlayerId(), currentTimeStamp());
+        super.channelRead(ctx, infoPacket);
+    }
+
+    private ClientboundPlayerInfoUpdatePacket replayneo$createReplayPlayerInfo(UUID uuid) {
+        FriendlyByteBuf buf = new FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+        try {
+            buf.writeEnumSet(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER),
+                    ClientboundPlayerInfoUpdatePacket.Action.class);
+            GameProfile profile = new GameProfile(uuid, "Player");
+            buf.writeCollection(Collections.singletonList(profile), (out, entry) -> {
+                out.writeUUID(entry.getId());
+                out.writeUtf(entry.getName(), 16);
+                out.writeGameProfileProperties(entry.getProperties());
+            });
+            return new ClientboundPlayerInfoUpdatePacket(buf);
+        } finally {
+            buf.release();
+        }
+    }
+
+    private void replayneo$logReplayAddPlayerPacket(Packet<?> packet) {
+        if (!(packet instanceof ClientboundAddPlayerPacket addPlayerPacket)) {
+            return;
+        }
+        replayneo$lastReplayPlayerEntityId = addPlayerPacket.getEntityId();
+        replayneo$loggedReplayPlayerMovePackets = 0;
+        ClientLevel world = mc.level;
+        Entity existing = world == null ? null : world.getEntity(addPlayerPacket.getEntityId());
+        ClientPacketListener connection = mc.getConnection();
+        boolean hasPlayerInfo = connection != null && connection.getPlayerInfo(addPlayerPacket.getPlayerId()) != null;
+        if (replayneo$addPlayerWarnings++ < 8) {
+            LOGGER.warn("Replay AddPlayer packet. entityId={}, uuid={}, hasPlayerInfo={}, existingEntity={}, time={}",
+                    addPlayerPacket.getEntityId(), addPlayerPacket.getPlayerId(), hasPlayerInfo,
+                    existing == null ? "null" : existing.getClass().getName(), currentTimeStamp());
+        }
     }
 
     // If we do not give minecraft time to tick, there will be dead entity artifacts left in the world

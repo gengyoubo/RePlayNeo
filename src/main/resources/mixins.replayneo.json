@@ -2,13 +2,10 @@
   "required": true,
   "package": "github.com.gengyoubo.replayneo.mixin",
   "mixins": [
-    "ConnectionMixin",
     "EntityExtMixin",
     "EntityLivingBaseAccessor",
     "EntityPlayerAccessor",
-    "InjectDynamicResourcePacksMixin",
-    "NetworkManagerAccessor",
-    "UseReplayTimeForMovementMixin"
+    "NetworkManagerAccessor"
   ],
   "server": [],
   "client": [
@@ -22,6 +19,7 @@
     "ClientLoginNetworkHandlerAccessor",
     "ClientPacketListenerMixin",
     "ClientWorldAccessor",
+    "ClientboundMoveEntityPacketAccessor",
     "DownloadingPackFinderMixin",
     "EntityRendererMixin",
     "FirstPersonRendererAccessor",
@@ -31,6 +29,8 @@
     "GameRendererMixin",
     "GuiMixin",
     "GuiSpectatorMixin",
+    "ConnectionMixin",
+    "InjectDynamicResourcePacksMixin",
     "IntegratedServerAccessor",
     "KeyBindingAccessor",
     "KeyboardListenerMixin",
@@ -45,6 +45,7 @@
     "MultiPlayerGameModeMixin",
     "ParticleAccessor",
     "RenderArrowMixin",
+    "RenderChunkInfoAccessor",
     "RenderItemMixin",
     "RenderManagerMixin",
     "ScreenMixin",
@@ -52,6 +53,7 @@
     "SingleQuadParticleMixin",
     "StabilizeCameraMixin",
     "TimerAccessor",
+    "UseReplayTimeForMovementMixin",
     "ViewFrustumMixin"
   ],
   "compatibilityLevel": "JAVA_8",

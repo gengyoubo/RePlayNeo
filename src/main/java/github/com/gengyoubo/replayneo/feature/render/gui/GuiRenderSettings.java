@@ -232,13 +232,24 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
         @Override
         public void run() {
             // Closing this GUI ensures that settings are saved
+            RenderSettings settings = save(false, click.hasCtrl());
+            try {
+                if (settings.requiresFFmpeg()) {
+                    FFmpegWriter.assertFFmpegAvailable(settings);
+                }
+            } catch (FFmpegWriter.NoFFmpegException e) {
+                LOGGER.error("Rendering video:", e);
+                new GuiNoFfmpeg(getScreen()::display).display();
+                return;
+            }
+
             close();
             try {
-                VideoRenderer videoRenderer = new VideoRenderer(save(false, click.hasCtrl()), replayHandler, timeline);
+                VideoRenderer videoRenderer = new VideoRenderer(settings, replayHandler, timeline);
                 videoRenderer.renderVideo();
             } catch (FFmpegWriter.NoFFmpegException e) {
                 LOGGER.error("Rendering video:", e);
-                getMinecraft().setScreen(new GuiNoFfmpeg(getScreen()::display).toMinecraft());
+                new GuiNoFfmpeg(getScreen()::display).display();
             } catch (FFmpegWriter.FFmpegStartupException e) {
                 GuiExportFailed.tryToRecover(e, newSettings -> {
                     // Update settings with fixed ffmpeg arguments

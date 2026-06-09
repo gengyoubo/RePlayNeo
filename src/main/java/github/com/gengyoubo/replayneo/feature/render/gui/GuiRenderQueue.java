@@ -172,11 +172,14 @@ public class GuiRenderQueue extends AbstractGuiPopup<GuiRenderQueue> implements 
         for (RenderJob renderJob : queue) {
             LOGGER.info("Starting render job {}", renderJob);
             try {
+                if (renderJob.getSettings().requiresFFmpeg()) {
+                    FFmpegWriter.assertFFmpegAvailable(renderJob.getSettings());
+                }
                 VideoRenderer videoRenderer = new VideoRenderer(renderJob.getSettings(), replayHandler, renderJob.getTimeline());
                 videoRenderer.renderVideo();
             } catch (FFmpegWriter.NoFFmpegException e) {
                 LOGGER.error("Rendering video:", e);
-                mc.setScreen(new GuiNoFfmpeg(container::display).toMinecraft());
+                new GuiNoFfmpeg(container::display).display();
                 return;
             } catch (FFmpegWriter.FFmpegStartupException e) {
                 int jobsToSkip = jobsDone;

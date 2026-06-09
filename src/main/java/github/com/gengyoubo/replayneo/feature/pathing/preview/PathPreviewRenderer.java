@@ -21,11 +21,11 @@ import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import org.lwjgl.opengl.GL11;
 
 
 import static github.com.gengyoubo.replayneo.core.versions.MCVer.bindTexture;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -33,6 +33,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import java.util.Comparator;
 import java.util.Optional;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -143,9 +144,9 @@ public class PathPreviewRenderer extends EventRegistrations {
                 }
             }
 
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_SRC_COLOR);
-            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            RenderSystem.enableBlend();
+            RenderSystem.blendFunc(GlStateManager.SourceFactor.DST_COLOR, GlStateManager.DestFactor.SRC_COLOR);
+            RenderSystem.disableDepthTest();
 
             path.getKeyframes().stream()
                     .map(k -> Pair.of(k, k.getValue(CameraProperties.POSITION).map(this::tripleD2Vec)))
@@ -155,8 +156,8 @@ public class PathPreviewRenderer extends EventRegistrations {
                     .sorted(new KeyframeComparator(viewPos)) // Need to render the furthest first
                     .forEachOrdered(p -> drawPoint(viewPos, p.getRight(), p.getLeft()));
 
-            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+            RenderSystem.enableDepthTest();
 
             int time = guiPathing.timeline.getCursorPosition();
             Optional<Integer> entityId = path.getValue(SpectatorProperty.PROPERTY, time);
@@ -181,7 +182,9 @@ public class PathPreviewRenderer extends EventRegistrations {
             }
         } finally {
             popMatrix();
-            GL11.glDisable(GL11.GL_BLEND);
+            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+            RenderSystem.enableDepthTest();
+            RenderSystem.disableBlend();
         }
     }
 
@@ -252,45 +255,39 @@ public class PathPreviewRenderer extends EventRegistrations {
         BufferBuilder buffer = tessellator.getBuilder();
         buffer.begin(com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 
-        vertex(buffer, minX, minY, 0, posX + size, posY + size, 255);
-        vertex(buffer, minX, maxY, 0, posX + size, posY, 255);
-        vertex(buffer, maxX, maxY, 0, posX, posY, 255);
-        vertex(buffer, maxX, minY, 0, posX, posY + size, 255);
-
-        pushMatrix();
-
         Vector3f t = Vector3f.sub(pos, view, null);
-        GL11.glTranslatef(t.x, t.y, t.z);
-        GL11.glRotatef(-mc.getEntityRenderDispatcher().camera.getYRot(), 0, 1, 0);
-        GL11.glRotatef(mc.getEntityRenderDispatcher().camera.getXRot(), 1, 0, 0);
+        PoseStack pointPose = new PoseStack();
+        pointPose.translate(t.x, t.y, t.z);
+        pointPose.mulPose(Axis.YP.rotationDegrees(-mc.getEntityRenderDispatcher().camera.getYRot()));
+        pointPose.mulPose(Axis.XP.rotationDegrees(mc.getEntityRenderDispatcher().camera.getXRot()));
 
-        RenderSystem.applyModelViewMatrix();
+        vertex(buffer, pointPose, minX, minY, 0, posX + size, posY + size, 255);
+        vertex(buffer, pointPose, minX, maxY, 0, posX + size, posY, 255);
+        vertex(buffer, pointPose, maxX, maxY, 0, posX, posY, 255);
+        vertex(buffer, pointPose, maxX, minY, 0, posX, posY + size, 255);
+
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         tessellator.end();
-
-        popMatrix();
     }
 
     private void drawCamera(Vector3f view, Vector3f pos, Vector3f rot) {
 
         bindTexture(CAMERA_HEAD);
 
-        pushMatrix();
-
         Vector3f t = Vector3f.sub(pos, view, null);
-        GL11.glTranslatef(t.x, t.y, t.z);
-        GL11.glRotatef(-rot.x, 0, 1, 0); // Yaw
-        GL11.glRotatef(rot.y, 1, 0, 0); // Pitch
-        GL11.glRotatef(rot.z, 0, 0, 1); // Roll
+        PoseStack cameraPose = new PoseStack();
+        cameraPose.translate(t.x, t.y, t.z);
+        cameraPose.mulPose(Axis.YP.rotationDegrees(-rot.x)); // Yaw
+        cameraPose.mulPose(Axis.XP.rotationDegrees(rot.y)); // Pitch
+        cameraPose.mulPose(Axis.ZP.rotationDegrees(rot.z)); // Roll
 
         //draw the position line
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder buffer = tessellator.getBuilder();
         buffer.begin(com.mojang.blaze3d.vertex.VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR);
 
-        emitLine(new PoseStack(), buffer, new Vector3f(0, 0, 0), new Vector3f(0, 0, 2), 0x00ff00aa, 3f);
+        emitLine(cameraPose, buffer, new Vector3f(0, 0, 0), new Vector3f(0, 0, 2), 0x00ff00aa, 3f);
 
-        RenderSystem.applyModelViewMatrix();
         RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
 
         tessellator.end();
@@ -305,50 +302,47 @@ public class PathPreviewRenderer extends EventRegistrations {
         buffer.begin(com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 
         //back
-        vertex(buffer, r, r + cubeSize, r, 3 * 8 / 64f, 8 / 64f, 200);
-        vertex(buffer, r + cubeSize, r + cubeSize, r, 4*8/64f, 8/64f, 200);
-        vertex(buffer, r + cubeSize, r, r, 4*8/64f, 2*8/64f, 200);
-        vertex(buffer, r, r, r, 3*8/64f, 2*8/64f, 200);
+        vertex(buffer, cameraPose, r, r + cubeSize, r, 3 * 8 / 64f, 8 / 64f, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r + cubeSize, r, 4*8/64f, 8/64f, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r, r, 4*8/64f, 2*8/64f, 200);
+        vertex(buffer, cameraPose, r, r, r, 3*8/64f, 2*8/64f, 200);
 
         //front
-        vertex(buffer, r + cubeSize, r, r + cubeSize, 2 * 8 / 64f, 2*8/64f, 200);
-        vertex(buffer, r + cubeSize, r + cubeSize, r + cubeSize, 2 * 8 / 64f, 8/64f, 200);
-        vertex(buffer, r, r + cubeSize, r + cubeSize, 8 / 64f, 8 / 64f, 200);
-        vertex(buffer, r, r, r + cubeSize, 8 / 64f, 2*8/64f, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r, r + cubeSize, 2 * 8 / 64f, 2*8/64f, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r + cubeSize, r + cubeSize, 2 * 8 / 64f, 8/64f, 200);
+        vertex(buffer, cameraPose, r, r + cubeSize, r + cubeSize, 8 / 64f, 8 / 64f, 200);
+        vertex(buffer, cameraPose, r, r, r + cubeSize, 8 / 64f, 2*8/64f, 200);
 
         //left
-        vertex(buffer, r + cubeSize, r + cubeSize, r, 0, 8/64f, 200);
-        vertex(buffer, r + cubeSize, r + cubeSize, r + cubeSize, 8/64f, 8/64f, 200);
-        vertex(buffer, r + cubeSize, r, r + cubeSize, 8/64f, 2*8/64f, 200);
-        vertex(buffer, r+cubeSize, r, r, 0, 2*8/64f, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r + cubeSize, r, 0, 8/64f, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r + cubeSize, r + cubeSize, 8/64f, 8/64f, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r, r + cubeSize, 8/64f, 2*8/64f, 200);
+        vertex(buffer, cameraPose, r+cubeSize, r, r, 0, 2*8/64f, 200);
 
         //right
-        vertex(buffer, r, r + cubeSize, r + cubeSize, 2*8/64f, 8/64f, 200);
-        vertex(buffer, r, r + cubeSize, r, 3*8/64f, 8/64f, 200);
-        vertex(buffer, r, r, r, 3*8/64f, 2*8/64f, 200);
-        vertex(buffer, r, r, r + cubeSize, 2 * 8 / 64f, 2 * 8 / 64f, 200);
+        vertex(buffer, cameraPose, r, r + cubeSize, r + cubeSize, 2*8/64f, 8/64f, 200);
+        vertex(buffer, cameraPose, r, r + cubeSize, r, 3*8/64f, 8/64f, 200);
+        vertex(buffer, cameraPose, r, r, r, 3*8/64f, 2*8/64f, 200);
+        vertex(buffer, cameraPose, r, r, r + cubeSize, 2 * 8 / 64f, 2 * 8 / 64f, 200);
 
         //bottom
-        vertex(buffer, r + cubeSize, r, r, 3*8/64f, 0, 200);
-        vertex(buffer, r + cubeSize, r, r + cubeSize, 3*8/64f, 8/64f, 200);
-        vertex(buffer, r, r, r + cubeSize, 2*8/64f, 8/64f, 200);
-        vertex(buffer, r, r, r, 2 * 8 / 64f, 0, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r, r, 3*8/64f, 0, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r, r + cubeSize, 3*8/64f, 8/64f, 200);
+        vertex(buffer, cameraPose, r, r, r + cubeSize, 2*8/64f, 8/64f, 200);
+        vertex(buffer, cameraPose, r, r, r, 2 * 8 / 64f, 0, 200);
 
         //top
-        vertex(buffer, r, r + cubeSize, r, 8/64f, 0, 200);
-        vertex(buffer, r, r + cubeSize, r + cubeSize, 8/64f, 8/64f, 200);
-        vertex(buffer, r + cubeSize, r + cubeSize, r + cubeSize, 2*8/64f, 8/64f, 200);
-        vertex(buffer, r + cubeSize, r + cubeSize, r, 2 * 8 / 64f, 0, 200);
+        vertex(buffer, cameraPose, r, r + cubeSize, r, 8/64f, 0, 200);
+        vertex(buffer, cameraPose, r, r + cubeSize, r + cubeSize, 8/64f, 8/64f, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r + cubeSize, r + cubeSize, 2*8/64f, 8/64f, 200);
+        vertex(buffer, cameraPose, r + cubeSize, r + cubeSize, r, 2 * 8 / 64f, 0, 200);
 
-        RenderSystem.applyModelViewMatrix();
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         tessellator.end();
-
-        popMatrix();
     }
 
-    private void vertex(BufferBuilder buffer, float x, float y, float z, float u, float v, int alpha) {
-        buffer.vertex(x, y, z).uv(u, v).color(255, 255, 255, alpha).endVertex();
+    private void vertex(BufferBuilder buffer, PoseStack poseStack, float x, float y, float z, float u, float v, int alpha) {
+        buffer.vertex(poseStack.last().pose(), x, y, z).uv(u, v).color(255, 255, 255, alpha).endVertex();
     }
 
     private static class KeyframeComparator implements Comparator<Pair<Keyframe, Vector3f>> {

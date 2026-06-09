@@ -127,6 +127,7 @@ public class MarkerProcessor {
         SquashFilter squashFilter = new SquashFilter(null, null, null);
 
         List<Pair<Path, ReplayMetaData>> outputPaths = new ArrayList<>();
+        List<com.replaymod.replaystudio.protocol.Packet> cutPassthroughPackets = new ArrayList<>();
 
         Path rawFolder = ReplayMod.instance.folders.getRawReplayFolder();
         Path inputPath = rawFolder.resolve(path.getFileName());
@@ -146,6 +147,7 @@ public class MarkerProcessor {
             ReplayInputStream replayInputStream = inputReplayFile.getPacketData(registry);
             int timeOffset = 0;
             SquashFilter cutFilter = null;
+            int skippedChunkDataWarnings = 0;
             int startCutOffset = 0;
             PacketData nextPacket = replayInputStream.readPacket();
             Marker nextMarker = markerIterator.next();
@@ -184,18 +186,28 @@ public class MarkerProcessor {
                                     if (cutFilter != null) {
                                         cutFilter.release();
                                     }
+                                    releasePackets(cutPassthroughPackets);
                                     startCutOffset = nextMarker.getTime();
                                     cutFilter = new SquashFilter(dimensionTracker);
                                 } else if (MARKER_NAME_END_CUT.equals(nextMarker.getName())) {
                                     timeOffset += nextMarker.getTime() - startCutOffset;
                                     if (cutFilter != null) {
+                                        long writeTime = nextMarker.getTime() - timeOffset;
                                         List<PacketData> packets = new ArrayList<>();
                                         cutFilter.onEnd(
                                                 new IteratorStream(packets.listIterator(), (StreamFilter) null),
                                                 nextMarker.getTime()
                                         );
                                         for (PacketData packet : packets) {
-                                            replayOutputStream.write(nextMarker.getTime() - timeOffset, packet.getPacket());
+                                            replayOutputStream.write(writeTime, packet.getPacket());
+                                        }
+                                        while (!cutPassthroughPackets.isEmpty()) {
+                                            com.replaymod.replaystudio.protocol.Packet packet = cutPassthroughPackets.remove(0);
+                                            try {
+                                                replayOutputStream.write(writeTime, packet);
+                                            } finally {
+                                                packet.release();
+                                            }
                                         }
                                         cutFilter = null;
                                     }
@@ -219,7 +231,20 @@ public class MarkerProcessor {
                                     squashFilter.onPacket(null, nextPacket);
                                 }
                                 if (cutFilter != null) {
-                                    cutFilter.onPacket(null, nextPacket);
+                                    try {
+                                        cutFilter.onPacket(null, nextPacket);
+                                    } catch (Exception e) {
+                                        if (!isChunkDataPacket(nextPacket)) {
+                                            throw e;
+                                        }
+                                        cutPassthroughPackets.add(nextPacket.getPacket().copy());
+                                        if (skippedChunkDataWarnings++ < 8) {
+                                            github.com.gengyoubo.replayneo.RePlayNeo.LOGGER.warn(
+                                                    "Replay cut post-processing could not parse ChunkData; preserving it after the cut state packets. packet=#{}, time={}, cause={}",
+                                                    packetIndex, packetTime, e.toString()
+                                            );
+                                        }
+                                    }
                                 } else {
                                     replayOutputStream.write(nextPacket.getTime() - timeOffset, nextPacket.getPacket().copy());
                                     duration = nextPacket.getTime() - timeOffset;
@@ -278,7 +303,9 @@ public class MarkerProcessor {
             if (cutFilter != null) {
                 cutFilter.release();
             }
+            releasePackets(cutPassthroughPackets);
         } catch (IOException | RuntimeException e) {
+            releasePackets(cutPassthroughPackets);
             if (outputPaths.isEmpty()) {
                 try {
                     github.com.gengyoubo.replayneo.RePlayNeo.LOGGER.warn(
@@ -300,5 +327,16 @@ public class MarkerProcessor {
         }
 
         return outputPaths;
+    }
+
+    private static boolean isChunkDataPacket(PacketData packetData) {
+        return "ChunkData".equals(String.valueOf(packetData.getPacket().getType()));
+    }
+
+    private static void releasePackets(List<com.replaymod.replaystudio.protocol.Packet> packets) {
+        for (com.replaymod.replaystudio.protocol.Packet packet : packets) {
+            packet.release();
+        }
+        packets.clear();
     }
 }

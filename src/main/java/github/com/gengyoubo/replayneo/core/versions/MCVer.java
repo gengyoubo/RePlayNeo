@@ -12,7 +12,6 @@ import com.replaymod.replaystudio.lib.viaversion.api.protocol.version.ProtocolVe
 import com.replaymod.replaystudio.protocol.PacketTypeRegistry;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector2f;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
-import org.lwjgl.opengl.GL11;
 
 
 import org.joml.Matrix4f;
@@ -214,7 +213,6 @@ public class MCVer {
     }
 
     public static void emitLine(PoseStack matrixStack, BufferBuilder buffer, Vector3f p1, Vector3f p2, int color, float lineWidth) {
-        GL11.glLineWidth(lineWidth);
         int r = color >> 24 & 0xff;
         int g = color >> 16 & 0xff;
         int b = color >> 8 & 0xff;
