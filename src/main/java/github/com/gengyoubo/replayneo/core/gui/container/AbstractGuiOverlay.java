@@ -36,15 +36,11 @@ import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
+import github.com.gengyoubo.replayneo.platform.gui.GuiCrashReports;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.versions.ScreenExt;
 import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
 import github.com.gengyoubo.replayneo.platform.callbacks.RenderHudCallback;
-import net.minecraft.CrashReport;
-import net.minecraft.CrashReportCategory;
-import net.minecraft.ReportedException;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.literalText;
 
@@ -114,7 +110,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
     }
 
     private void updateUserInputGui() {
-        Minecraft mc = getMinecraft();
+        var mc = getMinecraft();
         if (visible) {
             if (mouseVisible) {
                 if (mc.screen == null) {
@@ -167,17 +163,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
                     OffsetGuiRenderer eRenderer = new OffsetGuiRenderer(renderer, position, tooltipSize);
                     tooltip.draw(eRenderer, tooltipSize, renderInfo);
                 } catch (Exception ex) {
-                    CrashReport crashReport = CrashReport.forThrowable(ex, "Rendering Gui Tooltip");
-                    renderInfo.addTo(crashReport);
-                    CrashReportCategory category = crashReport.addCategory("Gui container details");
-                    MCVer.addDetail(category, "Container", this::toString);
-                    MCVer.addDetail(category, "Width", () -> "" + size.getWidth());
-                    MCVer.addDetail(category, "Height", () -> "" + size.getHeight());
-                    category = crashReport.addCategory("Tooltip details");
-                    MCVer.addDetail(category, "Element", tooltip::toString);
-                    MCVer.addDetail(category, "Position", position::toString);
-                    MCVer.addDetail(category, "Size", tooltipSize::toString);
-                    throw new ReportedException(crashReport);
+                    throw GuiCrashReports.tooltip(ex, renderInfo, this, size, tooltip, position, tooltipSize);
                 }
             }
         }
@@ -196,7 +182,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
     }
 
     private void updateScreenSize() {
-        Minecraft mc = getMinecraft();
+        var mc = getMinecraft();
         Window res = MCVer.newScaledResolution(mc);
         if (screenSize == null
                 || screenSize.getWidth() != res.getGuiScaledWidth()
@@ -209,7 +195,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
         private EventHandler() {}
 
         { on(RenderHudCallback.EVENT, this::renderOverlay); }
-        private void renderOverlay(GuiGraphics stack, float partialTicks) {
+        private void renderOverlay(net.minecraft.client.gui.GuiGraphics stack, float partialTicks) {
             updateUserInputGui();
             updateScreenSize();
             int layers = getMaxLayer();

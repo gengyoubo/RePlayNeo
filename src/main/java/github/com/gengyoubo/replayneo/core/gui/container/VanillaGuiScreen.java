@@ -25,7 +25,6 @@ import github.com.gengyoubo.replayneo.platform.callbacks.MouseCallback;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
-import net.minecraft.client.gui.GuiGraphics;
 
 
 public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler, CharHandler, Scrollable, Tickable {
@@ -160,7 +159,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
         }
 
         { on(PostRenderScreenCallback.EVENT, this::onGuiRender); }
-        private void onGuiRender(GuiGraphics stack, float partialTicks) {
+        private void onGuiRender(net.minecraft.client.gui.GuiGraphics stack, float partialTicks) {
             if (!isCurrentScreen()) {
                 onGuiClosed();
                 return;

@@ -14,26 +14,38 @@ import github.com.gengyoubo.replayneo.api.network.ReplayPacketListener;
 import github.com.gengyoubo.replayneo.api.render.ReplayDrawContext;
 import github.com.gengyoubo.replayneo.api.render.ReplayRender;
 import github.com.gengyoubo.replayneo.api.world.ReplayWorld;
+import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
 import github.com.gengyoubo.replayneo.platform.input.ForgeReplayInput;
+import github.com.gengyoubo.replayneo.platform.render.ReplaySectionDirtyAccess;
 import net.minecraft.ChatFormatting;
 import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.SectionPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ForgeReplayPlatform implements ReplayPlatform {
     private final ForgeReplayInput input = new ForgeReplayInput();
     private final ReplayClient client = new ForgeReplayClient();
-    private final ReplayWorld world = new UnsupportedReplayWorld();
-    private final ReplayCamera camera = new UnsupportedReplayCamera();
-    private final ReplayEntityLookup entities = new UnsupportedReplayEntityLookup();
-    private final ReplayNetwork network = new UnsupportedReplayNetwork();
-    private final ReplayRender render = new UnsupportedReplayRender();
+    private final ReplayWorld world = new ForgeReplayWorld();
+    private final ReplayCamera camera = new ForgeReplayCamera();
+    private final ReplayEntityLookup entities = new ForgeReplayEntityLookup();
+    private final ReplayNetwork network = new LocalReplayNetwork();
+    private final ReplayRender render = new ForgeReplayRender();
 
     @Override
     public ReplayClient client() {
@@ -148,87 +160,192 @@ public class ForgeReplayPlatform implements ReplayPlatform {
         }
     }
 
-    private static UnsupportedOperationException unsupported(String area) {
-        return new UnsupportedOperationException("Replay platform " + area + " adapter is not migrated yet.");
-    }
-
-    private static class UnsupportedReplayWorld implements ReplayWorld {
+    private static class ForgeReplayWorld implements ReplayWorld {
         @Override
         public Optional<String> dimensionId() {
-            throw unsupported("world");
+            Minecraft minecraft = Minecraft.getInstance();
+            if (minecraft.level == null) {
+                return Optional.empty();
+            }
+            return Optional.of(minecraft.level.dimension().location().toString());
         }
 
         @Override
         public long gameTime() {
-            throw unsupported("world");
+            Minecraft minecraft = Minecraft.getInstance();
+            return minecraft.level == null ? 0L : minecraft.level.getGameTime();
         }
 
         @Override
         public void markBlockDirty(int x, int y, int z) {
-            throw unsupported("world");
+            Minecraft minecraft = Minecraft.getInstance();
+            if (minecraft.levelRenderer instanceof ReplaySectionDirtyAccess access) {
+                access.replayneo$markSectionDirty(
+                        SectionPos.blockToSectionCoord(x),
+                        SectionPos.blockToSectionCoord(y),
+                        SectionPos.blockToSectionCoord(z),
+                        false);
+            }
         }
     }
 
-    private static class UnsupportedReplayCamera implements ReplayCamera {
+    private static class ForgeReplayCamera implements ReplayCamera {
         @Override
         public ReplayCameraPose pose() {
-            throw unsupported("camera");
+            Entity camera = currentCameraEntity();
+            if (camera == null) {
+                return new ReplayCameraPose(0, 0, 0, 0, 0, 0);
+            }
+            float roll = camera instanceof CameraEntity replayCamera ? replayCamera.roll : 0;
+            return new ReplayCameraPose(
+                    camera.getX(),
+                    camera.getY(),
+                    camera.getZ(),
+                    camera.getYRot(),
+                    camera.getXRot(),
+                    roll);
         }
 
         @Override
         public void setPose(ReplayCameraPose pose) {
-            throw unsupported("camera");
+            Entity camera = currentCameraEntity();
+            if (camera instanceof CameraEntity replayCamera) {
+                replayCamera.setCameraPosition(pose.x(), pose.y(), pose.z());
+                replayCamera.setCameraRotation(pose.yaw(), pose.pitch(), pose.roll());
+            } else if (camera != null) {
+                camera.setPos(pose.x(), pose.y(), pose.z());
+                camera.setYRot(pose.yaw());
+                camera.setXRot(pose.pitch());
+            }
         }
 
         @Override
         public void setControlledEntity(int entityId) {
-            throw unsupported("camera");
+            Minecraft minecraft = Minecraft.getInstance();
+            Entity entity = minecraft.level == null ? null : minecraft.level.getEntity(entityId);
+            ReplayHandler replayHandler = ReplayModReplay.instance.getReplayHandler();
+            if (replayHandler != null) {
+                if (entity != null) {
+                    replayHandler.spectateEntity(entity);
+                } else {
+                    replayHandler.spectateCamera();
+                }
+            } else if (entity != null) {
+                minecraft.setCameraEntity(entity);
+            }
+        }
+
+        private Entity currentCameraEntity() {
+            Minecraft minecraft = Minecraft.getInstance();
+            Entity camera = minecraft.getCameraEntity();
+            return camera != null ? camera : minecraft.player;
         }
     }
 
-    private static class UnsupportedReplayEntityLookup implements ReplayEntityLookup {
+    private static class ForgeReplayEntityLookup implements ReplayEntityLookup {
         @Override
         public Optional<ReplayEntity> byId(int entityId) {
-            throw unsupported("entity");
+            Minecraft minecraft = Minecraft.getInstance();
+            return minecraft.level == null ? Optional.empty() : Optional.ofNullable(minecraft.level.getEntity(entityId)).map(ForgeReplayEntity::new);
         }
 
         @Override
         public Optional<ReplayEntity> byUuid(UUID uuid) {
-            throw unsupported("entity");
+            Minecraft minecraft = Minecraft.getInstance();
+            if (minecraft.level == null) {
+                return Optional.empty();
+            }
+            for (Entity entity : minecraft.level.entitiesForRendering()) {
+                if (uuid.equals(entity.getUUID())) {
+                    return Optional.of(new ForgeReplayEntity(entity));
+                }
+            }
+            return Optional.empty();
         }
 
         @Override
         public Collection<ReplayEntity> players() {
-            throw unsupported("entity");
+            Minecraft minecraft = Minecraft.getInstance();
+            if (minecraft.level == null) {
+                return Collections.emptyList();
+            }
+            List<ReplayEntity> players = new ArrayList<>();
+            for (Player player : minecraft.level.players()) {
+                players.add(new ForgeReplayEntity(player));
+            }
+            return players;
         }
     }
 
-    private static class UnsupportedReplayNetwork implements ReplayNetwork {
+    private record ForgeReplayEntity(Entity entity) implements ReplayEntity {
+        @Override
+        public int id() {
+            return entity.getId();
+        }
+
+        @Override
+        public UUID uuid() {
+            return entity.getUUID();
+        }
+
+        @Override
+        public String typeId() {
+            return BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString();
+        }
+
+        @Override
+        public double x() {
+            return entity.getX();
+        }
+
+        @Override
+        public double y() {
+            return entity.getY();
+        }
+
+        @Override
+        public double z() {
+            return entity.getZ();
+        }
+    }
+
+    private static class LocalReplayNetwork implements ReplayNetwork {
+        private final List<ReplayPacketListener> listeners = new CopyOnWriteArrayList<>();
+
         @Override
         public void send(ReplayPacket packet) {
-            throw unsupported("network");
+            for (ReplayPacketListener listener : listeners) {
+                listener.onPacket(packet);
+            }
         }
 
         @Override
         public void addListener(ReplayPacketListener listener) {
-            throw unsupported("network");
+            listeners.add(listener);
         }
     }
 
-    private static class UnsupportedReplayRender implements ReplayRender {
+    private static class ForgeReplayRender implements ReplayRender {
+        private volatile boolean gameHudSuppressed;
+
         @Override
         public boolean isVideoRendering() {
-            throw unsupported("render");
+            Minecraft minecraft = Minecraft.getInstance();
+            return ((EntityRendererHandler.IEntityRenderer) minecraft.gameRenderer).replayModRender_getHandler() != null;
         }
 
         @Override
         public void renderReplayHud(ReplayDrawContext context, float partialTick) {
-            throw unsupported("render");
+            // GUI drawing still flows through RenderHudCallback; this hook exists for core-facing migration.
         }
 
         @Override
         public void setGameHudSuppressed(boolean suppressed) {
-            throw unsupported("render");
+            this.gameHudSuppressed = suppressed;
+        }
+
+        public boolean isGameHudSuppressed() {
+            return gameHudSuppressed;
         }
     }
 }

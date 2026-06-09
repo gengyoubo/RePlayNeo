@@ -21,7 +21,6 @@ import com.replaymod.replaystudio.util.I18n;
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.feature.pathing.ReplayModSimplePathing;
 import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
-import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +33,7 @@ public class ReplayMod implements Module, Scheduler {
 
     public static String MOD_ID = RePlayNeo.MODID;
 
-    private static final Minecraft mc = MCVer.getMinecraft();
+    private static final net.minecraft.client.Minecraft mc = MCVer.getMinecraft();
 
     private final ReplayRuntime backend;
     private final SchedulerImpl scheduler = new SchedulerImpl();
@@ -159,7 +158,7 @@ public class ReplayMod implements Module, Scheduler {
         return backend.getInstalledNetworkMods();
     }
 
-    public Minecraft getMinecraft() {
+    public net.minecraft.client.Minecraft getMinecraft() {
         return mc;
     }
 

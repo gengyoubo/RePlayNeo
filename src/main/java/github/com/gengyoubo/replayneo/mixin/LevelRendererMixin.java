@@ -11,6 +11,7 @@ import github.com.gengyoubo.replayneo.feature.render.hooks.ForceChunkLoadingHook
 import github.com.gengyoubo.replayneo.feature.render.hooks.IForceChunkLoading;
 import github.com.gengyoubo.replayneo.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.platform.render.ReplaySectionDirtyAccess;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Camera;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(LevelRenderer.class)
-public abstract class LevelRendererMixin implements IForceChunkLoading, RecordingEventHandler.RecordingEventSender {
+public abstract class LevelRendererMixin implements IForceChunkLoading, RecordingEventHandler.RecordingEventSender, ReplaySectionDirtyAccess {
     @Shadow @Final private Minecraft minecraft;
     @Final
     @Shadow private ObjectArrayList<?> renderChunksInFrustum;
@@ -70,6 +71,12 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
     @Override
     public void replayModRender_setHook(ForceChunkLoadingHook hook) {
         this.replayModRender$hook = hook;
+    }
+
+    @Unique
+    @Override
+    public void replayneo$markSectionDirty(int sectionX, int sectionY, int sectionZ, boolean rerenderOnMainThread) {
+        this.setSectionDirty(sectionX, sectionY, sectionZ, rerenderOnMainThread);
     }
 
     @Override
