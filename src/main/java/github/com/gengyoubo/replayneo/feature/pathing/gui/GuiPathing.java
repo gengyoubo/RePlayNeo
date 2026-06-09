@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.feature.pathing.gui;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.FutureCallback;
@@ -88,7 +89,7 @@ public class GuiPathing {
             }
             return tooltip;
         }
-    }.setSize(20, 20).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setTooltip(new GuiTooltip());
+    }.setSize(20, 20).setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setTooltip(new GuiTooltip());
 
     public final GuiButton renderButton = new GuiButton().onClick(new Runnable() {
         @Override
@@ -104,7 +105,7 @@ public class GuiPathing {
             }.open();
             screen.display();
         }
-    }).setSize(20, 20).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 0)
+    }).setSize(20, 20).setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setSpriteUV(40, 0)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.ingame.menu.renderpath"));
 
     public final GuiButton positionKeyframeButton = new GuiButton() {
@@ -130,7 +131,7 @@ public class GuiPathing {
             }
             return tooltip;
         }
-    }.setSize(20, 20).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setTooltip(new GuiTooltip());
+    }.setSize(20, 20).setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setTooltip(new GuiTooltip());
 
     public final GuiButton timeKeyframeButton = new GuiButton() {
         @Override
@@ -147,7 +148,7 @@ public class GuiPathing {
             }
             return tooltip;
         }
-    }.setSize(20, 20).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setTooltip(new GuiTooltip());
+    }.setSize(20, 20).setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setTooltip(new GuiTooltip());
 
     public final GuiKeyframeTimeline timeline = new GuiKeyframeTimeline(this){
         @Override
@@ -168,10 +169,10 @@ public class GuiPathing {
     public final GuiTimelineTime<GuiKeyframeTimeline> timelineTime = new GuiTimelineTime<GuiKeyframeTimeline>()
             .setTimeline(timeline);
 
-    public final GuiButton zoomInButton = new GuiButton().setSize(9, 9).onClick(() -> zoomTimeline(2d / 3d)).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 20)
+    public final GuiButton zoomInButton = new GuiButton().setSize(9, 9).onClick(() -> zoomTimeline(2d / 3d)).setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setSpriteUV(40, 20)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.ingame.menu.zoomin"));
 
-    public final GuiButton zoomOutButton = new GuiButton().setSize(9, 9).onClick(() -> zoomTimeline(3d / 2d)).setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 30)
+    public final GuiButton zoomOutButton = new GuiButton().setSize(9, 9).onClick(() -> zoomTimeline(3d / 2d)).setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setSpriteUV(40, 30)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.ingame.menu.zoomout"));
 
     public final GuiPanel zoomButtonPanel = new GuiPanel()

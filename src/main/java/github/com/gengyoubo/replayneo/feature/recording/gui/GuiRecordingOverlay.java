@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.feature.recording.gui;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.feature.recording.Setting;
@@ -10,8 +11,8 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 
-import static github.com.gengyoubo.replayneo.core.ReplayMod.TEXTURE;
-import static github.com.gengyoubo.replayneo.core.ReplayMod.TEXTURE_SIZE;
+import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE;
+import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE_SIZE;
 
 /**
  * Renders overlay during recording.

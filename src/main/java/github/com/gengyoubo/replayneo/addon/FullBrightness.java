@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.addon;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.events.PostRenderCallback;
@@ -20,7 +21,7 @@ public class FullBrightness extends EventRegistrations implements Extra {
     private ReplayMod core;
     private ReplayModReplay module;
 
-    private final IGuiImage<GuiImage> indicator = new GuiImage().setTexture(ReplayMod.TEXTURE, 90, 20, 19, 16).setSize(19, 16);
+    private final IGuiImage<GuiImage> indicator = new GuiImage().setTexture(ReplayTextures.TEXTURE, 90, 20, 19, 16).setSize(19, 16);
 
     private Minecraft mc;
     private boolean active;

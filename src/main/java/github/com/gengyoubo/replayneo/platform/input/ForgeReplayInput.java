@@ -9,6 +9,7 @@ import github.com.gengyoubo.replayneo.api.input.ReplayKeyHandler;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyInput;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 
 public class ForgeReplayInput implements ReplayInput {
     private final ForgeKeyBindingRegistry keyBindingRegistry = new ForgeKeyBindingRegistry();
@@ -49,6 +50,11 @@ public class ForgeReplayInput implements ReplayInput {
     public Point scaledDimensions() {
         Window window = MCVer.newScaledResolution(minecraft);
         return new Point(window.getGuiScaledWidth(), window.getGuiScaledHeight());
+    }
+
+    @Override
+    public boolean controlDown() {
+        return Screen.hasControlDown();
     }
 
     private static class KeyBindingAdapter implements ReplayKeyBinding {

@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.addon;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
@@ -13,7 +14,7 @@ import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 public class QuickMode extends EventRegistrations implements Extra {
     private ReplayModReplay module;
 
-    private final GuiImage indicator = new GuiImage().setTexture(ReplayMod.TEXTURE, 40, 100, 16, 16).setSize(16, 16);
+    private final GuiImage indicator = new GuiImage().setTexture(ReplayTextures.TEXTURE, 40, 100, 16, 16).setSize(16, 16);
 
     @Override
     public void register(final ReplayMod mod) {

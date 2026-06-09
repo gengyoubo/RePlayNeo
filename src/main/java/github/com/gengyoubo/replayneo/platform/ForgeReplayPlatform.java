@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform;
 
+import github.com.gengyoubo.replayneo.api.ReplayCrashReport;
 import github.com.gengyoubo.replayneo.api.ReplayClient;
 import github.com.gengyoubo.replayneo.api.ReplayPlatform;
 import github.com.gengyoubo.replayneo.api.camera.ReplayCamera;
@@ -15,8 +16,11 @@ import github.com.gengyoubo.replayneo.api.render.ReplayRender;
 import github.com.gengyoubo.replayneo.api.world.ReplayWorld;
 import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.input.ForgeReplayInput;
+import net.minecraft.ChatFormatting;
+import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -90,6 +94,27 @@ public class ForgeReplayPlatform implements ReplayPlatform {
         }
 
         @Override
+        public void sendReplayMessage(boolean warning, String translationKey, Object... args) {
+            Minecraft minecraft = Minecraft.getInstance();
+            if (!minecraft.isSameThread()) {
+                execute(() -> sendReplayMessage(warning, translationKey, args));
+                return;
+            }
+            if (minecraft.gui == null) {
+                return;
+            }
+
+            Style coloredDarkGray = Style.EMPTY.withColor(ChatFormatting.DARK_GRAY);
+            Style coloredGold = Style.EMPTY.withColor(ChatFormatting.GOLD);
+            Style alert = Style.EMPTY.withColor(warning ? ChatFormatting.RED : ChatFormatting.DARK_GREEN);
+            Component text = Component.literal("[").setStyle(coloredDarkGray)
+                    .append(Component.translatable("replaymod.title").setStyle(coloredGold))
+                    .append(Component.literal("] "))
+                    .append(Component.translatable(translationKey, args).setStyle(alert));
+            minecraft.gui.getChat().addMessage(text);
+        }
+
+        @Override
         public String translate(String translationKey, Object... args) {
             return net.minecraft.client.resources.language.I18n.get(translationKey, args);
         }
@@ -102,6 +127,24 @@ public class ForgeReplayPlatform implements ReplayPlatform {
         @Override
         public boolean isReplayOpen() {
             return ReplayModReplay.instance.getReplayHandler() != null;
+        }
+
+        @Override
+        public ReplayCrashReport crashReport(Throwable throwable, String title) {
+            CrashReport report = CrashReport.forThrowable(throwable, title);
+            return new ForgeReplayCrashReport(report);
+        }
+    }
+
+    private record ForgeReplayCrashReport(CrashReport report) implements ReplayCrashReport {
+        @Override
+        public String friendlyReport() {
+            return report.getFriendlyReport();
+        }
+
+        @Override
+        public String saveFile() {
+            return String.valueOf(report.getSaveFile());
         }
     }
 

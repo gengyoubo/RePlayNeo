@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.addon;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
@@ -42,7 +43,7 @@ public class HotkeyButtons extends EventRegistrations implements Extra {
 
         public Gui(ReplayMod mod, GuiReplayOverlay overlay) {
             toggleButton = new GuiButton(overlay).setSize(20, 20)
-                    .setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(0, 120)
+                    .setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setSpriteUV(0, 120)
                     .onClick(() -> open = !open);
 
             panel = new GuiPanel(overlay) {

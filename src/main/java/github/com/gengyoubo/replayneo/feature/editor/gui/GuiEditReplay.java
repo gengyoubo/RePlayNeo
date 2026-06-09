@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.feature.editor.gui;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
@@ -45,12 +46,12 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
 
     private final GuiButton zoomInButton = new GuiButton().setSize(9, 9)
             .onClick(() -> zoomTimeline(2d / 3d))
-            .setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 20)
+            .setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setSpriteUV(40, 20)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.ingame.menu.zoomin"));
 
     private final GuiButton zoomOutButton = new GuiButton().setSize(9, 9)
             .onClick(() -> zoomTimeline(3d / 2d))
-            .setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(40, 30)
+            .setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setSpriteUV(40, 30)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.ingame.menu.zoomout"));
 
     private final GuiPanel zoomButtonPanel = new GuiPanel()

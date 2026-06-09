@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.feature.pathing.gui;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
@@ -106,7 +107,7 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
         int visibleTime = (int) (getZoom() * getLength());
         int endTime = getOffset() + visibleTime;
 
-        renderer.bindTexture(ReplayMod.TEXTURE);
+        renderer.bindTexture(ReplayTextures.TEXTURE);
 
 
         SPTimeline timeline = mod.getCurrentTimeline();

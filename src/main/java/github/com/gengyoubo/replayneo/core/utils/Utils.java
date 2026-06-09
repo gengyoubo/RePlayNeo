@@ -4,6 +4,7 @@ import com.google.common.net.PercentEscaper;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import github.com.gengyoubo.replayneo.api.ReplayCrashReport;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.version.ProtocolVersion;
 import github.com.gengyoubo.replayneo.GuiRenderer;
@@ -21,6 +22,7 @@ import github.com.gengyoubo.replayneo.core.gui.popup.GuiInfoPopup;
 import github.com.gengyoubo.replayneo.core.utils.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
+import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import github.com.gengyoubo.replayneo.platform.versions.Image;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import org.apache.commons.io.Charsets;
@@ -33,8 +35,6 @@ import javax.annotation.Nullable;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
-import net.minecraft.CrashReport;
-import net.minecraft.client.gui.screens.Screen;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -212,7 +212,7 @@ public class Utils {
     }
 
     public static boolean isCtrlDown() {
-        return Screen.hasControlDown();
+        return ReplayPlatforms.get().input().controlDown();
     }
 
     public static <T> void addCallback(ListenableFuture<T> future, Consumer<T> onSuccess, Consumer<Throwable> onFailure) {
@@ -229,16 +229,15 @@ public class Utils {
         }, Runnable::run);
     }
 
-    public static void error(Logger logger, GuiContainer container, CrashReport crashReport, Runnable onClose) {
+    public static void error(Logger logger, GuiContainer container, Object crashReport, Runnable onClose) {
         // Convert crash report to string
-        String crashReportStr = crashReport.getFriendlyReport(
-        );
+        String crashReportStr = friendlyReport(crashReport);
 
         // Log via logger
         logger.error(crashReportStr);
 
         // Try to save the crash report
-        logger.debug("Not saving crash report as file already exists: {}", crashReport.getSaveFile());
+        logger.debug("Not saving crash report as file already exists: {}", crashReportSaveFile(crashReport));
 
         logger.trace("Opening crash report popup GUI");
         GuiCrashReportPopup popup = new GuiCrashReportPopup(container, crashReportStr);
@@ -248,6 +247,28 @@ public class Utils {
                 onClose.run();
             }
         });
+    }
+
+    private static String friendlyReport(Object crashReport) {
+        if (crashReport instanceof ReplayCrashReport replayCrashReport) {
+            return replayCrashReport.friendlyReport();
+        }
+        try {
+            return String.valueOf(crashReport.getClass().getMethod("getFriendlyReport").invoke(crashReport));
+        } catch (ReflectiveOperationException e) {
+            return String.valueOf(crashReport);
+        }
+    }
+
+    private static String crashReportSaveFile(Object crashReport) {
+        if (crashReport instanceof ReplayCrashReport replayCrashReport) {
+            return replayCrashReport.saveFile();
+        }
+        try {
+            return String.valueOf(crashReport.getClass().getMethod("getSaveFile").invoke(crashReport));
+        } catch (ReflectiveOperationException e) {
+            return "unknown";
+        }
     }
 
     private static class GuiCrashReportPopup extends GuiInfoPopup {

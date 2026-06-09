@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.feature.replay.gui.overlay;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
@@ -26,7 +27,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.WritablePoint;
 import net.minecraft.client.Options;
 import net.minecraft.client.resources.language.I18n;
 
-import static github.com.gengyoubo.replayneo.core.ReplayMod.TEXTURE_SIZE;
+import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE_SIZE;
 
 public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
 
@@ -49,7 +50,7 @@ public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
             }
             return tooltip;
         }
-    }.setSize(20, 20).setTexture(ReplayMod.TEXTURE, TEXTURE_SIZE).setTooltip(new GuiTooltip());
+    }.setSize(20, 20).setTexture(ReplayTextures.TEXTURE, TEXTURE_SIZE).setTooltip(new GuiTooltip());
     public final GuiSlider speedSlider = new GuiSlider().setSize(100, 20).setSteps(37); // 0.0 is not included
     public final GuiMarkerTimeline timeline;
 

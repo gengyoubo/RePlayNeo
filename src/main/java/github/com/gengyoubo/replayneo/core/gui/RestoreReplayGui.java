@@ -21,6 +21,7 @@ import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import github.com.gengyoubo.replayneo.core.utils.Colors;
+import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Logger;
@@ -29,7 +30,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.function.Consumer;
-import net.minecraft.CrashReport;
 
 import static com.replaymod.replaystudio.util.Utils.readInt;
 import static com.replaymod.replaystudio.util.Utils.writeInt;
@@ -104,7 +104,7 @@ public class RestoreReplayGui extends AbstractGuiScreen<RestoreReplayGui> {
                 tryRecover(progressBar::setProgress);
             } catch (IOException e) {
                 LOGGER.error("Recovering replay file:", e);
-                CrashReport crashReport = CrashReport.forThrowable(e, "Recovering replay file");
+                var crashReport = ReplayPlatforms.get().client().crashReport(e, "Recovering replay file");
                 core.runLater(() -> Utils.error(LOGGER, VanillaGuiScreen.wrap(getMinecraft().screen), crashReport, () -> {}));
             } finally {
                 core.runLater(() -> core.getBackgroundProcesses().removeProcess(savingProcess));

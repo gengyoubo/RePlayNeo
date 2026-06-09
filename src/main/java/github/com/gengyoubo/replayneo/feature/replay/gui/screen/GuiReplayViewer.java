@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.feature.replay.gui.screen;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import com.google.common.util.concurrent.SettableFuture;
 import github.com.gengyoubo.replayneo.feature.render.gui.GuiRenderQueue;
@@ -176,7 +177,7 @@ public class GuiReplayViewer extends GuiScreen {
 
     public final GuiButton settingsButton = new GuiButton(this)
             .setSize(20, 20)
-            .setTexture(ReplayMod.TEXTURE, ReplayMod.TEXTURE_SIZE).setSpriteUV(20, 0)
+            .setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setSpriteUV(20, 0)
             .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.settings"))
             .onClick(() -> new GuiReplaySettings(toMinecraft(), getMod().getCore().getSettingsRegistry()).display());
 
@@ -481,7 +482,7 @@ public class GuiReplayViewer extends GuiScreen {
                 });
         public final GuiImage renderQueueIcon = new GuiImage()
                 .setSize(10, 10)
-                .setTexture(ReplayMod.TEXTURE, 40, 0, 20, 20);
+                .setTexture(ReplayTextures.TEXTURE, 40, 0, 20, 20);
 
         private final long dateMillis;
         private final boolean incompatible;

@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.feature.replay.gui.overlay;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
@@ -84,7 +85,7 @@ public class GuiMarkerTimeline extends AbstractGuiTimeline<GuiMarkerTimeline> im
     }
 
     protected void drawMarkers(GuiRenderer renderer, ReadableDimension size) {
-        renderer.bindTexture(ReplayMod.TEXTURE);
+        renderer.bindTexture(ReplayTextures.TEXTURE);
 
         for (Marker marker : markers) {
             drawMarker(renderer, size, marker);

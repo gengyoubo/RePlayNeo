@@ -21,35 +21,18 @@ import com.replaymod.replaystudio.util.I18n;
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.feature.pathing.ReplayModSimplePathing;
 import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PathPackResources;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
-
-
 
 public class ReplayMod implements Module, Scheduler {
 
     public static String MOD_ID = RePlayNeo.MODID;
-
-    public static ResourceLocation TEXTURE = identifier(RePlayNeo.RESOURCE_NAMESPACE, "replay_gui.png");
-    public static int TEXTURE_SIZE = 256;
-    public static ResourceLocation LOGO_FAVICON = identifier(RePlayNeo.RESOURCE_NAMESPACE, "favicon_logo.png");
 
     private static final Minecraft mc = MCVer.getMinecraft();
 
@@ -111,41 +94,6 @@ public class ReplayMod implements Module, Scheduler {
 
     public SettingsRegistry getSettingsRegistry() {
         return settingsRegistry;
-    }
-
-    public static PathPackResources jGuiResourcePack = createJGuiResourcePack();
-    public static String JGUI_RESOURCE_PACK_NAME = "replaymod_jgui";
-    private static PathPackResources createJGuiResourcePack() {
-        File folder = new File("../jGui/src/main/resources");
-        if (!folder.exists()) {
-            folder = new File("../../../jGui/src/main/resources");
-            if (!folder.exists()) {
-                return null;
-            }
-        }
-        if (JGUI_RESOURCE_PACK_NAME != null) {
-            return new PathPackResources(JGUI_RESOURCE_PACK_NAME, folder.toPath(), true) {
-                @Override
-                public @NotNull String packId() {
-                    return JGUI_RESOURCE_PACK_NAME;
-                }
-
-                @Override
-                public net.minecraft.server.packs.resources.IoSupplier<InputStream> getRootResource(String @NotNull ... segments) {
-                    if (segments.length == 1 && segments[0].equals("pack.mcmeta")) {
-                        return () -> new ByteArrayInputStream(generatePackMeta());
-                    }
-                    return super.getRootResource(segments);
-                }
-
-                private byte[] generatePackMeta() {
-                    int version = 4;
-                    return ("{\"pack\": {\"description\": \"dummy pack for jGui resources in dev-env\", \"pack_format\": "
-                            + version + "}}").getBytes(StandardCharsets.UTF_8);
-                }
-            };
-        }
-        return null;
     }
 
     public void initModules() {
@@ -224,22 +172,9 @@ public class ReplayMod implements Module, Scheduler {
     }
 
     private void printToChat(boolean warning, String message, Object... args) {
-        if (!mc.isSameThread()) {
-            runLater(() -> printToChat(warning, message, args));
-            return;
-        }
         if (getSettingsRegistry().get(Setting.NOTIFICATIONS)) {
             // Some nostalgia: "§8[§6Replay Mod§8]§r Your message goes here"
-            Style coloredDarkGray = Style.EMPTY.withColor(ChatFormatting.DARK_GRAY);
-            Style coloredGold = Style.EMPTY.withColor(ChatFormatting.GOLD);
-            Style alert = Style.EMPTY.withColor(warning ? ChatFormatting.RED : ChatFormatting.DARK_GREEN);
-            Component text = Component.literal("[").setStyle(coloredDarkGray)
-                    .append(Component.translatable("replaymod.title").setStyle(coloredGold))
-                    .append(Component.literal("] "))
-                    .append(Component.translatable(message, args).setStyle(alert));
-            // Send message to chat GUI
-            // The ingame GUI is initialized at startup, therefore this is possible before the client is connected
-            mc.gui.getChat().addMessage(text);
+            ReplayPlatforms.get().client().sendReplayMessage(warning, message, args);
         }
     }
 

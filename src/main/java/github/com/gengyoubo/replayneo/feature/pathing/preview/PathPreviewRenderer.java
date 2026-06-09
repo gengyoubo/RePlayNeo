@@ -1,4 +1,5 @@
 package github.com.gengyoubo.replayneo.feature.pathing.preview;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.events.PostRenderWorldCallback;
@@ -39,7 +40,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-import static github.com.gengyoubo.replayneo.core.ReplayMod.TEXTURE;
+import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE;
 import static github.com.gengyoubo.replayneo.core.versions.MCVer.emitLine;
 import static github.com.gengyoubo.replayneo.core.versions.MCVer.popMatrix;
 import static github.com.gengyoubo.replayneo.core.versions.MCVer.pushMatrix;
@@ -234,9 +235,9 @@ public class PathPreviewRenderer extends EventRegistrations {
 
         bindTexture(TEXTURE);
 
-        float posX = 80f / ReplayMod.TEXTURE_SIZE;
+        float posX = 80f / ReplayTextures.TEXTURE_SIZE;
         float posY = 0f;
-        float size = 10f / ReplayMod.TEXTURE_SIZE;
+        float size = 10f / ReplayTextures.TEXTURE_SIZE;
 
         if (mod.isSelected(keyframe)) {
             posY += size;

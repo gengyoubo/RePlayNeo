@@ -266,7 +266,7 @@ class Patterns {
 
     @Pattern
     private static void GL11_glRotatef(float angle, float x, float y, float z) {
-        com.mojang.blaze3d.systems.RenderSystem.getModelViewStack().mulPose(github.com.gengyoubo.replayneo.core.versions.MCVer.quaternion(angle, new org.joml.Vector3f(x, y, z)));
+        com.mojang.blaze3d.systems.RenderSystem.getModelViewStack().mulPose(github.com.gengyoubo.replayneo.platform.versions.LegacyMCVer.quaternion(angle, new org.joml.Vector3f(x, y, z)));
     }
 
     @SuppressWarnings("rawtypes") // preprocessor bug: doesn't work with generics
@@ -417,7 +417,7 @@ class Patterns {
 
     @Pattern
     private static Matrix4f Matrix4f_perspectiveMatrix(float left, float right, float top, float bottom, float zNear, float zFar) {
-        return github.com.gengyoubo.replayneo.core.versions.MCVer.ortho(left, right, top, bottom, zNear, zFar);
+        return github.com.gengyoubo.replayneo.platform.versions.LegacyMCVer.ortho(left, right, top, bottom, zNear, zFar);
     }
 
     @Pattern
