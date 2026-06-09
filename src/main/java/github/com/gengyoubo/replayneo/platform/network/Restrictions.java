@@ -1,15 +1,15 @@
-package github.com.gengyoubo.replayneo.core.utils;
-
-import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
+package github.com.gengyoubo.replayneo.platform.network;
 
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
 import net.minecraft.resources.ResourceLocation;
 
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 /**
- * Restrictions set by the server,
+ * Restrictions set by the server.
+ *
  * @see <a href="https://gist.github.com/Johni0702/2547c463e51f65f312cb">Replay Restrictions Gist</a>
  */
 public class Restrictions {
@@ -54,5 +54,4 @@ public class Restrictions {
     public boolean isOnlyRecordingPlayer() {
         return onlyRecordingPlayer;
     }
-
 }

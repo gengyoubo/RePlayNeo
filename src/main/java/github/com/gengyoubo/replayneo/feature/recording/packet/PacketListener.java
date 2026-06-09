@@ -4,7 +4,7 @@ import com.github.steveice10.netty.buffer.PooledByteBufAllocator;
 import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
 import com.google.gson.Gson;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.core.utils.Restrictions;
+import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.feature.editor.gui.MarkerProcessor;

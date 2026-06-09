@@ -7,5 +7,9 @@ public interface ReplayClient {
 
     void sendTranslatedMessage(String translationKey, Object... args);
 
+    String translate(String translationKey, Object... args);
+
+    int textWidth(String text);
+
     boolean isReplayOpen();
 }

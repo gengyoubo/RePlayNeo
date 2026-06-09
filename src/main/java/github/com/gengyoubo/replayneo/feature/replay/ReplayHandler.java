@@ -9,7 +9,7 @@ import com.mojang.blaze3d.platform.Window;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
-import github.com.gengyoubo.replayneo.core.utils.Restrictions;
+import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;

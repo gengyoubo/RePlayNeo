@@ -9,7 +9,7 @@ import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.mixin.ClientboundMoveEntityPacketAccessor;
 import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
-import github.com.gengyoubo.replayneo.core.utils.Restrictions;
+import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
 import com.replaymod.replaystudio.io.ReplayInputStream;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.packet.State;

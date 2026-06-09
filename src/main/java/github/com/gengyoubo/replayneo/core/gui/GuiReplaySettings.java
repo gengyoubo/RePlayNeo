@@ -12,12 +12,12 @@ import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import github.com.gengyoubo.replayneo.core.utils.Consumer;
+import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
 import java.util.Arrays;
 import java.util.List;
-import net.minecraft.client.resources.language.I18n;
 import org.jetbrains.annotations.NotNull;
 
 public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
@@ -40,7 +40,7 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
                     final SettingsRegistry.SettingKey<Boolean> booleanKey = (SettingsRegistry.SettingKey<Boolean>) key;
                     final GuiToggleButton<Object> button = new GuiToggleButton<>().setSize(150, 20)
                             .setI18nLabel(key.getDisplayString()).setSelected(settingsRegistry.get(booleanKey) ? 0 : 1)
-                            .setValues(I18n.get("options.on"), Arrays.toString(new String[]{I18n.get("options.off")}));
+                            .setValues(translate("options.on"), Arrays.toString(new String[]{translate("options.off")}));
                     element = button.onClick(() -> {
                         settingsRegistry.set(booleanKey, button.getSelected() == 0);
                         settingsRegistry.save();
@@ -53,7 +53,7 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
                     for (int j = 0; j < entries.length; j++) {
                         Object value = values.get(j);
                         entries[j] = new MultipleChoiceDropdownEntry(value,
-                                I18n.get(multipleChoiceKey.getDisplayString()) + ": " + I18n.get(value.toString()));
+                                translate(multipleChoiceKey.getDisplayString()) + ": " + translate(value.toString()));
                         if (currentValue.equals(value)) {
                             selected = j;
                         }
@@ -106,8 +106,12 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
     private record MultipleChoiceDropdownEntry(Object value, String text) {
 
         @Override
-            public @NotNull String toString() {
-                return text;
-            }
+        public @NotNull String toString() {
+            return text;
         }
+    }
+
+    private static String translate(String key, Object... args) {
+        return ReplayPlatforms.get().client().translate(key, args);
+    }
 }

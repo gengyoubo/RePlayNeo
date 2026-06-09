@@ -90,6 +90,16 @@ public class ForgeReplayPlatform implements ReplayPlatform {
         }
 
         @Override
+        public String translate(String translationKey, Object... args) {
+            return net.minecraft.client.resources.language.I18n.get(translationKey, args);
+        }
+
+        @Override
+        public int textWidth(String text) {
+            return Minecraft.getInstance().font.width(text);
+        }
+
+        @Override
         public boolean isReplayOpen() {
             return ReplayModReplay.instance.getReplayHandler() != null;
         }

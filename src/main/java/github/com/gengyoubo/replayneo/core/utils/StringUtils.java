@@ -24,15 +24,13 @@
  */
 package github.com.gengyoubo.replayneo.core.utils;
 
-import github.com.gengyoubo.replayneo.platform.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.client.gui.Font;
 
 public class StringUtils {
     public static String[] splitStringInMultipleRows(String string, int maxWidth) {
         if(string == null) return new String[0];
-        Font fontRenderer = MCVer.getFontRenderer();
         List<String> rows = new ArrayList<>();
         String remaining = string;
         while(!remaining.isEmpty()) {
@@ -40,7 +38,7 @@ public class StringUtils {
             StringBuilder b = new StringBuilder();
             for(String sp : split) {
                 b.append(sp).append(" ");
-                if (fontRenderer.width(b.toString().trim()) > maxWidth) {
+                if (ReplayPlatforms.get().client().textWidth(b.toString().trim()) > maxWidth) {
                     b = new StringBuilder(b.substring(0, b.toString().trim().length() - (sp.length())));
                     break;
                 }

@@ -28,4 +28,5 @@ The target architecture is:
 - Added a Forge platform entry point and moved key binding registration behind `ReplayInput` / `ReplayKeyBindingRegistry`.
 - Moved runtime environment queries behind `ReplayRuntime`, including mod version, Minecraft version, game directory, and installed network mods.
 - Moved config/replay folder path resolution and mouse coordinate lookup away from direct Minecraft access in `core`.
+- Moved mixin launcher/config glue, replay restriction payload handling, replay button texture binding, text measurement, and client translation behind platform-facing classes.
 - Added `verifyReplayLayering` so `api` fails on Minecraft/Forge/mixin imports, while `core` reports remaining migration work.
