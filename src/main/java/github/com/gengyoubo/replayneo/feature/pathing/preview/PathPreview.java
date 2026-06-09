@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.pathing.preview;
 
-import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
@@ -37,7 +37,7 @@ public class PathPreview extends EventRegistrations {
         });
     }
 
-    public void registerKeyBindings(KeyBindingRegistry registry) {
+    public void registerKeyBindings(ReplayKeyBindingRegistry registry) {
         registry.registerKeyBinding("replaymod.input.pathpreview", Keyboard.KEY_H, () -> {
             SettingsRegistry settings = mod.getCore().getSettingsRegistry();
             settings.set(Setting.PATH_PREVIEW, !settings.get(Setting.PATH_PREVIEW));

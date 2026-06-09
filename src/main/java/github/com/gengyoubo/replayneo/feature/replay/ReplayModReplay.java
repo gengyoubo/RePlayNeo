@@ -4,7 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.ModCompat;
@@ -37,7 +37,7 @@ public class ReplayModReplay implements Module {
     public static ReplayModReplay instance;
 
     private final ReplayMod core;
-    public KeyBindingRegistry.Binding keyPlayPause;
+    public ReplayKeyBindingRegistry.Binding keyPlayPause;
 
     private final CameraControllerRegistry cameraControllerRegistry = new CameraControllerRegistry();
 
@@ -56,7 +56,7 @@ public class ReplayModReplay implements Module {
     }
 
     @Override
-    public void registerKeyBindings(KeyBindingRegistry registry) {
+    public void registerKeyBindings(ReplayKeyBindingRegistry registry) {
         registry.registerKeyBinding("replaymod.input.marker", Keyboard.KEY_M, () -> {
             if (replayHandler != null ) {
                 CameraEntity camera = replayHandler.getCameraEntity();

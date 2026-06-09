@@ -1,6 +1,7 @@
 package github.com.gengyoubo.replayneo.core;
 
 import github.com.gengyoubo.replayneo.restored.com.replaymod.compat.ReplayModCompat;
+import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.files.ReplayFilesService;
 import github.com.gengyoubo.replayneo.core.files.ReplayFoldersService;
 import github.com.gengyoubo.replayneo.core.gui.GuiBackgroundProcesses;
@@ -18,6 +19,7 @@ import com.replaymod.replaystudio.studio.ReplayStudio;
 import com.replaymod.replaystudio.util.I18n;
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.feature.pathing.ReplayModSimplePathing;
+import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -51,7 +53,7 @@ public class ReplayMod implements Module, Scheduler {
 
     private final ReplayModBackend backend;
     private final SchedulerImpl scheduler = new SchedulerImpl();
-    private final KeyBindingRegistry keyBindingRegistry = new KeyBindingRegistry();
+    private final ReplayKeyBindingRegistry keyBindingRegistry = ReplayPlatforms.get().input().keyBindingRegistry();
     private final SettingsRegistry settingsRegistry = new SettingsRegistry();
     {
         settingsRegistry.register(Setting.class);
@@ -100,7 +102,7 @@ public class ReplayMod implements Module, Scheduler {
         settingsRegistry.register();
     }
 
-    public KeyBindingRegistry getKeyBindingRegistry() {
+    public ReplayKeyBindingRegistry getKeyBindingRegistry() {
         return keyBindingRegistry;
     }
 
@@ -150,7 +152,7 @@ public class ReplayMod implements Module, Scheduler {
     }
 
     @Override
-    public void registerKeyBindings(KeyBindingRegistry registry) {
+    public void registerKeyBindings(ReplayKeyBindingRegistry registry) {
         registry.registerKeyBinding("replaymod.input.settings", 0, () -> new GuiReplaySettings(null, settingsRegistry).display(), false);
     }
 

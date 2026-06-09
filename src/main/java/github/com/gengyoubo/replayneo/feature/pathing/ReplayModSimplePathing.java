@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.pathing;
 
-import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
@@ -39,9 +39,9 @@ public class ReplayModSimplePathing extends EventRegistrations implements Module
     public static ReplayModSimplePathing instance;
 
     private final ReplayMod core;
-    public KeyBindingRegistry.Binding keyPositionKeyframe;
-    public KeyBindingRegistry.Binding keyTimeKeyframe;
-    public KeyBindingRegistry.Binding keySyncTime;
+    public ReplayKeyBindingRegistry.Binding keyPositionKeyframe;
+    public ReplayKeyBindingRegistry.Binding keyTimeKeyframe;
+    public ReplayKeyBindingRegistry.Binding keySyncTime;
 
     public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
@@ -81,7 +81,7 @@ public class ReplayModSimplePathing extends EventRegistrations implements Module
     }
 
     @Override
-    public void registerKeyBindings(KeyBindingRegistry registry) {
+    public void registerKeyBindings(ReplayKeyBindingRegistry registry) {
         pathPreview.registerKeyBindings(registry);
         core.getKeyBindingRegistry().registerKeyBinding("replaymod.input.keyframerepository", Keyboard.KEY_X, () -> {
             if (guiPathing != null) guiPathing.keyframeRepoButtonPressed();

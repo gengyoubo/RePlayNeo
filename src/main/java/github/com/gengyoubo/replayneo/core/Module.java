@@ -1,6 +1,7 @@
 package github.com.gengyoubo.replayneo.core;
 
 import github.com.gengyoubo.replayneo.RePlayNeo;
+import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 
 public interface Module {
     default void initCommon() {
@@ -10,5 +11,5 @@ public interface Module {
     // FMLClientSetupEvent for 1.13+, FMLInitializationEvent (if client) below
     default void initClient() {}
 
-    default void registerKeyBindings(KeyBindingRegistry registry) {}
+    default void registerKeyBindings(ReplayKeyBindingRegistry registry) {}
 }

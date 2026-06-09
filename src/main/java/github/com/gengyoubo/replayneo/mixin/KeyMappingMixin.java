@@ -2,6 +2,7 @@ package github.com.gengyoubo.replayneo.mixin;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.platform.input.ForgeKeyBindingRegistry;
 import net.minecraft.client.KeyMapping;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,7 +36,10 @@ public class KeyMappingMixin {
         if (mod == null) {
             return;
         }
-        Set<KeyMapping> onlyInReplay = mod.getKeyBindingRegistry().getOnlyInReplay();
+        if (!(mod.getKeyBindingRegistry() instanceof ForgeKeyBindingRegistry keyBindingRegistry)) {
+            return;
+        }
+        Set<KeyMapping> onlyInReplay = keyBindingRegistry.getOnlyInReplay();
         if (ReplayModReplay.instance.getReplayHandler() != null) {
             // In replay, remove any conflicting key bindings, so that ours are guaranteed in
             rePlay$keyBindings().removeIf(KeyMapping -> {

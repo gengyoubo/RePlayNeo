@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.addon;
 
-import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.feature.render.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.feature.replay.gui.overlay.GuiReplayOverlay;
@@ -57,9 +57,9 @@ public class HotkeyButtons extends EventRegistrations implements Extra {
                 }
             }.setLayout(panelLayout = new GridLayout().setSpacingX(5).setSpacingY(5).setColumns(1));
 
-            final KeyBindingRegistry keyBindingRegistry = mod.getKeyBindingRegistry();
+            final ReplayKeyBindingRegistry keyBindingRegistry = mod.getKeyBindingRegistry();
             keyBindingRegistry.getBindings().values().stream()
-                    .sorted(Comparator.comparing(it -> I18n.get(it.name)))
+                    .sorted(Comparator.comparing(it -> I18n.get(it.name())))
                     .forEachOrdered(KeyMapping -> {
                 GuiButton button = new GuiButton(){
                     @Override
@@ -85,7 +85,7 @@ public class HotkeyButtons extends EventRegistrations implements Extra {
                         KeyMapping.trigger();
                     }
                 });
-                GuiLabel label = new GuiLabel().setI18nText(KeyMapping.name);
+                GuiLabel label = new GuiLabel().setI18nText(KeyMapping.name());
                 panel.addElements(null, new GuiPanel().setLayout(new CustomLayout<GuiPanel>() {
                     @Override
                     protected void layout(GuiPanel container, int width, int height) {

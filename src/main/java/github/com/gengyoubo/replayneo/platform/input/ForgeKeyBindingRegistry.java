@@ -1,27 +1,26 @@
-package github.com.gengyoubo.replayneo.core;
+package github.com.gengyoubo.replayneo.platform.input;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.platform.InputConstants;
-import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
-import github.com.gengyoubo.replayneo.mixin.KeyBindingAccessor;
 import github.com.gengyoubo.replayneo.RePlayNeo;
-import github.com.gengyoubo.replayneo.function.KeyInput;
-import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
 import github.com.gengyoubo.replayneo.core.events.KeyEventCallback;
+import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
+import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.mixin.KeyBindingAccessor;
+import github.com.gengyoubo.replayneo.platform.versions.LangResourcePack;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.ResourceLocation;
-import github.com.gengyoubo.replayneo.platform.versions.LangResourcePack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +33,9 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class KeyBindingRegistry extends EventRegistrations {
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
+
+public class ForgeKeyBindingRegistry extends EventRegistrations implements ReplayKeyBindingRegistry {
     private static final String CATEGORY = "replaymod.title";
     private static final List<KeyMapping> PENDING_KEY_MAPPINGS = new ArrayList<>();
 
@@ -42,19 +43,21 @@ public class KeyBindingRegistry extends EventRegistrations {
     private final Set<KeyMapping> onlyInReplay = new HashSet<>();
     private final Multimap<Integer, Function<KeyInput, Boolean>> rawHandlers = ArrayListMultimap.create();
 
-    public Binding registerKeyBinding(String name, int keyCode, Runnable whenPressed, boolean onlyInRepay) {
-        Binding binding = registerKeyBinding(name, keyCode, onlyInRepay);
+    @Override
+    public Binding registerKeyBinding(String name, int keyCode, Runnable whenPressed, boolean onlyInReplay) {
+        Binding binding = registerKeyBinding(name, keyCode, onlyInReplay);
         binding.handlers.add(whenPressed);
         return binding;
     }
 
-    public Binding registerRepeatedKeyBinding(String name, int keyCode, Runnable whenPressed, boolean onlyInRepay) {
-        Binding binding = registerKeyBinding(name, keyCode, onlyInRepay);
+    @Override
+    public Binding registerRepeatedKeyBinding(String name, int keyCode, Runnable whenPressed, boolean onlyInReplay) {
+        Binding binding = registerKeyBinding(name, keyCode, onlyInReplay);
         binding.repeatedHandlers.add(whenPressed);
         return binding;
     }
 
-    private Binding registerKeyBinding(String name, int keyCode, boolean onlyInRepay) {
+    private Binding registerKeyBinding(String name, int keyCode, boolean onlyInReplay) {
         Binding binding = bindings.get(name);
         if (binding == null) {
             if (keyCode == 0) {
@@ -66,20 +69,22 @@ public class KeyBindingRegistry extends EventRegistrations {
             PENDING_KEY_MAPPINGS.add(keyBinding);
             binding = new Binding(name, keyBinding);
             bindings.put(name, binding);
-            if (onlyInRepay) {
+            if (onlyInReplay) {
                 this.onlyInReplay.add(keyBinding);
             }
-        } else if (!onlyInRepay) {
+        } else if (!onlyInReplay) {
             this.onlyInReplay.remove(binding.keyBinding);
         }
         return binding;
     }
 
+    @Override
     public void registerRaw(int keyCode, Function<KeyInput, Boolean> whenPressed) {
         rawHandlers.put(keyCode, whenPressed);
     }
 
-    public Map<String, Binding> getBindings() {
+    @Override
+    public Map<String, ReplayKeyBindingRegistry.Binding> getBindings() {
         return Collections.unmodifiableMap(bindings);
     }
 
@@ -128,7 +133,7 @@ public class KeyBindingRegistry extends EventRegistrations {
             } catch (Throwable cause) {
                 CrashReport crashReport = CrashReport.forThrowable(cause, "Handling Key Binding");
                 CrashReportCategory category = crashReport.addCategory("Key Binding");
-                category.setDetail("Key Binding", () -> binding.name);
+                category.setDetail("Key Binding", binding.name::toString);
                 category.setDetail("Handler", runnable::toString);
                 throw new ReportedException(crashReport);
             }
@@ -154,7 +159,7 @@ public class KeyBindingRegistry extends EventRegistrations {
         return false;
     }
 
-    public class Binding {
+    public class Binding implements ReplayKeyBindingRegistry.Binding {
         public final String name;
         public final KeyMapping keyBinding;
         private final List<Runnable> handlers = new ArrayList<>();
@@ -167,38 +172,54 @@ public class KeyBindingRegistry extends EventRegistrations {
             this.keyBinding = keyBinding;
         }
 
+        @Override
+        public String name() {
+            return name;
+        }
+
+        @Override
         public String getBoundKey() {
             try {
                 return keyBinding.getTranslatedKeyMessage().getString();
             } catch (ArrayIndexOutOfBoundsException e) {
-                // Apparently windows likes to press strange keys, see https://www.replaymod.com/forum/thread/55
                 return "Unknown";
             }
         }
 
+        @Override
         public boolean isBound() {
             return !keyBinding.isUnbound();
         }
 
+        @Override
+        public boolean isDown() {
+            return keyBinding.isDown();
+        }
+
+        @Override
         public void trigger() {
             KeyBindingAccessor acc = (KeyBindingAccessor) keyBinding;
             acc.setPressTime(acc.getPressTime() + 1);
             handleKeyBindings();
         }
 
+        @Override
         public void registerAutoActivationSupport(boolean active, Consumer<Boolean> update) {
             this.autoActivation = active;
             this.autoActivationUpdate = update;
         }
 
+        @Override
         public boolean supportsAutoActivation() {
             return autoActivationUpdate != null;
         }
 
+        @Override
         public boolean isAutoActivating() {
             return supportsAutoActivation() && autoActivation;
         }
 
+        @Override
         public void setAutoActivating(boolean active) {
             if (this.autoActivation == active) {
                 return;

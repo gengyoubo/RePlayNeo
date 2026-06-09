@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.feature.recording;
 
-import github.com.gengyoubo.replayneo.core.KeyBindingRegistry;
+import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
@@ -37,7 +37,7 @@ public class ReplayModRecording implements Module {
     }
 
     @Override
-    public void registerKeyBindings(KeyBindingRegistry registry) {
+    public void registerKeyBindings(ReplayKeyBindingRegistry registry) {
         registry.registerKeyBinding("replaymod.input.marker", Keyboard.KEY_M, () -> {
             PacketListener packetListener = connectionEventHandler.getPacketListener();
             if (packetListener != null) {
