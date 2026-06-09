@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.core;
 
+import github.com.gengyoubo.replayneo.api.Module;
 import github.com.gengyoubo.replayneo.platform.restored.com.replaymod.compat.ReplayModCompat;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.ReplayRuntime;
@@ -8,7 +9,7 @@ import github.com.gengyoubo.replayneo.core.files.ReplayFoldersService;
 import github.com.gengyoubo.replayneo.core.gui.GuiBackgroundProcesses;
 import github.com.gengyoubo.replayneo.core.gui.GuiReplaySettings;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.platform.scheduler.Scheduler;
+import github.com.gengyoubo.replayneo.core.scheduler.Scheduler;
 import github.com.gengyoubo.replayneo.platform.scheduler.SchedulerImpl;
 import github.com.gengyoubo.replayneo.platform.feature.editor.ReplayModEditor;
 import github.com.gengyoubo.replayneo.platform.addon.ReplayModExtras;
@@ -29,7 +30,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 
-public class ReplayMod implements Module, Scheduler {
+public class ReplayMod implements github.com.gengyoubo.replayneo.api.Module, Scheduler {
 
     public static String MOD_ID = RePlayNeo.MODID;
 
@@ -43,7 +44,7 @@ public class ReplayMod implements Module, Scheduler {
     { instance = this; }
     public static ReplayMod instance;
 
-    private final List<Module> modules = new ArrayList<>();
+    private final List<github.com.gengyoubo.replayneo.api.Module> modules = new ArrayList<>();
 
     private final GuiBackgroundProcesses backgroundProcesses = new GuiBackgroundProcesses();
     public final ReplayFoldersService folders;
@@ -96,7 +97,7 @@ public class ReplayMod implements Module, Scheduler {
     }
 
     public void initModules() {
-        modules.forEach(Module::initCommon);
+        modules.forEach(github.com.gengyoubo.replayneo.api.Module::initCommon);
         modules.forEach(Module::initClient);
         modules.forEach(m -> m.registerKeyBindings(keyBindingRegistry));
     }
@@ -194,3 +195,4 @@ public class ReplayMod implements Module, Scheduler {
         }
     }
 }
+

@@ -5,3 +5,4 @@ public interface ReplayCrashReport {
 
     String saveFile();
 }
+

@@ -1,18 +1,18 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.hooks;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.core.events.PreRenderHandCallback;
+import github.com.gengyoubo.replayneo.api.events.PreRenderHandCallback;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.platform.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.Setting;
-import github.com.gengyoubo.replayneo.platform.feature.render.capturer.CaptureData;
-import github.com.gengyoubo.replayneo.platform.feature.render.capturer.RenderInfo;
-import github.com.gengyoubo.replayneo.platform.feature.render.capturer.WorldRenderer;
+import github.com.gengyoubo.replayneo.core.render.capturer.CaptureData;
+import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
+import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
 import github.com.gengyoubo.replayneo.mixin.GameRendererAccessor;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.core.events.PostRenderCallback;
-import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.api.events.PostRenderCallback;
+import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -113,3 +113,4 @@ public class EntityRendererHandler extends EventRegistrations implements WorldRe
         EntityRendererHandler replayModRender_getHandler();
     }
 }
+

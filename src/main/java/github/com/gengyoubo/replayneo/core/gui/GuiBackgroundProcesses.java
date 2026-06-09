@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.core.gui;
 
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;

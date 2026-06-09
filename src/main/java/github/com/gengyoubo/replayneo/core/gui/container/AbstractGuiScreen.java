@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.MinecraftGuiRenderer;
 import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
@@ -85,14 +85,14 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
                 case NONE:
                     break;
                 case DEFAULT:
-                    wrapped.renderBackground(renderer.getContext());
+                    wrapped.renderBackground((net.minecraft.client.gui.GuiGraphics) renderer.getContext());
                     break;
                 case TRANSPARENT:
                     int top = 0xc0_10_10_10, bottom = 0xd0_10_10_10;
                     renderer.drawRect(0, 0, size.getWidth(), size.getHeight(), top, top, bottom, bottom);
                     break;
                 case DIRT:
-                    wrapped.renderDirtBackground(renderer.getContext());
+                    wrapped.renderDirtBackground((net.minecraft.client.gui.GuiGraphics) renderer.getContext());
                     break;
             }
             if (title != null) {

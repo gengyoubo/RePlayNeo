@@ -1,12 +1,11 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.preview;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.core.events.PostRenderWorldCallback;
+import github.com.gengyoubo.replayneo.api.events.PostRenderWorldCallback;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.properties.CameraProperties;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.properties.SpectatorProperty;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.properties.TimestampProperty;
+import github.com.gengyoubo.replayneo.core.pathing.properties.CameraProperties;
+import github.com.gengyoubo.replayneo.core.pathing.properties.SpectatorProperty;
+import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import com.replaymod.replaystudio.pathing.interpolation.Interpolator;
 import com.replaymod.replaystudio.pathing.path.Keyframe;
@@ -15,7 +14,7 @@ import com.replaymod.replaystudio.pathing.path.PathSegment;
 import com.replaymod.replaystudio.util.EntityPositionTracker;
 import com.replaymod.replaystudio.util.Location;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.ReplayModSimplePathing;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.SPTimeline;
+import github.com.gengyoubo.replayneo.core.pathing.SPTimeline;
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.gui.GuiPathing;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;

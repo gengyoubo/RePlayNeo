@@ -6,7 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.api.events.SettingsChangedCallback;
 import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import org.apache.logging.log4j.Logger;
 

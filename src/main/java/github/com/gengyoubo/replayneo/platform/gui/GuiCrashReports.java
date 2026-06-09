@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.platform.gui;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import github.com.gengyoubo.replayneo.RenderInfo;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;

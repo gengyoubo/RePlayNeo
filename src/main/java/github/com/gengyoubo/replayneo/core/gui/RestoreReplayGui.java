@@ -20,7 +20,7 @@ import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
-import github.com.gengyoubo.replayneo.core.utils.Colors;
+import github.com.gengyoubo.replayneo.api.Colors;
 import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;

@@ -4,7 +4,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.replaymod.replaystudio.pathing.property.AbstractProperty;
 import com.replaymod.replaystudio.pathing.property.PropertyPart;
-import github.com.gengyoubo.replayneo.core.utils.NonNull;
+import github.com.gengyoubo.replayneo.api.NonNull;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.IOException;

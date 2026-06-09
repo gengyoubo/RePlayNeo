@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.platform.feature.pathing.element;
 
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.core.utils.StringUtils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;

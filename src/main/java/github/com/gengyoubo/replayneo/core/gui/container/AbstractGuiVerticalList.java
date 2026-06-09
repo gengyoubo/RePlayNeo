@@ -24,7 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.Draggable;
@@ -37,7 +38,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import de.johni0702.minecraft.gui.utils.lwjgl.WritableDimension;
 
-import static github.com.gengyoubo.replayneo.core.utils.Colors.TRANSPARENT;
+import static github.com.gengyoubo.replayneo.api.Colors.TRANSPARENT;
 import static de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor.BLACK;
 
 public abstract class AbstractGuiVerticalList<T extends AbstractGuiVerticalList<T>> extends AbstractGuiScrollable<T>

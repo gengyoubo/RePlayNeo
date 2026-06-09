@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import github.com.gengyoubo.replayneo.platform.restored.com.replaymod.compat.shaders.ShaderReflection;
-import github.com.gengyoubo.replayneo.core.events.PostRenderWorldCallback;
+import github.com.gengyoubo.replayneo.api.events.PostRenderWorldCallback;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.RecordingEventHandler;
 import github.com.gengyoubo.replayneo.platform.feature.render.hooks.EntityRendererHandler;

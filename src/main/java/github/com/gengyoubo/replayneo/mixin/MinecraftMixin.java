@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
-import github.com.gengyoubo.replayneo.core.events.PostRenderCallback;
-import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.api.events.PostRenderCallback;
+import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.thread.ReentrantBlockableEventLoop;

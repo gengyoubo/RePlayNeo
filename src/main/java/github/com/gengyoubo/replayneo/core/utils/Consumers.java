@@ -24,8 +24,10 @@
  */
 package github.com.gengyoubo.replayneo.core.utils;
 
+import github.com.gengyoubo.replayneo.api.Consumer;
+
 public class Consumers {
-    public static <U>  Consumer<U> from(final Runnable runnable) {
+    public static <U> Consumer<U> from(final Runnable runnable) {
         return obj -> runnable.run();
     }
 }

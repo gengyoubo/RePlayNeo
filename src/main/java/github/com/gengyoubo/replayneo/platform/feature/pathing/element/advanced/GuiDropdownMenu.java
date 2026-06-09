@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced;
 
-import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
 
 public class GuiDropdownMenu<V> extends AbstractGuiDropdownMenu<V, GuiDropdownMenu<V>> {
 

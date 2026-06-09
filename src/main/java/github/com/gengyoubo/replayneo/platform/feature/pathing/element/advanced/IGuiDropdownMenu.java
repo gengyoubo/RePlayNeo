@@ -26,7 +26,7 @@ package github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced
 
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.IGuiClickable;
-import github.com.gengyoubo.replayneo.core.utils.Consumer;
+import github.com.gengyoubo.replayneo.api.Consumer;
 
 import java.util.Map;
 import java.util.function.Function;

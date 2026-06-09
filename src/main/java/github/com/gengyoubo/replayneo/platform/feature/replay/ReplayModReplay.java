@@ -1,11 +1,10 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay;
 
-import com.google.common.base.Function;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
-import github.com.gengyoubo.replayneo.core.Module;
+import github.com.gengyoubo.replayneo.api.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.ModCompat;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;

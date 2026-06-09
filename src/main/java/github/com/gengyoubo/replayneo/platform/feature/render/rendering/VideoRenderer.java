@@ -7,19 +7,19 @@ import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.AbstractTimelinePlayer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.ReplayTimer;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.properties.TimestampProperty;
+import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
 import github.com.gengyoubo.replayneo.platform.feature.render.CameraPathExporter;
 import github.com.gengyoubo.replayneo.platform.feature.render.EXRWriter;
 import github.com.gengyoubo.replayneo.platform.feature.render.PNGWriter;
-import github.com.gengyoubo.replayneo.platform.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
 import github.com.gengyoubo.replayneo.platform.feature.render.FFmpegWriter;
 import github.com.gengyoubo.replayneo.platform.feature.render.blend.BlendState;
-import github.com.gengyoubo.replayneo.platform.feature.render.capturer.RenderInfo;
+import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayRenderCallback;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameConsumer;
+import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderingDone;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiVideoRenderer;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.progress.VirtualWindow;
@@ -528,3 +528,4 @@ public class VideoRenderer implements RenderInfo {
         return null;
     }
 }
+

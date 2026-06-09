@@ -25,3 +25,4 @@ public interface ReplayPlatform {
 
     ReplayRender render();
 }
+

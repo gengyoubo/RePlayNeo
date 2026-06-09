@@ -24,10 +24,10 @@
  */
 package github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced;
 
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.AbstractComposedGuiElement;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.AbstractGuiElement;
@@ -35,7 +35,7 @@ import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElemen
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.Clickable;
 import github.com.gengyoubo.replayneo.api.function.Draggable;
-import github.com.gengyoubo.replayneo.core.utils.Consumer;
+import github.com.gengyoubo.replayneo.api.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;

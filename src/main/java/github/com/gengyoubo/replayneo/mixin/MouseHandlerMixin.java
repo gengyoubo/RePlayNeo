@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
+import github.com.gengyoubo.replayneo.api.events.KeyBindingEventCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.InputReplayTimer;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.api.function.Click;

@@ -25,7 +25,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.element;
 
 import github.com.gengyoubo.replayneo.api.function.Click;
-import github.com.gengyoubo.replayneo.core.utils.Consumer;
+import github.com.gengyoubo.replayneo.api.Consumer;
 
 public interface IGuiClickable<T extends IGuiClickable<T>> extends GuiElement<T> {
     default T onClick(Runnable onClick) {

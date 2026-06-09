@@ -11,7 +11,6 @@ import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
-import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;

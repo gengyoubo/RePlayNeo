@@ -1,11 +1,10 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.gui;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.properties.CameraProperties;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.properties.SpectatorProperty;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.properties.TimestampProperty;
+import github.com.gengyoubo.replayneo.core.pathing.properties.CameraProperties;
+import github.com.gengyoubo.replayneo.core.pathing.properties.SpectatorProperty;
+import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiMarkerTimeline;
 import com.replaymod.replaystudio.pathing.change.Change;
@@ -14,9 +13,9 @@ import com.replaymod.replaystudio.pathing.path.Path;
 import com.replaymod.replaystudio.pathing.path.PathSegment;
 import com.replaymod.replaystudio.pathing.property.Property;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.ReplayModSimplePathing;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.SPTimeline;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.SPTimeline.SPPath;
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.core.pathing.SPTimeline;
+import github.com.gengyoubo.replayneo.core.pathing.SPTimeline.SPPath;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.AbstractGuiTimeline;
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.Draggable;
@@ -173,7 +172,7 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
                     // And finally another vertical bit (the timeline is already crammed enough, so only the border)
                     Vector2f p4 = new Vector2f(keyframeTimelineLeft + positionXKeyframeTimeline, keyframeTimelineTop + BORDER_TOP);
 
-                    PoseStack matrixStack = renderer.getMatrixStack();
+                    PoseStack matrixStack = (PoseStack) renderer.getMatrixStack();
                     emitLine(matrixStack, buffer, p1, p2, color, lineWidth);
                     emitLine(matrixStack, buffer, p2, p3, color, lineWidth);
                     emitLine(matrixStack, buffer, p3, p4, color, lineWidth);

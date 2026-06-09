@@ -19,7 +19,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-import github.com.gengyoubo.replayneo.core.utils.Consumer;
+import github.com.gengyoubo.replayneo.api.Consumer;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;

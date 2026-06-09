@@ -1,10 +1,16 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.capturer;
 
+import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
+
+import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
+
+import github.com.gengyoubo.replayneo.core.render.capturer.CaptureData;
+
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
-import github.com.gengyoubo.replayneo.core.render.rendering.Frame;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameCapturer;
+import github.com.gengyoubo.replayneo.api.frame.Frame;
+import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;
 import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
@@ -109,3 +115,6 @@ public abstract class OpenGlFrameCapturer<F extends Frame, D extends CaptureData
     public void close() throws IOException {
     }
 }
+
+
+

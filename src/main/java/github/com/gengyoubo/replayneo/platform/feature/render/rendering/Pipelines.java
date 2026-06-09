@@ -1,16 +1,16 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.rendering;
 
-import github.com.gengyoubo.replayneo.platform.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.blend.BlendFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.CubicOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.CubicPboOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.ODSFrameCapturer;
-import github.com.gengyoubo.replayneo.platform.feature.render.capturer.RenderInfo;
+import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.SimpleOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.SimplePboOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.StereoscopicOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.StereoscopicPboOpenGlFrameCapturer;
-import github.com.gengyoubo.replayneo.platform.feature.render.capturer.WorldRenderer;
+import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
 import github.com.gengyoubo.replayneo.core.render.frame.CubicOpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.ODSOpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
@@ -24,8 +24,8 @@ import github.com.gengyoubo.replayneo.core.render.processor.ODSToBitmapProcessor
 import github.com.gengyoubo.replayneo.core.render.processor.OpenGlToBitmapProcessor;
 import github.com.gengyoubo.replayneo.core.render.processor.StereoscopicToBitmapProcessor;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameCapturer;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameConsumer;
+import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;
+import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;
 import github.com.gengyoubo.replayneo.core.utils.PixelBufferObject;
 
 import java.util.Map;
@@ -129,3 +129,4 @@ public class Pipelines {
         return new Pipeline<>(worldRenderer, capturer, new DummyProcessor<>(), consumer);
     }
 }
+

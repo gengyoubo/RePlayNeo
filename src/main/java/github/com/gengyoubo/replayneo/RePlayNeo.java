@@ -4,6 +4,7 @@ import github.com.gengyoubo.replayneo.api.ReplayRuntime;
 import github.com.gengyoubo.replayneo.platform.ForgeReplayPlatform;
 import github.com.gengyoubo.replayneo.platform.ForgeReplayRuntime;
 import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
+import github.com.gengyoubo.replayneo.platform.render.ForgeRenderSettingsDefaults;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,6 +24,7 @@ public class RePlayNeo {
         instance = this;
         LOGGER.info("Loading {}", MOD_NAME);
         ReplayPlatforms.install(new ForgeReplayPlatform());
+        ForgeRenderSettingsDefaults.install();
         this.backend = new ForgeReplayRuntime();
     }
 

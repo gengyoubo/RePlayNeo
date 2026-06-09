@@ -1,5 +1,11 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.capturer;
 
+import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
+
+import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
+
+import github.com.gengyoubo.replayneo.core.render.capturer.CaptureData;
+
 import github.com.gengyoubo.replayneo.core.render.frame.CubicOpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 
@@ -41,3 +47,6 @@ public class CubicOpenGlFrameCapturer extends OpenGlFrameCapturer<CubicOpenGlFra
         return Collections.singletonMap(Channel.BRGA, frame);
     }
 }
+
+
+

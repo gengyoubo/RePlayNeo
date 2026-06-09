@@ -17,3 +17,4 @@ public interface ReplayClient {
 
     ReplayCrashReport crashReport(Throwable throwable, String title);
 }
+

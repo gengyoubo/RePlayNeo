@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay;
 
 import com.google.common.base.Strings;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.*;
 import github.com.gengyoubo.replayneo.api.function.Click;
@@ -11,7 +11,7 @@ import github.com.gengyoubo.replayneo.core.gui.layout.GridLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import github.com.gengyoubo.replayneo.core.gui.popup.AbstractGuiPopup;
-import github.com.gengyoubo.replayneo.core.utils.Colors;
+import github.com.gengyoubo.replayneo.api.Colors;
 import com.replaymod.replaystudio.data.Marker;
 
 import java.util.function.Consumer;

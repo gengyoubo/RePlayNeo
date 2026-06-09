@@ -1,14 +1,13 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
-import github.com.gengyoubo.replayneo.core.events.KeyEventCallback;
+import github.com.gengyoubo.replayneo.api.events.KeyBindingEventCallback;
+import github.com.gengyoubo.replayneo.api.events.KeyEventCallback;
 import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplaySender;
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiOverlay;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
@@ -16,7 +15,6 @@ import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiSlider;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiTooltip;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.IGuiTimeline;
 import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;

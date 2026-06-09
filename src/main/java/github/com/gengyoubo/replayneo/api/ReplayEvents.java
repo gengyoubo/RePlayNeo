@@ -17,3 +17,4 @@ public interface ReplayEvents {
         void render(ReplayPlatform platform, float partialTick);
     }
 }
+

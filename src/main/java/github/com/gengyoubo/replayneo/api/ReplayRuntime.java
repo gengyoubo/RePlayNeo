@@ -16,3 +16,4 @@ public interface ReplayRuntime {
 
     Collection<ModInfo> getInstalledNetworkMods();
 }
+

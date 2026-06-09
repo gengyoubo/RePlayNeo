@@ -24,18 +24,15 @@
  */
 package github.com.gengyoubo.replayneo;
 
-import github.com.gengyoubo.replayneo.core.utils.NonNull;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.NonNull;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
 
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.popScissorState;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.pushScissorState;
-
-import com.mojang.blaze3d.vertex.PoseStack;
 
 public class OffsetGuiRenderer implements GuiRenderer {
 
@@ -95,12 +92,12 @@ public class OffsetGuiRenderer implements GuiRenderer {
     }
 
     @Override
-    public GuiGraphics getContext() {
+    public Object getContext() {
         return renderer.getContext();
     }
 
     @Override
-    public PoseStack getMatrixStack() {
+    public Object getMatrixStack() {
         return renderer.getMatrixStack();
     }
 
@@ -140,7 +137,7 @@ public class OffsetGuiRenderer implements GuiRenderer {
     }
 
     @Override
-    public void bindTexture(ResourceLocation location) {
+    public void bindTexture(Object location) {
         renderer.bindTexture(location);
     }
 

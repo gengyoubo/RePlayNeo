@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.popup;
 
-import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
@@ -33,7 +33,7 @@ import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.KeyHandler;
 import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
-import github.com.gengyoubo.replayneo.core.utils.Colors;
+import github.com.gengyoubo.replayneo.api.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 
 public class GuiInfoPopup extends AbstractGuiPopup<GuiInfoPopup> implements KeyHandler {

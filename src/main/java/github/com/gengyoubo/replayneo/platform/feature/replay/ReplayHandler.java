@@ -7,6 +7,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.api.pathing.TimelinePlaybackTarget;
 import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
@@ -22,7 +23,7 @@ import com.replaymod.replaystudio.data.Marker;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import com.replaymod.replaystudio.util.Location;
 import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiScreen;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.GuiProgressBar;
@@ -66,7 +67,7 @@ import static github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModRe
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 
-public class ReplayHandler {
+public class ReplayHandler implements TimelinePlaybackTarget {
 
     public static final String PACKET_HANDLER_NAME = "ReplayModReplay_packetHandler";
 
@@ -383,6 +384,44 @@ public class ReplayHandler {
         spectateEntity(null);
     }
 
+    @Override
+    public void applyCameraPosition(double x, double y, double z) {
+        spectateCamera();
+        CameraEntity cameraEntity = getCameraEntity();
+        if (cameraEntity != null) {
+            cameraEntity.setCameraPosition(x, y, z);
+        }
+    }
+
+    @Override
+    public void applyCameraRotation(float yaw, float pitch, float roll) {
+        spectateCamera();
+        CameraEntity cameraEntity = getCameraEntity();
+        if (cameraEntity != null) {
+            cameraEntity.setCameraRotation(yaw, pitch, roll);
+        }
+    }
+
+    @Override
+    public void applyReplayTime(int time) {
+        ReplaySender replaySender = getReplaySender();
+        if (replaySender.isAsyncMode()) {
+            replaySender.jumpToTime(time);
+        } else {
+            replaySender.sendPacketsTill(time);
+        }
+    }
+
+    @Override
+    public void spectateEntity(int entityId) {
+        CameraEntity cameraEntity = getCameraEntity();
+        if (cameraEntity == null) {
+            return;
+        }
+        Entity target = cameraEntity.getCommandSenderWorld().getEntity(entityId);
+        spectateEntity(target);
+    }
+
     /**
      * Returns whether the current view entity is the camera entity.
      * @return {@code true} if the camera is the view entity, {@code false} otherwise
@@ -599,3 +638,4 @@ public class ReplayHandler {
         }
     }
 }
+

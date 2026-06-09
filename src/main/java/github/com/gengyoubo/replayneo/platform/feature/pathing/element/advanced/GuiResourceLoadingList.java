@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced;
 
-import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
 
 public class GuiResourceLoadingList<U extends GuiElement<U> & Comparable<U>>

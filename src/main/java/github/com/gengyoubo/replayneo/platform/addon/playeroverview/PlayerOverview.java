@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.addon.playeroverview;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.core.events.PreRenderHandCallback;
+import github.com.gengyoubo.replayneo.api.events.PreRenderHandCallback;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.api.Extra;

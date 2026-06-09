@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.api.function;
 
-import github.com.gengyoubo.replayneo.core.utils.Consumer;
+import github.com.gengyoubo.replayneo.api.Consumer;
 
 public interface Focusable<T extends Focusable<T>> {
 

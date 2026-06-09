@@ -6,7 +6,7 @@ import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.addon.ReplayModExtras;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameConsumer;
+import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import github.com.gengyoubo.replayneo.platform.versions.Image;

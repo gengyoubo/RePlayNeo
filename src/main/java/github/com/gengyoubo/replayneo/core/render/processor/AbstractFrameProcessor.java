@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.core.render.processor;
 
-import github.com.gengyoubo.replayneo.core.render.rendering.Frame;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameProcessor;
+import github.com.gengyoubo.replayneo.api.frame.Frame;
+import github.com.gengyoubo.replayneo.api.frame.FrameProcessor;
 
 import java.io.IOException;
 

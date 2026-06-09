@@ -1,9 +1,10 @@
 package github.com.gengyoubo.replayneo.platform.feature.render;
 
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameConsumer;
+import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;
 import github.com.gengyoubo.replayneo.platform.feature.render.rendering.VideoRenderer;
 import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import github.com.gengyoubo.replayneo.core.utils.StreamPipe;

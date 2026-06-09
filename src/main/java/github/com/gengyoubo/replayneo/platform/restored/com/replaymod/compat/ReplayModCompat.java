@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.restored.com.replaymod.compat;
 
 import github.com.gengyoubo.replayneo.platform.restored.com.replaymod.compat.optifine.DisableFastRender;
-import github.com.gengyoubo.replayneo.core.Module;
+import github.com.gengyoubo.replayneo.api.Module;
 import org.apache.logging.log4j.Logger;
 
 

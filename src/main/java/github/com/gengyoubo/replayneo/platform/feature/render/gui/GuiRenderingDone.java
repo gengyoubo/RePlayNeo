@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.render.gui;
 
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.platform.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
 import github.com.gengyoubo.replayneo.platform.feature.render.Setting;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;

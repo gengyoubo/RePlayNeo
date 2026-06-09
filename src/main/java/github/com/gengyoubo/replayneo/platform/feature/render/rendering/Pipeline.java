@@ -3,11 +3,11 @@ package github.com.gengyoubo.replayneo.platform.feature.render.rendering;
 import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
-import github.com.gengyoubo.replayneo.core.render.rendering.Frame;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameCapturer;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameConsumer;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameProcessor;
-import github.com.gengyoubo.replayneo.platform.feature.render.capturer.WorldRenderer;
+import github.com.gengyoubo.replayneo.api.frame.Frame;
+import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;
+import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;
+import github.com.gengyoubo.replayneo.api.frame.FrameProcessor;
+import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.processor.GlToAbsoluteDepthProcessor;
 import org.jetbrains.annotations.NotNull;
@@ -174,3 +174,4 @@ public class Pipeline<R extends Frame, P extends Frame> implements Runnable {
         }
     }
 }
+

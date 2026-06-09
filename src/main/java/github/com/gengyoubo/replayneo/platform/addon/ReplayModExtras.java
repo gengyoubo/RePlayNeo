@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.addon;
 
 import github.com.gengyoubo.replayneo.api.Extra;
-import github.com.gengyoubo.replayneo.core.Module;
+import github.com.gengyoubo.replayneo.api.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots.AdvancedScreenshots;
 import github.com.gengyoubo.replayneo.platform.addon.playeroverview.PlayerOverview;

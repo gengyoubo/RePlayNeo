@@ -1,5 +1,11 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.capturer;
 
+import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
+
+import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
+
+import github.com.gengyoubo.replayneo.core.render.capturer.CaptureData;
+
 import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
 
 public class SimplePboOpenGlFrameCapturer extends PboOpenGlFrameCapturer<OpenGlFrame, SimplePboOpenGlFrameCapturer.SinglePass> {
@@ -18,3 +24,6 @@ public class SimplePboOpenGlFrameCapturer extends PboOpenGlFrameCapturer<OpenGlF
         SINGLE_PASS
     }
 }
+
+
+

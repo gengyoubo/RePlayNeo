@@ -8,3 +8,4 @@ public interface ReplayAPI {
 
     ReplayEvents events();
 }
+

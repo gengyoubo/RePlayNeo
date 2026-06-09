@@ -26,7 +26,8 @@ package github.com.gengyoubo.replayneo;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import github.com.gengyoubo.replayneo.core.utils.NonNull;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.NonNull;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
@@ -117,8 +118,11 @@ public class MinecraftGuiRenderer implements GuiRenderer {
     private int boundTextureGpu;
 
     @Override
-    public void bindTexture(ResourceLocation location) {
-        boundTexture = location;
+    public void bindTexture(Object location) {
+        if (!(location instanceof ResourceLocation resourceLocation)) {
+            throw new IllegalArgumentException("Expected ResourceLocation texture, got " + location);
+        }
+        boundTexture = resourceLocation;
         boundTextureGpu = 0;
     }
 

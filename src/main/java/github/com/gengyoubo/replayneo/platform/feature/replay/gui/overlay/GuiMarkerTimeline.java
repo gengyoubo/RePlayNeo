@@ -1,14 +1,13 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
 import com.replaymod.replaystudio.data.Marker;
 import com.replaymod.replaystudio.util.Location;
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.AbstractGuiTimeline;
 import github.com.gengyoubo.replayneo.api.function.Click;

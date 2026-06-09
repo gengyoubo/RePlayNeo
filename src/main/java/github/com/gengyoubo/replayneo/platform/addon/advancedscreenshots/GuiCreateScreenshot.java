@@ -1,10 +1,10 @@
 package github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.platform.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;

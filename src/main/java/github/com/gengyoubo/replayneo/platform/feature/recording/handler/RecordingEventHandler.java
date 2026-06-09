@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.recording.handler;
 
 import com.mojang.authlib.GameProfile;
-import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
 import github.com.gengyoubo.replayneo.mixin.IntegratedServerAccessor;
 import github.com.gengyoubo.replayneo.platform.feature.recording.packet.PacketListener;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;

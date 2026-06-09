@@ -1,14 +1,20 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.capturer;
 
+import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
+
+import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
+
+import github.com.gengyoubo.replayneo.core.render.capturer.CaptureData;
+
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.platform.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.core.render.frame.CubicOpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.ODSOpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
 import github.com.gengyoubo.replayneo.platform.feature.render.hooks.FogStateCallback;
 import github.com.gengyoubo.replayneo.platform.feature.render.hooks.Texture2DStateCallback;
-import github.com.gengyoubo.replayneo.core.render.rendering.FrameCapturer;
+import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.shader.Program;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import github.com.gengyoubo.replayneo.RePlayNeo;
@@ -157,3 +163,6 @@ public class ODSFrameCapturer implements FrameCapturer<ODSOpenGlFrame> {
         }
     }
 }
+
+
+

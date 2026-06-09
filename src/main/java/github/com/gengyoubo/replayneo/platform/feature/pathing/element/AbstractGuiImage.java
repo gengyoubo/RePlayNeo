@@ -25,9 +25,9 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.element;
 
 import com.google.common.base.Preconditions;
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;

@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import github.com.gengyoubo.replayneo.core.events.PreRenderHandCallback;
+import github.com.gengyoubo.replayneo.api.events.PreRenderHandCallback;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.StereoscopicOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.hooks.EntityRendererHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;

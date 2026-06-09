@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.gui;
 
-import github.com.gengyoubo.replayneo.platform.feature.pathing.properties.CameraProperties;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.properties.TimestampProperty;
+import github.com.gengyoubo.replayneo.core.pathing.properties.CameraProperties;
+import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import com.replaymod.replaystudio.pathing.change.Change;
 import com.replaymod.replaystudio.pathing.change.CombinedChange;
@@ -13,8 +13,8 @@ import com.replaymod.replaystudio.pathing.path.Keyframe;
 import com.replaymod.replaystudio.pathing.path.Path;
 import com.replaymod.replaystudio.pathing.path.PathSegment;
 import github.com.gengyoubo.replayneo.core.pathing.InterpolatorType;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.SPTimeline;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.SPTimeline.SPPath;
+import github.com.gengyoubo.replayneo.core.pathing.SPTimeline;
+import github.com.gengyoubo.replayneo.core.pathing.SPTimeline.SPPath;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.Setting;
 import github.com.gengyoubo.replayneo.core.pathing.properties.ExplicitInterpolationProperty;
 import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiContainer;
@@ -34,8 +34,8 @@ import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import github.com.gengyoubo.replayneo.core.gui.popup.AbstractGuiPopup;
 import net.minecraft.client.resources.language.I18n;
-import github.com.gengyoubo.replayneo.core.utils.Colors;
-import github.com.gengyoubo.replayneo.core.utils.Consumer;
+import github.com.gengyoubo.replayneo.api.Colors;
+import github.com.gengyoubo.replayneo.api.Consumer;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;

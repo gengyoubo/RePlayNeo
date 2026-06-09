@@ -3,8 +3,8 @@ import github.com.gengyoubo.replayneo.api.Extra;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.core.events.PostRenderCallback;
-import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.api.events.PostRenderCallback;
+import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
 import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;

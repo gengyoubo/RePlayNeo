@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.pathing.preview;
 
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
-import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.api.events.SettingsChangedCallback;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;

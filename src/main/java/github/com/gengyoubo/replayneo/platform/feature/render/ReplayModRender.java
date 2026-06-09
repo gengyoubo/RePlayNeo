@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.render;
 
-import github.com.gengyoubo.replayneo.core.Module;
+import github.com.gengyoubo.replayneo.api.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.core.utils.RenderJob;

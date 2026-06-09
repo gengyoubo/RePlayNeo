@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import github.com.gengyoubo.replayneo.GuiRenderer;
+import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.MinecraftGuiRenderer;
 import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
