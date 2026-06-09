@@ -26,8 +26,8 @@ package github.com.gengyoubo.replayneo.core.gui.container;
 
 import github.com.gengyoubo.replayneo.GuiRenderer;
 import github.com.gengyoubo.replayneo.RenderInfo;
-import github.com.gengyoubo.replayneo.function.Click;
-import github.com.gengyoubo.replayneo.function.Draggable;
+import github.com.gengyoubo.replayneo.api.function.Click;
+import github.com.gengyoubo.replayneo.api.function.Draggable;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;

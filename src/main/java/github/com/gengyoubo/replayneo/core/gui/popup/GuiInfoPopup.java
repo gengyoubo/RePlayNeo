@@ -26,12 +26,12 @@ package github.com.gengyoubo.replayneo.core.gui.popup;
 
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
-import github.com.gengyoubo.replayneo.feature.pathing.element.GuiButton;
-import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
-import github.com.gengyoubo.replayneo.feature.pathing.element.GuiLabel;
-import github.com.gengyoubo.replayneo.function.Click;
-import github.com.gengyoubo.replayneo.function.KeyHandler;
-import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.api.function.Click;
+import github.com.gengyoubo.replayneo.api.function.KeyHandler;
+import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import github.com.gengyoubo.replayneo.core.utils.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;

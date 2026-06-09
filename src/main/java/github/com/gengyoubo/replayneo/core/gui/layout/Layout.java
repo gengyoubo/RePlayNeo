@@ -25,7 +25,7 @@
 package github.com.gengyoubo.replayneo.core.gui.layout;
 
 import github.com.gengyoubo.replayneo.core.gui.container.GuiContainer;
-import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import org.apache.commons.lang3.tuple.Pair;

@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.feature.recording.ReplayModRecording;
+import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.PauseScreen;

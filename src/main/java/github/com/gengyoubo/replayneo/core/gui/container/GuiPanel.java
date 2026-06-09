@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import github.com.gengyoubo.replayneo.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
 import github.com.gengyoubo.replayneo.core.gui.layout.Layout;
 import github.com.gengyoubo.replayneo.core.gui.layout.LayoutData;
 

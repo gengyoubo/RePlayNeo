@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.callbacks;
 
-import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface MouseCallback {

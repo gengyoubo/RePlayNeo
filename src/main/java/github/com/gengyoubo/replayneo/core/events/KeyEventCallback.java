@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.core.events;
 
-import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface KeyEventCallback {

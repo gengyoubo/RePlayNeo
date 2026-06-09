@@ -2,18 +2,25 @@ package github.com.gengyoubo.replayneo.platform.input;
 
 import com.mojang.blaze3d.platform.Window;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
+import github.com.gengyoubo.replayneo.api.function.InputWithModifiers;
 import github.com.gengyoubo.replayneo.api.input.ReplayInput;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBinding;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyHandler;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyInput;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import org.lwjgl.glfw.GLFW;
 
 public class ForgeReplayInput implements ReplayInput {
     private final ForgeKeyBindingRegistry keyBindingRegistry = new ForgeKeyBindingRegistry();
     private final Minecraft minecraft = MCVer.getMinecraft();
+
+    public ForgeReplayInput() {
+        InputWithModifiers.setCurrentModifiersSupplier(ForgeReplayInput::currentModifiers);
+    }
 
     @Override
     public ReplayKeyBindingRegistry keyBindingRegistry() {
@@ -55,6 +62,14 @@ public class ForgeReplayInput implements ReplayInput {
     @Override
     public boolean controlDown() {
         return Screen.hasControlDown();
+    }
+
+    private static int currentModifiers() {
+        int ctrlMask = Util.getPlatform() == Util.OS.OSX ? GLFW.GLFW_MOD_SUPER : GLFW.GLFW_MOD_CONTROL;
+        int ctrl = Screen.hasControlDown() ? ctrlMask : 0;
+        int shift = Screen.hasShiftDown() ? GLFW.GLFW_MOD_SHIFT : 0;
+        int alt = Screen.hasAltDown() ? GLFW.GLFW_MOD_ALT : 0;
+        return ctrl | shift | alt;
     }
 
     private static class KeyBindingAdapter implements ReplayKeyBinding {

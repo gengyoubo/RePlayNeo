@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;

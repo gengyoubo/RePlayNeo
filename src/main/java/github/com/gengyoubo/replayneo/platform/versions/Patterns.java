@@ -10,7 +10,7 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
-import github.com.gengyoubo.replayneo.restored.com.replaymod.gradle.remap.Pattern;
+import github.com.gengyoubo.replayneo.platform.restored.com.replaymod.gradle.remap.Pattern;
 import net.minecraft.client.Options;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.AbstractClientPlayer;

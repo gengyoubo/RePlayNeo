@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.mixin;
 
 import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
 import github.com.gengyoubo.replayneo.core.events.KeyEventCallback;
-import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import net.minecraft.client.KeyboardHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

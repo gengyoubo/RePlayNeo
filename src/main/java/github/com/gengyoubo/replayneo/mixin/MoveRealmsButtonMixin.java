@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.mixin;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.feature.replay.Setting;
-import github.com.gengyoubo.replayneo.feature.replay.handler.GuiHandler.MainMenuButtonPosition;
+import github.com.gengyoubo.replayneo.platform.feature.replay.Setting;
+import github.com.gengyoubo.replayneo.platform.feature.replay.handler.GuiHandler.MainMenuButtonPosition;
 import net.minecraft.client.gui.screens.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

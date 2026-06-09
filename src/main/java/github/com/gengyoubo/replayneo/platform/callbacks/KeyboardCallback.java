@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.callbacks;
 
-import github.com.gengyoubo.replayneo.function.CharInput;
-import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.api.function.CharInput;
+import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface KeyboardCallback {

@@ -9,7 +9,7 @@ import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
 import github.com.gengyoubo.replayneo.core.events.KeyEventCallback;
 import github.com.gengyoubo.replayneo.core.events.PreRenderCallback;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.mixin.KeyBindingAccessor;
 import github.com.gengyoubo.replayneo.platform.versions.LangResourcePack;
 import net.minecraft.CrashReport;

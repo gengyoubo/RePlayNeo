@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.feature.recording.packet.ResourcePackRecorder;
+import github.com.gengyoubo.replayneo.platform.feature.recording.packet.ResourcePackRecorder;
 import github.com.gengyoubo.replayneo.core.utils.Consumer;
 import net.minecraft.client.resources.DownloadedPackSource;
 import net.minecraft.server.packs.repository.PackSource;

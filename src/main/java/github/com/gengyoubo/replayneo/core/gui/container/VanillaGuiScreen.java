@@ -1,13 +1,13 @@
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import github.com.gengyoubo.replayneo.function.CharHandler;
-import github.com.gengyoubo.replayneo.function.CharInput;
-import github.com.gengyoubo.replayneo.function.Click;
-import github.com.gengyoubo.replayneo.function.Draggable;
-import github.com.gengyoubo.replayneo.function.KeyHandler;
-import github.com.gengyoubo.replayneo.function.KeyInput;
-import github.com.gengyoubo.replayneo.function.Scrollable;
-import github.com.gengyoubo.replayneo.function.Tickable;
+import github.com.gengyoubo.replayneo.api.function.CharHandler;
+import github.com.gengyoubo.replayneo.api.function.CharInput;
+import github.com.gengyoubo.replayneo.api.function.Click;
+import github.com.gengyoubo.replayneo.api.function.Draggable;
+import github.com.gengyoubo.replayneo.api.function.KeyHandler;
+import github.com.gengyoubo.replayneo.api.function.KeyInput;
+import github.com.gengyoubo.replayneo.api.function.Scrollable;
+import github.com.gengyoubo.replayneo.api.function.Tickable;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.core.utils.MouseUtils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;

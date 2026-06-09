@@ -1,9 +1,9 @@
 package github.com.gengyoubo.replayneo.mixin;
 
 import github.com.gengyoubo.replayneo.core.events.KeyBindingEventCallback;
-import github.com.gengyoubo.replayneo.feature.replay.InputReplayTimer;
-import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
-import github.com.gengyoubo.replayneo.function.Click;
+import github.com.gengyoubo.replayneo.platform.feature.replay.InputReplayTimer;
+import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.platform.callbacks.MouseCallback;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;

@@ -25,7 +25,7 @@
 package github.com.gengyoubo.replayneo.core.guiutils;
 
 import github.com.gengyoubo.replayneo.GuiRenderer;
-import github.com.gengyoubo.replayneo.function.Focusable;
+import github.com.gengyoubo.replayneo.api.function.Focusable;
 
 import java.util.Arrays;
 import java.util.HashSet;

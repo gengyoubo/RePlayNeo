@@ -2,9 +2,9 @@ package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import github.com.gengyoubo.replayneo.core.events.PreRenderHandCallback;
-import github.com.gengyoubo.replayneo.feature.render.capturer.StereoscopicOpenGlFrameCapturer;
-import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
-import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.platform.feature.render.capturer.StereoscopicOpenGlFrameCapturer;
+import github.com.gengyoubo.replayneo.platform.feature.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;

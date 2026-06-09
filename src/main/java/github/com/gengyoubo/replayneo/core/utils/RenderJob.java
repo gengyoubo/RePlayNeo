@@ -5,13 +5,13 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.platform.feature.render.RenderSettings;
 import com.replaymod.replaystudio.lib.guava.base.Optional;
 import com.replaymod.replaystudio.pathing.PathingRegistry;
 import com.replaymod.replaystudio.pathing.path.Timeline;
 import com.replaymod.replaystudio.pathing.serialize.TimelineSerialization;
 import com.replaymod.replaystudio.replay.ReplayFile;
-import github.com.gengyoubo.replayneo.feature.pathing.SPTimeline;
+import github.com.gengyoubo.replayneo.platform.feature.pathing.SPTimeline;
 
 import java.io.IOException;
 import java.io.InputStream;

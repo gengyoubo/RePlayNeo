@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.core;
 
-import github.com.gengyoubo.replayneo.restored.com.replaymod.compat.ReplayModCompat;
+import github.com.gengyoubo.replayneo.platform.restored.com.replaymod.compat.ReplayModCompat;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.ReplayRuntime;
 import github.com.gengyoubo.replayneo.core.files.ReplayFilesService;
@@ -10,16 +10,16 @@ import github.com.gengyoubo.replayneo.core.gui.GuiReplaySettings;
 import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.scheduler.Scheduler;
 import github.com.gengyoubo.replayneo.platform.scheduler.SchedulerImpl;
-import github.com.gengyoubo.replayneo.feature.editor.ReplayModEditor;
-import github.com.gengyoubo.replayneo.addon.ReplayModExtras;
-import github.com.gengyoubo.replayneo.feature.recording.ReplayModRecording;
-import github.com.gengyoubo.replayneo.feature.render.ReplayModRender;
-import github.com.gengyoubo.replayneo.feature.replay.ReplayModReplay;
+import github.com.gengyoubo.replayneo.platform.feature.editor.ReplayModEditor;
+import github.com.gengyoubo.replayneo.platform.addon.ReplayModExtras;
+import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
+import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
+import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.version.ProtocolVersion;
 import com.replaymod.replaystudio.studio.ReplayStudio;
 import com.replaymod.replaystudio.util.I18n;
 import github.com.gengyoubo.replayneo.RePlayNeo;
-import github.com.gengyoubo.replayneo.feature.pathing.ReplayModSimplePathing;
+import github.com.gengyoubo.replayneo.platform.feature.pathing.ReplayModSimplePathing;
 import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 
 import java.util.ArrayList;

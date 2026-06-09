@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.api.input;
 
-import github.com.gengyoubo.replayneo.function.KeyInput;
+import github.com.gengyoubo.replayneo.api.function.KeyInput;
 
 import java.util.Map;
 import java.util.function.Consumer;

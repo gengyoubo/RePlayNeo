@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.feature.render.RenderSettings;
-import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
-import github.com.gengyoubo.replayneo.feature.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.platform.feature.render.RenderSettings;
+import github.com.gengyoubo.replayneo.platform.feature.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
 import net.minecraft.client.Camera;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
