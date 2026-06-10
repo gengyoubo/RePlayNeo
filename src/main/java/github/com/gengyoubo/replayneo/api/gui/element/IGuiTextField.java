@@ -22,14 +22,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.platform.gui.element;
+package github.com.gengyoubo.replayneo.api.gui.element;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 import github.com.gengyoubo.replayneo.api.function.Focusable;
 import github.com.gengyoubo.replayneo.api.Consumer;
 import github.com.gengyoubo.replayneo.api.NonNull;

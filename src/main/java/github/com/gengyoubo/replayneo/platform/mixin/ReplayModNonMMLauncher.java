@@ -12,7 +12,7 @@ import java.util.Set;
 
 // See ReplayModMMLauncher. This is the fallback if MM is not installed.
 public class ReplayModNonMMLauncher implements IMixinConfigPlugin {
-    private final Logger logger = LogManager.getLogger("replaymod/nonmm");
+    private final Logger logger = LogManager.getLogger("RePlayCore/nonmm");
 
     @Override
     public void onLoad(String mixinPackage) {

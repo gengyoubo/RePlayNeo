@@ -5,7 +5,7 @@ import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 import com.github.steveice10.netty.buffer.PooledByteBufAllocator;
 import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
 import com.google.gson.Gson;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
@@ -82,7 +82,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private static final Minecraft mc = getMinecraft();
     private static final Logger logger = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
-    private final ReplayMod core;
+    private final RePlayCore core;
     private final Path outputPath;
     private final ReplayFile replayFile;
 
@@ -111,7 +111,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
      */
     private final AtomicInteger lastSaveMetaDataId = new AtomicInteger();
 
-    public PacketListener(ReplayMod core, Channel channel, Path outputPath, ReplayFile replayFile, ReplayMetaData metaData) throws IOException {
+    public PacketListener(RePlayCore core, Channel channel, Path outputPath, ReplayFile replayFile, ReplayMetaData metaData) throws IOException {
         this.core = core;
         this.channel = channel;
         this.outputPath = outputPath;
@@ -132,11 +132,11 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
             }
             try {
                 synchronized (replayFile) {
-                    if (ReplayMod.isMinimalMode()) {
+                    if (RePlayCore.isMinimalMode()) {
                         metaData.setFileFormat("MCPR");
                         metaData.setFileFormatVersion(ReplayMetaData.CURRENT_FILE_FORMAT_VERSION);
                         metaData.setProtocolVersion(MCVer.getProtocolVersion());
-                        metaData.setGenerator("ReplayMod in Minimal Mode");
+                        metaData.setGenerator("RePlayNeo in Minimal Mode");
 
                         try (OutputStream out = replayFile.write("metaData.json")) {
                             String json = (new Gson()).toJson(metaData);
@@ -231,7 +231,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
             PacketData packetData = new PacketData(timestamp, packet).retain();
             saveService.submit(() -> {
                 try {
-                    if (ReplayMod.isMinimalMode()) {
+                    if (RePlayCore.isMinimalMode()) {
                         // Minimal mode, ReplayStudio might not know our packet ids, so we cannot use it
                         com.github.steveice10.netty.buffer.ByteBuf packetIdBuf = PooledByteBufAllocator.DEFAULT.buffer();
                         com.github.steveice10.netty.buffer.ByteBuf packetBuf = packetData.getPacket().getBuf();
@@ -337,7 +337,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
 
                         // We still have the replay, so we just save it (at least for a few weeks) in case they change their mind
                         String replayName = FilenameUtils.getBaseName(outputPath.getFileName().toString());
-                        Path rawFolder = ReplayMod.instance.folders.getRawReplayFolder();
+                        Path rawFolder = RePlayCore.instance.folders.getRawReplayFolder();
                         Path rawPath = rawFolder.resolve(outputPath.getFileName());
                         for (int i = 1; Files.exists(rawPath); i++) {
                             rawPath = rawPath.resolveSibling(replayName + "." + i + ".mcpr");
@@ -353,7 +353,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                     replayFile.save();
                     replayFile.close();
 
-                    if (core.getSettingsRegistry().get(Setting.AUTO_POST_PROCESS) && !ReplayMod.isMinimalMode()) {
+                    if (core.getSettingsRegistry().get(Setting.AUTO_POST_PROCESS) && !RePlayCore.isMinimalMode()) {
                         outputPaths = MarkerProcessor.apply(outputPath, guiSavingReplay.getProgressBar()::setProgress);
                     } else {
                         outputPaths = Collections.singletonList(Pair.of(outputPath, metaData));

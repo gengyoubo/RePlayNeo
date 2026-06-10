@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.recording.handler;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.ModCompat;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.feature.editor.gui.MarkerProcessor;
@@ -39,14 +39,14 @@ public class ConnectionEventHandler {
     private static final Minecraft mc = getMinecraft();
 
     private final Logger logger;
-    private final ReplayMod core;
+    private final RePlayCore core;
 
     private RecordingEventHandler recordingEventHandler;
     private PacketListener packetListener;
     private GuiRecordingOverlay guiOverlay;
     private GuiRecordingControls guiControls;
 
-    public ConnectionEventHandler(Logger logger, ReplayMod core) {
+    public ConnectionEventHandler(Logger logger, RePlayCore core) {
         this.logger = logger;
         this.core = core;
     }
@@ -99,7 +99,7 @@ public class ConnectionEventHandler {
                 return;
             }
 
-            if (ReplayMod.isMinimalMode()) {
+            if (RePlayCore.isMinimalMode()) {
                 // Recording controls are not supported in minimal mode, so always auto-start
                 autoStart = true;
             }
@@ -114,9 +114,9 @@ public class ConnectionEventHandler {
             metaData.setSingleplayer(local);
             metaData.setServerName(worldName);
             metaData.setCustomServerName(serverName);
-            metaData.setGenerator("ReplayMod v" + ReplayMod.instance.getVersion());
+            metaData.setGenerator("RePlayNeo v" + RePlayCore.instance.getVersion());
             metaData.setDate(System.currentTimeMillis());
-            metaData.setMcVersion(ReplayMod.instance.getMinecraftVersion());
+            metaData.setMcVersion(RePlayCore.instance.getMinecraftVersion());
 
             Channel channel = networkManager.channel;
             packetListener = new PacketListener(core, channel, outputPath, replayFile, metaData);

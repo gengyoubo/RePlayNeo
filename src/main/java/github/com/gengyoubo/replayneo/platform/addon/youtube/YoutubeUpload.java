@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.addon.youtube;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.Extra;
 import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiScreen;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
@@ -10,7 +10,7 @@ import net.minecraft.client.gui.screens.Screen;
 
 public class YoutubeUpload extends EventRegistrations implements Extra {
     @Override
-    public void register(ReplayMod mod) {
+    public void register(RePlayCore mod) {
         register();
     }
 

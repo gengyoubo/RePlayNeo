@@ -26,7 +26,7 @@ import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiNumberField;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiTooltip;
 import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
-import github.com.gengyoubo.replayneo.platform.gui.element.IGuiLabel;
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiLabel;
 import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiDropdownMenu;
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.KeyHandler;

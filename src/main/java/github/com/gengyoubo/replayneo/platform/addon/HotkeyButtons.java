@@ -3,7 +3,7 @@ import github.com.gengyoubo.replayneo.api.Extra;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.render.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiReplayOverlay;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
@@ -25,10 +25,10 @@ import java.util.Map;
 import net.minecraft.client.resources.language.I18n;
 
 public class HotkeyButtons extends EventRegistrations implements Extra {
-    private ReplayMod mod;
+    private RePlayCore mod;
 
     @Override
-    public void register(ReplayMod mod) {
+    public void register(RePlayCore mod) {
         this.mod = mod;
 
         register();
@@ -42,7 +42,7 @@ public class HotkeyButtons extends EventRegistrations implements Extra {
 
         private boolean open;
 
-        public Gui(ReplayMod mod, GuiReplayOverlay overlay) {
+        public Gui(RePlayCore mod, GuiReplayOverlay overlay) {
             toggleButton = new GuiButton(overlay).setSize(20, 20)
                     .setTexture(ReplayTextures.TEXTURE, ReplayTextures.TEXTURE_SIZE).setSpriteUV(0, 120)
                     .onClick(() -> open = !open);

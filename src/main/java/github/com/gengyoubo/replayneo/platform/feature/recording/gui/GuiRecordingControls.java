@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.recording.gui;
 
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.editor.gui.MarkerProcessor;
@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class GuiRecordingControls extends EventRegistrations {
-    private ReplayMod core;
+    private RePlayCore core;
     private PacketListener packetListener;
     private boolean paused;
     private boolean stopped;
@@ -69,7 +69,7 @@ public class GuiRecordingControls extends EventRegistrations {
         updateState();
     }).setSize(98, 20);
 
-    public GuiRecordingControls(ReplayMod core, PacketListener packetListener, boolean autoStart) {
+    public GuiRecordingControls(RePlayCore core, PacketListener packetListener, boolean autoStart) {
         this.core = core;
         this.packetListener = packetListener;
 

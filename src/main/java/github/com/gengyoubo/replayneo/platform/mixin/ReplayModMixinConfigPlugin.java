@@ -19,7 +19,7 @@ public class ReplayModMixinConfigPlugin implements IMixinConfigPlugin {
         return stream != null;
     }
 
-    private final Logger logger = LogManager.getLogger("replaymod/mixin");
+    private final Logger logger = LogManager.getLogger("RePlayCore/mixin");
     private final boolean hasOF = hasClass("optifine.OptiFineForgeTweaker") || hasClass("me.modmuss50.optifabric.mod.Optifabric");
     private final boolean hasIris = ModList.get().isLoaded("iris");
 

@@ -12,7 +12,7 @@ import github.com.gengyoubo.replayneo.platform.gui.element.GuiCheckbox;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiImage;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiTooltip;
-import github.com.gengyoubo.replayneo.platform.gui.element.IGuiCheckbox;
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiCheckbox;
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.Closeable;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;

@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.recording.handler;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.platform.gui.GuiReplayButton;
 import github.com.gengyoubo.replayneo.platform.feature.recording.ServerInfoExt;
@@ -23,9 +23,9 @@ import net.minecraft.client.resources.language.I18n;
 
 public class GuiHandler extends EventRegistrations {
 
-    private final ReplayMod mod;
+    private final RePlayCore mod;
 
-    public GuiHandler(ReplayMod mod) {
+    public GuiHandler(RePlayCore mod) {
         this.mod = mod;
     }
 

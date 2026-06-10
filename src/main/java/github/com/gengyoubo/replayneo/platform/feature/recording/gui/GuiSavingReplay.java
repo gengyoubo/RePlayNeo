@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.platform.feature.recording.gui;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayModGui;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.feature.recording.Setting;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.screen.GuiReplayViewer;
@@ -54,10 +54,10 @@ public class GuiSavingReplay {
             .setLayout(new VerticalLayout().setSpacing(2))
             .addElements(new VerticalLayout.Data(0.5), label, progressBar);
 
-    private final ReplayMod core;
+    private final RePlayCore core;
     private final List<Runnable> apply = new ArrayList<>();
 
-    public GuiSavingReplay(ReplayMod core) {
+    public GuiSavingReplay(RePlayCore core) {
         this.core = core;
     }
 

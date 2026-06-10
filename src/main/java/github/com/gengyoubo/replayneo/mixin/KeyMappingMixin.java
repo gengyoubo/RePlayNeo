@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.input.ForgeKeyBindingRegistry;
 import net.minecraft.client.KeyMapping;
@@ -32,7 +32,7 @@ public class KeyMappingMixin {
 
     @Inject(method = "resetMapping", at = @At("HEAD"))
     private static void preContextualKeyBindings(CallbackInfo ci) {
-        ReplayMod mod = ReplayMod.instance;
+        RePlayCore mod = RePlayCore.instance;
         if (mod == null) {
             return;
         }

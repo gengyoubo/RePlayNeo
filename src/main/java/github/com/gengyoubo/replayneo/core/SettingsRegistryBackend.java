@@ -132,7 +132,7 @@ class SettingsRegistryBackend {
                 }
             }
         });
-        thread.setName("replaymod-config-watcher");
+        thread.setName("RePlayCore-config-watcher");
         thread.setDaemon(true);
         thread.start();
     }
@@ -140,7 +140,7 @@ class SettingsRegistryBackend {
     private void reload() {
         load(false);
 
-        SettingsRegistry settingsRegistry = ReplayMod.instance.getSettingsRegistry();
+        SettingsRegistry settingsRegistry = RePlayCore.instance.getSettingsRegistry();
         for (SettingsRegistry.SettingKey<?> key : settings.keySet()) {
             SettingsChangedCallback.EVENT.invoker().onSettingsChanged(settingsRegistry, key);
         }

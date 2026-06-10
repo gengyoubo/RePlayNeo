@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.platform.feature.editor.gui;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.feature.editor.ReplayModEditor;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiMarkerTimeline;
@@ -68,7 +68,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
 
         LOGGER.info("Opening replay in editor: {}", inputPath);
 
-        try (ReplayFile replayFile = ReplayMod.instance.files.open(inputPath)) {
+        try (ReplayFile replayFile = RePlayCore.instance.files.open(inputPath)) {
             markers = replayFile.getMarkers().or(HashSet::new);
             timeline = new EditTimeline(new HashSet<>(markers), markers -> this.markers = markers);
             timeline.setSize(300, 20)
@@ -155,7 +155,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
         ProgressPopup progressPopup = new ProgressPopup(this);
 
         new Thread(() -> {
-            try (ReplayFile replayFile = ReplayMod.instance.files.open(inputPath)) {
+            try (ReplayFile replayFile = RePlayCore.instance.files.open(inputPath)) {
                 replayFile.writeMarkers(markers);
                 replayFile.save();
             } catch (IOException e) {
@@ -165,14 +165,14 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
             try {
                 MarkerProcessor.apply(inputPath, progressPopup.progressBar::setProgress);
 
-                ReplayMod.instance.runLater(() -> {
+                RePlayCore.instance.runLater(() -> {
                     progressPopup.close();
                     close();
                 });
             } catch (Throwable e) {
                 e.printStackTrace(); // in case runLater fails
                 CrashReport crashReport = CrashReport.forThrowable(e, "Running marker processor");
-                ReplayMod.instance.runLater(() -> GuiUtils.error(ReplayModEditor.LOGGER, this, crashReport, () -> {
+                RePlayCore.instance.runLater(() -> GuiUtils.error(ReplayModEditor.LOGGER, this, crashReport, () -> {
                     progressPopup.close();
                     close();
                 }));

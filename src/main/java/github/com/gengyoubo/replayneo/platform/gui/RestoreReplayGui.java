@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.gui;
 
 import com.google.common.io.Files;
 import com.google.gson.Gson;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import com.replaymod.replaystudio.io.ReplayInputStream;
@@ -45,9 +45,9 @@ public class RestoreReplayGui extends AbstractGuiScreen<RestoreReplayGui> {
             textPanel, buttonPanel).setLayout(new VerticalLayout().setSpacing(20));
     public final GuiButton yesButton = new GuiButton(buttonPanel).setSize(150, 20).setI18nLabel("gui.yes");
     public final GuiButton noButton = new GuiButton(buttonPanel).setSize(150, 20).setI18nLabel("gui.no");
-    private final ReplayMod core;
+    private final RePlayCore core;
 
-    public RestoreReplayGui(ReplayMod core, GuiScreen parent, File file) {
+    public RestoreReplayGui(RePlayCore core, GuiScreen parent, File file) {
         this.core = core;
         this.parent = parent;
         this.file = file;
@@ -113,7 +113,7 @@ public class RestoreReplayGui extends AbstractGuiScreen<RestoreReplayGui> {
     }
 
     private void tryRecover(Consumer<Float> progress) throws IOException {
-        ReplayFile replayFile = ReplayMod.instance.files.open(file.toPath());
+        ReplayFile replayFile = RePlayCore.instance.files.open(file.toPath());
         // Commit all not-yet-committed files into the main zip file.
         // If we don't do this, then re-writing packet data below can actually overwrite uncommitted packet data!
         replayFile.save();
@@ -148,7 +148,7 @@ public class RestoreReplayGui extends AbstractGuiScreen<RestoreReplayGui> {
             }
             // Write back the actual duration
             try (OutputStream out = replayFile.write("metaData.json")) {
-                metaData.setGenerator(metaData.getGenerator() + "(+ ReplayMod Replay Recovery)");
+                metaData.setGenerator(metaData.getGenerator() + "(+ RePlayNeo Replay Recovery)");
                 String json = (new Gson()).toJson(metaData);
                 out.write(json.getBytes());
             }

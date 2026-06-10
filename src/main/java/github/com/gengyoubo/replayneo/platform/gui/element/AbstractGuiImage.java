@@ -30,6 +30,7 @@ import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
 import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
 import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiImage;
 import com.google.common.base.Preconditions;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
@@ -101,7 +102,6 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
         return new Dimension(0, 0);
     }
 
-    @Override
     public T setTexture(Image img) {
         Preconditions.checkState(copyOf == null, "Cannot change texture of copy.");
         resourceLocation = null;
@@ -114,7 +114,6 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
         return getThis();
     }
 
-    @Override
     public T setTexture(ResourceLocation resourceLocation) {
         Preconditions.checkState(copyOf == null, "Cannot change texture of copy.");
         if (texture != null) {
@@ -127,11 +126,29 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     }
 
     @Override
+    public T setTexture(Object texture) {
+        if (texture instanceof Image image) {
+            return setTexture(image);
+        }
+        if (texture instanceof ResourceLocation resourceLocation) {
+            return setTexture(resourceLocation);
+        }
+        throw new IllegalArgumentException("Expected Image or ResourceLocation, got " + texture);
+    }
+
     public T setTexture(ResourceLocation resourceLocation, int u, int v, int width, int height) {
         setTexture(resourceLocation);
         setUV(u, v);
         setUVSize(width, height);
         return getThis();
+    }
+
+    @Override
+    public T setTexture(Object texture, int u, int v, int width, int height) {
+        if (!(texture instanceof ResourceLocation resourceLocation)) {
+            throw new IllegalArgumentException("Expected ResourceLocation, got " + texture);
+        }
+        return setTexture(resourceLocation, u, v, width, height);
     }
 
     @Override

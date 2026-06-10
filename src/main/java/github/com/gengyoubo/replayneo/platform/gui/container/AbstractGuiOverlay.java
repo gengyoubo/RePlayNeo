@@ -43,7 +43,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import github.com.gengyoubo.replayneo.platform.gui.GuiCrashReports;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
-import github.com.gengyoubo.replayneo.platform.versions.ScreenExt;
+import github.com.gengyoubo.replayneo.api.ScreenExt;
 import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
 import github.com.gengyoubo.replayneo.platform.callbacks.RenderHudCallback;
 

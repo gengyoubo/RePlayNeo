@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.addon;
 import github.com.gengyoubo.replayneo.api.Extra;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.events.PostRenderCallback;
 import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
@@ -11,7 +11,7 @@ import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.render.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiReplayOverlay;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiImage;
-import github.com.gengyoubo.replayneo.platform.gui.element.IGuiImage;
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiImage;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
@@ -20,7 +20,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 
 public class FullBrightness extends EventRegistrations implements Extra {
-    private ReplayMod core;
+    private RePlayCore core;
     private ReplayModReplay module;
 
     private final IGuiImage<GuiImage> indicator = new GuiImage().setTexture(ReplayTextures.TEXTURE, 90, 20, 19, 16).setSize(19, 16);
@@ -30,7 +30,7 @@ public class FullBrightness extends EventRegistrations implements Extra {
     private double originalGamma;
 
     @Override
-    public void register(final ReplayMod mod) throws Exception {
+    public void register(final RePlayCore mod) throws Exception {
         this.core = mod;
         this.module = ReplayModReplay.instance;
         this.mc = MCVer.getMinecraft();

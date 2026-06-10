@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-public class ReplayMod implements Module, Scheduler {
+public class RePlayCore implements Module, Scheduler {
     public static String MOD_ID = RePlayNeo.MODID;
 
-    public static ReplayMod instance;
+    public static RePlayCore instance;
 
     private final ReplayRuntime backend;
     private final Scheduler scheduler;
@@ -37,7 +37,7 @@ public class ReplayMod implements Module, Scheduler {
      */
     private boolean minimalMode;
 
-    public ReplayMod(ReplayRuntime backend) {
+    public RePlayCore(ReplayRuntime backend) {
         instance = this;
         this.backend = backend;
         this.scheduler = backend.scheduler();
@@ -138,11 +138,11 @@ public class ReplayMod implements Module, Scheduler {
     }
 
     public static boolean isMinimalMode() {
-        return ReplayMod.instance.minimalMode;
+        return RePlayCore.instance.minimalMode;
     }
 
     public static boolean isCompatible(int fileFormatVersion, int protocolVersion) {
-        int currentProtocolVersion = ReplayMod.instance.protocolVersion;
+        int currentProtocolVersion = RePlayCore.instance.protocolVersion;
         if (isMinimalMode()) {
             return protocolVersion == currentProtocolVersion;
         }

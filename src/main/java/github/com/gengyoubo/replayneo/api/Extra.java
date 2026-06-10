@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.api;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 
 public interface Extra {
-    void register(ReplayMod mod) throws Exception;
+    void register(RePlayCore mod) throws Exception;
 }
 

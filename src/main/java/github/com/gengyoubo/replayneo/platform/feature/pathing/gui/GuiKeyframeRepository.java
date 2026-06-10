@@ -5,7 +5,7 @@ import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 import github.com.gengyoubo.replayneo.core.function.MouseClick;
 
 import com.google.common.util.concurrent.SettableFuture;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderQueue;
@@ -329,7 +329,7 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
             replayFile.writeTimelines(registry, timelines);
         } catch (IOException e) {
             e.printStackTrace();
-            ReplayMod.instance.printWarningToChat("Error saving timelines: " + e.getMessage());
+            RePlayCore.instance.printWarningToChat("Error saving timelines: " + e.getMessage());
         }
     }
 

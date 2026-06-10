@@ -24,6 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.platform.gui.element;
 
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiNumberField;
+
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;

@@ -17,7 +17,7 @@ public class SettingsRegistry {
     }
 
     public SettingsRegistry(Path gameDirectory, Consumer<Runnable> clientExecutor) {
-        this.backend = new SettingsRegistryBackend(gameDirectory.resolve("config/replaymod.json"), settings, clientExecutor);
+        this.backend = new SettingsRegistryBackend(gameDirectory.resolve("config/RePlayCore.json"), settings, clientExecutor);
     }
 
     public void register() {

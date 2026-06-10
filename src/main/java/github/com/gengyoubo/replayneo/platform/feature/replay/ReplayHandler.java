@@ -8,7 +8,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.pathing.TimelinePlaybackTarget;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
@@ -286,7 +286,7 @@ public class ReplayHandler implements TimelinePlaybackTarget {
     }
 
     public void setQuickMode(boolean quickMode) {
-        if (ReplayMod.isMinimalMode()) {
+        if (RePlayCore.isMinimalMode()) {
             throw new UnsupportedOperationException("Quick Mode not supported in minimal mode.");
         }
         if (quickMode == this.quickMode) return;

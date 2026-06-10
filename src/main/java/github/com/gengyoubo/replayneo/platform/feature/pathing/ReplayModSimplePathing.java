@@ -4,7 +4,7 @@ import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.pathing.InterpolatorType;
 import github.com.gengyoubo.replayneo.core.pathing.SPTimeline;
 import github.com.gengyoubo.replayneo.api.Module;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.api.events.SettingsChangedCallback;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
@@ -40,7 +40,7 @@ public class ReplayModSimplePathing extends EventRegistrations implements Module
     { instance = this; }
     public static ReplayModSimplePathing instance;
 
-    private final ReplayMod core;
+    private final RePlayCore core;
     public ReplayKeyBindingRegistry.Binding keyPositionKeyframe;
     public ReplayKeyBindingRegistry.Binding keyTimeKeyframe;
     public ReplayKeyBindingRegistry.Binding keySyncTime;
@@ -51,7 +51,7 @@ public class ReplayModSimplePathing extends EventRegistrations implements Module
     private final PathPreview pathPreview = new PathPreview(this);
     private final Object timelineFileLock = new Object();
 
-    public ReplayModSimplePathing(ReplayMod core) {
+    public ReplayModSimplePathing(RePlayCore core) {
         this.core = core;
 
         core.getSettingsRegistry().register(Setting.class);
@@ -257,7 +257,7 @@ public class ReplayModSimplePathing extends EventRegistrations implements Module
         currentTimeline.setDefaultInterpolatorType(newDefaultType);
     }
 
-    public ReplayMod getCore() {
+    public RePlayCore getCore() {
         return core;
     }
 

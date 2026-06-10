@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots;
 
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
@@ -27,7 +27,7 @@ import static github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRe
 
 public class GuiCreateScreenshot extends GuiRenderSettings implements Loadable {
 
-    public GuiCreateScreenshot(ReplayMod mod) {
+    public GuiCreateScreenshot(RePlayCore mod) {
         super(GuiRenderSettings.createBaseScreen(), null, null);
 
         resetChildren(settingsList.getListPanel()).addElements(new VerticalLayout.Data(0.5),
@@ -116,6 +116,6 @@ public class GuiCreateScreenshot extends GuiRenderSettings implements Loadable {
 
     @Override
     protected Path getSettingsPath() {
-        return MCVer.getMinecraft().gameDirectory.toPath().resolve("config/replaymod-screenshotsettings.json");
+        return MCVer.getMinecraft().gameDirectory.toPath().resolve("config/RePlayCore-screenshotsettings.json");
     }
 }

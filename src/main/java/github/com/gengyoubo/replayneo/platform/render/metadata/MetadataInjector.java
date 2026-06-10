@@ -18,7 +18,7 @@ import static github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRe
 
 public class MetadataInjector {
 
-    private static final String STITCHING_SOFTWARE = "Minecraft ReplayMod";
+    private static final String STITCHING_SOFTWARE = "Minecraft RePlayNeo";
 
     /*
      * The Spherical XML is a modified version of https://github.com/google/spatial-media/tree/master/360-Videos-Metadata

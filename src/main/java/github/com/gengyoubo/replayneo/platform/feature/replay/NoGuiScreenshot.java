@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.replay;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.versions.Image;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -100,7 +100,7 @@ public class NoGuiScreenshot {
         // Make sure we are not somewhere in the middle of the rendering process but always at the beginning
         // of the game loop. We cannot use the addScheduledTask method as it'll run the task if called
         // from the minecraft thread which is exactly what we want to avoid.
-        ReplayMod.instance.runLater(runnable);
+        RePlayCore.instance.runLater(runnable);
         return future;
     }
 }

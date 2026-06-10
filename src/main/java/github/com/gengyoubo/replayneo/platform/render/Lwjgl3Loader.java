@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.render;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.frame.Frame;
 import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;
 import org.apache.commons.io.IOUtils;
@@ -30,7 +30,7 @@ public class Lwjgl3Loader extends URLClassLoader {
         super(new URL[] { jarFile.toUri().toURL() }, Lwjgl3Loader.class.getClassLoader());
 
         // Need to use a different directory for natives than MC because native files can only be loaded once
-        Path nativesDir = ReplayMod.instance.folders.getCacheFolder().resolve("lwjgl-natives");
+        Path nativesDir = RePlayCore.instance.folders.getCacheFolder().resolve("lwjgl-natives");
 
         Class<?> configClass = Class.forName("org.lwjgl.system.Configuration", true, this);
         Method setMethod = configClass.getMethod("set", Object.class);
@@ -95,7 +95,7 @@ public class Lwjgl3Loader extends URLClassLoader {
 
     private static synchronized Path getJarFile() throws IOException {
         if (tempJarFile == null) {
-            Path jarFile = Files.createTempFile("replaymod-lwjgl", ".jar");
+            Path jarFile = Files.createTempFile("RePlayCore-lwjgl", ".jar");
             jarFile.toFile().deleteOnExit();
             try (InputStream in = Lwjgl3Loader.class.getResourceAsStream("lwjgl.jar")) {
                 if (in == null) {

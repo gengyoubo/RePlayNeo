@@ -59,7 +59,7 @@ public class SchedulerImpl implements  Scheduler {
         private final Thread mcThread = Thread.currentThread();
 
         private ReplayModExecutor() {
-            super("Client/ReplayMod");
+            super("Client/RePlayCore");
         }
 
         @Override public @NotNull Runnable wrapRunnable(@NotNull Runnable runnable) {

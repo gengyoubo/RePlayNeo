@@ -5,7 +5,7 @@ import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
 import com.mojang.authlib.GameProfile;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
 import com.replaymod.replaystudio.io.ReplayInputStream;
@@ -105,7 +105,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
      * These packets are ignored completely during replay.
      */
     private static final List<Class> BAD_PACKETS = Arrays.asList(
-            ClientboundHelloPacket.class, // workaround for an issue where ReplayMod prior to 2.6.20 would record these
+            ClientboundHelloPacket.class, // workaround for an issue where RePlayCore prior to 2.6.20 would record these
             ClientboundBlockChangedAckPacket.class,
             ClientboundOpenBookPacket.class,
             ClientboundOpenScreenPacket.class,
@@ -271,7 +271,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                 this.terminate = false;
                 notifyAll();
             }
-            new Thread(asyncSender, "replaymod-async-sender").start();
+            new Thread(asyncSender, "RePlayCore-async-sender").start();
         } else {
             synchronized (this) {
                 this.terminate = true;
@@ -557,7 +557,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                     // Failed to parse options, make sure that under no circumstances further packets are parsed
                     terminateReplay();
                     // Then end replay and show error GUI
-                    ReplayMod.instance.runLater(() -> {
+                    RePlayCore.instance.runLater(() -> {
                         try {
                             replayHandler.endReplay();
                         } catch (IOException e) {
@@ -661,7 +661,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         if(p instanceof ClientboundPlayerPositionPacket ppl) {
             if(!hasWorldLoaded) hasWorldLoaded = true;
 
-            ReplayMod.instance.runLater(() -> {
+            RePlayCore.instance.runLater(() -> {
                 if (mc.screen instanceof ReceivingLevelScreen) {
                     // Close the world loading screen manually in case we swallow the packet
                     mc.setScreen(null);
@@ -682,7 +682,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                     // FIXME: world shouldn't ever be null at this point, now that we use the packet queue
                     //        probably fine to remove on the next non-patch version (don't want to break stuff now)
                     if (mc.level == null || !mc.isSameThread()) {
-                        ReplayMod.instance.runLater(this);
+                        RePlayCore.instance.runLater(this);
                         return;
                     }
 
@@ -899,7 +899,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                             replayIn.close();
                             replayIn = null;
                         }
-                        ReplayMod.instance.runSync(replayHandler::restartedReplay);
+                        RePlayCore.instance.runSync(replayHandler::restartedReplay);
                     }
                 }
             } catch (Exception e) {
@@ -973,7 +973,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
     // Even in sync mode, we send from another thread because mods may rely on that
     private final ExecutorService syncSender = Executors.newSingleThreadExecutor(runnable ->
-            new Thread(runnable, "replaymod-sync-sender"));
+            new Thread(runnable, "RePlayCore-sync-sender"));
 
     /**
      * Sends all packets until the specified timestamp is reached (inclusive).
@@ -1019,7 +1019,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                     registry = getPacketTypeRegistry(State.LOGIN);
                     startFromBeginning = false;
                     nextPacket = null;
-                    ReplayMod.instance.runSync(replayHandler::restartedReplay);
+                    RePlayCore.instance.runSync(replayHandler::restartedReplay);
                 }
 
                 if (replayIn == null) {
@@ -1075,12 +1075,12 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
     private void executeTaskQueue() {
         ((MCVer.MinecraftMethodAccessor) mc).replayModExecuteTaskQueue();
-        ReplayMod.instance.runTasks();
+        RePlayCore.instance.runTasks();
     }
 
     /**
      * Runs the given runnable on the main thread as if it was a packet handler.
-     * Note that the packet handler queue has different behavior than the standard ReplayMod queue.
+     * Note that the packet handler queue has different behavior than the standard RePlayCore queue.
      */
     private void schedulePacketHandler(Runnable runnable) {
         if (mc.isSameThread()) {
@@ -1156,7 +1156,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         private final PacketType type;
 
         PacketData(ReplayInputStream in) throws IOException {
-            if (ReplayMod.isMinimalMode()) {
+            if (RePlayCore.isMinimalMode()) {
                 // Minimal mode, we can only read our exact protocol version and cannot use ReplayStudio
                 timestamp = readInt(in);
                 int length = readInt(in);

@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.editor.gui;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import com.replaymod.replaystudio.PacketData;
 import com.replaymod.replaystudio.data.Marker;
@@ -49,7 +49,7 @@ public class MarkerProcessor {
     public static final String MARKER_NAME_SPLIT = "_RM_SPLIT";
 
     private static boolean hasWork(Path path) throws IOException {
-        try (ReplayFile inputReplayFile = ReplayMod.instance.files.open(path)) {
+        try (ReplayFile inputReplayFile = RePlayCore.instance.files.open(path)) {
             return inputReplayFile.getMarkers().or(HashSet::new).stream().anyMatch(m -> m.getName() != null && m.getName().startsWith("_RM_"));
         }
     }
@@ -109,7 +109,7 @@ public class MarkerProcessor {
     }
 
     public static List<Pair<Path, ReplayMetaData>> apply(Path path, Consumer<Float> progress) throws IOException {
-        ReplayMod mod = ReplayMod.instance;
+        RePlayCore mod = RePlayCore.instance;
         if (!hasWork(path)) {
             ReplayMetaData metaData;
             try (ReplayFile inputReplayFile = mod.files.open(path)) {
@@ -128,7 +128,7 @@ public class MarkerProcessor {
         List<Pair<Path, ReplayMetaData>> outputPaths = new ArrayList<>();
         List<com.replaymod.replaystudio.protocol.Packet> cutPassthroughPackets = new ArrayList<>();
 
-        Path rawFolder = ReplayMod.instance.folders.getRawReplayFolder();
+        Path rawFolder = RePlayCore.instance.folders.getRawReplayFolder();
         Path inputPath = rawFolder.resolve(path.getFileName());
         for (int i = 1; Files.exists(inputPath); i++) {
             inputPath = inputPath.resolveSibling(replayName + "." + i + ".mcpr");

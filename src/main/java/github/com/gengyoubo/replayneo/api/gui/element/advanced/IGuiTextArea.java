@@ -22,28 +22,56 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.platform.gui.element;
+package github.com.gengyoubo.replayneo.api.gui.element.advanced;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
+import github.com.gengyoubo.replayneo.api.function.Focusable;
 import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 
-public interface IGuiLabel<T extends IGuiLabel<T>> extends GuiElement<T> {
-    T setText(String text);
+public interface IGuiTextArea<T extends IGuiTextArea<T>> extends GuiElement<T>, Focusable<T> {
+    T setText(String[] lines);
 
-    T setI18nText(String text, Object... args);
+    String[] getText();
 
-    T setColor(ReadableColor color);
+    String getText(int fromX, int fromY, int toX, int toY);
 
-    T setDisabledColor(ReadableColor disabledColor);
+    int getSelectionFromX();
 
-    String getText();
+    int getSelectionToX();
 
-    ReadableColor getColor();
+    int getSelectionFromY();
 
-    ReadableColor getDisabledColor();
+    int getSelectionToY();
+
+    String getSelectedText();
+
+    void deleteSelectedText();
+
+    String cutSelectedText();
+
+    void writeText(String append);
+
+    void writeChar(char c);
+
+    T setCursorPosition(int x, int y);
+
+    T setMaxTextWidth(int maxTextWidth);
+
+    T setMaxTextHeight(int maxTextHeight);
+
+    T setMaxCharCount(int maxCharCount);
+
+    T setTextColor(ReadableColor textColor);
+
+    T setTextColorDisabled(ReadableColor textColorDisabled);
+
+    int getMaxTextWidth();
+
+    int getMaxTextHeight();
+
+    int getMaxCharCount();
+
+    String[] getHint();
+    T setHint(String... hint);
+    T setI18nHint(String hint, Object... args);
 }

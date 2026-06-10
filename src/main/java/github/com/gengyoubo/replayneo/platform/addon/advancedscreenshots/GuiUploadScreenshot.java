@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.addon.Setting;
@@ -19,7 +19,7 @@ import java.net.URI;
 
 public class GuiUploadScreenshot extends AbstractGuiPopup<GuiUploadScreenshot> {
 
-    public final ReplayMod mod;
+    public final RePlayCore mod;
 
     public final RenderSettings renderSettings;
 
@@ -55,7 +55,7 @@ public class GuiUploadScreenshot extends AbstractGuiPopup<GuiUploadScreenshot> {
             .with(neverOpenLabel, new HorizontalLayout.Data(0.5))
             .build();
 
-    public GuiUploadScreenshot(GuiContainer container, ReplayMod mod, RenderSettings renderSettings) {
+    public GuiUploadScreenshot(GuiContainer container, RePlayCore mod, RenderSettings renderSettings) {
         super(container);
         this.mod = mod;
         this.renderSettings = renderSettings;

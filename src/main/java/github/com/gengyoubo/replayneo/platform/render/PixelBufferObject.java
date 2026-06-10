@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.render;
 
 import com.google.common.base.Objects;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 
 import org.lwjgl.opengl.ARBVertexBufferObject;
 import org.lwjgl.opengl.GL;
@@ -163,7 +163,7 @@ public class PixelBufferObject implements AutoCloseable {
         super.finalize();
         if (handle != -1) {
             github.com.gengyoubo.replayneo.RePlayNeo.LOGGER.warn("PBO garbage collected before deleted!");
-            ReplayMod.instance.runLater(this::close);
+            RePlayCore.instance.runLater(this::close);
         }
     }
 }

@@ -22,22 +22,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.platform.gui.element;
+package github.com.gengyoubo.replayneo.api.gui.element;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
-public interface IGuiToggleButton<V, T extends IGuiToggleButton<V, T>> extends IGuiButton<T> {
-    T setValues(V[] values);
+import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 
-    T setSelected(int selected);
+public interface IGuiLabel<T extends IGuiLabel<T>> extends GuiElement<T> {
+    T setText(String text);
 
-    V getSelectedValue();
+    T setI18nText(String text, Object... args);
 
-    int getSelected();
+    T setColor(ReadableColor color);
 
-    V[] getValues();
+    T setDisabledColor(ReadableColor disabledColor);
+
+    String getText();
+
+    ReadableColor getColor();
+
+    ReadableColor getDisabledColor();
 }

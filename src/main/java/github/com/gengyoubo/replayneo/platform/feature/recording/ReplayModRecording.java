@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.recording;
 
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.Module;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.ConnectionEventHandler;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.GuiHandler;
@@ -25,11 +25,11 @@ public class ReplayModRecording implements Module {
     { instance = this; }
     public static ReplayModRecording instance;
 
-    private final ReplayMod core;
+    private final RePlayCore core;
 
     private ConnectionEventHandler connectionEventHandler;
 
-    public ReplayModRecording(ReplayMod mod) {
+    public ReplayModRecording(RePlayCore mod) {
         core = mod;
 
         core.getSettingsRegistry().register(Setting.class);

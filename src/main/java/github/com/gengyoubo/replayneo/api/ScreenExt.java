@@ -1,4 +1,4 @@
-package github.com.gengyoubo.replayneo.platform.versions;
+package github.com.gengyoubo.replayneo.api;
 
 public interface ScreenExt {
     boolean rePlay$doesPassEvents();

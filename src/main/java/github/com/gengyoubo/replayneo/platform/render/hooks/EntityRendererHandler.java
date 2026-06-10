@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.render.hooks;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.events.PreRenderHandCallback;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
@@ -47,7 +47,7 @@ public class EntityRendererHandler extends EventRegistrations implements WorldRe
     public void renderWorld(final float partialTicks, CaptureData data) {
         this.data = data;
         long offsetMillis;
-        if (ReplayMod.instance.getSettingsRegistry().get(Setting.FRAME_TIME_FROM_WORLD_TIME)) {
+        if (RePlayCore.instance.getSettingsRegistry().get(Setting.FRAME_TIME_FROM_WORLD_TIME)) {
             offsetMillis = ReplayModReplay.instance.getReplayHandler().getReplaySender().currentTimeStamp();
         } else {
             offsetMillis = renderInfo.getFramesDone() * 1_000L / settings.getFramesPerSecond();

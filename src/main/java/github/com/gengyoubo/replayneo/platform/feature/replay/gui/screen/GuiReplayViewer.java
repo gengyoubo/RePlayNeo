@@ -17,7 +17,7 @@ import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.KeyHandler;
 import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.platform.versions.Image;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.platform.gui.GuiReplaySettings;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
@@ -350,7 +350,7 @@ public class GuiReplayViewer extends GuiScreen {
                 Arrays.sort(files, Comparator.<File>comparingLong(f -> lastModified.computeIfAbsent(f, File::lastModified)).reversed());
                 for (final File file : files) {
                     if (Thread.interrupted()) break;
-                    try (ReplayFile replayFile = ReplayMod.instance.files.open(file.toPath())) {
+                    try (ReplayFile replayFile = RePlayCore.instance.files.open(file.toPath())) {
                         final Image thumb = Optional.ofNullable(replayFile.getThumbBytes().orNull()).flatMap(stream -> {
                             try (InputStream in = stream) {
                                 return Optional.of(Image.read(in));
@@ -395,7 +395,7 @@ public class GuiReplayViewer extends GuiScreen {
         @Override
         public boolean handleKey(KeyInput keyInput) {
             if (keyInput.key() == Keyboard.KEY_F1) {
-                SettingsRegistry reg = ReplayMod.instance.getSettingsRegistry();
+                SettingsRegistry reg = RePlayCore.instance.getSettingsRegistry();
                 reg.set(Setting.SHOW_SERVER_IPS, !reg.get(Setting.SHOW_SERVER_IPS));
                 reg.save();
                 load();
@@ -501,12 +501,12 @@ public class GuiReplayViewer extends GuiScreen {
             if (!StringUtils.isEmpty(metaData.getCustomServerName())) {
                 server.setText(metaData.getCustomServerName());
             } else if (StringUtils.isEmpty(metaData.getServerName())
-                    || !ReplayMod.instance.getSettingsRegistry().get(Setting.SHOW_SERVER_IPS)) {
+                    || !RePlayCore.instance.getSettingsRegistry().get(Setting.SHOW_SERVER_IPS)) {
                 server.setI18nText("replaymod.gui.iphidden").setColor(Colors.DARK_RED);
             } else {
                 server.setText(metaData.getServerName());
             }
-            incompatible = !ReplayMod.isCompatible(metaData.getFileFormatVersion(), metaData.getRawProtocolVersionOr0());
+            incompatible = !RePlayCore.isCompatible(metaData.getFileFormatVersion(), metaData.getRawProtocolVersionOr0());
             if (incompatible) {
                 version.setText("Minecraft " + metaData.getMcVersion());
             }

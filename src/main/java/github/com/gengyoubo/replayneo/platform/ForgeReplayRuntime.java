@@ -5,16 +5,7 @@ import com.replaymod.replaystudio.util.I18n;
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.ReplayRuntime;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.api.scheduler.Scheduler;
-import github.com.gengyoubo.replayneo.platform.addon.ReplayModExtras;
-import github.com.gengyoubo.replayneo.platform.feature.editor.ReplayModEditor;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.ReplayModSimplePathing;
-import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
-import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
-import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
-import github.com.gengyoubo.replayneo.platform.gui.ReplayModGui;
-import github.com.gengyoubo.replayneo.platform.restored.com.replaymod.compat.ReplayModCompat;
 import github.com.gengyoubo.replayneo.platform.scheduler.SchedulerImpl;
 import github.com.gengyoubo.replayneo.platform.versions.LegacyMCVer;
 import net.minecraft.SharedConstants;
@@ -34,19 +25,6 @@ import java.util.stream.Collectors;
 
 public class ForgeReplayRuntime implements ReplayRuntime {
     private final SchedulerImpl scheduler = new SchedulerImpl();
-
-    public ForgeReplayRuntime() {
-        ReplayMod mod = new ReplayMod(this);
-        mod.addModule(new ReplayModGui(mod));
-        mod.addModule(new ReplayModRecording(mod));
-        mod.addModule(new ReplayModReplay(mod));
-        mod.addModule(new ReplayModRender(mod));
-        mod.addModule(new ReplayModSimplePathing(mod));
-        mod.addModule(new ReplayModEditor(mod));
-        mod.addModule(new ReplayModExtras(mod));
-        mod.addModule(new ReplayModCompat());
-        mod.initModules();
-    }
 
     @Override
     public String getVersion() {

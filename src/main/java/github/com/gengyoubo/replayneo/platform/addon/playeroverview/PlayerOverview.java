@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.addon.playeroverview;
 
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.events.PreRenderHandCallback;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
@@ -28,7 +28,7 @@ public class PlayerOverview extends EventRegistrations implements Extra {
     private boolean savingEnabled;
 
     @Override
-    public void register(final ReplayMod mod) throws Exception {
+    public void register(final RePlayCore mod) throws Exception {
         this.module = ReplayModReplay.instance;
 
         mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.playeroverview", Keyboard.KEY_B, () -> {

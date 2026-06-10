@@ -30,6 +30,7 @@ import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
 import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
 import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiTexturedButton;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
@@ -124,16 +125,27 @@ public abstract class AbstractGuiTexturedButton<T extends AbstractGuiTexturedBut
         super.onClick(click);
     }
 
-    @Override
     public T setTexture(ResourceLocation resourceLocation, int size) {
         return setTexture(resourceLocation, size, size);
     }
 
-    @Override
     public T setTexture(ResourceLocation resourceLocation, int width, int height) {
         this.texture = resourceLocation;
         this.textureTotalSize = new Dimension(width, height);
         return getThis();
+    }
+
+    @Override
+    public T setTexture(Object texture, int size) {
+        return setTexture(texture, size, size);
+    }
+
+    @Override
+    public T setTexture(Object texture, int width, int height) {
+        if (!(texture instanceof ResourceLocation resourceLocation)) {
+            throw new IllegalArgumentException("Expected ResourceLocation, got " + texture);
+        }
+        return setTexture(resourceLocation, width, height);
     }
 
     @Override
@@ -224,10 +236,17 @@ public abstract class AbstractGuiTexturedButton<T extends AbstractGuiTexturedBut
         return setTexturePos(normal, hover);
     }
 
-    @Override
     public T setSound(SoundEvent sound) {
         this.sound = sound;
         return getThis();
+    }
+
+    @Override
+    public T setSound(Object sound) {
+        if (!(sound instanceof SoundEvent soundEvent)) {
+            throw new IllegalArgumentException("Expected SoundEvent, got " + sound);
+        }
+        return setSound(soundEvent);
     }
 
     public SoundEvent getSound() {

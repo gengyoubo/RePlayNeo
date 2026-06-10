@@ -6,7 +6,7 @@ import github.com.gengyoubo.replayneo.api.Colors;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.api.ReplayCrashReport;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiScrollable;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
@@ -98,7 +98,7 @@ public final class GuiUtils {
     }
 
     public static boolean isNotMinimalModeElsePopup(GuiContainer container, Runnable onPopupClosed) {
-        if (!ReplayMod.isMinimalMode()) {
+        if (!RePlayCore.isMinimalMode()) {
             LOGGER.trace("Minimal mode not active, continuing");
             return true;
         }

@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.editor;
 
 import github.com.gengyoubo.replayneo.api.Module;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.feature.editor.handler.GuiHandler;
 import org.apache.logging.log4j.Logger;
 
@@ -9,11 +9,11 @@ public class ReplayModEditor implements Module {
     { instance = this; }
     public static ReplayModEditor instance;
 
-    private final ReplayMod core;
+    private final RePlayCore core;
 
     public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
-    public ReplayModEditor(ReplayMod core) {
+    public ReplayModEditor(RePlayCore core) {
         this.core = core;
     }
 
@@ -22,7 +22,7 @@ public class ReplayModEditor implements Module {
         new GuiHandler().register();
     }
 
-    public ReplayMod getCore() {
+    public RePlayCore getCore() {
         return core;
     }
 }

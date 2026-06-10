@@ -22,24 +22,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.platform.gui.element.advanced;
+package github.com.gengyoubo.replayneo.api.gui.element;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
-import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
+public interface IGuiSlider<T extends IGuiSlider<T>> extends GuiElement<T> {
+    T setText(String text);
+    T setI18nText(String text, Object... args);
 
-public interface IGuiProgressBar<T extends IGuiProgressBar<T>> extends GuiElement<T> {
-    T setProgress(float progress);
+    T setValue(int value);
+    int getValue();
 
-    T setLabel(String label);
+    int getSteps();
+    T setSteps(int steps);
 
-    T setI18nLabel(String label, Object... args);
-
-    float getProgress();
-
-    String getLabel();
+    T onValueChanged(Runnable runnable);
 }

@@ -5,7 +5,7 @@ import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
 import github.com.gengyoubo.replayneo.platform.render.export.FFmpegWriter;
@@ -18,6 +18,7 @@ import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiVerticalList;
 import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiCheckbox;
 import github.com.gengyoubo.replayneo.platform.gui.element.*;
 import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiColorPicker;
 import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiDropdownMenu;
@@ -231,7 +232,7 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
     public final GuiButton queueButton = new GuiButton(buttonPanel)
             .setSize(100, 20)
             .setI18nLabel("replaymod.gui.rendersettings.addtoqueue");
-    public final GuiButton renderButton = new GuiButton(buttonPanel).onClick(click -> ReplayMod.instance.runLaterWithoutLock(new Runnable() {
+    public final GuiButton renderButton = new GuiButton(buttonPanel).onClick(click -> RePlayCore.instance.runLaterWithoutLock(new Runnable() {
         @Override
         public void run() {
             // Closing this GUI ensures that settings are saved

@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.platform.feature.render.gui;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import com.google.common.collect.Iterables;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.Result;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
@@ -158,7 +158,7 @@ public class GuiRenderQueue extends AbstractGuiPopup<GuiRenderQueue> implements 
                     }
                 }
             }
-            ReplayMod.instance.runLaterWithoutLock(() -> processQueue(container, replayHandler, renderQueue, () -> {}));
+            RePlayCore.instance.runLaterWithoutLock(() -> processQueue(container, replayHandler, renderQueue, () -> {}));
         });
 
         updateButtons();
@@ -189,7 +189,7 @@ public class GuiRenderQueue extends AbstractGuiPopup<GuiRenderQueue> implements 
                     // Update current job with fixed ffmpeg arguments
                     renderJob.setSettings(newSettings);
                     // Restart queue, skipping the already completed jobs
-                    ReplayMod.instance.runLaterWithoutLock(() -> processQueue(container, replayHandler, Iterables.skip(queue, jobsToSkip), done));
+                    RePlayCore.instance.runLaterWithoutLock(() -> processQueue(container, replayHandler, Iterables.skip(queue, jobsToSkip), done));
                 });
                 return;
             } catch (Throwable t) {

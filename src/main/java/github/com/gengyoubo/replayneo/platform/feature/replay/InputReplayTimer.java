@@ -1,10 +1,10 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.camera.CameraController;
 import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
-import github.com.gengyoubo.replayneo.platform.versions.ScreenExt;
+import github.com.gengyoubo.replayneo.api.ScreenExt;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import org.lwjgl.glfw.GLFW;
@@ -15,7 +15,7 @@ public class InputReplayTimer {
         ReplayModReplay mod = ReplayModReplay.instance;
         Minecraft mc = MCVer.getMinecraft();
 
-        ReplayMod.instance.runTasks();
+        RePlayCore.instance.runTasks();
 
 
         // If we are in a replay, we have to manually process key and mouse events as the

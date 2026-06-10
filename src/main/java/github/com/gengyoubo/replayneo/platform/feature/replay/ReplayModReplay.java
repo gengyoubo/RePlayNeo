@@ -7,7 +7,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.Module;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.ModCompat;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
@@ -37,7 +37,7 @@ public class ReplayModReplay implements Module {
     { instance = this; }
     public static ReplayModReplay instance;
 
-    private final ReplayMod core;
+    private final RePlayCore core;
     public ReplayKeyBindingRegistry.Binding keyPlayPause;
 
     private final CameraControllerRegistry cameraControllerRegistry = new CameraControllerRegistry();
@@ -50,7 +50,7 @@ public class ReplayModReplay implements Module {
         return replayHandler;
     }
 
-    public ReplayModReplay(ReplayMod core) {
+    public ReplayModReplay(RePlayCore core) {
         this.core = core;
 
         core.getSettingsRegistry().register(Setting.class);
@@ -170,7 +170,7 @@ public class ReplayModReplay implements Module {
         KeyMapping.resetMapping(); // see KeyMappingMixin
     }
 
-    public ReplayMod getCore() {
+    public RePlayCore getCore() {
         return core;
     }
 

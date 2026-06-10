@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.gui;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.render.export.FFmpegWriter;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
@@ -78,7 +78,7 @@ public class GuiExportFailed extends GuiScreen {
                         .map(l -> new GuiLabel().setText(l))
                         .toArray(GuiElement[]::new));
 
-        resetButton.onClick(() -> ReplayMod.instance.runLater(() -> {
+        resetButton.onClick(() -> RePlayCore.instance.runLater(() -> {
             RenderSettings oldSettings = e.getSettings();
             doRestart.accept(new RenderSettings(
                     oldSettings.getRenderMethod(),

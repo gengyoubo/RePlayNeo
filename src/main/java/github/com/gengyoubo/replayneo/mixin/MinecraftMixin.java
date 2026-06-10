@@ -30,10 +30,10 @@ public abstract class MinecraftMixin
     @Shadow protected abstract void handleKeybinds();
 
     @Unique
-    private VirtualWindow replayMod$windowDelegate;
+    private VirtualWindow RePlayCore$windowDelegate;
 
     @Unique
-    private RenderTarget replayMod$framebufferDelegate;
+    private RenderTarget RePlayCore$framebufferDelegate;
 
     public void replayModProcessKeyBinds() {
         handleKeybinds();
@@ -50,12 +50,12 @@ public abstract class MinecraftMixin
 
     @Override
     public void setWindowDelegate(VirtualWindow window) {
-        this.replayMod$windowDelegate = window;
+        this.RePlayCore$windowDelegate = window;
     }
 
     @Override
     public void setFramebufferDelegate(RenderTarget framebuffer) {
-        this.replayMod$framebufferDelegate = framebuffer;
+        this.RePlayCore$framebufferDelegate = framebuffer;
     }
 
     @Inject(method = "runTick",
@@ -80,7 +80,7 @@ public abstract class MinecraftMixin
 
     @Inject(method = "resizeDisplay", at = @At("HEAD"), cancellable = true)
     private void suppressResizeDuringRender(CallbackInfo ci) {
-        VirtualWindow delegate = this.replayMod$windowDelegate;
+        VirtualWindow delegate = this.RePlayCore$windowDelegate;
         if (delegate != null && delegate.isBound()) {
             Window window = ((Minecraft) (Object) this).getWindow();
             delegate.onResolutionChanged(window.getWidth(), window.getHeight());
@@ -90,7 +90,7 @@ public abstract class MinecraftMixin
 
     @Inject(method = "getMainRenderTarget", at = @At("HEAD"), cancellable = true)
     private void useGuiFramebuffer(CallbackInfoReturnable<RenderTarget> ci) {
-        RenderTarget delegate = this.replayMod$framebufferDelegate;
+        RenderTarget delegate = this.RePlayCore$framebufferDelegate;
         if (delegate != null) {
             ci.setReturnValue(delegate);
         }

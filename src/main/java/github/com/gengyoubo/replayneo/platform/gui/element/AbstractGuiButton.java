@@ -29,6 +29,7 @@ import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
 import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
 import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiButton;
 import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
@@ -152,10 +153,17 @@ public abstract class AbstractGuiButton<T extends AbstractGuiButton<T>> extends 
         return getThis();
     }
 
-    @Override
     public T setSound(SoundEvent sound) {
         this.sound = sound;
         return getThis();
+    }
+
+    @Override
+    public T setSound(Object sound) {
+        if (!(sound instanceof SoundEvent soundEvent)) {
+            throw new IllegalArgumentException("Expected SoundEvent, got " + sound);
+        }
+        return setSound(soundEvent);
     }
 
     public SoundEvent getSound() {
@@ -180,10 +188,17 @@ public abstract class AbstractGuiButton<T extends AbstractGuiButton<T>> extends 
         return texture;
     }
 
-    @Override
     public T setTexture(ResourceLocation texture) {
         this.texture = texture;
         return getThis();
+    }
+
+    @Override
+    public T setTexture(Object texture) {
+        if (!(texture instanceof ResourceLocation resourceLocation)) {
+            throw new IllegalArgumentException("Expected ResourceLocation, got " + texture);
+        }
+        return setTexture(resourceLocation);
     }
 
     @Override

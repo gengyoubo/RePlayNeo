@@ -22,27 +22,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.platform.gui.element;
+package github.com.gengyoubo.replayneo.api.gui.element.advanced;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
+import github.com.gengyoubo.replayneo.api.Consumer;
 import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
-import github.com.gengyoubo.replayneo.platform.versions.Image;
-import net.minecraft.resources.ResourceLocation;
+import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 
-public interface IGuiImage<T extends IGuiImage<T>> extends GuiElement<T> {
-    T setTexture(Image img);
-    T setTexture(ResourceLocation resourceLocation);
-    T setTexture(ResourceLocation resourceLocation, int u, int v, int width, int height);
+public interface IGuiColorPicker<T extends IGuiColorPicker<T>> extends GuiElement<T> {
+    T setColor(ReadableColor color);
 
-    T setU(int u);
-    T setV(int v);
-    T setUV(int u, int v);
+    ReadableColor getColor();
 
-    T setUWidth(int width);
-    T setVHeight(int height);
-    T setUVSize(int width, int height);
+    T setOpened(boolean opened);
+
+    boolean isOpened();
+
+    T onSelection(Consumer<ReadableColor> consumer);
 }

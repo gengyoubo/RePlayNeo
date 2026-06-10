@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.render.export;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
@@ -114,7 +114,7 @@ public class CameraPathExporter {
         GlTF glTF = new GlTF();
         glTF.setAsset(configure(new Asset(), asset -> {
             asset.setVersion("2.0");
-            asset.setGenerator("ReplayMod v" + ReplayMod.instance.getVersion());
+            asset.setGenerator("RePlayNeo v" + RePlayCore.instance.getVersion());
         }));
         glTF.addAnimations(configure(new Animation(), animation -> {
             animation.addChannels(configure(new AnimationChannel(), channel -> {

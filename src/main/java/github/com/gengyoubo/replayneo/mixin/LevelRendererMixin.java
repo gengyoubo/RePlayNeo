@@ -2,7 +2,6 @@ package github.com.gengyoubo.replayneo.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
-import github.com.gengyoubo.replayneo.platform.restored.com.replaymod.compat.shaders.ShaderReflection;
 import github.com.gengyoubo.replayneo.api.events.PostRenderWorldCallback;
 import github.com.gengyoubo.replayneo.platform.render.PoseStackWorldRenderContext;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
@@ -33,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +53,7 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
     private boolean replayModRender$passThrough;
 
     @Unique
-    private RecordingEventHandler replayMod$recordingEventHandler;
+    private RecordingEventHandler RePlayCore$recordingEventHandler;
 
     @Unique
     private final List<PendingSectionDirty> replayneo$pendingSectionDirties = new ArrayList<>();
@@ -82,23 +82,23 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
 
     @Override
     public void setRecordingEventHandler(RecordingEventHandler recordingEventHandler) {
-        this.replayMod$recordingEventHandler = recordingEventHandler;
+        this.RePlayCore$recordingEventHandler = recordingEventHandler;
     }
 
     @Override
     public RecordingEventHandler getRecordingEventHandler() {
-        return replayMod$recordingEventHandler;
+        return RePlayCore$recordingEventHandler;
     }
 
     @Inject(method = "setupRender", at = @At("HEAD"), cancellable = true)
-    private void forceAllChunks(Camera camera, Frustum frustum, boolean hasForcedFrustum, boolean spectator, CallbackInfo ci) throws IllegalAccessException {
+    private void forceAllChunks(Camera camera, Frustum frustum, boolean hasForcedFrustum, boolean spectator, CallbackInfo ci) {
         if (replayModRender$hook == null) {
             return;
         }
         if (replayModRender$passThrough) {
             return;
         }
-        if (ShaderReflection.shaders_isShadowPass != null && (boolean) ShaderReflection.shaders_isShadowPass.get(null)) {
+        if (replayneo$isShaderShadowPass()) {
             return;
         }
         ci.cancel();
@@ -153,6 +153,18 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
         PostRenderWorldCallback.EVENT.invoker().postRenderWorld(new PoseStackWorldRenderContext(matrixStack));
     }
 
+    @Unique
+    private static boolean replayneo$isShaderShadowPass() {
+        try {
+            Class<?> shaders = Class.forName("net.optifine.shaders.Shaders");
+            Field field = shaders.getDeclaredField("isShadowPass");
+            field.setAccessible(true);
+            return field.getBoolean(null);
+        } catch (ReflectiveOperationException | RuntimeException ignored) {
+            return false;
+        }
+    }
+
     @Inject(method = "renderHitOutline", at = @At("HEAD"), cancellable = true)
     private void replayModRender_drawSelectionBox(CallbackInfo ci) {
         if (((EntityRendererHandler.IEntityRenderer) this.minecraft.gameRenderer).replayModRender_getHandler() != null) {
@@ -162,8 +174,8 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
 
     @Inject(method = "destroyBlockProgress", at = @At("HEAD"))
     public void saveBlockBreakProgressPacket(int breakerId, BlockPos pos, int progress, CallbackInfo info) {
-        if (replayMod$recordingEventHandler != null) {
-            replayMod$recordingEventHandler.onBlockBreakAnim(breakerId, pos, progress);
+        if (RePlayCore$recordingEventHandler != null) {
+            RePlayCore$recordingEventHandler.onBlockBreakAnim(breakerId, pos, progress);
         }
     }
 

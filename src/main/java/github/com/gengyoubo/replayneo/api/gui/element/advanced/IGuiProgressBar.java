@@ -22,34 +22,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.platform.gui.element.advanced;
+package github.com.gengyoubo.replayneo.api.gui.element.advanced;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
 
-/**
- * Displays the time of a timeline at its big markers.
- * This should be used with a GuiTimeline in a VerticalLayout, both centered at 0.5.
- *
- * @param <T> Type of this timeline time instance, used for chaining
- * @param <U> Type of the timeline
- */
-public interface IGuiTimelineTime<T extends IGuiTimelineTime<T, U>, U extends IGuiTimeline<U>> extends GuiElement<T> {
-    /**
-     * Returns the timeline of which the time is drawn.
-     * @return The timeline or {@code null} if not yet set
-     */
-    U getTimeline();
+public interface IGuiProgressBar<T extends IGuiProgressBar<T>> extends GuiElement<T> {
+    T setProgress(float progress);
 
-    /**
-     * Set the timeline of which the time should be drawn.
-     * @param timeline The timeline
-     * @return {@code this}, for chaining
-     */
-    T setTimeline(U timeline);
+    T setLabel(String label);
+
+    T setI18nLabel(String label, Object... args);
+
+    float getProgress();
+
+    String getLabel();
 }

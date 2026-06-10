@@ -22,32 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.platform.gui.element;
+package github.com.gengyoubo.replayneo.api.gui.element;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 
 public interface IGuiButton<T extends IGuiButton<T>> extends IGuiClickable<T> {
     T setLabel(String label);
 
     T setI18nLabel(String label, Object... args);
 
-    T setSound(SoundEvent sound);
+    T setSound(Object sound);
 
     String getLabel();
 
-    ResourceLocation getTexture();
-    T setTexture(ResourceLocation identifier);
+    Object getTexture();
+    T setTexture(Object identifier);
 
     ReadableDimension getTextureSize();
     T setTextureSize(ReadableDimension size);
@@ -58,10 +50,10 @@ public interface IGuiButton<T extends IGuiButton<T>> extends IGuiClickable<T> {
         return setTextureSize(size, size);
     }
 
-    default T setTexture(ResourceLocation identifier, int width, int height) {
+    default T setTexture(Object identifier, int width, int height) {
         return setTexture(identifier).setTextureSize(width, height);
     }
-    default T setTexture(ResourceLocation resourceLocation, int size) {
+    default T setTexture(Object resourceLocation, int size) {
         return setTexture(resourceLocation, size, size);
     }
 

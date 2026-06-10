@@ -93,7 +93,7 @@ public class YoutubeUploader {
                 progress = Suppliers.ofInstance(0d);
 
                 YouTube youTube = new YouTube.Builder(httpTransport, JSON_FACTORY, credential)
-                        .setApplicationName("ReplayMod").build();
+                        .setApplicationName("RePlayCore").build();
 
                 state = State.UPLOAD;
                 Video video = doUpload(youTube, processedFile);

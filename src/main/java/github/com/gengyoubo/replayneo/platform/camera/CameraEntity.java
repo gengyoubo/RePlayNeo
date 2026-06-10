@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.platform.camera;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.api.events.KeyBindingEventCallback;
 import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
@@ -464,7 +464,7 @@ public class CameraEntity
 
         handleInputEvents();
 
-        Map<String, ReplayKeyBindingRegistry.Binding> keyBindings = ReplayMod.instance.getKeyBindingRegistry().getBindings();
+        Map<String, ReplayKeyBindingRegistry.Binding> keyBindings = RePlayCore.instance.getKeyBindingRegistry().getBindings();
         if (keyBindings.get("replaymod.input.rollclockwise").isDown()) {
             roll += GuiUtils.isCtrlDown() ? (float) 0.2 : 1;
         }

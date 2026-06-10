@@ -24,6 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.platform.gui.element.advanced;
 
+import github.com.gengyoubo.replayneo.api.gui.element.advanced.IGuiTimeline;
+
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
 import github.com.gengyoubo.replayneo.api.GuiContainer;

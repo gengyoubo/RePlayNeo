@@ -1,4 +1,4 @@
-package github.com.gengyoubo.replayneo.platform.restored.com.replaymod.gradle.remap;
+package github.com.gengyoubo.replayneo.api;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

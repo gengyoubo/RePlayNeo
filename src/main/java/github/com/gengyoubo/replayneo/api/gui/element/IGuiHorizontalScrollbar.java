@@ -22,22 +22,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.platform.gui.element;
+package github.com.gengyoubo.replayneo.api.gui.element;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
-public interface IGuiCheckbox<T extends IGuiCheckbox<T>> extends IGuiClickable<T> {
-    T setLabel(String label);
+public interface IGuiHorizontalScrollbar<T extends IGuiHorizontalScrollbar<T>> extends GuiElement<T> {
+    /**
+     * Set the position of the scrollbar.
+     * @param pos Position between 0 (inclusive) and 1-zoom (inclusive)
+     * @return {@code this}, for chaining
+     */
+    T setPosition(double pos);
 
-    T setI18nLabel(String label, Object... args);
+    /**
+     * Returns the position of the scrollbar.
+     * @return Position between 0 (inclusive) and 1-zoom (inclusive)
+     */
+    double getPosition();
 
-    T setChecked(boolean checked);
+    /**
+     * Set the zoom of the scrollbar where 1 is zoomed out completely
+     * and 0 would be zoomed in infinitely far.
+     * @param zoom Zoom between 1 (inclusive) and 0 (exclusive)
+     * @return {@code this}, for chaining
+     */
+    T setZoom(double zoom);
 
-    String getLabel();
+    /**
+     * Returns the zoom of the scrollbar where 1 is zoomed out completely
+     * and 0 would be zoomed in infinitely far.
+     * @return Zoom between 1 (inclusive) and 0 (exclusive)
+     */
+    double getZoom();
 
-    boolean isChecked();
+    /**
+     * Sets the runnable called when the position or zoom of the scrollbar changed.
+     * @param runnable The Runnable to be called
+     * @return {@code this}, for chaining
+     */
+    T onValueChanged(Runnable runnable);
 }

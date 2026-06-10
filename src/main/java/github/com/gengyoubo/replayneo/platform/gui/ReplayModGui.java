@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.gui;
 
 import github.com.gengyoubo.replayneo.api.Module;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
 import net.minecraft.client.Minecraft;
 
@@ -11,10 +11,10 @@ import java.nio.file.Path;
 public class ReplayModGui implements Module {
     public static ReplayModGui instance;
 
-    private final ReplayMod core;
+    private final RePlayCore core;
     private final GuiBackgroundProcesses backgroundProcesses = new GuiBackgroundProcesses();
 
-    public ReplayModGui(ReplayMod core) {
+    public ReplayModGui(RePlayCore core) {
         instance = this;
         this.core = core;
     }

@@ -105,7 +105,7 @@ public class ReplayFilesService {
         }
 
         // Run general purpose, non-essential cleanup in a background thread
-        new Thread(this::cleanup, "replaymod-cleanup").start();
+        new Thread(this::cleanup, "RePlayCore-cleanup").start();
     }
 
     private void cleanup() {

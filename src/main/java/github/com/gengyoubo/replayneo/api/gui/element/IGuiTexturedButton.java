@@ -22,24 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.platform.gui.element;
+package github.com.gengyoubo.replayneo.api.gui.element;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 
 public interface IGuiTexturedButton<T extends IGuiTexturedButton<T>> extends IGuiClickable<T> {
-    ResourceLocation getTexture();
+    Object getTexture();
     ReadableDimension getTextureTotalSize();
-    T setTexture(ResourceLocation resourceLocation, int size);
-    T setTexture(ResourceLocation resourceLocation, int width, int height);
+    T setTexture(Object resourceLocation, int size);
+    T setTexture(Object resourceLocation, int width, int height);
 
     ReadableDimension getTextureSize();
     T setTextureSize(int size);
@@ -57,5 +49,5 @@ public interface IGuiTexturedButton<T extends IGuiTexturedButton<T>> extends IGu
     T setTexturePos(int normalX, int normalY, int hoverX, int hoverY, int disabledX, int disabledY);
     T setTexturePos(ReadablePoint normal, ReadablePoint hover, ReadablePoint disabled);
 
-    T setSound(SoundEvent sound);
+    T setSound(Object sound);
 }

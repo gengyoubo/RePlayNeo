@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.platform.feature.render;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import github.com.gengyoubo.replayneo.api.Module;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.core.utils.RenderJob;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
@@ -28,20 +28,20 @@ public class ReplayModRender extends EventRegistrations implements Module {
     { instance = this; }
     public static ReplayModRender instance;
 
-    private final ReplayMod core;
+    private final RePlayCore core;
 
     public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
 
     private ReplayFile replayFile;
     private final List<RenderJob> renderQueue = new ArrayList<>();
 
-    public ReplayModRender(ReplayMod core) {
+    public ReplayModRender(RePlayCore core) {
         this.core = core;
 
         core.getSettingsRegistry().register(Setting.class);
     }
 
-    public ReplayMod getCore() {
+    public RePlayCore getCore() {
         return core;
     }
 
@@ -63,7 +63,7 @@ public class ReplayModRender extends EventRegistrations implements Module {
     }
 
     public Path getRenderSettingsPath() {
-        return MCVer.getMinecraft().gameDirectory.toPath().resolve("config/replaymod-rendersettings.json");
+        return MCVer.getMinecraft().gameDirectory.toPath().resolve("config/RePlayCore-rendersettings.json");
     }
 
     public List<RenderJob> getRenderQueue() {

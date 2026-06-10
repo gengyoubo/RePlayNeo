@@ -24,6 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.platform.gui.element.advanced;
 
+import github.com.gengyoubo.replayneo.api.gui.element.advanced.IGuiDropdownMenu;
+
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;

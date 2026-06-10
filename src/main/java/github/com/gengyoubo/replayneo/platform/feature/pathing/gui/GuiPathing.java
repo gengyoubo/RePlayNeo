@@ -8,7 +8,7 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.utils.Result;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
@@ -201,7 +201,7 @@ public class GuiPathing {
             .addElements(new HorizontalLayout.Data(0.5),
                     playPauseButton, renderButton, positionKeyframeButton, timeKeyframeButton, timelinePanel);
 
-    private final ReplayMod core;
+    private final RePlayCore core;
     private final ReplayModSimplePathing mod;
     private final ReplayHandler replayHandler;
     public final GuiReplayOverlay overlay;
@@ -213,7 +213,7 @@ public class GuiPathing {
     private Consumer<Double> entityTrackerLoadingProgress;
     private SettableFuture<Void> entityTrackerFuture;
 
-    public GuiPathing(final ReplayMod core, final ReplayModSimplePathing mod, final ReplayHandler replayHandler) {
+    public GuiPathing(final RePlayCore core, final ReplayModSimplePathing mod, final ReplayHandler replayHandler) {
         this.core = core;
         this.mod = mod;
         this.replayHandler = replayHandler;
