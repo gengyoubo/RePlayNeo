@@ -8,7 +8,7 @@ import com.google.gson.JsonSyntaxException;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
-import github.com.gengyoubo.replayneo.platform.feature.render.FFmpegWriter;
+import github.com.gengyoubo.replayneo.platform.render.export.FFmpegWriter;
 import github.com.gengyoubo.replayneo.platform.feature.render.rendering.VideoRenderer;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import com.replaymod.replaystudio.pathing.path.Timeline;

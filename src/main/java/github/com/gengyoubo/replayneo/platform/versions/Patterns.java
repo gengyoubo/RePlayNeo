@@ -9,7 +9,6 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.platform.restored.com.replaymod.gradle.remap.Pattern;
 import net.minecraft.client.Options;
 import net.minecraft.client.KeyMapping;
@@ -282,12 +281,12 @@ class Patterns {
 
     @Pattern
     private static ReportedException crashReportToException(Minecraft mc) {
-        return new ReportedException(((MinecraftAccessor) mc).getCrashReporter().get());
+        return new ReportedException(mc.delayedCrash.get());
     }
 
     @Pattern
     private static boolean haveDelayedCrash(Minecraft mc) {
-        return ((MinecraftAccessor) mc).getCrashReporter() != null;
+        return mc.delayedCrash != null;
     }
 
     @Pattern

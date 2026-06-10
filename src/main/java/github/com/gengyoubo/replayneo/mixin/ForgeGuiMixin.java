@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.platform.feature.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.platform.render.hooks.EntityRendererHandler;
 import github.com.gengyoubo.replayneo.platform.callbacks.RenderHudCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

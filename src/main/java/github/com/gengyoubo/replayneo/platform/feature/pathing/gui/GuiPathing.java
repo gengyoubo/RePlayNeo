@@ -20,7 +20,7 @@ import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderQueue;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
-import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiReplayOverlay;
 import com.replaymod.replaystudio.pathing.path.Keyframe;
 import com.replaymod.replaystudio.pathing.path.Path;

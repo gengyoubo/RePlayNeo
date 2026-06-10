@@ -1,6 +1,5 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.rendering;
 
-import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.api.frame.Frame;
@@ -68,7 +67,7 @@ public class Pipeline<R extends Frame, P extends Frame> implements Runnable {
 
         Minecraft mc = MCVer.getMinecraft();
         while (!capturer.isDone() && !abort) {
-            if (GLFW.glfwWindowShouldClose(mc.getWindow().getWindow()) || ((MinecraftAccessor) mc).getCrashReporter() != null) {
+            if (GLFW.glfwWindowShouldClose(mc.getWindow().getWindow()) || mc.delayedCrash != null) {
                 processService.shutdown();
                 return;
             }

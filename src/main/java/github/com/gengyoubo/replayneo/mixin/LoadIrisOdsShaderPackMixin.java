@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.platform.feature.render.capturer.IrisODSFrameCapturer;
+import github.com.gengyoubo.replayneo.platform.render.capturer.IrisODSFrameCapturer;
 import net.coderbot.iris.Iris;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import org.spongepowered.asm.mixin.Mixin;

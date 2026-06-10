@@ -5,7 +5,6 @@ import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.platform.gui.GuiReplayButton;
 import github.com.gengyoubo.replayneo.platform.feature.recording.ServerInfoExt;
 import github.com.gengyoubo.replayneo.platform.feature.recording.Setting;
-import github.com.gengyoubo.replayneo.mixin.AddServerScreenAccessor;
 import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.platform.gui.container.VanillaGuiScreen;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
@@ -38,10 +37,10 @@ public class GuiHandler extends EventRegistrations {
             addRecordingCheckbox(gui, Setting.RECORD_SERVER, "server");
         }
 
-        if (gui instanceof EditServerScreen) {
+        if (gui instanceof EditServerScreen editServerScreen) {
             VanillaGuiScreen vanillaGui = VanillaGuiScreen.wrap(gui);
             GuiButton replayButton = new GuiReplayButton().onClick(() -> {
-                ServerData serverInfo = ((AddServerScreenAccessor) gui).getServerData();
+                ServerData serverInfo = editServerScreen.serverData;
                 ServerInfoExt serverInfoExt = ServerInfoExt.from(serverInfo);
                 Boolean state = serverInfoExt.getAutoRecording();
                 GuiToggleButton<String> autoRecording = new GuiToggleButton<String>()

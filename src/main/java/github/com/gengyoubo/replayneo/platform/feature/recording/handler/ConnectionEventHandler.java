@@ -8,7 +8,6 @@ import github.com.gengyoubo.replayneo.platform.feature.recording.ServerInfoExt;
 import github.com.gengyoubo.replayneo.platform.feature.recording.Setting;
 import github.com.gengyoubo.replayneo.platform.feature.recording.gui.GuiRecordingControls;
 import github.com.gengyoubo.replayneo.platform.feature.recording.gui.GuiRecordingOverlay;
-import github.com.gengyoubo.replayneo.mixin.NetworkManagerAccessor;
 import github.com.gengyoubo.replayneo.platform.feature.recording.packet.PacketListener;
 import github.com.gengyoubo.replayneo.platform.feature.recording.packet.PacketListener.DecodedPacketListener;
 import com.replaymod.replaystudio.replay.ReplayFile;
@@ -16,13 +15,13 @@ import com.replaymod.replaystudio.replay.ReplayMetaData;
 import io.netty.channel.Channel;
 import org.apache.logging.log4j.Logger;
 
-import github.com.gengyoubo.replayneo.mixin.ClientLoginNetworkHandlerAccessor;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.Connection;
@@ -72,8 +71,8 @@ public class ConnectionEventHandler {
             }
 
             ServerData serverInfo;
-            serverInfo = networkManager.getPacketListener() instanceof ClientLoginNetworkHandlerAccessor loginNetworkHandler
-                    ? loginNetworkHandler.getServerData()
+            serverInfo = networkManager.getPacketListener() instanceof ClientHandshakePacketListenerImpl loginNetworkHandler
+                    ? loginNetworkHandler.serverData
                     : null;
 
             String worldName;
@@ -119,7 +118,7 @@ public class ConnectionEventHandler {
             metaData.setDate(System.currentTimeMillis());
             metaData.setMcVersion(ReplayMod.instance.getMinecraftVersion());
 
-            Channel channel = ((NetworkManagerAccessor) networkManager).getChannel();
+            Channel channel = networkManager.channel;
             packetListener = new PacketListener(core, channel, outputPath, replayFile, metaData);
 
             if (!local) {

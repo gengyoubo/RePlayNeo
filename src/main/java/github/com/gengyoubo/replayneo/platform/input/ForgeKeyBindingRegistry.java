@@ -10,7 +10,6 @@ import github.com.gengyoubo.replayneo.api.events.KeyEventCallback;
 import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.api.function.KeyInput;
-import github.com.gengyoubo.replayneo.mixin.KeyBindingAccessor;
 import github.com.gengyoubo.replayneo.platform.versions.LangResourcePack;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
@@ -198,8 +197,7 @@ public class ForgeKeyBindingRegistry extends EventRegistrations implements Repla
 
         @Override
         public void trigger() {
-            KeyBindingAccessor acc = (KeyBindingAccessor) keyBinding;
-            acc.setPressTime(acc.getPressTime() + 1);
+            keyBinding.clickCount++;
             handleKeyBindings();
         }
 

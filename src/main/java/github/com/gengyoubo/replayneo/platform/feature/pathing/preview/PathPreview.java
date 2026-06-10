@@ -6,8 +6,8 @@ import github.com.gengyoubo.replayneo.api.events.SettingsChangedCallback;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
-import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayClosedCallback;
-import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.platform.render.events.ReplayClosedCallback;
+import github.com.gengyoubo.replayneo.platform.render.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.ReplayModSimplePathing;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.Setting;
 

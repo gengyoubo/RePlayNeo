@@ -2,7 +2,6 @@ package github.com.gengyoubo.replayneo.platform.feature.recording.handler;
 
 import com.mojang.authlib.GameProfile;
 import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
-import github.com.gengyoubo.replayneo.mixin.IntegratedServerAccessor;
 import github.com.gengyoubo.replayneo.platform.feature.recording.packet.PacketListener;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
@@ -261,7 +260,7 @@ public class RecordingEventHandler extends EventRegistrations {
     private void checkForGamePaused() {
         if (mc.hasSingleplayerServer()) {
             IntegratedServer server =  mc.getSingleplayerServer();
-            if (server != null && ((IntegratedServerAccessor) server).isGamePaused()) {
+            if (server != null && server.paused) {
                 packetListener.setServerWasPaused();
             }
         }

@@ -1,7 +1,5 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay;
 
-import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
-import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import net.minecraft.client.Minecraft;
 
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;
@@ -15,8 +13,7 @@ public interface ReplaySender {
      */
     default boolean paused() {
         Minecraft mc = getMinecraft();
-        TimerAccessor timer = (TimerAccessor) ((MinecraftAccessor) mc).getTimer();
-        return timer.getTickLength() == Float.POSITIVE_INFINITY;
+        return mc.timer.msPerTick == Float.POSITIVE_INFINITY;
     }
 
     void setReplaySpeed(double factor);

@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.render.gui;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
-import github.com.gengyoubo.replayneo.platform.feature.render.FFmpegWriter;
+import github.com.gengyoubo.replayneo.platform.render.export.FFmpegWriter;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiVerticalList;

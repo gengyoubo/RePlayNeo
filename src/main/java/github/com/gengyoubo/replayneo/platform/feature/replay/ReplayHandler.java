@@ -10,16 +10,14 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.api.pathing.TimelinePlaybackTarget;
-import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
-import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
-import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
-import github.com.gengyoubo.replayneo.platform.feature.replay.camera.SpectatorCameraController;
-import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayClosedCallback;
-import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayClosingCallback;
-import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.platform.camera.SpectatorCameraController;
+import github.com.gengyoubo.replayneo.platform.render.events.ReplayClosedCallback;
+import github.com.gengyoubo.replayneo.platform.render.events.ReplayClosingCallback;
+import github.com.gengyoubo.replayneo.platform.render.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiReplayOverlay;
 import com.replaymod.replaystudio.data.Marker;
 import com.replaymod.replaystudio.replay.ReplayFile;
@@ -57,7 +55,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexSorting;
 
-import github.com.gengyoubo.replayneo.mixin.EntityLivingBaseAccessor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -165,8 +162,7 @@ public class ReplayHandler implements TimelinePlaybackTarget {
             mc.clearLevel();
         }
 
-        TimerAccessor timer = (TimerAccessor) ((MinecraftAccessor) mc).getTimer();
-        timer.setTickLength(DEFAULT_MS_PER_TICK);
+        mc.timer.msPerTick = DEFAULT_MS_PER_TICK;
         overlay.setVisible(false);
 
         ReplayModReplay.instance.forcefullyStopReplay();
@@ -217,7 +213,7 @@ public class ReplayHandler implements TimelinePlaybackTarget {
                 , it -> {}
         ));
 
-        ((MinecraftAccessor) mc).setConnection(networkManager);
+        mc.pendingConnection = networkManager;
 
     }
 
@@ -612,10 +608,9 @@ public class ReplayHandler implements TimelinePlaybackTarget {
 
     private void skipTeleportInterpolation(Entity entity) {
         if (entity instanceof LivingEntity e && !(entity instanceof CameraEntity)) {
-            EntityLivingBaseAccessor ea = (EntityLivingBaseAccessor) e;
-            e.absMoveTo(ea.getInterpTargetX(), ea.getInterpTargetY(), ea.getInterpTargetZ());
-            e.setYRot((float) ea.getInterpTargetYaw());
-            e.setXRot((float) ea.getInterpTargetPitch());
+            e.absMoveTo(e.lerpX, e.lerpY, e.lerpZ);
+            e.setYRot((float) e.lerpYRot);
+            e.setXRot((float) e.lerpXRot);
         }
     }
 

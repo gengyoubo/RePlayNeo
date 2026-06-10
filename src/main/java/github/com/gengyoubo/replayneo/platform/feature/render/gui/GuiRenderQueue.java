@@ -9,7 +9,7 @@ import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
-import github.com.gengyoubo.replayneo.platform.feature.render.FFmpegWriter;
+import github.com.gengyoubo.replayneo.platform.render.export.FFmpegWriter;
 import github.com.gengyoubo.replayneo.platform.feature.render.rendering.VideoRenderer;
 import github.com.gengyoubo.replayneo.core.utils.RenderJob;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;

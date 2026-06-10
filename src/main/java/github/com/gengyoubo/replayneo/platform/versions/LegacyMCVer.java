@@ -16,7 +16,6 @@ import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
 
 import org.joml.Matrix4f;
 import net.minecraft.world.phys.Vec3;
-import github.com.gengyoubo.replayneo.mixin.MainWindowAccessor;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -27,7 +26,6 @@ import net.minecraft.client.gui.components.AbstractButton;
 import java.util.concurrent.CompletableFuture;
 import org.lwjgl.glfw.GLFW;
 
-import github.com.gengyoubo.replayneo.mixin.ParticleAccessor;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraft.network.chat.Component;
@@ -82,8 +80,7 @@ public class LegacyMCVer {
 
     public static void resizeMainWindow(Minecraft mc, int width, int height) {
         Window window = mc.getWindow();
-        MainWindowAccessor mainWindow = (MainWindowAccessor) (Object) window;
-        mainWindow.invokeOnFramebufferResize(window.getWindow(), width, height);
+        window.onFramebufferResize(window.getWindow(), width, height);
     }
 
 
@@ -173,10 +170,9 @@ public class LegacyMCVer {
 
     // TODO: this can be inlined once https://github.com/SpongePowered/Mixin/issues/305 is fixed
     public static Vec3 getPosition(Particle particle, float partialTicks) {
-        ParticleAccessor acc = (ParticleAccessor) particle;
-        double x = acc.getXo() + (acc.getPosX() - acc.getXo()) * partialTicks;
-        double y = acc.getYo() + (acc.getPosY() - acc.getYo()) * partialTicks;
-        double z = acc.getZo() + (acc.getPosZ() - acc.getZo()) * partialTicks;
+        double x = particle.xo + (particle.x - particle.xo) * partialTicks;
+        double y = particle.yo + (particle.y - particle.yo) * partialTicks;
+        double z = particle.zo + (particle.z - particle.zo) * partialTicks;
         return new Vec3(x, y, z);
     }
 

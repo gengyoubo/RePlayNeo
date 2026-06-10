@@ -1,0 +1,25 @@
+package github.com.gengyoubo.replayneo.platform.render.hooks;
+
+import github.com.gengyoubo.replayneo.core.utils.FlawlessFrames;
+import net.minecraft.client.renderer.LevelRenderer;
+
+public class ForceChunkLoadingHook {
+
+    private final LevelRenderer hooked;
+
+    public ForceChunkLoadingHook(LevelRenderer renderGlobal) {
+        this.hooked = renderGlobal;
+
+        FlawlessFrames.setEnabled(true);
+        IForceChunkLoading.from(renderGlobal).replayModRender_setHook(this);
+    }
+
+    public void uninstall() {
+        IForceChunkLoading.from(hooked).replayModRender_setHook(null);
+        FlawlessFrames.setEnabled(false);
+    }
+
+    public interface IBlockOnChunkRebuilds {
+        boolean uploadEverythingBlocking();
+    }
+}

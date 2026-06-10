@@ -2,29 +2,27 @@ package github.com.gengyoubo.replayneo.platform.feature.render.rendering;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
-import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
-import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.AbstractTimelinePlayer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.ReplayTimer;
 import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
-import github.com.gengyoubo.replayneo.platform.feature.render.CameraPathExporter;
-import github.com.gengyoubo.replayneo.platform.feature.render.EXRWriter;
-import github.com.gengyoubo.replayneo.platform.feature.render.PNGWriter;
+import github.com.gengyoubo.replayneo.platform.render.export.CameraPathExporter;
+import github.com.gengyoubo.replayneo.platform.render.export.EXRWriter;
+import github.com.gengyoubo.replayneo.platform.render.export.PNGWriter;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
-import github.com.gengyoubo.replayneo.platform.feature.render.FFmpegWriter;
-import github.com.gengyoubo.replayneo.platform.feature.render.blend.BlendState;
+import github.com.gengyoubo.replayneo.platform.render.export.FFmpegWriter;
+import github.com.gengyoubo.replayneo.platform.render.blend.BlendState;
 import github.com.gengyoubo.replayneo.api.render.capturer.RenderInfo;
-import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayRenderCallback;
+import github.com.gengyoubo.replayneo.platform.render.events.ReplayRenderCallback;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderingDone;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiVideoRenderer;
-import github.com.gengyoubo.replayneo.platform.feature.render.gui.progress.VirtualWindow;
-import github.com.gengyoubo.replayneo.platform.feature.render.hooks.ForceChunkLoadingHook;
-import github.com.gengyoubo.replayneo.platform.feature.render.metadata.MetadataInjector;
+import github.com.gengyoubo.replayneo.platform.render.gui.progress.VirtualWindow;
+import github.com.gengyoubo.replayneo.platform.render.hooks.ForceChunkLoadingHook;
+import github.com.gengyoubo.replayneo.platform.render.metadata.MetadataInjector;
 import github.com.gengyoubo.replayneo.core.utils.FlawlessFrames;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import com.replaymod.replaystudio.pathing.path.Keyframe;
@@ -163,7 +161,7 @@ public class VideoRenderer implements RenderInfo {
         // Because this might take some time to prepare we'll render the GUI at least once to not confuse the user
         drawGui();
 
-        ReplayTimer timer = (ReplayTimer) ((MinecraftAccessor) mc).getTimer();
+        ReplayTimer timer = (ReplayTimer) mc.timer;
 
         // Play up to one second before starting to render
         // This is necessary in order to ensure that all entities have at least two position packets
@@ -178,7 +176,7 @@ public class VideoRenderer implements RenderInfo {
             if (videoStart > 1000) {
                 int replayTime = videoStart - 1000;
                 timer.partialTick = 0;
-                ((TimerAccessor) timer).setTickLength(DEFAULT_MS_PER_TICK);
+                timer.msPerTick = DEFAULT_MS_PER_TICK;
                 while (replayTime < videoStart) {
                     replayTime += 50;
                     replayHandler.getReplaySender().sendPacketsTill(replayTime);
@@ -190,8 +188,8 @@ public class VideoRenderer implements RenderInfo {
 
         renderingPipeline.run();
 
-        if (((MinecraftAccessor) mc).getCrashReporter() != null) {
-            throw new ReportedException(((MinecraftAccessor) mc).getCrashReporter().get());
+        if (mc.delayedCrash != null) {
+            throw new ReportedException(mc.delayedCrash.get());
         }
 
         if (settings.isInjectSphericalMetadata()) {
@@ -228,7 +226,7 @@ public class VideoRenderer implements RenderInfo {
         }
 
         // Updating the timer will cause the timeline player to update the game state
-        ReplayTimer timer = (ReplayTimer) ((MinecraftAccessor) mc).getTimer();
+        ReplayTimer timer = (ReplayTimer) mc.timer;
         int elapsedTicks =
         timer.advanceTime(
                 MCVer.milliTime()
@@ -358,9 +356,9 @@ public class VideoRenderer implements RenderInfo {
 
             }
 
-            CompletableFuture<Void> resourceReloadFuture = ((MinecraftAccessor) mc).getPendingReload();
+            CompletableFuture<Void> resourceReloadFuture = mc.pendingReload;
             if (resourceReloadFuture != null) {
-                ((MinecraftAccessor) mc).setPendingReload(null);
+                mc.pendingReload = null;
                 mc.reloadResourcePacks().thenRun(() -> resourceReloadFuture.complete(null));
                 continue;
             }
@@ -380,7 +378,7 @@ public class VideoRenderer implements RenderInfo {
     public boolean drawGui() {
         Window window = mc.getWindow();
         do {
-            if (GLFW.glfwWindowShouldClose(window.getWindow()) || ((MinecraftAccessor) mc).getCrashReporter() != null) {
+            if (GLFW.glfwWindowShouldClose(window.getWindow()) || mc.delayedCrash != null) {
                 return false;
             }
 

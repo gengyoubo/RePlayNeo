@@ -6,7 +6,6 @@ import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.ConnectionEventHandler;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.GuiHandler;
-import github.com.gengyoubo.replayneo.mixin.NetworkManagerAccessor;
 import github.com.gengyoubo.replayneo.platform.feature.recording.packet.PacketListener;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import io.netty.channel.Channel;
@@ -60,7 +59,7 @@ public class ReplayModRecording implements Module {
             LOGGER.warn("Skipping recording setup for non-clientbound connection: {}", networkManager.getReceiving());
             return;
         }
-        Channel channel = ((NetworkManagerAccessor) networkManager).getChannel();
+        Channel channel = networkManager.channel;
         if (channel.pipeline().get(ReplayHandler.PACKET_HANDLER_NAME) != null) return;
         if (channel.hasAttr(ATTR_CHECKED)) return;
         channel.attr(ATTR_CHECKED).set(null);

@@ -6,8 +6,6 @@ import com.google.common.collect.Ordering;
 import com.google.common.primitives.Longs;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
-import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import com.replaymod.replaystudio.pathing.path.Keyframe;
 import com.replaymod.replaystudio.pathing.path.Path;
@@ -71,14 +69,12 @@ public abstract class AbstractTimelinePlayer extends EventRegistrations {
         register();
         lastTime = 0;
 
-        MinecraftAccessor mcA = (MinecraftAccessor) mc;
-        orgTimer = mcA.getTimer();
+        orgTimer = mc.timer;
         ReplayTimer timer = new ReplayTimer();
-        mcA.setTimer(timer);
+        mc.timer = timer;
 
         //noinspection ConstantConditions
-        TimerAccessor timerA = (TimerAccessor) timer;
-        timerA.setTickLength(DEFAULT_MS_PER_TICK);
+        timer.msPerTick = DEFAULT_MS_PER_TICK;
         timer.partialTick = timer.ticksThisFrame = 0;
         return future = settableFuture = SettableFuture.create();
     }
@@ -94,8 +90,7 @@ public abstract class AbstractTimelinePlayer extends EventRegistrations {
     { on(ReplayTimer.UpdatedCallback.EVENT, this::onTick); }
     public void onTick() {
         if (future.isDone()) {
-            MinecraftAccessor mcA = (MinecraftAccessor) mc;
-            mcA.setTimer(orgTimer);
+            mc.timer = orgTimer;
             replayHandler.getReplaySender().setReplaySpeed(0);
             if (wasAsyncMode) {
                 replayHandler.getReplaySender().setAsyncMode(true);
@@ -122,7 +117,7 @@ public abstract class AbstractTimelinePlayer extends EventRegistrations {
         float timeInTicks = replayTime / 50f;
         float previousTimeInTicks = lastTime / 50f;
         float passedTicks = timeInTicks - previousTimeInTicks;
-        Timer renderTickCounter = ((MinecraftAccessor) mc).getTimer();
+        Timer renderTickCounter = mc.timer;
         if (renderTickCounter instanceof ReplayTimer timer) {
             timer.partialTick += passedTicks;
             timer.ticksThisFrame = (int) timer.partialTick;

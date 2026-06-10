@@ -6,11 +6,8 @@ import com.mojang.authlib.GameProfile;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.mixin.ClientboundMoveEntityPacketAccessor;
-import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
-import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
-import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
+import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
 import com.replaymod.replaystudio.io.ReplayInputStream;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.packet.State;
 import com.replaymod.replaystudio.protocol.PacketType;
@@ -409,7 +406,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         Entity entity;
         if (packet instanceof ClientboundMoveEntityPacket movePacket) {
             packetType = "MoveEntity";
-            entityId = ((ClientboundMoveEntityPacketAccessor) movePacket).replayneo$getEntityId();
+            entityId = movePacket.entityId;
             entity = movePacket.getEntity(world);
         } else if (packet instanceof ClientboundTeleportEntityPacket teleportPacket) {
             entityId = teleportPacket.getId();
@@ -764,8 +761,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             }
             notifyAll();
         }
-        TimerAccessor timer = (TimerAccessor) ((MinecraftAccessor) mc).getTimer();
-        timer.setTickLength(DEFAULT_MS_PER_TICK / (float) d);
+        mc.timer.msPerTick = DEFAULT_MS_PER_TICK / (float) d;
     }
 
     /////////////////////////////////////////////////////////

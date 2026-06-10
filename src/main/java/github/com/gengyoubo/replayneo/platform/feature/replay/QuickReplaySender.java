@@ -4,8 +4,6 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
-import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.packet.State;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import com.replaymod.replaystudio.rar.RandomAccessReplay;
@@ -159,8 +157,7 @@ public class QuickReplaySender extends ChannelHandlerAdapter implements ReplaySe
             }
             this.replaySpeed = factor;
         }
-        TimerAccessor timer = (TimerAccessor) ((MinecraftAccessor) mc).getTimer();
-        timer.setTickLength(DEFAULT_MS_PER_TICK / (float) factor);
+        mc.timer.msPerTick = DEFAULT_MS_PER_TICK / (float) factor;
     }
 
     @Override
