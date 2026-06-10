@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.scheduler;
 
+import github.com.gengyoubo.replayneo.api.scheduler.Scheduler;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -57,7 +59,7 @@ public class SchedulerImpl implements  Scheduler {
         private final Thread mcThread = Thread.currentThread();
 
         private ReplayModExecutor() {
-            super("Client/ReplayMod");
+            super("Client/RePlayCore");
         }
 
         @Override public @NotNull Runnable wrapRunnable(@NotNull Runnable runnable) {
@@ -119,3 +121,4 @@ public class SchedulerImpl implements  Scheduler {
         }
     }
 }
+

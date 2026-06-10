@@ -5,7 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static github.com.gengyoubo.replayneo.core.ReplayMod.MOD_ID;
+import static github.com.gengyoubo.replayneo.core.RePlayCore.MOD_ID;
 
 /**
  * Uses the "Flawless Frames" FREX feature which allows us to instruct third-party mods to sacrifice performance (even

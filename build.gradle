@@ -65,6 +65,7 @@ def replayMixinConfigs = [
 
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
             workingDirectory project.file('run')
@@ -84,7 +85,11 @@ minecraft {
                     "-XX:G1MaxNewSizePercent=40",
                     "-XX:G1HeapRegionSize=8M",
                     "-XX:G1ReservePercent=20",
-                    "-XX:InitiatingHeapOccupancyPercent=15"
+                    "-XX:InitiatingHeapOccupancyPercent=15",
+                    "-Xlint:deprecation",
+                    "-Xlint:unchecked",
+                    "-Xlint:removal," ,
+                    "--warning-mode all"
             )
             mods {
                 replayneo {
@@ -216,6 +221,75 @@ processResources {
         expand properties
     }
 }
+
+tasks.register('verifyReplayLayering') {
+    group = 'verification'
+    description = 'Checks replay API/core package boundaries while the platform refactor is in progress.'
+
+    def strictLayering = providers.gradleProperty('replayStrictLayering').map { it == 'true' }.orElse(false)
+
+    doLast {
+        def forbiddenImports = [
+                'net.minecraft',
+                'net.minecraftforge',
+                'org.spongepowered.asm.mixin',
+                'github.com.gengyoubo.replayneo.mixin'
+        ]
+        def javaRoot = file('src/main/java')
+        def reportFile = layout.buildDirectory.file('reports/replay-layering/core-boundary-report.txt').get().asFile
+        reportFile.parentFile.mkdirs()
+
+        def scanPackage = { String packagePath ->
+            def packageDir = new File(javaRoot, packagePath)
+            if (!packageDir.exists()) {
+                return []
+            }
+            fileTree(packageDir) {
+                include '**/*.java'
+            }.collectMany { source ->
+                def lines = source.readLines('UTF-8')
+                lines.withIndex().findAll { line, index ->
+                    def trimmed = line.trim()
+                    trimmed.startsWith('import ') && forbiddenImports.any { forbidden -> trimmed.startsWith("import ${forbidden}") }
+                }.collect { line, index ->
+                    "${rootDir.toPath().relativize(source.toPath())}:${index + 1}: ${line.trim()}"
+                }
+            }
+        }
+
+        def apiViolations = scanPackage('github/com/gengyoubo/replayneo/api')
+        def coreViolations = scanPackage('github/com/gengyoubo/replayneo/core')
+
+        def report = new StringBuilder()
+        report.append('Replay layer boundary report').append(System.lineSeparator())
+        report.append('================================').append(System.lineSeparator())
+        report.append(System.lineSeparator())
+        report.append('Forbidden imports:').append(System.lineSeparator())
+        forbiddenImports.each { report.append("- ${it}").append(System.lineSeparator()) }
+        report.append(System.lineSeparator())
+        report.append("api violations: ${apiViolations.size()}").append(System.lineSeparator())
+        apiViolations.each { report.append(it).append(System.lineSeparator()) }
+        report.append(System.lineSeparator())
+        report.append("core violations: ${coreViolations.size()}").append(System.lineSeparator())
+        coreViolations.each { report.append(it).append(System.lineSeparator()) }
+        reportFile.text = report.toString()
+
+        if (!apiViolations.isEmpty()) {
+            throw new GradleException("Replay API boundary has forbidden imports. See ${reportFile}.")
+        }
+        if (strictLayering.get() && !coreViolations.isEmpty()) {
+            throw new GradleException("Replay core boundary has forbidden imports. See ${reportFile}.")
+        }
+        if (!coreViolations.isEmpty()) {
+            logger.lifecycle("Replay core boundary report wrote ${coreViolations.size()} existing violations to ${reportFile}.")
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn 'verifyReplayLayering'
+}
+
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
@@ -224,7 +298,7 @@ publishing {
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+            url = file("${project.projectDir}/mcmodsrepo")
         }
     }
 }

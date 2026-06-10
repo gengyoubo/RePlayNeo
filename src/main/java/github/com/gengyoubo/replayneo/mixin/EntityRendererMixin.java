@@ -1,9 +1,9 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.addon.playeroverview.PlayerOverview;
-import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
-import github.com.gengyoubo.replayneo.addon.ReplayModExtras;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.addon.playeroverview.PlayerOverview;
+import github.com.gengyoubo.replayneo.platform.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.platform.addon.ReplayModExtras;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;

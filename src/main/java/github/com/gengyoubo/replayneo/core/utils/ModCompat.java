@@ -1,12 +1,13 @@
 package github.com.gengyoubo.replayneo.core.utils;
 
 import com.replaymod.replaystudio.data.ModInfo;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 
 import java.util.*;
 
 public class ModCompat {
     public static Collection<ModInfo> getInstalledNetworkMods() {
-        return ModInfoGetter.getInstalledNetworkMods();
+        return RePlayCore.instance.getInstalledNetworkMods();
     }
 
     public static final class ModInfoDifference {

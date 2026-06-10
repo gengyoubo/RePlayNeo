@@ -1,0 +1,169 @@
+package github.com.gengyoubo.replayneo.platform.render;
+
+import com.google.common.base.Objects;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
+
+import org.lwjgl.opengl.ARBVertexBufferObject;
+import org.lwjgl.opengl.GL;
+
+import java.nio.ByteBuffer;
+
+import static org.lwjgl.opengl.ARBPixelBufferObject.*;
+import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL21.GL_PIXEL_PACK_BUFFER;
+
+import static org.lwjgl.opengl.ARBVertexBufferObject.*;
+
+public class PixelBufferObject implements AutoCloseable {
+    public enum Usage {
+        COPY(GL_STREAM_COPY_ARB, GL_STREAM_COPY),
+        DRAW(GL_STREAM_DRAW_ARB, GL_STREAM_DRAW),
+        READ(GL_STREAM_READ_ARB, GL_STREAM_READ);
+
+        private final int arb, gl15;
+
+        Usage(int arb, int gl15) {
+            this.arb = arb;
+            this.gl15 = gl15;
+        }
+    }
+
+    public static final boolean SUPPORTED = GL.getCapabilities().GL_ARB_pixel_buffer_object || GL.getCapabilities().OpenGL15;
+    private static final boolean arb = !GL.getCapabilities().OpenGL15;
+
+    private static final ThreadLocal<Integer> bound = new ThreadLocal<>();
+    private static final ThreadLocal<Integer> mapped = new ThreadLocal<>();
+
+    private final long size;
+    private long handle;
+
+    public PixelBufferObject(long size, Usage usage) {
+        if (!SUPPORTED) {
+            throw new UnsupportedOperationException("PBOs not supported.");
+        }
+
+        this.size = size;
+        this.handle = arb ? ARBVertexBufferObject.glGenBuffersARB() : glGenBuffers();
+
+        bind();
+
+        if (arb) {
+            ARBVertexBufferObject.glBufferDataARB(GL_PIXEL_PACK_BUFFER_ARB, size, usage.arb);
+        } else {
+            glBufferData(GL_PIXEL_PACK_BUFFER, size, usage.gl15);
+        }
+
+        unbind();
+    }
+
+    private int getHandle() {
+        if (handle == -1) {
+            throw new IllegalStateException("PBO not allocated.");
+        }
+        return (int) handle;
+    }
+
+    public void bind() {
+        if (arb) {
+            ARBVertexBufferObject.glBindBufferARB(GL_PIXEL_PACK_BUFFER_ARB, getHandle());
+        } else {
+            glBindBuffer(GL_PIXEL_PACK_BUFFER, getHandle());
+        }
+        bound.set(getHandle());
+    }
+
+    public void unbind() {
+        checkBound();
+        if (arb) {
+            ARBVertexBufferObject.glBindBufferARB(GL_PIXEL_PACK_BUFFER_ARB, 0);
+        } else {
+            glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+        }
+        bound.set(0);
+    }
+
+    private void checkBound() {
+        if (!Objects.equal(getHandle(), bound.get())) {
+            throw new IllegalStateException("Buffer not bound.");
+        }
+    }
+
+    private void checkNotMapped() {
+        if (Objects.equal(getHandle(), mapped.get())) {
+            throw new IllegalStateException("Buffer already mapped.");
+        }
+    }
+
+    public ByteBuffer mapReadOnly() {
+        checkBound();
+        checkNotMapped();
+        ByteBuffer buffer;
+        if (arb) {
+            buffer = ARBVertexBufferObject.glMapBufferARB(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY_ARB, size, null);
+        } else {
+            buffer = glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY, size, null);
+        }
+        mapped.set(getHandle());
+        return buffer;
+    }
+
+    public ByteBuffer mapWriteOnly() {
+        checkBound();
+        checkNotMapped();
+        ByteBuffer buffer;
+        if (arb) {
+            buffer = ARBVertexBufferObject.glMapBufferARB(GL_PIXEL_PACK_BUFFER_ARB, GL_WRITE_ONLY_ARB, size, null);
+        } else {
+            buffer = glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_WRITE_ONLY, size, null);
+        }
+        mapped.set(getHandle());
+        return buffer;
+    }
+
+    public ByteBuffer mapReadWrite() {
+        checkBound();
+        checkNotMapped();
+        ByteBuffer buffer;
+        if (arb) {
+            buffer = ARBVertexBufferObject.glMapBufferARB(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_WRITE_ARB, size, null);
+        } else {
+            buffer = glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_WRITE, size, null);
+        }
+        mapped.set(getHandle());
+        return buffer;
+    }
+
+    public void unmap() {
+        checkBound();
+        if (!Objects.equal(mapped.get(), getHandle())) {
+            throw new IllegalStateException("Buffer not mapped.");
+        }
+        if (arb) {
+            ARBVertexBufferObject.glUnmapBufferARB(GL_PIXEL_PACK_BUFFER_ARB);
+        } else {
+            glUnmapBuffer(GL_PIXEL_PACK_BUFFER);
+        }
+        mapped.set(0);
+    }
+
+    @Override
+    public void close() {
+        if (handle != -1) {
+            if (arb) {
+                ARBVertexBufferObject.glDeleteBuffersARB(getHandle());
+            } else {
+                glDeleteBuffers(getHandle());
+            }
+            handle = -1;
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        if (handle != -1) {
+            github.com.gengyoubo.replayneo.RePlayNeo.LOGGER.warn("PBO garbage collected before deleted!");
+            RePlayCore.instance.runLater(this::close);
+        }
+    }
+}

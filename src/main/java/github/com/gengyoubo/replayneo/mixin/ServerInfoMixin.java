@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.feature.recording.ServerInfoExt;
+import github.com.gengyoubo.replayneo.platform.feature.recording.ServerInfoExt;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,13 +15,13 @@ public abstract class ServerInfoMixin implements ServerInfoExt {
     @Unique
     private Boolean rePlay$autoRecording;
 
-    @Unique
-    public Boolean rePlay$getAutoRecording() {
+    @Override
+    public Boolean getAutoRecording() {
         return rePlay$autoRecording;
     }
 
-    @Unique
-    public void rePlay$setAutoRecording(Boolean autoRecording) {
+    @Override
+    public void setAutoRecording(Boolean autoRecording) {
         this.rePlay$autoRecording = autoRecording;
     }
 

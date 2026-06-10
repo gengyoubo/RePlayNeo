@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.feature.recording.ReplayModRecording;
-import github.com.gengyoubo.replayneo.feature.recording.handler.RecordingEventHandler;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
+import github.com.gengyoubo.replayneo.platform.feature.recording.handler.RecordingEventHandler;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.client.Minecraft;

@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.feature.replay.ext.EntityExt;
+import github.com.gengyoubo.replayneo.platform.entity.EntityExt;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,22 +22,22 @@ public abstract class EntityExtMixin implements EntityExt {
     private float rePlay$trackedPitch = Float.NaN;
 
     @Override
-    public float replaymod$getTrackedYaw() {
+    public float RePlayCore$getTrackedYaw() {
         return !Float.isNaN(this.rePlay$trackedYaw) ? this.rePlay$trackedYaw : this.yRot;
     }
 
     @Override
-    public float replaymod$getTrackedPitch() {
+    public float RePlayCore$getTrackedPitch() {
         return !Float.isNaN(this.rePlay$trackedPitch) ? this.rePlay$trackedPitch : this.xRot;
     }
 
     @Override
-    public void replaymod$setTrackedYaw(float value) {
+    public void RePlayCore$setTrackedYaw(float value) {
         this.rePlay$trackedYaw = value;
     }
 
     @Override
-    public void replaymod$setTrackedPitch(float value) {
+    public void RePlayCore$setTrackedPitch(float value) {
         this.rePlay$trackedPitch = value;
     }
 }

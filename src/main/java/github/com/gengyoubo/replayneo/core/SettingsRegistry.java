@@ -1,14 +1,24 @@
 package github.com.gengyoubo.replayneo.core;
 
-import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.api.events.SettingsChangedCallback;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class SettingsRegistry {
     private final Map<SettingKey<?>, Object> settings = Collections.synchronizedMap(new LinkedHashMap<>());
-    final SettingsRegistryBackend backend = new SettingsRegistryBackend(settings);
+    final SettingsRegistryBackend backend;
+
+    public SettingsRegistry(Path gameDirectory) {
+        this(gameDirectory, Runnable::run);
+    }
+
+    public SettingsRegistry(Path gameDirectory, Consumer<Runnable> clientExecutor) {
+        this.backend = new SettingsRegistryBackend(gameDirectory.resolve("config/RePlayCore.json"), settings, clientExecutor);
+    }
 
     public void register() {
         backend.register();

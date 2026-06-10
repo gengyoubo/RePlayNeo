@@ -1,7 +1,8 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.platform.versions.JGuiResourcePack;
 import github.com.gengyoubo.replayneo.platform.versions.LangResourcePack;
+import net.minecraft.server.packs.PackResources;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -9,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.function.BiConsumer;
 import java.util.stream.Collector;
-import net.minecraft.server.packs.PackResources;
 
 
 @Mixin(net.minecraft.server.packs.repository.PackRepository.class)
@@ -20,8 +20,9 @@ public class InjectDynamicResourcePacksMixin {
     )
     private Collector<PackResources, ?, ?> injectReplayModPacks(Collector<PackResources, ?, ?> collector) {
         collector = rePlay$append(collector, new LangResourcePack());
-        if (ReplayMod.jGuiResourcePack != null) {
-            collector = rePlay$append(collector, ReplayMod.jGuiResourcePack);
+        PackResources jGuiResourcePack = JGuiResourcePack.get();
+        if (jGuiResourcePack != null) {
+            collector = rePlay$append(collector, jGuiResourcePack);
         }
         return collector;
     }

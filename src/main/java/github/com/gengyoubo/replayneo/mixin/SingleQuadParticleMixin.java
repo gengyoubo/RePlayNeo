@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.feature.render.hooks.EntityRendererHandler;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.render.hooks.EntityRendererHandler;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;

@@ -24,6 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.layout;
 
+import github.com.gengyoubo.replayneo.api.layout.LayoutData;
+
 public class VoidLayoutData implements LayoutData {
     public static final VoidLayoutData INSTANCE = new VoidLayoutData();
 

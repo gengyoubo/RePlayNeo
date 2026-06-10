@@ -1,0 +1,168 @@
+package github.com.gengyoubo.replayneo.platform.feature.recording.gui;
+
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayModGui;
+
+import github.com.gengyoubo.replayneo.core.RePlayCore;
+import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.platform.feature.recording.Setting;
+import github.com.gengyoubo.replayneo.platform.feature.replay.gui.screen.GuiReplayViewer;
+import com.replaymod.replaystudio.replay.ReplayMetaData;
+import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiScreen;
+import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
+import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiTextField;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiProgressBar;
+import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
+import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.api.Colors;
+import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
+import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.CrashReport;
+import net.minecraft.client.Minecraft;
+
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.core.guiutils.Utils.link;
+
+public class GuiSavingReplay {
+
+    private static final Minecraft mc = getMinecraft();
+    private static final Logger logger = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+
+    private final GuiLabel label = new GuiLabel()
+            .setI18nText("replaymod.gui.replaysaving.title")
+            .setColor(Colors.BLACK);
+
+    private final GuiProgressBar progressBar = new GuiProgressBar()
+            .setHeight(14);
+
+    private final GuiPanel panel = new GuiPanel()
+            .setLayout(new VerticalLayout().setSpacing(2))
+            .addElements(new VerticalLayout.Data(0.5), label, progressBar);
+
+    private final RePlayCore core;
+    private final List<Runnable> apply = new ArrayList<>();
+
+    public GuiSavingReplay(RePlayCore core) {
+        this.core = core;
+    }
+
+    public void open() {
+        ReplayModGui.instance.getBackgroundProcesses().addProcess(panel);
+    }
+
+    public void close() {
+        ReplayModGui.instance.getBackgroundProcesses().removeProcess(panel);
+        AbstractGuiScreen<?> currentScreen = GuiScreen.from(mc.screen);
+    }
+
+    public GuiProgressBar getProgressBar() {
+        return progressBar;
+    }
+
+    public void presentRenameDialog(List<Pair<Path, ReplayMetaData>> outputPaths) {
+        label.setI18nText("replaymod.gui.rename");
+        panel.removeElement(progressBar);
+
+        link(outputPaths.stream().map(it -> addOutput(it.getKey(), it.getValue())).toArray(github.com.gengyoubo.replayneo.platform.gui.element.GuiTextField[]::new));
+
+        GuiButton applyButton = new GuiButton()
+                .setSize(150, 20)
+                .setI18nLabel("replaymod.gui.done")
+                .onClick(this::apply);
+
+        panel.addElements(new VerticalLayout.Data(0.5), applyButton);
+
+        if (!core.getSettingsRegistry().get(Setting.RENAME_DIALOG)) {
+            apply();
+        }
+    }
+
+    private GuiTextField addOutput(Path path, ReplayMetaData metaData) {
+        String originalName = Utils.fileNameToReplayName(path.getFileName().toString());
+        GuiTextField textField = new GuiTextField()
+                .setSize(130, 20)
+                .setText(originalName)
+                .setI18nHint("replaymod.gui.delete")
+                .setTextColorDisabled(Colors.RED)
+                .onEnter(this::apply)
+                .setTooltip(createTooltip(path, metaData));
+        GuiButton clearButton = new GuiButton()
+                .setSize(20, 20)
+                .setLabel("X")
+                .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.delete"))
+                .onClick(() -> textField.setText(""));
+        GuiPanel row = new GuiPanel()
+                .setLayout(new HorizontalLayout())
+                .addElements(null, textField, clearButton);
+        panel.addElements(new VerticalLayout.Data(0.5), row);
+
+        apply.add(() -> applyOutput(path, textField.getText()));
+
+        return textField;
+    }
+
+    private GuiPanel createTooltip(Path path, ReplayMetaData metaData) {
+        GuiTooltip tooltip = new GuiTooltip();
+        GuiReplayViewer.GuiReplayEntry entry = new GuiReplayViewer.GuiReplayEntry(path.toFile(), metaData, null, new ArrayList<>());
+        return new GuiPanel().setLayout(new CustomLayout<GuiPanel>() {
+            @Override
+            protected void layout(GuiPanel container, int width, int height) {
+                pos(entry, 4, 4);
+                size(entry, width - 8, height - 8);
+                size(tooltip, width, height);
+            }
+
+            @Override
+            public ReadableDimension calcMinSize(GuiContainer<?> container) {
+                ReadableDimension size = entry.calcMinSize();
+                return new Dimension(size.getWidth() + 8, size.getHeight() + 8);
+            }
+        }).addElements(null, tooltip, entry);
+    }
+
+    private void apply() {
+        apply.forEach(Runnable::run);
+        close();
+    }
+
+    private void applyOutput(Path path, String newName) {
+        if (newName.isEmpty()) {
+            try {
+                Files.delete(path);
+            } catch (IOException e) {
+                logger.error("Deleting replay file:", e);
+                CrashReport crashReport = CrashReport.forThrowable(e, "Deleting replay file");
+                core.runLater(() -> GuiUtils.error(logger, VanillaGuiScreen.wrap(mc.screen), crashReport, () -> {}));
+            }
+            return;
+        }
+
+        try {
+            Path replaysFolder = core.folders.getReplayFolder();
+            Path newPath = Utils.replayNameToPath(replaysFolder, newName);
+            for (int i = 1; Files.exists(newPath); i++) {
+                newPath = Utils.replayNameToPath(replaysFolder, newName + " (" + i + ")");
+            }
+            Files.move(path, newPath);
+        } catch (IOException e) {
+            logger.error("Renaming replay file:", e);
+            CrashReport crashReport = CrashReport.forThrowable(e, "Renaming replay file");
+            core.runLater(() -> GuiUtils.error(logger, VanillaGuiScreen.wrap(mc.screen), crashReport, () -> {}));
+        }
+    }
+}

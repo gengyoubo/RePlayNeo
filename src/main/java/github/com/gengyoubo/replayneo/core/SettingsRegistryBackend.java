@@ -6,7 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import github.com.gengyoubo.replayneo.core.events.SettingsChangedCallback;
+import github.com.gengyoubo.replayneo.api.events.SettingsChangedCallback;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -18,19 +18,20 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.client.Minecraft;
+import java.util.function.Consumer;
 
 import static github.com.gengyoubo.replayneo.core.utils.Utils.ensureDirectoryExists;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
 
 class SettingsRegistryBackend {
     private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
     private final Map<SettingsRegistry.SettingKey<?>, Object> settings;
+    private final Path configFile;
+    private final Consumer<Runnable> clientExecutor;
 
-    private final Path configFile = getMinecraft().gameDirectory.toPath().resolve("config/replaymod.json");
-
-    SettingsRegistryBackend(Map<SettingsRegistry.SettingKey<?>, Object> settings) {
+    SettingsRegistryBackend(Path configFile, Map<SettingsRegistry.SettingKey<?>, Object> settings, Consumer<Runnable> clientExecutor) {
+        this.configFile = configFile;
         this.settings = settings;
+        this.clientExecutor = clientExecutor;
     }
 
     public void register() {
@@ -123,7 +124,7 @@ class SettingsRegistryBackend {
                     }
                     Path fileName = ((Path) event.context());
                     if (fileName.equals(configFile.getFileName())) {
-                        Minecraft.getInstance().tell(this::reload);
+                        clientExecutor.accept(this::reload);
                     }
                 }
                 if (!nextKey.reset()) {
@@ -131,7 +132,7 @@ class SettingsRegistryBackend {
                 }
             }
         });
-        thread.setName("replaymod-config-watcher");
+        thread.setName("RePlayCore-config-watcher");
         thread.setDaemon(true);
         thread.start();
     }
@@ -139,7 +140,7 @@ class SettingsRegistryBackend {
     private void reload() {
         load(false);
 
-        SettingsRegistry settingsRegistry = ReplayMod.instance.getSettingsRegistry();
+        SettingsRegistry settingsRegistry = RePlayCore.instance.getSettingsRegistry();
         for (SettingsRegistry.SettingKey<?> key : settings.keySet()) {
             SettingsChangedCallback.EVENT.invoker().onSettingsChanged(settingsRegistry, key);
         }

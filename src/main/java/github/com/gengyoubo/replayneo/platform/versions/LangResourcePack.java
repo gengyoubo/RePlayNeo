@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.versions;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import github.com.gengyoubo.replayneo.core.ReplayMod;
+import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.RePlayNeo;
 
 import java.io.ByteArrayInputStream;
@@ -54,7 +54,7 @@ public class LangResourcePack extends AbstractPackResources {
         super(NAME, true);
 
         try {
-            this.basePath = Paths.get(ReplayMod.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            this.basePath = Paths.get(RePlayCore.class.getProtectionDomain().getCodeSource().getLocation().toURI());
         } catch (URISyntaxException e) {
             throw new IllegalStateException("Unable to locate RePlayNeo resources", e);
         }
