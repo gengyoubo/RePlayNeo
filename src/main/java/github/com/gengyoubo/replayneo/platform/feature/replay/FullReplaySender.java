@@ -76,7 +76,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
 
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.RelativeMovement;
@@ -93,7 +93,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.locks.LockSupport;
 
 import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 import static com.replaymod.replaystudio.util.Utils.readInt;
 import static github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay.LOGGER;
 

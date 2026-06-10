@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.platform.feature.recording;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.ConnectionEventHandler;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.GuiHandler;
 import github.com.gengyoubo.replayneo.mixin.NetworkManagerAccessor;

@@ -36,7 +36,7 @@ import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.api.function.*;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.core.utils.MouseUtils;
+import github.com.gengyoubo.replayneo.platform.gui.MouseUtils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;

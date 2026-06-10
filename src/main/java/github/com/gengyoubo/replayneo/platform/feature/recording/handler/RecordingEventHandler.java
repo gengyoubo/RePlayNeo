@@ -38,7 +38,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 
 public class RecordingEventHandler extends EventRegistrations {
 

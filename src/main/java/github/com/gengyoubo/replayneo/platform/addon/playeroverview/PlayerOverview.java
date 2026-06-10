@@ -1,15 +1,18 @@
 package github.com.gengyoubo.replayneo.platform.addon.playeroverview;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.api.events.PreRenderHandCallback;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.api.Extra;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayClosedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import com.replaymod.replaystudio.lib.guava.base.Optional;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import java.util.stream.Collectors;
@@ -31,14 +34,14 @@ public class PlayerOverview extends EventRegistrations implements Extra {
         mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.playeroverview", Keyboard.KEY_B, () -> {
             if (module.getReplayHandler() != null) {
                 List<Player> players = null;
-                if (mod.getMinecraft().level != null) {
-                    players = mod.getMinecraft().level.players()
+                if (MCVer.getMinecraft().level != null) {
+                    players = MCVer.getMinecraft().level.players()
                             .stream()
                             .map(it -> (Player) it)
                             .filter(it -> !(it instanceof CameraEntity))
                             .collect(Collectors.toList());
                 }
-                if (!Utils.isCtrlDown()) {
+                if (!GuiUtils.isCtrlDown()) {
                     // Hide all players that have an UUID v2 (commonly used for NPCs)
                     Iterator<Player> iter = players.iterator();
                     while (iter.hasNext()) {
@@ -85,7 +88,7 @@ public class PlayerOverview extends EventRegistrations implements Extra {
 
     { on(PreRenderHandCallback.EVENT, this::shouldHideHand); }
     private boolean shouldHideHand() {
-        Entity view = module.getCore().getMinecraft().getCameraEntity();
+        Entity view = MCVer.getMinecraft().getCameraEntity();
         return view != null && isHidden(view.getUUID());
     }
 

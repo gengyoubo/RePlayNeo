@@ -5,13 +5,14 @@ import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.api.events.PostRenderCallback;
 import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
-import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiReplayOverlay;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiImage;
 import github.com.gengyoubo.replayneo.platform.gui.element.IGuiImage;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import net.minecraft.client.Minecraft;
@@ -32,12 +33,12 @@ public class FullBrightness extends EventRegistrations implements Extra {
     public void register(final ReplayMod mod) throws Exception {
         this.core = mod;
         this.module = ReplayModReplay.instance;
-        this.mc = mod.getMinecraft();
+        this.mc = MCVer.getMinecraft();
 
         mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.lighting", Keyboard.KEY_Z, () -> {
             active = !active;
             // need to tick once to update lightmap when replay is paused
-            mod.getMinecraft().gameRenderer.tick();
+            MCVer.getMinecraft().gameRenderer.tick();
             ReplayHandler replayHandler = module.getReplayHandler();
             if (replayHandler != null) {
                 updateIndicator(replayHandler.getOverlay());

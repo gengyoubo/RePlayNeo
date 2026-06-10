@@ -6,7 +6,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.world.entity.Entity;
 import java.util.Arrays;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 
 public class SpectatorCameraController implements CameraController {
     private final CameraEntity camera;

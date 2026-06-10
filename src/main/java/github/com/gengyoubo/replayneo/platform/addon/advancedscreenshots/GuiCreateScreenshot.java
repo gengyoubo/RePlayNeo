@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderSettings;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import net.minecraft.CrashReport;
 
-import static github.com.gengyoubo.replayneo.core.utils.Utils.error;
+import static github.com.gengyoubo.replayneo.platform.gui.GuiUtils.error;
 import static github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender.LOGGER;
 
 public class GuiCreateScreenshot extends GuiRenderSettings implements Loadable {

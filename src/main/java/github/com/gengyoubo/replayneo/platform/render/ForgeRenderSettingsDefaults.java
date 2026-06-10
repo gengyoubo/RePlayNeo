@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.render;
 
 import github.com.gengyoubo.replayneo.core.render.RenderSettings;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.Util;
 import net.minecraft.client.resources.language.I18n;
 import org.apache.maven.artifact.versioning.ComparableVersion;

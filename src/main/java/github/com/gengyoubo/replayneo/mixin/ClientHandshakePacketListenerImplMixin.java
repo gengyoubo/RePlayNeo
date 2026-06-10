@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.RecordingEventHandler.RecordingEventSender;
 import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;

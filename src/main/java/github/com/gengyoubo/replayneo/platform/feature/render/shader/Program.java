@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.shader;
 
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;

@@ -1,12 +1,14 @@
 package github.com.gengyoubo.replayneo.platform.feature.recording.packet;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import com.github.steveice10.netty.buffer.PooledByteBufAllocator;
 import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
 import com.google.gson.Gson;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.editor.gui.MarkerProcessor;
 import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
 import github.com.gengyoubo.replayneo.platform.feature.recording.Setting;
@@ -63,7 +65,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 import static com.replaymod.replaystudio.util.Utils.writeInt;
 
 import java.util.ArrayList;
@@ -311,7 +313,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                 } catch (IOException e) {
                     logger.error("Failed to close packet output stream:", e);
                 }
-                core.runLater(() -> Utils.error(logger, VanillaGuiScreen.wrap(mc.screen),
+                core.runLater(() -> GuiUtils.error(logger, VanillaGuiScreen.wrap(mc.screen),
                         CrashReport.forThrowable(saveFailure.get(), "Saving replay file"), guiSavingReplay::close));
                 return;
             }
@@ -359,7 +361,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                 } catch (Exception e) {
                     logger.error("Saving replay file:", e);
                     CrashReport crashReport = CrashReport.forThrowable(e, "Saving replay file");
-                    core.runLater(() -> Utils.error(logger, VanillaGuiScreen.wrap(mc.screen), crashReport, guiSavingReplay::close));
+                    core.runLater(() -> GuiUtils.error(logger, VanillaGuiScreen.wrap(mc.screen), crashReport, guiSavingReplay::close));
                     return;
                 }
             }

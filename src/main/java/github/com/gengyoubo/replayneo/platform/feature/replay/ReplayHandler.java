@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -12,7 +14,7 @@ import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.SpectatorCameraController;
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayClosedCallback;
@@ -62,7 +64,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 import static github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay.LOGGER;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
@@ -236,7 +238,7 @@ public class ReplayHandler implements TimelinePlaybackTarget {
     }
 
     public void ensureQuickModeInitialized(Runnable andThen) {
-        if (Utils.ifMinimalModeDoPopup(overlay, () -> {})) return;
+        if (GuiUtils.ifMinimalModeDoPopup(overlay, () -> {})) return;
         ListenableFuture<Void> future = quickReplaySender.getInitializationPromise();
         if (future == null) {
             InitializingQuickModePopup popup = new InitializingQuickModePopup(overlay);
@@ -250,7 +252,7 @@ public class ReplayHandler implements TimelinePlaybackTarget {
                 @Override
                 public void onFailure(@Nonnull Throwable t) {
                     String message = "Failed to initialize quick mode. It will not be available.";
-                    Utils.error(LOGGER, overlay, CrashReport.forThrowable(t, message), popup::close);
+                    GuiUtils.error(LOGGER, overlay, CrashReport.forThrowable(t, message), popup::close);
                 }
             }, Runnable::run);
         }

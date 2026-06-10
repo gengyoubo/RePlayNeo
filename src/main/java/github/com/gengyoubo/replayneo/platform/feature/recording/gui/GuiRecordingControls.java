@@ -1,8 +1,10 @@
 package github.com.gengyoubo.replayneo.platform.feature.recording.gui;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.editor.gui.MarkerProcessor;
 import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.RecordingEventHandler;
@@ -36,7 +38,7 @@ public class GuiRecordingControls extends EventRegistrations {
     private final GuiPanel panel = new GuiPanel().setLayout(new HorizontalLayout().setSpacing(4));
 
     private final GuiButton buttonPauseResume = new GuiButton(panel).onClick(() -> {
-        if (Utils.ifMinimalModeDoPopup(panel, () -> {})) return;
+        if (GuiUtils.ifMinimalModeDoPopup(panel, () -> {})) return;
         if (paused) {
             packetListener.addMarker(MarkerProcessor.MARKER_NAME_END_CUT);
             spawnRecordingPlayer();
@@ -49,7 +51,7 @@ public class GuiRecordingControls extends EventRegistrations {
     }).setSize(98, 20);
 
     private final GuiButton buttonStartStop = new GuiButton(panel).onClick(() -> {
-        if (Utils.ifMinimalModeDoPopup(panel, () -> {})) return;
+        if (GuiUtils.ifMinimalModeDoPopup(panel, () -> {})) return;
         if (stopped) {
             paused = false;
             packetListener.addMarker(MarkerProcessor.MARKER_NAME_END_CUT);
@@ -105,7 +107,7 @@ public class GuiRecordingControls extends EventRegistrations {
     }
 
     private void playToggleSound() {
-        core.getMinecraft().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FLINTANDSTEEL_USE, 1.0F));
+        MCVer.getMinecraft().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FLINTANDSTEEL_USE, 1.0F));
     }
 
     { on(InitScreenCallback.EVENT, this::injectIntoIngameMenu); }
@@ -147,7 +149,7 @@ public class GuiRecordingControls extends EventRegistrations {
             return false;
         }
 
-        Minecraft minecraft = core.getMinecraft();
+        Minecraft minecraft = MCVer.getMinecraft();
         if (minecraft.screen != guiScreen || minecraft.level == null || minecraft.player == null || minecraft.getConnection() == null) {
             return false;
         }

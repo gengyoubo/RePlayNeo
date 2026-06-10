@@ -1,5 +1,8 @@
 package github.com.gengyoubo.replayneo.platform.feature.recording.gui;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+import github.com.gengyoubo.replayneo.platform.gui.ReplayModGui;
+
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.feature.recording.Setting;
@@ -32,7 +35,7 @@ import java.util.List;
 import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;
 import static github.com.gengyoubo.replayneo.core.guiutils.Utils.link;
 
 public class GuiSavingReplay {
@@ -59,11 +62,11 @@ public class GuiSavingReplay {
     }
 
     public void open() {
-        core.getBackgroundProcesses().addProcess(panel);
+        ReplayModGui.instance.getBackgroundProcesses().addProcess(panel);
     }
 
     public void close() {
-        core.getBackgroundProcesses().removeProcess(panel);
+        ReplayModGui.instance.getBackgroundProcesses().removeProcess(panel);
         AbstractGuiScreen<?> currentScreen = GuiScreen.from(mc.screen);
     }
 
@@ -144,7 +147,7 @@ public class GuiSavingReplay {
             } catch (IOException e) {
                 logger.error("Deleting replay file:", e);
                 CrashReport crashReport = CrashReport.forThrowable(e, "Deleting replay file");
-                core.runLater(() -> Utils.error(logger, VanillaGuiScreen.wrap(mc.screen), crashReport, () -> {}));
+                core.runLater(() -> GuiUtils.error(logger, VanillaGuiScreen.wrap(mc.screen), crashReport, () -> {}));
             }
             return;
         }
@@ -159,7 +162,7 @@ public class GuiSavingReplay {
         } catch (IOException e) {
             logger.error("Renaming replay file:", e);
             CrashReport crashReport = CrashReport.forThrowable(e, "Renaming replay file");
-            core.runLater(() -> Utils.error(logger, VanillaGuiScreen.wrap(mc.screen), crashReport, () -> {}));
+            core.runLater(() -> GuiUtils.error(logger, VanillaGuiScreen.wrap(mc.screen), crashReport, () -> {}));
         }
     }
 }

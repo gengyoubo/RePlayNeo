@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.restored.com.replaymod.compat.op
 
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import net.minecraft.client.Minecraft;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayRenderCallback;
 
 public class DisableFastRender extends EventRegistrations {

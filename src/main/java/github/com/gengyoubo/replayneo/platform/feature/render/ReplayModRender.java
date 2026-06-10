@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.render;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import github.com.gengyoubo.replayneo.api.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
@@ -9,6 +11,7 @@ import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayClose
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayOpenedCallback;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import github.com.gengyoubo.replayneo.platform.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Logger;
@@ -49,7 +52,8 @@ public class ReplayModRender extends EventRegistrations implements Module {
 
     public File getVideoFolder() {
         String path = core.getSettingsRegistry().get(Setting.RENDER_PATH);
-        File folder = new File(path.startsWith("./") ? core.getMinecraft().gameDirectory : null, path);
+        File baseFolder = path.startsWith("./") ? MCVer.getMinecraft().gameDirectory : null;
+        File folder = new File(baseFolder, path);
         try {
             FileUtils.forceMkdir(folder);
         } catch (IOException e) {
@@ -59,7 +63,7 @@ public class ReplayModRender extends EventRegistrations implements Module {
     }
 
     public Path getRenderSettingsPath() {
-        return core.getMinecraft().gameDirectory.toPath().resolve("config/replaymod-rendersettings.json");
+        return MCVer.getMinecraft().gameDirectory.toPath().resolve("config/replaymod-rendersettings.json");
     }
 
     public List<RenderJob> getRenderQueue() {
@@ -87,9 +91,9 @@ public class ReplayModRender extends EventRegistrations implements Module {
             RenderJob.writeQueue(replayFile, renderQueue);
         } catch (IOException e) {
             e.printStackTrace();
-            VanillaGuiScreen screen = VanillaGuiScreen.wrap(getCore().getMinecraft().screen);
+            VanillaGuiScreen screen = VanillaGuiScreen.wrap(MCVer.getMinecraft().screen);
             CrashReport report = CrashReport.forThrowable(e, "Reading timeline");
-            Utils.error(LOGGER, screen, report, () -> {});
+            GuiUtils.error(LOGGER, screen, report, () -> {});
         }
     }
 }

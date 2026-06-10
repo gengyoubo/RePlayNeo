@@ -19,7 +19,7 @@ import net.minecraft.client.Timer;
 import java.util.Iterator;
 
 import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 
 /**
  * Plays a timeline.

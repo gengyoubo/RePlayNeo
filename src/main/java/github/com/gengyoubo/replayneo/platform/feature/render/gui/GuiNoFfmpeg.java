@@ -9,7 +9,7 @@ import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 
 import java.net.URI;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.openURL;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.openURL;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.setClipboardString;
 
 public class GuiNoFfmpeg extends GuiScreen {

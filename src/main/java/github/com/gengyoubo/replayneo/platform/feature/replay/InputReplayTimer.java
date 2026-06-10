@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraController;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
 import github.com.gengyoubo.replayneo.platform.versions.ScreenExt;
@@ -13,7 +13,7 @@ import org.lwjgl.glfw.GLFW;
 public class InputReplayTimer {
     public static void updateInReplay() {
         ReplayModReplay mod = ReplayModReplay.instance;
-        Minecraft mc = mod.getCore().getMinecraft();
+        Minecraft mc = MCVer.getMinecraft();
 
         ReplayMod.instance.runTasks();
 

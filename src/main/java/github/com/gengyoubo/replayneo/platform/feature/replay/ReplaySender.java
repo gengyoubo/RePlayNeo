@@ -4,7 +4,7 @@ import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
 import net.minecraft.client.Minecraft;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;
 
 public interface ReplaySender {
     int currentTimeStamp();

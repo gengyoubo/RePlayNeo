@@ -1,11 +1,8 @@
 package github.com.gengyoubo.replayneo.core.files;
 
-import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.platform.gui.RestoreReplayGui;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import com.replaymod.replaystudio.replay.ZipReplayFile;
 import com.replaymod.replaystudio.studio.ReplayStudio;
-import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +18,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 
 public class ReplayFilesService {
     private final ReplayFoldersService folders;
@@ -70,7 +68,7 @@ public class ReplayFilesService {
         return new ManagedReplayFile(replayFile, onClose);
     }
 
-    public void initialScan(ReplayMod core) {
+    public void initialScan(Consumer<Path> recoverReplay) {
         // Move anything which is still in the recording folder into the regular replay folder
         // so it can be opened and/or recovered
         try (DirectoryStream<Path> paths = Files.newDirectoryStream(folders.getRecordingFolder())) {
@@ -99,7 +97,7 @@ public class ReplayFilesService {
                         Files.delete(noRecoverMarker);
                         continue;
                     }
-                    new RestoreReplayGui(core, GuiScreen.wrap(core.getMinecraft().screen), original.toFile()).display();
+                    recoverReplay.accept(original);
                 }
             }
         } catch (IOException e) {

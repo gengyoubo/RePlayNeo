@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay.camera;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
@@ -48,7 +50,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 
 /**
  * The camera entity used as the main player entity during replay viewing.
@@ -466,10 +468,10 @@ public class CameraEntity
 
         Map<String, ReplayKeyBindingRegistry.Binding> keyBindings = ReplayMod.instance.getKeyBindingRegistry().getBindings();
         if (keyBindings.get("replaymod.input.rollclockwise").isDown()) {
-            roll += Utils.isCtrlDown() ? (float) 0.2 : 1;
+            roll += GuiUtils.isCtrlDown() ? (float) 0.2 : 1;
         }
         if (keyBindings.get("replaymod.input.rollcounterclockwise").isDown()) {
-            roll -= Utils.isCtrlDown() ? (float) 0.2 : 1;
+            roll -= GuiUtils.isCtrlDown() ? (float) 0.2 : 1;
         }
 
         this.noPhysics = this.isSpectator();

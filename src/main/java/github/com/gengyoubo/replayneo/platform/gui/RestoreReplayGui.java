@@ -4,7 +4,7 @@ import com.google.common.io.Files;
 import com.google.gson.Gson;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import com.replaymod.replaystudio.io.ReplayInputStream;
 import com.replaymod.replaystudio.io.ReplayOutputStream;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.packet.State;
@@ -99,15 +99,15 @@ public class RestoreReplayGui extends AbstractGuiScreen<RestoreReplayGui> {
                 .setLayout(new VerticalLayout())
                 .addElements(new VerticalLayout.Data(0.5), label, progressBar);
         new Thread(() -> {
-            core.runLater(() -> core.getBackgroundProcesses().addProcess(savingProcess));
+            core.runLater(() -> ReplayModGui.instance.getBackgroundProcesses().addProcess(savingProcess));
             try {
                 tryRecover(progressBar::setProgress);
             } catch (IOException e) {
                 LOGGER.error("Recovering replay file:", e);
                 var crashReport = ReplayPlatforms.get().client().crashReport(e, "Recovering replay file");
-                core.runLater(() -> Utils.error(LOGGER, VanillaGuiScreen.wrap(getMinecraft().screen), crashReport, () -> {}));
+                core.runLater(() -> GuiUtils.error(LOGGER, VanillaGuiScreen.wrap(getMinecraft().screen), crashReport, () -> {}));
             } finally {
-                core.runLater(() -> core.getBackgroundProcesses().removeProcess(savingProcess));
+                core.runLater(() -> ReplayModGui.instance.getBackgroundProcesses().removeProcess(savingProcess));
             }
         }).start();
     }

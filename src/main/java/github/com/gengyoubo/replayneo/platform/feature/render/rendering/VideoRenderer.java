@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
 import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
 import github.com.gengyoubo.replayneo.mixin.TimerAccessor;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.AbstractTimelinePlayer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.ReplayTimer;
 import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
@@ -60,7 +60,7 @@ import java.util.stream.Stream;
 
 import static com.google.common.collect.Iterables.getLast;
 import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 import static github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender.LOGGER;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;

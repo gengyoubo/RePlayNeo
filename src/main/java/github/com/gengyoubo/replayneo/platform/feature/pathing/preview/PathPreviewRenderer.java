@@ -2,7 +2,8 @@ package github.com.gengyoubo.replayneo.platform.feature.pathing.preview;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.api.events.PostRenderWorldCallback;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.api.render.WorldRenderContext;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.pathing.properties.CameraProperties;
 import github.com.gengyoubo.replayneo.core.pathing.properties.SpectatorProperty;
 import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
@@ -23,7 +24,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.bindTexture;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.bindTexture;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -40,9 +41,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.emitLine;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.popMatrix;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.pushMatrix;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.emitLine;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.popMatrix;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.pushMatrix;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 
 public class PathPreviewRenderer extends EventRegistrations {
@@ -62,7 +63,8 @@ public class PathPreviewRenderer extends EventRegistrations {
     }
 
     { on(PostRenderWorldCallback.EVENT, this::renderCameraPath); }
-    private void renderCameraPath(PoseStack matrixStack) {
+    private void renderCameraPath(WorldRenderContext context) {
+        PoseStack matrixStack = context.nativePoseStack(PoseStack.class);
         if (!replayHandler.getReplaySender().isAsyncMode() || mc.options.hideGui) return;
 
         Entity view = mc.getCameraEntity();

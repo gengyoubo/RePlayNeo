@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.mixin;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.Window;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.progress.VirtualWindow;
 import github.com.gengyoubo.replayneo.platform.feature.render.hooks.MinecraftClientExt;
 import github.com.gengyoubo.replayneo.platform.feature.replay.InputReplayTimer;

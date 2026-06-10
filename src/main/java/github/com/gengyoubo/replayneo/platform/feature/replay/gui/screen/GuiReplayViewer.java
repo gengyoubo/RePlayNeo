@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay.gui.screen;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import github.com.gengyoubo.replayneo.core.function.MouseClick;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
@@ -19,8 +21,8 @@ import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.platform.gui.GuiReplaySettings;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.feature.replay.Setting;
 import com.replaymod.replaystudio.replay.ReplayFile;
@@ -251,7 +253,7 @@ public class GuiReplayViewer extends GuiScreen {
         }
     }
 
-    private static final GuiImage DEFAULT_THUMBNAIL = new GuiImage().setTexture(Utils.DEFAULT_THUMBNAIL);
+    private static final GuiImage DEFAULT_THUMBNAIL = new GuiImage().setTexture(GuiUtils.DEFAULT_THUMBNAIL);
 
     public static class GuiSelectReplayPopup extends AbstractGuiPopup<GuiSelectReplayPopup> {
         public static GuiSelectReplayPopup openGui(GuiContainer container, File folder) {

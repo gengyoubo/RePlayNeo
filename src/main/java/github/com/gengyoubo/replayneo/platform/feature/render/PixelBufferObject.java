@@ -1,4 +1,4 @@
-package github.com.gengyoubo.replayneo.core.utils;
+package github.com.gengyoubo.replayneo.platform.feature.render;
 
 import com.google.common.base.Objects;
 import github.com.gengyoubo.replayneo.core.ReplayMod;

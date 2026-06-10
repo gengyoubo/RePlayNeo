@@ -1,10 +1,10 @@
 package github.com.gengyoubo.replayneo.core.utils;
 
 import com.google.common.collect.Maps;
-import org.lwjgl.BufferUtils;
 
 import java.lang.ref.SoftReference;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class ByteBufferPool {
                 }
             }
         }
-        return BufferUtils.createByteBuffer(size);
+        return ByteBuffer.allocateDirect(size).order(ByteOrder.nativeOrder());
     }
 
     public static synchronized void release(ByteBuffer buffer) {

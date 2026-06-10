@@ -1,10 +1,12 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.gui;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import com.google.common.collect.Iterables;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Result;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
 import github.com.gengyoubo.replayneo.platform.feature.render.FFmpegWriter;
@@ -191,7 +193,7 @@ public class GuiRenderQueue extends AbstractGuiPopup<GuiRenderQueue> implements 
                 });
                 return;
             } catch (Throwable t) {
-                Utils.error(LOGGER, container, CrashReport.forThrowable(t, "Rendering video"), () -> {});
+                GuiUtils.error(LOGGER, container, CrashReport.forThrowable(t, "Rendering video"), () -> {});
                 container.display(); // Re-show the queue popup and the new error popup
                 return;
             }
@@ -219,7 +221,7 @@ public class GuiRenderQueue extends AbstractGuiPopup<GuiRenderQueue> implements 
             replayFile = mod.getCore().files.open(next.getKey().toPath());
             replayHandler = mod.startReplay(replayFile, false, false);
         } catch (IOException e) {
-            Utils.error(LOGGER, container, CrashReport.forThrowable(e, "Opening replay"), () -> {});
+            GuiUtils.error(LOGGER, container, CrashReport.forThrowable(e, "Opening replay"), () -> {});
             container.display(); // Re-show the queue popup and the new error popup
             IOUtils.closeQuietly(replayFile);
             return;
@@ -232,7 +234,7 @@ public class GuiRenderQueue extends AbstractGuiPopup<GuiRenderQueue> implements 
         }
         ReplaySender replaySender = replayHandler.getReplaySender();
 
-        Minecraft mc = mod.getCore().getMinecraft();
+        Minecraft mc = MCVer.getMinecraft();
         int jumpTo = 1000;
         while (mc.level == null && jumpTo < replayHandler.getReplayDuration()) {
             replaySender.sendPacketsTill(jumpTo);
@@ -249,7 +251,7 @@ public class GuiRenderQueue extends AbstractGuiPopup<GuiRenderQueue> implements 
             try {
                 replayHandler.endReplay();
             } catch (IOException e) {
-                Utils.error(LOGGER, container, CrashReport.forThrowable(e, "Closing replay"), () -> {});
+                GuiUtils.error(LOGGER, container, CrashReport.forThrowable(e, "Closing replay"), () -> {});
                 container.display(); // Re-show the queue popup and the new error popup
                 return;
             }

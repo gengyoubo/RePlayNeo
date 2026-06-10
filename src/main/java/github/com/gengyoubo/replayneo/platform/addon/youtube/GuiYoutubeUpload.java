@@ -1,12 +1,14 @@
 package github.com.gengyoubo.replayneo.platform.addon.youtube;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
@@ -135,7 +137,7 @@ public class GuiYoutubeUpload extends GuiScreen {
         }
     }).setSize(200, 20).setI18nLabel("replaymod.gui.videothumbnail");
 
-    public final GuiImage thumbnail = new GuiImage().setSize(200, 112).setTexture(Utils.DEFAULT_THUMBNAIL);
+    public final GuiImage thumbnail = new GuiImage().setSize(200, 112).setTexture(GuiUtils.DEFAULT_THUMBNAIL);
 
     public final GuiButton uploadButton = new GuiButton(this).setSize(98, 20);
 

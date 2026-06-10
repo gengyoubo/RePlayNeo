@@ -9,7 +9,7 @@ import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.api.function.Scrollable;
 import github.com.gengyoubo.replayneo.api.function.Tickable;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.core.utils.MouseUtils;
+import github.com.gengyoubo.replayneo.platform.gui.MouseUtils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;

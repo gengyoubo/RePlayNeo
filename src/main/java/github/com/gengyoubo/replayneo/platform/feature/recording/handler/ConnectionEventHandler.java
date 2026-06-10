@@ -28,7 +28,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.Connection;
 import net.minecraft.world.level.Level;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;
 
 /**
  * Handles connection events and initiates recording if enabled.

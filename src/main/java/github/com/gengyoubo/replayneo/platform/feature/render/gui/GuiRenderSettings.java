@@ -1,5 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.gui;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -43,7 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-import static github.com.gengyoubo.replayneo.core.utils.Utils.error;
+import static github.com.gengyoubo.replayneo.platform.gui.GuiUtils.error;
 import static github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender.LOGGER;
 
 import net.minecraft.client.resources.language.I18n;

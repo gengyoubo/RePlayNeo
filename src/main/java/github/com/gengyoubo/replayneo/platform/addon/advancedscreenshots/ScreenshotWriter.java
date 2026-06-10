@@ -1,8 +1,10 @@
 package github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.addon.ReplayModExtras;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
@@ -55,7 +57,7 @@ public class ScreenshotWriter implements FrameConsumer<BitmapFrame> {
         } catch (Throwable t) {
             CrashReport report = CrashReport.forThrowable(t, "Exporting frame");
 
-            ReplayMod.instance.runLater(() -> Utils.error(ReplayModExtras.LOGGER,
+            ReplayMod.instance.runLater(() -> GuiUtils.error(ReplayModExtras.LOGGER,
                     ReplayModReplay.instance.getReplayHandler().getOverlay(),
                     report, null));
         }

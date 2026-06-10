@@ -1,16 +1,16 @@
 package github.com.gengyoubo.replayneo.api.events;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import github.com.gengyoubo.replayneo.api.render.WorldRenderContext;
 import github.com.gengyoubo.replayneo.core.utils.Event;
 
 public interface PostRenderWorldCallback {
     Event<PostRenderWorldCallback> EVENT = Event.create((listeners) ->
-            (PoseStack matrixStack) -> {
+            (WorldRenderContext context) -> {
                 for (PostRenderWorldCallback listener : listeners) {
-                    listener.postRenderWorld(matrixStack);
+                    listener.postRenderWorld(context);
                 }
             }
     );
 
-    void postRenderWorld(PoseStack matrixStack);
+    void postRenderWorld(WorldRenderContext context);
 }

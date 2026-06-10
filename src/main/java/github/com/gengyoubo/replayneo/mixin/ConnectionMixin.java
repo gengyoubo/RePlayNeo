@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.mixin;
 
 import github.com.gengyoubo.replayneo.RePlayNeo;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.RecordingEventHandler;
 import github.com.gengyoubo.replayneo.platform.feature.recording.packet.PacketListener;
 import io.netty.channel.Channel;

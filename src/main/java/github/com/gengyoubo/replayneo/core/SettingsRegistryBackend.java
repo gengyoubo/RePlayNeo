@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import github.com.gengyoubo.replayneo.api.events.SettingsChangedCallback;
-import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -19,6 +18,7 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static github.com.gengyoubo.replayneo.core.utils.Utils.ensureDirectoryExists;
 
@@ -26,10 +26,12 @@ class SettingsRegistryBackend {
     private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
     private final Map<SettingsRegistry.SettingKey<?>, Object> settings;
     private final Path configFile;
+    private final Consumer<Runnable> clientExecutor;
 
-    SettingsRegistryBackend(Path configFile, Map<SettingsRegistry.SettingKey<?>, Object> settings) {
+    SettingsRegistryBackend(Path configFile, Map<SettingsRegistry.SettingKey<?>, Object> settings, Consumer<Runnable> clientExecutor) {
         this.configFile = configFile;
         this.settings = settings;
+        this.clientExecutor = clientExecutor;
     }
 
     public void register() {
@@ -122,7 +124,7 @@ class SettingsRegistryBackend {
                     }
                     Path fileName = ((Path) event.context());
                     if (fileName.equals(configFile.getFileName())) {
-                        ReplayPlatforms.get().client().execute(this::reload);
+                        clientExecutor.accept(this::reload);
                     }
                 }
                 if (!nextKey.reset()) {

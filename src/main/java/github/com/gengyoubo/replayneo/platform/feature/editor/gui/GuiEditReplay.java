@@ -1,4 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.editor.gui;
+
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
@@ -157,7 +159,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
                 replayFile.writeMarkers(markers);
                 replayFile.save();
             } catch (IOException e) {
-                Utils.error(ReplayModEditor.LOGGER, this, CrashReport.forThrowable(e, "Writing markers"), this::close);
+                GuiUtils.error(ReplayModEditor.LOGGER, this, CrashReport.forThrowable(e, "Writing markers"), this::close);
             }
 
             try {
@@ -170,7 +172,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
             } catch (Throwable e) {
                 e.printStackTrace(); // in case runLater fails
                 CrashReport crashReport = CrashReport.forThrowable(e, "Running marker processor");
-                ReplayMod.instance.runLater(() -> Utils.error(ReplayModEditor.LOGGER, this, crashReport, () -> {
+                ReplayMod.instance.runLater(() -> GuiUtils.error(ReplayModEditor.LOGGER, this, crashReport, () -> {
                     progressPopup.close();
                     close();
                 }));

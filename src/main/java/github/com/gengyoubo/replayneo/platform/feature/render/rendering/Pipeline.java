@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.rendering;
 
 import github.com.gengyoubo.replayneo.mixin.MinecraftAccessor;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.api.frame.Frame;
 import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;
@@ -24,7 +24,7 @@ import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
 import net.minecraft.client.Minecraft;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;
 
 public class Pipeline<R extends Frame, P extends Frame> implements Runnable {
 

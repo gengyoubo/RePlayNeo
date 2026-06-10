@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots;
 
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.blend.BlendState;
 import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
@@ -11,7 +11,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.resizeMainWindow;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.resizeMainWindow;
 
 import com.mojang.blaze3d.platform.Window;
 

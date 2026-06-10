@@ -7,7 +7,7 @@ import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
 import github.com.gengyoubo.replayneo.core.render.capturer.CaptureData;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
 import github.com.gengyoubo.replayneo.api.frame.Frame;
 import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;
@@ -22,9 +22,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import net.minecraft.client.Minecraft;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.popMatrix;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.pushMatrix;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.resizeMainWindow;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.popMatrix;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.pushMatrix;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.resizeMainWindow;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 

@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.render.hooks;
 
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.api.events.PreRenderHandCallback;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.Setting;
 import github.com.gengyoubo.replayneo.core.render.capturer.CaptureData;

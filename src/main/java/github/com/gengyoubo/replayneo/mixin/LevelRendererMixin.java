@@ -4,7 +4,8 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import github.com.gengyoubo.replayneo.platform.restored.com.replaymod.compat.shaders.ShaderReflection;
 import github.com.gengyoubo.replayneo.api.events.PostRenderWorldCallback;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.render.PoseStackWorldRenderContext;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.RecordingEventHandler;
 import github.com.gengyoubo.replayneo.platform.feature.render.hooks.EntityRendererHandler;
 import github.com.gengyoubo.replayneo.platform.feature.render.hooks.ForceChunkLoadingHook;
@@ -149,7 +150,7 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
 
     @Inject(method = "renderLevel", at = @At("RETURN"))
     private void postRenderWorld(CallbackInfo ci, @Local(argsOnly = true) PoseStack matrixStack) {
-        PostRenderWorldCallback.EVENT.invoker().postRenderWorld(matrixStack);
+        PostRenderWorldCallback.EVENT.invoker().postRenderWorld(new PoseStackWorldRenderContext(matrixStack));
     }
 
     @Inject(method = "renderHitOutline", at = @At("HEAD"), cancellable = true)

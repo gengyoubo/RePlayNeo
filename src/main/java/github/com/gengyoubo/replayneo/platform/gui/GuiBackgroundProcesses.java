@@ -15,7 +15,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
 
 import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;
 
 public class GuiBackgroundProcesses extends EventRegistrations {
     private final GuiPanel panel = new GuiPanel().setLayout(new VerticalLayout().setSpacing(10));

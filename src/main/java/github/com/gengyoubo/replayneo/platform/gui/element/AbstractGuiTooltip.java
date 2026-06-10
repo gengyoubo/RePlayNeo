@@ -32,7 +32,7 @@ import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.core.gui.element.IGuiClickable;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
-import github.com.gengyoubo.replayneo.core.utils.StringUtils;
+import github.com.gengyoubo.replayneo.platform.gui.GuiTextUtils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
@@ -103,7 +103,7 @@ public abstract class AbstractGuiTooltip<T extends AbstractGuiTooltip<T>> extend
     }
 
     public T setText(String text) {
-        return setText(StringUtils.splitStringInMultipleRows(text, 250));
+        return setText(GuiTextUtils.splitStringInMultipleRows(text, 250));
     }
 
     public T setI18nText(String text, Object... args) {

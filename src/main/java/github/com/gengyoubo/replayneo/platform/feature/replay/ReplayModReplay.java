@@ -9,8 +9,8 @@ import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.Module;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.ModCompat;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraController;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraControllerRegistry;
 import github.com.gengyoubo.replayneo.platform.feature.replay.camera.CameraEntity;
@@ -127,7 +127,7 @@ public class ReplayModReplay implements Module {
     @Override
     public void initClient() {
         cameraControllerRegistry.register("replaymod.camera.classic", ClassicCameraController::new);
-        cameraControllerRegistry.register("replaymod.camera.vanilla", cameraEntity -> new VanillaCameraController(core.getMinecraft(), cameraEntity));
+        cameraControllerRegistry.register("replaymod.camera.vanilla", cameraEntity -> new VanillaCameraController(MCVer.getMinecraft(), cameraEntity));
 
         new GuiHandler(this).register();
     }

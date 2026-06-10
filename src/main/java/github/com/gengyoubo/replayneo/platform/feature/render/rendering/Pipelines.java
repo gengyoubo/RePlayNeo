@@ -26,7 +26,7 @@ import github.com.gengyoubo.replayneo.core.render.processor.StereoscopicToBitmap
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;
 import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;
-import github.com.gengyoubo.replayneo.core.utils.PixelBufferObject;
+import github.com.gengyoubo.replayneo.platform.feature.render.PixelBufferObject;
 
 import java.util.Map;
 

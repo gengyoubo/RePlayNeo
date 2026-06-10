@@ -6,13 +6,18 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class SettingsRegistry {
     private final Map<SettingKey<?>, Object> settings = Collections.synchronizedMap(new LinkedHashMap<>());
     final SettingsRegistryBackend backend;
 
     public SettingsRegistry(Path gameDirectory) {
-        this.backend = new SettingsRegistryBackend(gameDirectory.resolve("config/replaymod.json"), settings);
+        this(gameDirectory, Runnable::run);
+    }
+
+    public SettingsRegistry(Path gameDirectory, Consumer<Runnable> clientExecutor) {
+        this.backend = new SettingsRegistryBackend(gameDirectory.resolve("config/replaymod.json"), settings, clientExecutor);
     }
 
     public void register() {

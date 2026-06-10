@@ -8,8 +8,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.popMatrix;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.pushMatrix;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.popMatrix;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.pushMatrix;
 
 
 public class NoGuiScreenshot {

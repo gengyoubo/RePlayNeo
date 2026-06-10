@@ -33,7 +33,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.*;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 import static github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay.LOGGER;
 
 public class GuiHandler extends EventRegistrations {

@@ -25,8 +25,8 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.getMinecraft;
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.getPacketTypeRegistry;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getPacketTypeRegistry;
 import static github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay.LOGGER;
 
 /**

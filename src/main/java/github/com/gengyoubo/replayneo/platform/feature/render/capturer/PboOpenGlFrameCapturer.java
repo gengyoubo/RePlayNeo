@@ -10,7 +10,7 @@ import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.api.frame.Frame;
 import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
-import github.com.gengyoubo.replayneo.core.utils.PixelBufferObject;
+import github.com.gengyoubo.replayneo.platform.feature.render.PixelBufferObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

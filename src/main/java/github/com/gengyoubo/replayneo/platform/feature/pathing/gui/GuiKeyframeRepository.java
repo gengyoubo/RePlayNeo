@@ -1,11 +1,13 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.gui;
 
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
+
 import github.com.gengyoubo.replayneo.core.function.MouseClick;
 
 import com.google.common.util.concurrent.SettableFuture;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderQueue;
 import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
@@ -172,7 +174,7 @@ public class GuiKeyframeRepository extends GuiScreen implements Closeable, KeyHa
             } catch (Throwable t) {
                 t.printStackTrace();
                 CrashReport report = CrashReport.forThrowable(t, "Copying timeline(s)");
-                Utils.error(LOGGER, GuiKeyframeRepository.this, report, () -> {});
+                GuiUtils.error(LOGGER, GuiKeyframeRepository.this, report, () -> {});
             }
         }
     }).setSize(75, 20).setI18nLabel("replaymod.gui.copy").setDisabled();

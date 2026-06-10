@@ -1,4 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.gui;
+
+import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import com.google.common.base.Preconditions;
@@ -9,8 +11,8 @@ import com.google.common.util.concurrent.SettableFuture;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Result;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
-import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.RealtimeTimelinePlayer;
 import github.com.gengyoubo.replayneo.core.pathing.properties.CameraProperties;
 import github.com.gengyoubo.replayneo.core.pathing.properties.SpectatorProperty;
@@ -65,7 +67,7 @@ import java.util.Collections;
 import java.util.concurrent.CancellationException;
 import java.util.function.Consumer;
 
-import static github.com.gengyoubo.replayneo.core.utils.Utils.error;
+import static github.com.gengyoubo.replayneo.platform.gui.GuiUtils.error;
 import static github.com.gengyoubo.replayneo.platform.feature.pathing.ReplayModSimplePathing.LOGGER;
 
 
@@ -599,7 +601,7 @@ public class GuiPathing {
                     if (!errorShown) {
                         String message = "Failed to load entity tracker, spectator keyframes will be broken.";
                         GuiReplayOverlay overlay = replayHandler.getOverlay();
-                        Utils.error(LOGGER, overlay, CrashReport.forThrowable(t, message), () -> {
+                        GuiUtils.error(LOGGER, overlay, CrashReport.forThrowable(t, message), () -> {
                             popup.close();
                             thenRun.run();
                         });

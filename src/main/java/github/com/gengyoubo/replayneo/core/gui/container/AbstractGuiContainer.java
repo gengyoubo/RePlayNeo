@@ -38,7 +38,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import github.com.gengyoubo.replayneo.platform.gui.GuiCrashReports;
+import github.com.gengyoubo.replayneo.core.gui.GuiCrashReports;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;

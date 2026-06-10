@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.gui;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
-import github.com.gengyoubo.replayneo.core.versions.MCVer;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.pathing.properties.CameraProperties;
 import github.com.gengyoubo.replayneo.core.pathing.properties.SpectatorProperty;
 import github.com.gengyoubo.replayneo.core.pathing.properties.TimestampProperty;
@@ -35,7 +35,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import java.util.Comparator;
 import java.util.Optional;
 
-import static github.com.gengyoubo.replayneo.core.versions.MCVer.emitLine;
+import static github.com.gengyoubo.replayneo.platform.versions.MCVer.emitLine;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.popScissorState;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.pushScissorState;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.setScissorDisabled;
