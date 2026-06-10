@@ -7,7 +7,7 @@ import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiReplayOverlay;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;

@@ -8,6 +8,7 @@ import github.com.gengyoubo.replayneo.api.input.ReplayKeyBinding;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyHandler;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyInput;
+import github.com.gengyoubo.replayneo.core.input.DefaultReplayKeyInput;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -40,7 +41,7 @@ public class ForgeReplayInput implements ReplayInput {
 
     @Override
     public void registerRawKey(int keyCode, ReplayKeyHandler handler) {
-        keyBindingRegistry.registerRaw(keyCode, keyInput -> handler.handle(new ReplayKeyInput(keyInput.key(), keyInput.scancode(), keyInput.modifiers())));
+        keyBindingRegistry.registerRaw(keyCode, keyInput -> handler.handle(new DefaultReplayKeyInput(keyInput.key(), keyInput.scancode(), keyInput.modifiers())));
     }
 
     @Override

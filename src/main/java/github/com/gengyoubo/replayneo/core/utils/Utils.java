@@ -9,7 +9,7 @@ import github.com.gengyoubo.replayneo.api.ReplayCrashReport;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.version.ProtocolVersion;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiScrollable;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;

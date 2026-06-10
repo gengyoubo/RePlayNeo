@@ -22,11 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo;
-
-import github.com.gengyoubo.replayneo.platform.versions.MCVer;
-import net.minecraft.CrashReport;
-import net.minecraft.CrashReportCategory;
+package github.com.gengyoubo.replayneo.core.gui;
 import org.jetbrains.annotations.NotNull;
 
 public record RenderInfo(float partialTick, int mouseX, int mouseY, int layer) {
@@ -37,14 +33,6 @@ public record RenderInfo(float partialTick, int mouseX, int mouseY, int layer) {
 
     public RenderInfo layer(int layer) {
         return this.layer == layer ? this : new RenderInfo(partialTick, mouseX, mouseY, layer);
-    }
-
-    public void addTo(CrashReport crashReport) {
-        CrashReportCategory category = crashReport.addCategory("Render info details");
-        MCVer.addDetail(category, "Partial Tick", () -> "" + partialTick);
-        MCVer.addDetail(category, "Mouse X", () -> "" + mouseX);
-        MCVer.addDetail(category, "Mouse Y", () -> "" + mouseY);
-        MCVer.addDetail(category, "Layer", () -> "" + layer);
     }
 
     @Override

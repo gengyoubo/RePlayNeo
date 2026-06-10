@@ -16,7 +16,7 @@ import com.replaymod.replaystudio.pathing.path.Timeline;
 import com.replaymod.replaystudio.pathing.serialize.TimelineSerialization;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiClickableContainer;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;

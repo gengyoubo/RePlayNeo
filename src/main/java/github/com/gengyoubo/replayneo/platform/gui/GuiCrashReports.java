@@ -2,8 +2,8 @@ package github.com.gengyoubo.replayneo.platform.gui;
 
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-import github.com.gengyoubo.replayneo.RenderInfo;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
@@ -15,7 +15,7 @@ public final class GuiCrashReports {
 
     public static RuntimeException layout(Throwable throwable, RenderInfo renderInfo, Object container, Object layout) {
         CrashReport crashReport = CrashReport.forThrowable(throwable, "Gui Layout");
-        renderInfo.addTo(crashReport);
+        addRenderInfo(crashReport, renderInfo);
         CrashReportCategory category = crashReport.addCategory("Gui container details");
         MCVer.addDetail(category, "Container", container::toString);
         MCVer.addDetail(category, "Layout", layout::toString);
@@ -33,7 +33,7 @@ public final class GuiCrashReports {
             ReadableDimension elementSize
     ) {
         CrashReport crashReport = CrashReport.forThrowable(throwable, "Rendering Gui");
-        renderInfo.addTo(crashReport);
+        addRenderInfo(crashReport, renderInfo);
         CrashReportCategory category = crashReport.addCategory("Gui container details");
         MCVer.addDetail(category, "Container", container::toString);
         MCVer.addDetail(category, "Width", () -> "" + size.getWidth());
@@ -59,7 +59,7 @@ public final class GuiCrashReports {
             ReadableDimension tooltipSize
     ) {
         CrashReport crashReport = CrashReport.forThrowable(throwable, "Rendering Gui Tooltip");
-        renderInfo.addTo(crashReport);
+        addRenderInfo(crashReport, renderInfo);
         CrashReportCategory category = crashReport.addCategory("Gui container details");
         MCVer.addDetail(category, "Container", container::toString);
         MCVer.addDetail(category, "Width", () -> "" + size.getWidth());
@@ -69,5 +69,13 @@ public final class GuiCrashReports {
         MCVer.addDetail(category, "Position", position::toString);
         MCVer.addDetail(category, "Size", tooltipSize::toString);
         return new ReportedException(crashReport);
+    }
+
+    private static void addRenderInfo(CrashReport crashReport, RenderInfo renderInfo) {
+        CrashReportCategory category = crashReport.addCategory("Render info details");
+        MCVer.addDetail(category, "Partial Tick", () -> "" + renderInfo.partialTick());
+        MCVer.addDetail(category, "Mouse X", () -> "" + renderInfo.mouseX());
+        MCVer.addDetail(category, "Mouse Y", () -> "" + renderInfo.mouseY());
+        MCVer.addDetail(category, "Layer", () -> "" + renderInfo.layer());
     }
 }

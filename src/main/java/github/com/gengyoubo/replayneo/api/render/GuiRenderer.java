@@ -40,6 +40,12 @@ public interface GuiRenderer {
 
     void setDrawingArea(int x, int y, int width, int height);
 
+    default void pushScissorState() {
+    }
+
+    default void popScissorState() {
+    }
+
     void bindTexture(Object location);
 
     void bindTexture(int glId);

@@ -25,8 +25,8 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced;
 
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.OffsetGuiRenderer;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.AbstractComposedGuiElement;

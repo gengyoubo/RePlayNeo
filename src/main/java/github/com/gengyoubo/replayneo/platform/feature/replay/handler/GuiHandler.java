@@ -20,7 +20,7 @@ import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.Component;
-import github.com.gengyoubo.replayneo.MinecraftGuiRenderer;
+import github.com.gengyoubo.replayneo.platform.gui.MinecraftGuiRenderer;
 import net.minecraftforge.fml.ModList;
 import org.jetbrains.annotations.NotNull;
 

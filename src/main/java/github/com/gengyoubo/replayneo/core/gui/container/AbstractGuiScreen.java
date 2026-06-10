@@ -25,11 +25,13 @@
 package github.com.gengyoubo.replayneo.core.gui.container;
 
 import github.com.gengyoubo.replayneo.core.function.MouseClick;
+import github.com.gengyoubo.replayneo.core.function.CharacterInput;
+import github.com.gengyoubo.replayneo.core.function.KeyboardInput;
 
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.MinecraftGuiRenderer;
-import github.com.gengyoubo.replayneo.OffsetGuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.platform.gui.MinecraftGuiRenderer;
+import github.com.gengyoubo.replayneo.core.gui.OffsetGuiRenderer;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;
 import github.com.gengyoubo.replayneo.api.function.*;
@@ -201,7 +203,7 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
 
         @Override
         public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-            KeyInput keyInput = new KeyInput(keyCode, scanCode, modifiers);
+            KeyInput keyInput = new KeyboardInput(keyCode, scanCode, modifiers);
             if (!invokeHandlers(KeyHandler.class, e -> e.handleKey(keyInput))) {
                 if (suppressVanillaKeys) {
                     return false;
@@ -213,7 +215,7 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
 
         @Override
         public boolean charTyped(char keyChar, int modifiers) {
-            CharInput charInput = new CharInput(keyChar, modifiers);
+            CharInput charInput = new CharacterInput(keyChar, modifiers);
             if (!invokeHandlers(CharHandler.class, e -> e.handleChar(charInput))) {
                 if (suppressVanillaKeys) {
                     return false;

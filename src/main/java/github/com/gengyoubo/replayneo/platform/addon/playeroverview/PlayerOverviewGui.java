@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.platform.addon.playeroverview;
 
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiClickable;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;

@@ -8,7 +8,7 @@ import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderQueue
 import github.com.gengyoubo.replayneo.platform.feature.render.rendering.VideoRenderer;
 import github.com.gengyoubo.replayneo.core.utils.RenderJob;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.api.function.CharHandler;
 import github.com.gengyoubo.replayneo.api.function.CharInput;
 import github.com.gengyoubo.replayneo.api.function.Click;

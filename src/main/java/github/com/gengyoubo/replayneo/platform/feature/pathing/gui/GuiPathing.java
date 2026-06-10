@@ -29,7 +29,7 @@ import github.com.gengyoubo.replayneo.core.pathing.SPTimeline;
 import github.com.gengyoubo.replayneo.core.pathing.SPTimeline.SPPath;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.Setting;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;

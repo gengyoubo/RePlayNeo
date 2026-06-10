@@ -24,15 +24,17 @@
  */
 package github.com.gengyoubo.replayneo.api.function;
 
-public record CharInput(char character, int modifiers) {
+public interface CharInput {
+    char character();
 
+    int modifiers();
 
-    public boolean isValidChar() {
-        return isValidChar(character);
+    default boolean isValidChar() {
+        return isValidChar(character());
     }
 
-    public String asString() {
-        return Character.toString(character);
+    default String asString() {
+        return Character.toString(character());
     }
 
     public static boolean isValidChar(char c) {

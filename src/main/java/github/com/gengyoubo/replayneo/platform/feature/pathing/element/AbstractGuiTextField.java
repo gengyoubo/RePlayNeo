@@ -27,7 +27,7 @@ package github.com.gengyoubo.replayneo.platform.feature.pathing.element;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.api.function.CharHandler;
 import github.com.gengyoubo.replayneo.api.function.CharInput;

@@ -1,4 +1,9 @@
 package github.com.gengyoubo.replayneo.api.input;
 
-public record ReplayKeyInput(int keyCode, int scanCode, int modifiers) {
+public interface ReplayKeyInput {
+    int keyCode();
+
+    int scanCode();
+
+    int modifiers();
 }

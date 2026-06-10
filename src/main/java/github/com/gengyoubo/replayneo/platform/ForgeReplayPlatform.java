@@ -14,6 +14,7 @@ import github.com.gengyoubo.replayneo.api.network.ReplayPacketListener;
 import github.com.gengyoubo.replayneo.api.render.ReplayDrawContext;
 import github.com.gengyoubo.replayneo.api.render.ReplayRender;
 import github.com.gengyoubo.replayneo.api.world.ReplayWorld;
+import github.com.gengyoubo.replayneo.core.camera.CameraPose;
 import github.com.gengyoubo.replayneo.platform.feature.render.hooks.EntityRendererHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
@@ -194,10 +195,10 @@ public class ForgeReplayPlatform implements ReplayPlatform {
         public ReplayCameraPose pose() {
             Entity camera = currentCameraEntity();
             if (camera == null) {
-                return new ReplayCameraPose(0, 0, 0, 0, 0, 0);
+                return new CameraPose(0, 0, 0, 0, 0, 0);
             }
             float roll = camera instanceof CameraEntity replayCamera ? replayCamera.roll : 0;
-            return new ReplayCameraPose(
+            return new CameraPose(
                     camera.getX(),
                     camera.getY(),
                     camera.getZ(),

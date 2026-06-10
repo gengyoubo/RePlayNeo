@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo;
+package github.com.gengyoubo.replayneo.platform.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -112,6 +112,16 @@ public class MinecraftGuiRenderer implements GuiRenderer {
 
         int f = (int) scaleFactor;
         MCVer.setScissorBounds(x * f, y * f, width * f, height * f);
+    }
+
+    @Override
+    public void pushScissorState() {
+        MCVer.pushScissorState();
+    }
+
+    @Override
+    public void popScissorState() {
+        MCVer.popScissorState();
     }
 
     private ResourceLocation boundTexture;

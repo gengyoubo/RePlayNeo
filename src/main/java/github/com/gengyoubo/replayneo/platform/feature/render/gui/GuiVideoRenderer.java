@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.NativeImage;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.feature.render.rendering.VideoRenderer;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.RenderInfo;
+import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;

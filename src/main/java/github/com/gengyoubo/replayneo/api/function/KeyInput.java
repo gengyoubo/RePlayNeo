@@ -24,14 +24,20 @@
  */
 package github.com.gengyoubo.replayneo.api.function;
 
-import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
-
 /**
  * @param scancode Note: unavailable on 1.12.2 and below
  */
-public record KeyInput(int key, int scancode, int modifiers) implements InputWithModifiers {
+public interface KeyInput extends InputWithModifiers {
+    int KEY_ESCAPE = 256;
 
-    public boolean isEscape() {
-        return key == Keyboard.KEY_ESCAPE;
+    int key();
+
+    int scancode();
+
+    @Override
+    int modifiers();
+
+    default boolean isEscape() {
+        return key() == KEY_ESCAPE;
     }
 }

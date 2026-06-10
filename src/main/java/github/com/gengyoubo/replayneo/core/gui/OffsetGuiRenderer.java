@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo;
+package github.com.gengyoubo.replayneo.core.gui;
 
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.NonNull;
@@ -30,9 +30,6 @@ import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
-
-import static github.com.gengyoubo.replayneo.platform.versions.MCVer.popScissorState;
-import static github.com.gengyoubo.replayneo.platform.versions.MCVer.pushScissorState;
 
 public class OffsetGuiRenderer implements GuiRenderer {
 
@@ -128,12 +125,12 @@ public class OffsetGuiRenderer implements GuiRenderer {
     }
 
     public void startUsing() {
-        pushScissorState();
+        renderer.pushScissorState();
         setDrawingArea(0, 0, size.getWidth(), size.getHeight());
     }
 
     public void stopUsing() {
-        popScissorState();
+        renderer.popScissorState();
     }
 
     @Override
