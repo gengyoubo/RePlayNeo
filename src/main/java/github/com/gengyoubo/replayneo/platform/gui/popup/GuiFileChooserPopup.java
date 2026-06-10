@@ -27,13 +27,13 @@ package github.com.gengyoubo.replayneo.platform.gui.popup;
 import github.com.gengyoubo.replayneo.core.function.MouseClick;
 
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
+import github.com.gengyoubo.replayneo.api.render.RenderInfo;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiScrollable;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiVerticalList;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
-import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiTextField;
 import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiDropdownMenu;
 import github.com.gengyoubo.replayneo.api.function.Click;

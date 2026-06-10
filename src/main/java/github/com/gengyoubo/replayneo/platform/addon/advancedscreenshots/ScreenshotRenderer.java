@@ -1,9 +1,9 @@
 package github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots;
 
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
-import github.com.gengyoubo.replayneo.core.render.RenderSettings;
+import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.blend.BlendState;
-import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
+import github.com.gengyoubo.replayneo.api.render.capturer.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.feature.render.hooks.ForceChunkLoadingHook;
 import github.com.gengyoubo.replayneo.platform.feature.render.rendering.Pipelines;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;

@@ -22,15 +22,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.core.gui.element;
+package github.com.gengyoubo.replayneo.api.render;
+import org.jetbrains.annotations.NotNull;
 
-import github.com.gengyoubo.replayneo.api.function.Click;
-import github.com.gengyoubo.replayneo.api.Consumer;
+public record RenderInfo(float partialTick, int mouseX, int mouseY, int layer) {
 
-public interface IGuiClickable<T extends IGuiClickable<T>> extends GuiElement<T> {
-    default T onClick(Runnable onClick) {
-        return onClick(click -> onClick.run());
+    public RenderInfo offsetMouse(int minusX, int minusY) {
+        return new RenderInfo(partialTick, mouseX - minusX, mouseY - minusY, layer);
     }
-    T onClick(Consumer<Click> onClick);
-    Consumer<Click> getOnClick();
+
+    public RenderInfo layer(int layer) {
+        return this.layer == layer ? this : new RenderInfo(partialTick, mouseX, mouseY, layer);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RenderInfo that = (RenderInfo) o;
+        return Float.compare(that.partialTick, partialTick) == 0 &&
+                mouseX == that.mouseX &&
+                mouseY == that.mouseY &&
+                layer == that.layer;
+    }
+
+    @Override
+    public @NotNull String toString() {
+        return "RenderInfo{" +
+                "partialTick=" + partialTick +
+                ", mouseX=" + mouseX +
+                ", mouseY=" + mouseY +
+                ", layer=" + layer +
+                '}';
+    }
 }

@@ -8,7 +8,7 @@ import github.com.gengyoubo.replayneo.api.ReplayRuntime;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.files.ReplayFilesService;
 import github.com.gengyoubo.replayneo.core.files.ReplayFoldersService;
-import github.com.gengyoubo.replayneo.core.scheduler.Scheduler;
+import github.com.gengyoubo.replayneo.api.scheduler.Scheduler;
 
 import java.util.ArrayList;
 import java.util.Collection;

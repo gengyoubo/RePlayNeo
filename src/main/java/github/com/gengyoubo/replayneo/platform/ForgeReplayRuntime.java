@@ -6,7 +6,7 @@ import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.ReplayRuntime;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
-import github.com.gengyoubo.replayneo.core.scheduler.Scheduler;
+import github.com.gengyoubo.replayneo.api.scheduler.Scheduler;
 import github.com.gengyoubo.replayneo.platform.addon.ReplayModExtras;
 import github.com.gengyoubo.replayneo.platform.feature.editor.ReplayModEditor;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.ReplayModSimplePathing;

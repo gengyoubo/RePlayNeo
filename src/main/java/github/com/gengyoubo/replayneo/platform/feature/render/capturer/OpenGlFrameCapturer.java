@@ -1,10 +1,10 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.capturer;
 
-import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
+import github.com.gengyoubo.replayneo.api.render.capturer.WorldRenderer;
 
-import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
+import github.com.gengyoubo.replayneo.api.render.capturer.RenderInfo;
 
-import github.com.gengyoubo.replayneo.core.render.capturer.CaptureData;
+import github.com.gengyoubo.replayneo.api.render.capturer.CaptureData;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;

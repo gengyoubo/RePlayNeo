@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.scheduler;
 
-import github.com.gengyoubo.replayneo.core.scheduler.Scheduler;
+import github.com.gengyoubo.replayneo.api.scheduler.Scheduler;
 
 import java.util.ArrayList;
 import java.util.List;

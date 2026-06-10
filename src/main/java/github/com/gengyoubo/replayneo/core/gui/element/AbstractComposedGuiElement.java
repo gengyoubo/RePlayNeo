@@ -25,6 +25,8 @@
 package github.com.gengyoubo.replayneo.core.gui.element;
 
 import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;

@@ -1,16 +1,16 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.rendering;
 
-import github.com.gengyoubo.replayneo.core.render.RenderSettings;
+import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.feature.render.blend.BlendFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.CubicOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.CubicPboOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.ODSFrameCapturer;
-import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
+import github.com.gengyoubo.replayneo.api.render.capturer.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.SimpleOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.SimplePboOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.StereoscopicOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.feature.render.capturer.StereoscopicPboOpenGlFrameCapturer;
-import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
+import github.com.gengyoubo.replayneo.api.render.capturer.WorldRenderer;
 import github.com.gengyoubo.replayneo.core.render.frame.CubicOpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.ODSOpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;

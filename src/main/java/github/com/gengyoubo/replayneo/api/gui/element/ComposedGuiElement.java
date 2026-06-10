@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package github.com.gengyoubo.replayneo.core.gui.element;
+package github.com.gengyoubo.replayneo.api.gui.element;
 
 import java.util.Collection;
 import java.util.function.BiFunction;

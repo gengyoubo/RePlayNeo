@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.render;
 
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
-import github.com.gengyoubo.replayneo.core.render.RenderSettings;
+import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;

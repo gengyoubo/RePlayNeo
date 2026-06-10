@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.blend;
 
-import github.com.gengyoubo.replayneo.core.render.capturer.RenderInfo;
-import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
+import github.com.gengyoubo.replayneo.api.render.capturer.RenderInfo;
+import github.com.gengyoubo.replayneo.api.render.capturer.WorldRenderer;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;

@@ -1,8 +1,8 @@
-package github.com.gengyoubo.replayneo.core.render;
+package github.com.gengyoubo.replayneo.api.render;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import github.com.gengyoubo.replayneo.core.utils.FileTypeAdapter;
+import github.com.gengyoubo.replayneo.api.util.FileTypeAdapter;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 

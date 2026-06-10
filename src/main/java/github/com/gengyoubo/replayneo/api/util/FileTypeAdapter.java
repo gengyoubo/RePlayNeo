@@ -1,4 +1,4 @@
-package github.com.gengyoubo.replayneo.core.utils;
+package github.com.gengyoubo.replayneo.api.util;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

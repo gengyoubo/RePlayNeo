@@ -2,7 +2,7 @@ package github.com.gengyoubo.replayneo.api;
 
 import com.replaymod.replaystudio.data.ModInfo;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
-import github.com.gengyoubo.replayneo.core.scheduler.Scheduler;
+import github.com.gengyoubo.replayneo.api.scheduler.Scheduler;
 
 import java.nio.file.Path;
 import java.util.Collection;

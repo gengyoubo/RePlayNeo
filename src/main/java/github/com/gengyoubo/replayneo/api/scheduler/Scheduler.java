@@ -1,4 +1,4 @@
-package github.com.gengyoubo.replayneo.core.scheduler;
+package github.com.gengyoubo.replayneo.api.scheduler;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;

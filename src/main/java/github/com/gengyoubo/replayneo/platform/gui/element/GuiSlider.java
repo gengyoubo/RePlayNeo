@@ -27,9 +27,9 @@ package github.com.gengyoubo.replayneo.platform.gui.element;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.IGuiClickable;
+import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 
 public class GuiSlider extends AbstractGuiSlider<GuiSlider> {

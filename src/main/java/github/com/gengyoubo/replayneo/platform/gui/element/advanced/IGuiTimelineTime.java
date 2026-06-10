@@ -27,10 +27,10 @@ package github.com.gengyoubo.replayneo.platform.gui.element.advanced;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.IGuiClickable;
-import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
+import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
 
 /**
  * Displays the time of a timeline at its big markers.

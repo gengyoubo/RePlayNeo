@@ -1,6 +1,6 @@
-package github.com.gengyoubo.replayneo.core.render.capturer;
+package github.com.gengyoubo.replayneo.api.render.capturer;
 
-import github.com.gengyoubo.replayneo.core.render.RenderSettings;
+import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
 public interface RenderInfo {

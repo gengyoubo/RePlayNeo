@@ -7,7 +7,7 @@ import github.com.gengyoubo.replayneo.api.frame.Frame;
 import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;
 import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;
 import github.com.gengyoubo.replayneo.api.frame.FrameProcessor;
-import github.com.gengyoubo.replayneo.core.render.capturer.WorldRenderer;
+import github.com.gengyoubo.replayneo.api.render.capturer.WorldRenderer;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.processor.GlToAbsoluteDepthProcessor;
 import org.jetbrains.annotations.NotNull;

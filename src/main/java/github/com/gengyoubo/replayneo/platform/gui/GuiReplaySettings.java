@@ -4,7 +4,7 @@ import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiScreen;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
-import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiToggleButton;
 import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiDropdownMenu;

@@ -10,7 +10,7 @@ import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderQueue
 import github.com.gengyoubo.replayneo.platform.feature.render.rendering.VideoRenderer;
 import github.com.gengyoubo.replayneo.core.utils.RenderJob;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
+import github.com.gengyoubo.replayneo.api.render.RenderInfo;
 import github.com.gengyoubo.replayneo.api.function.CharHandler;
 import github.com.gengyoubo.replayneo.api.function.CharInput;
 import github.com.gengyoubo.replayneo.api.function.Click;
@@ -31,7 +31,7 @@ import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiContainer;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
-import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.platform.gui.element.*;
 import github.com.gengyoubo.replayneo.platform.gui.element.advanced.AbstractGuiResourceLoadingList;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
