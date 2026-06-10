@@ -9,8 +9,8 @@ import github.com.gengyoubo.replayneo.platform.feature.recording.handler.Recordi
 import github.com.gengyoubo.replayneo.platform.feature.recording.packet.PacketListener;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
-import github.com.gengyoubo.replayneo.core.gui.container.VanillaGuiScreen;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
+import github.com.gengyoubo.replayneo.platform.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
@@ -126,9 +126,9 @@ public class GuiRecordingControls extends EventRegistrations {
         if (panel.getContainer() != null && panel.getContainer() != vanillaGui) {
             panel.getContainer().removeElement(panel);
         }
-        vanillaGui.setLayout(new CustomLayout<github.com.gengyoubo.replayneo.core.gui.container.GuiScreen>(vanillaGui.getLayout()) {
+        vanillaGui.setLayout(new CustomLayout<github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen>(vanillaGui.getLayout()) {
             @Override
-            protected void layout(github.com.gengyoubo.replayneo.core.gui.container.GuiScreen container, int width, int height) {
+            protected void layout(github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen container, int width, int height) {
                 if (!shouldShowOn(guiScreen)) {
                     size(panel, 0, 0);
                     pos(panel, -10000, -10000);

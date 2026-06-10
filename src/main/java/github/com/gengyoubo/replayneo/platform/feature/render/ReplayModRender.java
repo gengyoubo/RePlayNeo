@@ -8,7 +8,7 @@ import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayClosedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.render.events.ReplayOpenedCallback;
 import com.replaymod.replaystudio.replay.ReplayFile;
-import github.com.gengyoubo.replayneo.core.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.container.VanillaGuiScreen;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Logger;

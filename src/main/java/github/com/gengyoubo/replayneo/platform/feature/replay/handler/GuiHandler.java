@@ -1,9 +1,9 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay.handler;
 
-import github.com.gengyoubo.replayneo.core.gui.GuiReplayButton;
+import github.com.gengyoubo.replayneo.platform.gui.GuiReplayButton;
 import github.com.gengyoubo.replayneo.platform.feature.replay.Setting;
-import github.com.gengyoubo.replayneo.core.gui.container.VanillaGuiScreen;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.platform.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiTooltip;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
@@ -267,11 +267,11 @@ public class GuiHandler extends EventRegistrations {
                     .onClick(() -> new GuiReplayViewer(mod).display())
                     .setTooltip(new GuiTooltip().setI18nText("replaymod.gui.replayviewer"));
 
-            vanillaGui.setLayout(new CustomLayout<github.com.gengyoubo.replayneo.core.gui.container.GuiScreen>(vanillaGui.getLayout()) {
+            vanillaGui.setLayout(new CustomLayout<github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen>(vanillaGui.getLayout()) {
                 private Point pos;
 
                 @Override
-                protected void layout(github.com.gengyoubo.replayneo.core.gui.container.GuiScreen container, int width, int height) {
+                protected void layout(github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen container, int width, int height) {
                     if (pos == null) {
                         // Delaying computation so we can take into account buttons
                         // added after our callback.

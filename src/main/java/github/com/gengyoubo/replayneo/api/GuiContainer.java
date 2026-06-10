@@ -24,8 +24,8 @@
  */
 package github.com.gengyoubo.replayneo.api;
 
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.core.gui.element.ComposedGuiElement;
+import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.api.layout.Layout;
 import github.com.gengyoubo.replayneo.api.layout.LayoutData;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;

@@ -5,16 +5,16 @@ import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.feature.recording.Setting;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.screen.GuiReplayViewer;
 import com.replaymod.replaystudio.replay.ReplayMetaData;
-import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiScreen;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
-import github.com.gengyoubo.replayneo.core.gui.container.VanillaGuiScreen;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiTextField;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiTooltip;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.GuiProgressBar;
+import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.container.VanillaGuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiTextField;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiProgressBar;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
@@ -75,7 +75,7 @@ public class GuiSavingReplay {
         label.setI18nText("replaymod.gui.rename");
         panel.removeElement(progressBar);
 
-        link(outputPaths.stream().map(it -> addOutput(it.getKey(), it.getValue())).toArray(github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiTextField[]::new));
+        link(outputPaths.stream().map(it -> addOutput(it.getKey(), it.getValue())).toArray(github.com.gengyoubo.replayneo.platform.gui.element.GuiTextField[]::new));
 
         GuiButton applyButton = new GuiButton()
                 .setSize(150, 20)

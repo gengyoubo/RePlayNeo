@@ -7,12 +7,12 @@ import github.com.gengyoubo.replayneo.platform.addon.Setting;
 import github.com.gengyoubo.replayneo.core.render.RenderSettings;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiCheckbox;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiCheckbox;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
-import github.com.gengyoubo.replayneo.core.gui.popup.AbstractGuiPopup;
+import github.com.gengyoubo.replayneo.platform.gui.popup.AbstractGuiPopup;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 
 import java.net.URI;

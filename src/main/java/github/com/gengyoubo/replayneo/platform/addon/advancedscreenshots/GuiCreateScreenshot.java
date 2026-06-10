@@ -6,11 +6,12 @@ import github.com.gengyoubo.replayneo.platform.feature.render.gui.GuiRenderSetti
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;
+import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
 import github.com.gengyoubo.replayneo.api.function.Loadable;
 import github.com.gengyoubo.replayneo.core.gui.layout.GridLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
+import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import java.io.File;
 import java.nio.file.Path;
 import java.text.DateFormat;
@@ -81,7 +82,7 @@ public class GuiCreateScreenshot extends GuiRenderSettings implements Loadable {
     @Override
     public void close() {
         super.close();
-        getMinecraft().setScreen(null);
+        MCVer.getMinecraft().setScreen(null);
     }
 
     @Override
@@ -93,7 +94,7 @@ public class GuiCreateScreenshot extends GuiRenderSettings implements Loadable {
     @Override
     protected File generateOutputFile(RenderSettings.EncodingPreset encodingPreset) {
         DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
-        File screenshotFolder = new File(getMinecraft().gameDirectory, "screenshots");
+        File screenshotFolder = new File(MCVer.getMinecraft().gameDirectory, "screenshots");
         if (!screenshotFolder.isDirectory() && !screenshotFolder.mkdirs()) {
             throw new IllegalStateException("Could not create screenshot directory: " + screenshotFolder);
         }
@@ -113,6 +114,6 @@ public class GuiCreateScreenshot extends GuiRenderSettings implements Loadable {
 
     @Override
     protected Path getSettingsPath() {
-        return getMinecraft().gameDirectory.toPath().resolve("config/replaymod-screenshotsettings.json");
+        return MCVer.getMinecraft().gameDirectory.toPath().resolve("config/replaymod-screenshotsettings.json");
     }
 }

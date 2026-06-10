@@ -9,10 +9,10 @@ import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiRep
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
+import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiTooltip;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.GridLayout;
 import github.com.gengyoubo.replayneo.api.layout.LayoutData;

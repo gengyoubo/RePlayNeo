@@ -6,11 +6,11 @@ import github.com.gengyoubo.replayneo.platform.feature.render.rendering.VideoRen
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiCheckbox;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.GuiProgressBar;
+import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiCheckbox;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
+import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiProgressBar;
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.Tickable;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;

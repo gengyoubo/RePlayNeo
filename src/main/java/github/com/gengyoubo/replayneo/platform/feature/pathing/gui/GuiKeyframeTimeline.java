@@ -16,7 +16,7 @@ import github.com.gengyoubo.replayneo.platform.feature.pathing.ReplayModSimplePa
 import github.com.gengyoubo.replayneo.core.pathing.SPTimeline;
 import github.com.gengyoubo.replayneo.core.pathing.SPTimeline.SPPath;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.AbstractGuiTimeline;
+import github.com.gengyoubo.replayneo.platform.gui.element.advanced.AbstractGuiTimeline;
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.Draggable;
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector2f;

@@ -9,7 +9,7 @@ import com.replaymod.replaystudio.data.Marker;
 import com.replaymod.replaystudio.util.Location;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.AbstractGuiTimeline;
+import github.com.gengyoubo.replayneo.platform.gui.element.advanced.AbstractGuiTimeline;
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.Draggable;
 import github.com.gengyoubo.replayneo.api.function.KeyHandler;

@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.editor.handler;
 
-import github.com.gengyoubo.replayneo.core.gui.container.AbstractGuiScreen;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
 

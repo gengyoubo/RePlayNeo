@@ -28,7 +28,7 @@ import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.core.gui.OffsetGuiRenderer;
 import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
+import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.api.function.Scrollable;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;

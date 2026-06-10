@@ -9,6 +9,7 @@ import com.google.common.util.concurrent.SettableFuture;
 import github.com.gengyoubo.replayneo.core.ReplayMod;
 import github.com.gengyoubo.replayneo.core.utils.Result;
 import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.core.versions.MCVer;
 import github.com.gengyoubo.replayneo.core.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.RealtimeTimelinePlayer;
 import github.com.gengyoubo.replayneo.core.pathing.properties.CameraProperties;
@@ -32,20 +33,20 @@ import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.core.gui.RenderInfo;
 import github.com.gengyoubo.replayneo.api.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiScreen;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiButton;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiElement;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiHorizontalScrollbar;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiLabel;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.GuiTooltip;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.GuiProgressBar;
-import github.com.gengyoubo.replayneo.platform.feature.pathing.element.advanced.GuiTimelineTime;
+import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
+import github.com.gengyoubo.replayneo.core.gui.element.GuiElement;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiHorizontalScrollbar;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
+import github.com.gengyoubo.replayneo.platform.gui.element.GuiTooltip;
+import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiProgressBar;
+import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiTimelineTime;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
-import github.com.gengyoubo.replayneo.core.gui.popup.AbstractGuiPopup;
-import github.com.gengyoubo.replayneo.core.gui.popup.GuiInfoPopup;
-import github.com.gengyoubo.replayneo.core.gui.popup.GuiYesNoPopup;
+import github.com.gengyoubo.replayneo.platform.gui.popup.AbstractGuiPopup;
+import github.com.gengyoubo.replayneo.platform.gui.popup.GuiInfoPopup;
+import github.com.gengyoubo.replayneo.platform.gui.popup.GuiYesNoPopup;
 import github.com.gengyoubo.replayneo.api.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
@@ -100,7 +101,7 @@ public class GuiPathing {
                 @Override
                 protected void close() {
                     super.close();
-                    getMinecraft().setScreen(null);
+                    MCVer.getMinecraft().setScreen(null);
                 }
             }.open();
             screen.display();
