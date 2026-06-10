@@ -12,15 +12,21 @@ import org.lwjgl.glfw.GLFW;
 
 public class InputReplayTimer {
     public static void updateInReplay() {
+        RePlayCore core = RePlayCore.instance;
+        if (core != null) {
+            core.runTasks();
+        }
+
         ReplayModReplay mod = ReplayModReplay.instance;
-        Minecraft mc = MCVer.getMinecraft();
-
-        RePlayCore.instance.runTasks();
-
+        if (mod == null) {
+            return;
+        }
 
         // If we are in a replay, we have to manually process key and mouse events as the
         // tick speed may vary or there may not be any ticks at all (when the replay is paused)
-        if (mod.getReplayHandler() != null && mc.level != null && mc.player != null) {
+        Minecraft mc = MCVer.getMinecraft();
+        ReplayHandler replayHandler = mod.getReplayHandler();
+        if (replayHandler != null && mc.level != null && mc.player != null) {
             if (mc.screen == null || ((ScreenExt) mc.screen).rePlay$doesPassEvents()) {
                 GLFW.glfwPollEvents();
                 MCVer.processKeyBinds();
@@ -38,7 +44,11 @@ public class InputReplayTimer {
 
     public static void handleScroll(int wheel) {
         if (wheel != 0) {
-            ReplayHandler replayHandler = ReplayModReplay.instance.getReplayHandler();
+            ReplayModReplay mod = ReplayModReplay.instance;
+            if (mod == null) {
+                return;
+            }
+            ReplayHandler replayHandler = mod.getReplayHandler();
             if (replayHandler != null) {
                 CameraEntity cameraEntity = replayHandler.getCameraEntity();
                 if (cameraEntity != null) {

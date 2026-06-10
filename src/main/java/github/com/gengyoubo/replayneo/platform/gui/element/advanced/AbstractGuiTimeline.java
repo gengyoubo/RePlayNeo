@@ -40,7 +40,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableColor;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
-import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE;
+import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.GUI_TEXTURE;
 import static github.com.gengyoubo.replayneo.core.guiutils.Utils.clamp;
 
 public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> extends AbstractGuiElement<T> implements IGuiTimeline<T>, Clickable {
@@ -112,7 +112,7 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
         int width = size.getWidth();
         int height = size.getHeight();
 
-        renderer.bindTexture(TEXTURE);
+        renderer.bindTexture(GUI_TEXTURE);
 
         // We have to increase the border size as there is one pixel row which is part of the border while drawing
         // but isn't during position calculations due to shadows
@@ -136,7 +136,7 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
     protected void drawTimelineCursor(GuiRenderer renderer, ReadableDimension size) {
         if (!drawCursor) return;
         int height = size.getHeight();
-        renderer.bindTexture(TEXTURE);
+        renderer.bindTexture(GUI_TEXTURE);
 
         int visibleLength = (int) (length * zoom);
         int cursor = clamp(cursorPosition, offset, offset + visibleLength);

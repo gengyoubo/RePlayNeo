@@ -85,7 +85,11 @@ minecraft {
                     "-XX:G1MaxNewSizePercent=40",
                     "-XX:G1HeapRegionSize=8M",
                     "-XX:G1ReservePercent=20",
-                    "-XX:InitiatingHeapOccupancyPercent=15"
+                    "-XX:InitiatingHeapOccupancyPercent=15",
+                    "-Xlint:deprecation",
+                    "-Xlint:unchecked",
+                    "-Xlint:removal," ,
+                    "--warning-mode all"
             )
             mods {
                 replayneo {

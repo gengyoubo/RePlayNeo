@@ -20,7 +20,7 @@ import net.minecraft.network.protocol.PacketFlow;
 public class ReplayModRecording implements Module {
 
     private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
-    private static final AttributeKey<Void> ATTR_CHECKED = AttributeKey.newInstance("ReplayModRecording_checked");
+    private static final AttributeKey<Boolean> ATTR_CHECKED = AttributeKey.newInstance("ReplayModRecording_checked");
 
     { instance = this; }
     public static ReplayModRecording instance;
@@ -61,9 +61,10 @@ public class ReplayModRecording implements Module {
         }
         Channel channel = networkManager.channel;
         if (channel.pipeline().get(ReplayHandler.PACKET_HANDLER_NAME) != null) return;
-        if (channel.hasAttr(ATTR_CHECKED)) return;
-        channel.attr(ATTR_CHECKED).set(null);
-        connectionEventHandler.onConnectedToServerEvent(networkManager);
+        if (Boolean.TRUE.equals(channel.attr(ATTR_CHECKED).get())) return;
+        if (connectionEventHandler.onConnectedToServerEvent(networkManager)) {
+            channel.attr(ATTR_CHECKED).set(Boolean.TRUE);
+        }
     }
 
     public ConnectionEventHandler getConnectionEventHandler() {

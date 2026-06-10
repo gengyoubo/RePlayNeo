@@ -14,7 +14,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
 
-import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE;
+import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.GUI_TEXTURE;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;
 
 public class GuiBackgroundProcesses extends EventRegistrations {
@@ -91,7 +91,7 @@ public class GuiBackgroundProcesses extends EventRegistrations {
         public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
             final int u0 = 0;
             final int v0 = 39;
-            renderer.bindTexture(TEXTURE);
+            renderer.bindTexture(GUI_TEXTURE);
 
             int w = size.getWidth();
             int h = size.getHeight();

@@ -13,7 +13,9 @@ import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayModGui;
 import github.com.gengyoubo.replayneo.platform.render.ForgeRenderSettingsDefaults;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.api.distmarker.Dist;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,12 +28,16 @@ public class RePlayNeo {
 
     public static RePlayNeo instance;
 
-    private final ReplayRuntime backend;
-    private final RePlayCore core;
+    private ReplayRuntime backend;
+    private RePlayCore core;
 
     public RePlayNeo() {
         instance = this;
         LOGGER.info("Loading {}", MOD_NAME);
+        if (FMLEnvironment.dist == Dist.DEDICATED_SERVER) {
+            LOGGER.info("{} is a client-side replay mod; skipping client setup on dedicated server.", MOD_NAME);
+            return;
+        }
         ReplayPlatforms.install(new ForgeReplayPlatform());
         ForgeRenderSettingsDefaults.install();
         this.backend = new ForgeReplayRuntime();

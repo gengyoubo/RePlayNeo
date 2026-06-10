@@ -9,9 +9,12 @@ public interface ServerInfoExt {
         return (ServerInfoExt) base;
     }
 
-    /** Per-server optional overwrite for . */
-    Boolean getAutoRecording();
+    /** Per-server optional overwrite for automatic recording. */
+    default Boolean getAutoRecording() {
+        return null;
+    }
 
-    /** Per-server optional overwrite for . */
-    void setAutoRecording(Boolean autoRecording);
+    /** Per-server optional overwrite for automatic recording. */
+    default void setAutoRecording(Boolean autoRecording) {
+    }
 }

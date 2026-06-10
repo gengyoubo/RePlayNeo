@@ -51,22 +51,22 @@ public class ConnectionEventHandler {
         this.core = core;
     }
 
-    public void onConnectedToServerEvent(Connection networkManager) {
+    public boolean onConnectedToServerEvent(Connection networkManager) {
         try {
             boolean local = networkManager.isMemoryConnection();
             if (local) {
                 if (mc.getSingleplayerServer() != null && Objects.requireNonNull(mc.getSingleplayerServer().getLevel(Level.OVERWORLD)).isDebug()) {
                     logger.info("Debug World recording is not supported.");
-                    return;
+                    return true;
                 }
                 if(!core.getSettingsRegistry().get(Setting.RECORD_SINGLEPLAYER)) {
                     logger.info("Singleplayer Recording is disabled");
-                    return;
+                    return true;
                 }
             } else {
                 if(!core.getSettingsRegistry().get(Setting.RECORD_SERVER)) {
                     logger.info("Multiplayer Recording is disabled");
-                    return;
+                    return true;
                 }
             }
 
@@ -74,6 +74,9 @@ public class ConnectionEventHandler {
             serverInfo = networkManager.getPacketListener() instanceof ClientHandshakePacketListenerImpl loginNetworkHandler
                     ? loginNetworkHandler.serverData
                     : null;
+            if (serverInfo == null) {
+                serverInfo = mc.getCurrentServer();
+            }
 
             String worldName;
             String serverName = null;
@@ -90,13 +93,18 @@ public class ConnectionEventHandler {
                     serverName = serverInfo.name;
                 }
 
-                Boolean autoStartServer = ServerInfoExt.from(serverInfo).getAutoRecording();
-                if (autoStartServer != null) {
-                    autoStart = autoStartServer;
+                if (serverInfo instanceof ServerInfoExt serverInfoExt) {
+                    Boolean autoStartServer = serverInfoExt.getAutoRecording();
+                    if (autoStartServer != null) {
+                        autoStart = autoStartServer;
+                    }
                 }
+            } else if (networkManager.channel.remoteAddress() != null) {
+                worldName = networkManager.channel.remoteAddress().toString();
+                serverName = worldName;
             } else {
                 logger.info("Recording not started as the world is neither local nor remote (probably a replay).");
-                return;
+                return false;
             }
 
             if (RePlayCore.isMinimalMode()) {
@@ -146,9 +154,11 @@ public class ConnectionEventHandler {
             } else {
                 packetListener.addMarker(MarkerProcessor.MARKER_NAME_START_CUT, 0);
             }
+            return true;
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.error("Failed to start replay recording.", e);
             core.printWarningToChat("replaymod.chat.recordingfailed");
+            return false;
         }
     }
 

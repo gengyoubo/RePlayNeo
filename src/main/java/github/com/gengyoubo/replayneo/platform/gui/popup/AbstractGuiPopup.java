@@ -37,7 +37,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
 import java.util.function.Function;
 
-import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE;
+import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.GUI_TEXTURE;
 
 public abstract class AbstractGuiPopup<T extends AbstractGuiPopup<T>> extends AbstractGuiContainer<T> {
     private final GuiPanel popupContainer = new GuiPanel(this){
@@ -45,7 +45,7 @@ public abstract class AbstractGuiPopup<T extends AbstractGuiPopup<T>> extends Ab
         @Override
         public void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo) {
             if (renderInfo.layer() == 0 && renderBackground) {
-                renderer.bindTexture(TEXTURE);
+                renderer.bindTexture(GUI_TEXTURE);
                 int w = size.getWidth();
                 int h = size.getHeight();
 

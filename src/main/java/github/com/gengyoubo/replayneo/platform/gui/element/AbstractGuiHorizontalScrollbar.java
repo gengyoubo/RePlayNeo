@@ -46,7 +46,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 
-import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.TEXTURE;
+import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.GUI_TEXTURE;
 
 public abstract class AbstractGuiHorizontalScrollbar<T extends AbstractGuiHorizontalScrollbar<T>> extends AbstractGuiElement<T> implements Clickable, Draggable, IGuiHorizontalScrollbar<T> {
     protected static final int TEXTURE_FG_X = 0;
@@ -153,7 +153,7 @@ public abstract class AbstractGuiHorizontalScrollbar<T extends AbstractGuiHorizo
         int width = size.getWidth();
         int height = size.getHeight();
 
-        renderer.bindTexture(TEXTURE);
+        renderer.bindTexture(GUI_TEXTURE);
 
         // Draw background
         // We have to increase the border size as there is one pixel row which is part of the border while drawing
