@@ -62,6 +62,8 @@ import net.minecraft.network.protocol.game.ClientboundSetCameraPacket;
 import net.minecraft.network.protocol.game.ClientboundSetExperiencePacket;
 import net.minecraft.network.protocol.game.ClientboundSetHealthPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
+import net.minecraft.network.protocol.game.ClientboundSoundEntityPacket;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket;
@@ -125,6 +127,12 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             ClientboundSetExperiencePacket.class,
             ClientboundPlayerAbilitiesPacket.class
     );
+    private static final Set<ResourceLocation> CHANGED_ADDON_BOSS_MUSIC = Set.of(
+            new ResourceLocation("changed_addon", "experiment10_theme"),
+            new ResourceLocation("changed_addon", "music.boss.exp9"),
+            new ResourceLocation("changed_addon", "music.boss.luminarctic_leopard")
+    );
+    private static int replayneo$filteredChangedAddonBossMusicPackets;
 
     private static final int TP_DISTANCE_LIMIT = 128;
 
@@ -552,6 +560,14 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             return p;
         }
 
+        if (replayneo$isChangedAddonBossMusicPacket(p)) {
+            if (replayneo$filteredChangedAddonBossMusicPackets++ < 8) {
+                LOGGER.warn("Filtered ChangedAddon boss music sound packet during replay. packet={}, time={}",
+                        p.getClass().getSimpleName(), currentTimeStamp());
+            }
+            return null;
+        }
+
         if (p instanceof ClientboundCustomPayloadPacket packet) {
             if (ChangedReplayCompat.TRANSFUR_SYNC_PAYLOAD.equals(packet.getIdentifier())) {
                 FriendlyByteBuf data = new FriendlyByteBuf(packet.getData().copy());
@@ -970,6 +986,16 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             desiredTimeStamp = millis;
             notifyAll();
         }
+    }
+
+    private boolean replayneo$isChangedAddonBossMusicPacket(Packet<?> packet) {
+        if (packet instanceof ClientboundSoundPacket soundPacket) {
+            return CHANGED_ADDON_BOSS_MUSIC.contains(soundPacket.getSound().value().getLocation());
+        }
+        if (packet instanceof ClientboundSoundEntityPacket soundPacket) {
+            return CHANGED_ADDON_BOSS_MUSIC.contains(soundPacket.getSound().value().getLocation());
+        }
+        return false;
     }
 
     protected Packet processPacketAsync(Packet p) {

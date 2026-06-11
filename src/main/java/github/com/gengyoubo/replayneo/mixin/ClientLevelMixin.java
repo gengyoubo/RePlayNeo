@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.mixin;
 
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.RecordingEventHandler;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -18,9 +20,21 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
+import java.util.Set;
+
 
 @Mixin(ClientLevel.class)
 public abstract class ClientLevelMixin extends Level {
+    @Unique
+    private static final Set<ResourceLocation> replayneo$changedAddonBossMusicSounds = Set.of(
+            new ResourceLocation("changed_addon", "experiment10_theme"),
+            new ResourceLocation("changed_addon", "music.boss.exp9"),
+            new ResourceLocation("changed_addon", "music.boss.luminarctic_leopard")
+    );
+
+    @Unique
+    private static int replayneo$loggedChangedAddonClientSounds;
+
     @Final
     @Shadow
     private Minecraft minecraft;
@@ -50,6 +64,7 @@ public abstract class ClientLevelMixin extends Level {
             long seed,
             CallbackInfo ci) {
         if (player == this.minecraft.player) {
+            replayneo$logChangedAddonClientSound(player, x, y, z, sound, category, volume, pitch, seed);
             RecordingEventHandler handler = replayModRecording_getRecordingEventHandler();
             if (handler != null) {
                 // Sent to all other players in ServerWorldEventHandler#playSoundToAllNearExcept
@@ -59,6 +74,25 @@ public abstract class ClientLevelMixin extends Level {
                 ));
             }
         }
+    }
+
+    @Unique
+    private static void replayneo$logChangedAddonClientSound(
+            Player player,
+            double x, double y, double z,
+            Holder<SoundEvent> sound,
+            SoundSource category,
+            float volume, float pitch,
+            long seed
+    ) {
+        ResourceLocation id = sound.value().getLocation();
+        if (!replayneo$changedAddonBossMusicSounds.contains(id) || replayneo$loggedChangedAddonClientSounds++ >= 12) {
+            return;
+        }
+        RePlayNeo.LOGGER.warn(
+                "Recording suspicious ChangedAddon client sound. id={}, source={}, player={}, pos=({}, {}, {}), volume={}, pitch={}, seed={}",
+                id, category, player.getGameProfile().getName(), x, y, z, volume, pitch, seed,
+                new Throwable("Recording ChangedAddon client sound caller stack"));
     }
 
     // Same goes for level events (also called effects). E.g. door open, block break, etc.

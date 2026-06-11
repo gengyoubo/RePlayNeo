@@ -37,7 +37,7 @@ public class Pipelines {
             case STEREOSCOPIC -> newStereoscopicPipeline(renderInfo, consumer);
             case CUBIC -> newCubicPipeline(renderInfo, consumer);
             case EQUIRECTANGULAR -> newEquirectangularPipeline(renderInfo, consumer);
-            case ODS -> newODSPipeline(renderInfo, consumer);
+            case ODS -> null;
             case BLEND -> throw new UnsupportedOperationException("Use newBlendPipeline instead!");
         };
     }
@@ -91,20 +91,6 @@ public class Pipelines {
         } else {
             capturer = new CubicOpenGlFrameCapturer(worldRenderer, renderInfo, processor.getFrameSize());
         }
-        return new Pipeline<>(worldRenderer, capturer, processor, consumer);
-    }
-
-    public static Pipeline<ODSOpenGlFrame, BitmapFrame> newODSPipeline(RenderInfo renderInfo, FrameConsumer<BitmapFrame> consumer) {
-        RenderSettings settings = renderInfo.getRenderSettings();
-        WorldRenderer worldRenderer = new EntityRendererHandler(settings, renderInfo);
-
-        ODSToBitmapProcessor processor = new ODSToBitmapProcessor(settings.getVideoWidth(),
-                settings.getVideoHeight(), settings.getSphericalFovX());
-
-        boolean iris = net.minecraftforge.fml.ModList.get().isLoaded("iris");
-        FrameCapturer<ODSOpenGlFrame> capturer = iris
-                ? new github.com.gengyoubo.replayneo.platform.render.capturer.IrisODSFrameCapturer(worldRenderer, renderInfo, processor.getFrameSize())
-                : new ODSFrameCapturer(worldRenderer, renderInfo, processor.getFrameSize());
         return new Pipeline<>(worldRenderer, capturer, processor, consumer);
     }
 
