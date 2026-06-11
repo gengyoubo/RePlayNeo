@@ -45,6 +45,8 @@ import net.minecraft.network.PacketBundlePacker;
 import net.minecraft.network.PacketDecoder;
 import net.minecraft.network.PacketEncoder;
 import net.minecraft.network.protocol.PacketFlow;
+import net.minecraftforge.fml.config.ConfigTracker;
+import net.minecraftforge.network.NetworkConstants;
 import java.io.IOException;
 import java.util.*;
 
@@ -97,6 +99,8 @@ public class ReplayHandler implements TimelinePlaybackTarget {
     private final GuiReplayOverlay overlay;
 
     private EmbeddedChannel channel;
+    private int replayneo$connectionExceptionCount;
+    private boolean replayneo$replayStopScheduledAfterConnectionErrors;
 
     private final int replayDuration;
 
@@ -180,13 +184,13 @@ public class ReplayHandler implements TimelinePlaybackTarget {
         Connection networkManager = new Connection(PacketFlow.CLIENTBOUND) {
             @Override
             public void exceptionCaught(@NotNull ChannelHandlerContext ctx, Throwable t) {
-                t.printStackTrace();
+                ReplayHandler.this.replayneo$handleReplayConnectionException(t);
             }
         };
 
 
         channel = new EmbeddedChannel();
-        channel.attr(AttributeKey.<String>valueOf("fml:netversion")).set("NONE");
+        replayneo$markReplayConnectionAsModded(channel);
         channel.pipeline().addFirst("ReplayModReplay_head", new DropOutboundMessagesHandler());
 
         quickReplaySender.setChannel(channel);
@@ -212,9 +216,54 @@ public class ReplayHandler implements TimelinePlaybackTarget {
                 , null
                 , it -> {}
         ));
+        replayneo$markReplayConnectionAsModded(channel);
+        replayneo$loadDefaultServerConfigs();
 
         mc.pendingConnection = networkManager;
 
+    }
+
+    private void replayneo$markReplayConnectionAsModded(EmbeddedChannel replayChannel) {
+        replayChannel.attr(AttributeKey.<String>valueOf("fml:netversion")).set(NetworkConstants.NETVERSION);
+        LOGGER.debug("Marked replay connection as Forge modded. fml:netversion={}", NetworkConstants.NETVERSION);
+    }
+
+    private void replayneo$loadDefaultServerConfigs() {
+        try {
+            ConfigTracker.INSTANCE.loadDefaultServerConfigs();
+            LOGGER.debug("Loaded default server configs for replay connection.");
+        } catch (Throwable throwable) {
+            LOGGER.warn("Could not load default server configs for replay connection.", throwable);
+        }
+    }
+
+    private void replayneo$handleReplayConnectionException(Throwable throwable) {
+        int count = ++replayneo$connectionExceptionCount;
+        Throwable root = throwable;
+        while (root.getCause() != null) {
+            root = root.getCause();
+        }
+
+        if (count <= 3) {
+            LOGGER.warn("Replay packet handling failed. count={}, root={}: {}",
+                    count, root.getClass().getName(), root.getMessage(), throwable);
+        } else if (count == 4 || count == 8 || count == 16) {
+            LOGGER.warn("Replay packet handling is still failing. count={}, root={}: {}",
+                    count, root.getClass().getName(), root.getMessage());
+        }
+
+        if (count >= 16 && !replayneo$replayStopScheduledAfterConnectionErrors) {
+            replayneo$replayStopScheduledAfterConnectionErrors = true;
+            LOGGER.error("Stopping replay after repeated packet decode failures to avoid log spam and client stutter.");
+            fullReplaySender.terminateReplay();
+            mc.execute(() -> {
+                try {
+                    endReplay();
+                } catch (IOException e) {
+                    LOGGER.error("Failed to close replay after repeated packet decode failures.", e);
+                }
+            });
+        }
     }
 
     public ReplayFile getReplayFile() {

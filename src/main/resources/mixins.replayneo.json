@@ -8,6 +8,7 @@
   "client": [
     "BlockOnChunkRebuildsMixin",
     "ButtonMixin",
+    "ChangedDebugRendererMixin",
     "ChromaKeyDisableFogMixin",
     "ClientHandshakePacketListenerImplMixin",
     "ClientLevelMixin",

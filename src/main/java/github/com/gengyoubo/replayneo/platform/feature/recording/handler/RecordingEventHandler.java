@@ -2,6 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.recording.handler;
 
 import com.mojang.authlib.GameProfile;
 import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
+import github.com.gengyoubo.replayneo.platform.compat.ChangedReplayCompat;
 import github.com.gengyoubo.replayneo.platform.feature.recording.packet.PacketListener;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
@@ -26,6 +27,7 @@ import net.minecraft.network.protocol.game.ClientboundSetEntityLinkPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -51,6 +53,7 @@ public class RecordingEventHandler extends EventRegistrations {
     private boolean wasSleeping;
     private int lastRiding = -1;
     private Integer rotationYawHeadBefore;
+    private ResourceLocation lastTransfurForm;
     private boolean spawnedRecordingPlayer;
     private int loggedPlayerMovementPackets;
 
@@ -92,6 +95,11 @@ public class RecordingEventHandler extends EventRegistrations {
             packetListener.save(createOwnPlayerInfoPacket(player));
             packetListener.save(new ClientboundAddPlayerPacket(player));
             packetListener.save(new ClientboundSetEntityDataPacket(player.getId(), Objects.requireNonNull(player.getEntityData().getNonDefaultValues())));
+            lastTransfurForm = ChangedReplayCompat.getFormId(player);
+            Packet<?> changedTransfurPacket = ChangedReplayCompat.createTransfurPayload(player);
+            if (changedTransfurPacket != null) {
+                packetListener.save(changedTransfurPacket);
+            }
             spawnedRecordingPlayer = true;
             github.com.gengyoubo.replayneo.RePlayNeo.LOGGER.warn(
                     "Recording player spawn packet. entityId={}, uuid={}, pos=({}, {}, {}), time={}",
@@ -201,6 +209,15 @@ public class RecordingEventHandler extends EventRegistrations {
             packetListener.save(new ClientboundSetEntityMotionPacket(player.getId(),
                     player.getDeltaMovement()
             ));
+
+            ResourceLocation transfurForm = ChangedReplayCompat.getFormId(player);
+            if (!Objects.equals(transfurForm, lastTransfurForm)) {
+                lastTransfurForm = transfurForm;
+                Packet<?> changedTransfurPacket = ChangedReplayCompat.createTransfurPayload(player);
+                if (changedTransfurPacket != null) {
+                    packetListener.save(changedTransfurPacket);
+                }
+            }
 
             //Animation Packets
             //Swing Animation
