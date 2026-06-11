@@ -33,6 +33,8 @@ import io.netty.channel.ChannelPromise;
 import io.netty.util.AttributeKey;
 import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.Connection;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraft.network.FriendlyByteBuf;
@@ -48,6 +50,7 @@ import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.network.protocol.login.ClientboundHelloPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -419,6 +422,11 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     }
 
     private Packet encodeMcPacket(ConnectionProtocol connectionState, net.minecraft.network.protocol.Packet packet) throws Exception {
+        Packet stablePacket = encodeStableRegistryPacket(connectionState, packet);
+        if (stablePacket != null) {
+            return stablePacket;
+        }
+
         int packetId = connectionState.getPacketId(PacketFlow.CLIENTBOUND, packet);
         if (packetId < 0) {
             replayneo$warnInvalidEncodedPacket(packet, packetId, -1, "packet has no clientbound id in " + connectionState);
@@ -469,6 +477,65 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
             }
         });
         return packets;
+    }
+
+    private Packet encodeStableRegistryPacket(ConnectionProtocol connectionState,
+                                              net.minecraft.network.protocol.Packet<?> packet) throws Exception {
+        if (!(packet instanceof ClientboundSoundPacket) && !(packet instanceof ClientboundSoundEntityPacket)) {
+            return null;
+        }
+
+        int packetId = connectionState.getPacketId(PacketFlow.CLIENTBOUND, packet);
+        if (packetId < 0) {
+            replayneo$warnInvalidEncodedPacket(packet, packetId, -1, "packet has no clientbound id in " + connectionState);
+            return null;
+        }
+
+        ByteBuf byteBuf = Unpooled.buffer();
+        try {
+            FriendlyByteBuf friendlyByteBuf = new FriendlyByteBuf(byteBuf);
+            if (packet instanceof ClientboundSoundPacket soundPacket) {
+                ClientboundSoundPacket stableSoundPacket = new ClientboundSoundPacket(
+                        Holder.direct(soundPacket.getSound().value()),
+                        soundPacket.getSource(),
+                        soundPacket.getX(),
+                        soundPacket.getY(),
+                        soundPacket.getZ(),
+                        soundPacket.getVolume(),
+                        soundPacket.getPitch(),
+                        soundPacket.getSeed()
+                );
+                stableSoundPacket.write(friendlyByteBuf);
+            } else if (packet instanceof ClientboundSoundEntityPacket soundPacket) {
+                writeStableSoundEvent(friendlyByteBuf, soundPacket.getSound().value());
+                friendlyByteBuf.writeEnum(soundPacket.getSource());
+                friendlyByteBuf.writeVarInt(soundPacket.getId());
+                friendlyByteBuf.writeFloat(soundPacket.getVolume());
+                friendlyByteBuf.writeFloat(soundPacket.getPitch());
+                friendlyByteBuf.writeLong(soundPacket.getSeed());
+            }
+
+            if (!replayneo$isValidEncodedPacket(connectionState, packetId, byteBuf, packet)) {
+                return null;
+            }
+            byte[] bytes = new byte[byteBuf.readableBytes()];
+            byteBuf.getBytes(byteBuf.readerIndex(), bytes);
+            return new Packet(
+                    MCVer.getPacketTypeRegistry(connectionState),
+                    packetId,
+                    com.github.steveice10.netty.buffer.Unpooled.copiedBuffer(bytes)
+            );
+        } finally {
+            byteBuf.release();
+        }
+    }
+
+    private static void writeStableSoundEvent(FriendlyByteBuf byteBuf, SoundEvent soundEvent) {
+        byteBuf.writeId(
+                BuiltInRegistries.SOUND_EVENT.asHolderIdMap(),
+                Holder.direct(soundEvent),
+                (buf, value) -> value.writeToNetwork(buf)
+        );
     }
 
     private boolean replayneo$isValidEncodedPacket(ConnectionProtocol connectionState, int packetId, ByteBuf byteBuf,
@@ -620,7 +687,14 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
 
             logChangedAddonBossMusicPacket("network-decoded", msg);
 
-            if (currentRawPacket != null) {
+            Packet stablePacket = null;
+            if (msg instanceof net.minecraft.network.protocol.Packet<?> packet) {
+                stablePacket = encodeStableRegistryPacket(getConnectionState(), packet);
+            }
+
+            if (stablePacket != null) {
+                save(stablePacket);
+            } else if (currentRawPacket != null) {
                 save(currentRawPacket);
                 currentRawPacket = null;
             }
