@@ -434,6 +434,8 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             entityId = entity.getId();
         }
 
+        ChangedReplayCompat.applyPendingTransfur(entity);
+
         if (entityId == replayneo$lastReplayPlayerEntityId && replayneo$loggedReplayPlayerMovePackets++ < 16) {
             LOGGER.warn("Replay player movement packet. type={}, entityId={}, entityClass={}, controlled={}, pos=({}, {}, {}), time={}",
                     packetType, entityId, entity.getClass().getName(), entity.isControlledByLocalInstance(),
