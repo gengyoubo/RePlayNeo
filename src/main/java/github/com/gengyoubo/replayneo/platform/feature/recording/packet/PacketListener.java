@@ -43,8 +43,11 @@ import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket;
 import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.game.ClientboundDisconnectPacket;
 import net.minecraft.network.protocol.game.ClientboundResourcePackPacket;
+import net.minecraft.network.protocol.game.ClientboundSoundEntityPacket;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.network.protocol.login.ClientboundHelloPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -81,6 +84,11 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
 
     private static final Minecraft mc = getMinecraft();
     private static final Logger logger = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    private static final Set<ResourceLocation> CHANGED_ADDON_BOSS_MUSIC = Set.of(
+            new ResourceLocation("changed_addon", "experiment10_theme"),
+            new ResourceLocation("changed_addon", "music.boss.exp9"),
+            new ResourceLocation("changed_addon", "music.boss.luminarctic_leopard")
+    );
 
     private final RePlayCore core;
     private final Path outputPath;
@@ -105,6 +113,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private final Object pendingMainThreadSavesLock = new Object();
     private final AtomicReference<Throwable> saveFailure = new AtomicReference<>();
     private final AtomicInteger invalidEncodedPacketWarnings = new AtomicInteger();
+    private int loggedChangedAddonBossMusicPackets;
 
     /**
      * Used to keep track of the last metadata save job submitted to the save service and
@@ -548,6 +557,30 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         this.serverWasPaused = true;
     }
 
+    public void logChangedAddonBossMusicPacket(String origin, Object packet) {
+        ResourceLocation id = getChangedAddonBossMusicId(packet);
+        if (id == null || loggedChangedAddonBossMusicPackets++ >= 16) {
+            return;
+        }
+        logger.warn(
+                "Recording ChangedAddon boss music packet. origin={}, packet={}, id={}, time={}, thread={}",
+                origin, packet.getClass().getSimpleName(), id, getCurrentDuration(), Thread.currentThread().getName(),
+                new Throwable("Recording ChangedAddon boss music packet caller stack"));
+    }
+
+    private static ResourceLocation getChangedAddonBossMusicId(Object packet) {
+        ResourceLocation id = null;
+        if (packet instanceof ClientboundSoundPacket soundPacket) {
+            id = soundPacket.getSound().value().getLocation();
+        } else if (packet instanceof ClientboundSoundEntityPacket soundPacket) {
+            id = soundPacket.getSound().value().getLocation();
+        }
+        if (id == null) {
+            return null;
+        }
+        return CHANGED_ADDON_BOSS_MUSIC.contains(id) ? id : null;
+    }
+
     public ResourcePackRecorder getResourcePackRecorder() {
         return resourcePackRecorder;
     }
@@ -585,6 +618,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                 return;
             }
 
+            logChangedAddonBossMusicPacket("network-decoded", msg);
 
             if (currentRawPacket != null) {
                 save(currentRawPacket);

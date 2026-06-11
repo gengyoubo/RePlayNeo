@@ -132,6 +132,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             new ResourceLocation("changed_addon", "music.boss.exp9"),
             new ResourceLocation("changed_addon", "music.boss.luminarctic_leopard")
     );
+    private static final boolean FILTER_CHANGED_ADDON_BOSS_MUSIC = false;
     private static int replayneo$filteredChangedAddonBossMusicPackets;
 
     private static final int TP_DISTANCE_LIMIT = 128;
@@ -560,7 +561,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             return p;
         }
 
-        if (replayneo$isChangedAddonBossMusicPacket(p)) {
+        if (FILTER_CHANGED_ADDON_BOSS_MUSIC && replayneo$isChangedAddonBossMusicPacket(p)) {
             if (replayneo$filteredChangedAddonBossMusicPackets++ < 8) {
                 LOGGER.warn("Filtered ChangedAddon boss music sound packet during replay. packet={}, time={}",
                         p.getClass().getSimpleName(), currentTimeStamp());

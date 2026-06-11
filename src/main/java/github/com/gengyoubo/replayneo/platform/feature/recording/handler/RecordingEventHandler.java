@@ -77,6 +77,7 @@ public class RecordingEventHandler extends EventRegistrations {
     }
 
     public void onPacket(Packet<?> packet) {
+        packetListener.logChangedAddonBossMusicPacket("injected-local", packet);
         packetListener.save(packet);
     }
 
