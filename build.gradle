@@ -85,11 +85,7 @@ minecraft {
                     "-XX:G1MaxNewSizePercent=40",
                     "-XX:G1HeapRegionSize=8M",
                     "-XX:G1ReservePercent=20",
-                    "-XX:InitiatingHeapOccupancyPercent=15",
-                    "-Xlint:deprecation",
-                    "-Xlint:unchecked",
-                    "-Xlint:removal," ,
-                    "--warning-mode all"
+                    "-XX:InitiatingHeapOccupancyPercent=15"
             )
             mods {
                 replayneo {
@@ -180,11 +176,14 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly annotationProcessor('io.github.llamalad7:mixinextras-common:0.5.3')
     compileOnly fg.deobf('maven.modrinth:iris:1.6.11+1.20.1')
+    //兼容
+    runtimeOnly  fg.deobf("curse.maven:modernfix-790626:7515215")
     compileOnly fg.deobf("curse.maven:changed-minecraft-mod-661527:7906615")
     //模组渲染测试
     runtimeOnly fg.deobf("curse.maven:changed-minecraft-mod-661527:7906615")
     //调试
     runtimeOnly fg.deobf("curse.maven:mixintrace-resmithed-1192609:6152628")
+
 }
 
 tasks.named('jar', Jar) {

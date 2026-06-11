@@ -6,6 +6,7 @@ import com.mojang.authlib.GameProfile;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
+import github.com.gengyoubo.replayneo.platform.compat.ChangedReplayCompat;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
 import com.replaymod.replaystudio.io.ReplayInputStream;
@@ -210,6 +211,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     private int replayneo$addPlayerWarnings;
     private int replayneo$lastReplayPlayerEntityId = -1;
     private int replayneo$loggedReplayPlayerMovePackets;
+    private int replayneo$droppedMalformedBundlePackets;
 
     /**
      * The minecraft instance.
@@ -334,7 +336,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             channel.pipeline().close();
             FileUtils.deleteDirectory(tempResourcePackFolder);
         } catch(Exception e) {
-            e.printStackTrace();
+            LOGGER.warn("Failed to clean up replay sender.", e);
         }
     }
 
@@ -389,7 +391,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                 }
             } catch (Exception e) {
                 // We'd rather not have a failure parsing one packet screw up the whole replay process
-                e.printStackTrace();
+                LOGGER.warn("Failed to process replay packet; skipping packet.", e);
             }
         }
 
@@ -549,6 +551,15 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         }
 
         if (p instanceof ClientboundCustomPayloadPacket packet) {
+            if (ChangedReplayCompat.TRANSFUR_SYNC_PAYLOAD.equals(packet.getIdentifier())) {
+                FriendlyByteBuf data = new FriendlyByteBuf(packet.getData().copy());
+                try {
+                    ChangedReplayCompat.applyTransfurPayload(data, mc.level);
+                } finally {
+                    data.release();
+                }
+                return null;
+            }
             if (Restrictions.PLUGIN_CHANNEL.equals(packet.getIdentifier())) {
                 final String unknown = replayHandler.getRestrictions().handle(packet);
                 if (unknown == null) {
@@ -561,7 +572,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                         try {
                             replayHandler.endReplay();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            LOGGER.error("Failed to close replay after unknown replay restriction.", e);
                         }
                         mc.setScreen(new AlertScreen(
                                 () -> mc.setScreen(null),
@@ -843,8 +854,10 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                                 }
 
                                 // Process packet
-                                if (nextPacket.type == PacketType.Bundle) inBundle = !inBundle;
-                                channel.pipeline().fireChannelRead(Unpooled.wrappedBuffer(nextPacket.bytes));
+                                if (!replayneo$dropMalformedBundlePacket(nextPacket)) {
+                                    if (nextPacket.type == PacketType.Bundle) inBundle = !inBundle;
+                                    channel.pipeline().fireChannelRead(Unpooled.wrappedBuffer(nextPacket.bytes));
+                                }
                                 nextPacket = null;
 
                                 lastTimeStamp = nextTimeStamp;
@@ -883,7 +896,9 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                                 Thread.currentThread().interrupt();
                                 break REPLAY_LOOP;
                             } catch (IOException e) {
-                                e.printStackTrace();
+                                LOGGER.warn("Replay sender failed while reading packet data; stopping replay sender.", e);
+                                terminateReplay();
+                                break REPLAY_LOOP;
                             }
                         }
 
@@ -903,7 +918,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.error("Replay sender stopped unexpectedly.", e);
             }
         }
     };
@@ -1046,8 +1061,10 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                         }
 
                         // Process packet
-                        if (pd.type == PacketType.Bundle) inBundle = !inBundle;
-                        channel.pipeline().fireChannelRead(Unpooled.wrappedBuffer(pd.bytes));
+                        if (!replayneo$dropMalformedBundlePacket(pd)) {
+                            if (pd.type == PacketType.Bundle) inBundle = !inBundle;
+                            channel.pipeline().fireChannelRead(Unpooled.wrappedBuffer(pd.bytes));
+                        }
 
                         // MC as of 1.20.2 relies on autoRead, so it can update the connection state on the main
                         // thread before the next packet is read. As such, we need to stall if that was just
@@ -1060,7 +1077,9 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                         replayIn = null;
                         break;
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        LOGGER.warn("Replay sync sender failed while reading packet data; stopping replay sender.", e);
+                        terminateReplay();
+                        break;
                     }
                 }
 
@@ -1069,7 +1088,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                 lastTimeStamp = timestamp;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Replay sync sender stopped unexpectedly.", e);
         }
     }
 
@@ -1145,6 +1164,22 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                 entity.tick();
             }
         } while (prevPos.distanceToSqr(entity.position()) > 0.0001 && ticks++ < 100);
+    }
+
+    private boolean replayneo$dropMalformedBundlePacket(PacketData packetData) {
+        if (packetData.type != PacketType.Bundle || packetData.bytes.length <= 1) {
+            return false;
+        }
+        if (replayneo$droppedMalformedBundlePackets++ < 8) {
+            LOGGER.warn(
+                    "Dropping malformed replay bundle delimiter. timestamp={}, bytes={}, firstByte={}, dropped={}",
+                    packetData.timestamp,
+                    packetData.bytes.length,
+                    packetData.bytes.length == 0 ? -1 : Byte.toUnsignedInt(packetData.bytes[0]),
+                    replayneo$droppedMalformedBundlePackets
+            );
+        }
+        return true;
     }
 
     private static final class PacketData {

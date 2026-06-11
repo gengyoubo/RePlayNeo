@@ -104,6 +104,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private final AtomicInteger pendingMainThreadSaves = new AtomicInteger();
     private final Object pendingMainThreadSavesLock = new Object();
     private final AtomicReference<Throwable> saveFailure = new AtomicReference<>();
+    private final AtomicInteger invalidEncodedPacketWarnings = new AtomicInteger();
 
     /**
      * Used to keep track of the last metadata save job submitted to the save service and
@@ -410,9 +411,16 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
 
     private Packet encodeMcPacket(ConnectionProtocol connectionState, net.minecraft.network.protocol.Packet packet) throws Exception {
         int packetId = connectionState.getPacketId(PacketFlow.CLIENTBOUND, packet);
+        if (packetId < 0) {
+            replayneo$warnInvalidEncodedPacket(packet, packetId, -1, "packet has no clientbound id in " + connectionState);
+            return null;
+        }
         ByteBuf byteBuf = Unpooled.buffer();
         try {
             packet.write(new FriendlyByteBuf(byteBuf));
+            if (!replayneo$isValidEncodedPacket(connectionState, packetId, byteBuf, packet)) {
+                return null;
+            }
             byte[] bytes = new byte[byteBuf.readableBytes()];
             byteBuf.getBytes(byteBuf.readerIndex(), bytes);
             return new Packet(
@@ -426,25 +434,66 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     }
 
     private List<Packet> encodeObservedPackets(net.minecraft.network.protocol.Packet<?> packet) throws Exception {
+        ConnectionProtocol connectionState = getConnectionState();
         BundlerInfo.Provider bundlerProvider = channel.attr(BundlerInfo.BUNDLER_PROVIDER).get();
+        BundlerInfo bundlerInfo = null;
         if (bundlerProvider == null) {
-            return Collections.singletonList(encodeMcPacket(getConnectionState(), packet));
+            bundlerInfo = connectionState.getBundlerInfo(PacketFlow.CLIENTBOUND);
+        } else {
+            bundlerInfo = bundlerProvider.getBundlerInfo(PacketFlow.CLIENTBOUND);
         }
 
-        BundlerInfo bundlerInfo = bundlerProvider.getBundlerInfo(PacketFlow.CLIENTBOUND);
-        if (bundlerInfo == null) {
-            return Collections.singletonList(encodeMcPacket(getConnectionState(), packet));
+        if (bundlerInfo == null || bundlerInfo == BundlerInfo.EMPTY) {
+            Packet encoded = encodeMcPacket(connectionState, packet);
+            return encoded == null ? Collections.emptyList() : Collections.singletonList(encoded);
         }
 
         List<Packet> packets = new ArrayList<>(1);
         bundlerInfo.unbundlePacket(packet, unbundledPacket -> {
             try {
-                packets.add(encodeMcPacket(getConnectionState(), unbundledPacket));
+                Packet encoded = encodeMcPacket(connectionState, unbundledPacket);
+                if (encoded != null) {
+                    packets.add(encoded);
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });
         return packets;
+    }
+
+    private boolean replayneo$isValidEncodedPacket(ConnectionProtocol connectionState, int packetId, ByteBuf byteBuf,
+                                                   net.minecraft.network.protocol.Packet<?> originalPacket) {
+        FriendlyByteBuf validationBuf = new FriendlyByteBuf(byteBuf.copy());
+        try {
+            connectionState.createPacket(PacketFlow.CLIENTBOUND, packetId, validationBuf);
+            int extra = validationBuf.readableBytes();
+            if (extra > 0) {
+                replayneo$warnInvalidEncodedPacket(originalPacket, packetId, extra, "encoded packet leaves unread bytes");
+                return false;
+            }
+            return true;
+        } catch (Throwable throwable) {
+            replayneo$warnInvalidEncodedPacket(originalPacket, packetId, validationBuf.readableBytes(), throwable.toString());
+            return false;
+        } finally {
+            validationBuf.release();
+        }
+    }
+
+    private void replayneo$warnInvalidEncodedPacket(net.minecraft.network.protocol.Packet<?> packet, int packetId,
+                                                    int extraBytes, String reason) {
+        int count = invalidEncodedPacketWarnings.incrementAndGet();
+        if (count <= 16 || count == 32 || count == 64) {
+            logger.warn(
+                    "Skipping invalid replay packet while recording. count={}, packet={}, id={}, extraBytes={}, reason={}",
+                    count,
+                    packet == null ? "null" : packet.getClass().getName(),
+                    packetId,
+                    extraBytes,
+                    reason
+            );
+        }
     }
 
     private static Packet decodePacket(ConnectionProtocol connectionState, ByteBuf buf) {

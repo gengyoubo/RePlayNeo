@@ -202,11 +202,7 @@ public class MarkerProcessor {
                                         }
                                         while (!cutPassthroughPackets.isEmpty()) {
                                             com.replaymod.replaystudio.protocol.Packet packet = cutPassthroughPackets.remove(0);
-                                            try {
-                                                replayOutputStream.write(writeTime, packet);
-                                            } finally {
-                                                packet.release();
-                                            }
+                                            replayOutputStream.write(writeTime, packet);
                                         }
                                         cutFilter = null;
                                     }
