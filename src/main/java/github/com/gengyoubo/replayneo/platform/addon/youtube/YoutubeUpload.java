@@ -1,11 +1,11 @@
 package github.com.gengyoubo.replayneo.platform.addon.youtube;
 
 import github.com.gengyoubo.replayneo.core.RePlayCore;
-import github.com.gengyoubo.replayneo.api.Extra;
+import github.com.gengyoubo.replayneo.api.other.Extra;
 import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiScreen;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.InitScreenCallback;
 import net.minecraft.client.gui.screens.Screen;
 
 public class YoutubeUpload extends EventRegistrations implements Extra {

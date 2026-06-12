@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.platform.render.gui.progress;
 import com.mojang.blaze3d.pipeline.MainTarget;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.Window;
-import github.com.gengyoubo.replayneo.platform.render.hooks.MinecraftClientExt;
+import github.com.gengyoubo.replayneo.api.hook.MinecraftClientExt;
 import github.com.gengyoubo.replayneo.api.function.Closeable;
 import net.minecraft.client.Minecraft;
 

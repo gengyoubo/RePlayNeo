@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.camera;
 
+import github.com.gengyoubo.replayneo.api.camera.CameraController;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;

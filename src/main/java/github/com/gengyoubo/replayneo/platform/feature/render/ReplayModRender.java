@@ -2,13 +2,12 @@ package github.com.gengyoubo.replayneo.platform.feature.render;
 
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
-import github.com.gengyoubo.replayneo.api.Module;
+import github.com.gengyoubo.replayneo.api.other.Module;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
-import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.core.utils.RenderJob;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
-import github.com.gengyoubo.replayneo.platform.render.events.ReplayClosedCallback;
-import github.com.gengyoubo.replayneo.platform.render.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.api.events.ReplayClosedCallback;
+import github.com.gengyoubo.replayneo.api.events.ReplayOpenedCallback;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import github.com.gengyoubo.replayneo.platform.gui.container.VanillaGuiScreen;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;

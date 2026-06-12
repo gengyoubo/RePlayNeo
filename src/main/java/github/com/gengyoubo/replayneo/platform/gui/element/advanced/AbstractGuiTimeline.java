@@ -28,12 +28,12 @@ import github.com.gengyoubo.replayneo.api.gui.element.advanced.IGuiTimeline;
 
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
-import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiTooltip;
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.Clickable;
-import github.com.gengyoubo.replayneo.api.Colors;
+import github.com.gengyoubo.replayneo.api.other.Colors;
 import github.com.gengyoubo.replayneo.core.guiutils.Utils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;

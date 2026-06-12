@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots;
 
 import github.com.gengyoubo.replayneo.core.RePlayCore;
-import github.com.gengyoubo.replayneo.api.Extra;
+import github.com.gengyoubo.replayneo.api.other.Extra;
 
 public class AdvancedScreenshots implements Extra {
 

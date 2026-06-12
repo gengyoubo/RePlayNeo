@@ -3,7 +3,6 @@ package github.com.gengyoubo.replayneo.platform.feature.recording.gui;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import github.com.gengyoubo.replayneo.core.RePlayCore;
-import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.editor.gui.MarkerProcessor;
 import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
@@ -16,7 +15,7 @@ import github.com.gengyoubo.replayneo.platform.gui.element.GuiButton;
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.InitScreenCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -25,7 +24,6 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.function.Function;
 
 public class GuiRecordingControls extends EventRegistrations {

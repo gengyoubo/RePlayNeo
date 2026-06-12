@@ -6,7 +6,7 @@ import github.com.gengyoubo.replayneo.api.events.KeyEventCallback;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
-import github.com.gengyoubo.replayneo.platform.feature.replay.ReplaySender;
+import github.com.gengyoubo.replayneo.api.ReplaySender;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiOverlay;

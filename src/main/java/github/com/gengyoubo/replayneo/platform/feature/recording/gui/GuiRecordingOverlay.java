@@ -1,11 +1,10 @@
 package github.com.gengyoubo.replayneo.platform.feature.recording.gui;
-import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import github.com.gengyoubo.replayneo.platform.feature.recording.Setting;
 import github.com.gengyoubo.replayneo.platform.gui.MinecraftGuiRenderer;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.platform.callbacks.RenderHudCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.RenderHudCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;

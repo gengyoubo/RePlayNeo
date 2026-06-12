@@ -28,7 +28,7 @@ import github.com.gengyoubo.replayneo.api.gui.element.advanced.IGuiTextArea;
 
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
-import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
 import github.com.gengyoubo.replayneo.api.function.CharHandler;
 import github.com.gengyoubo.replayneo.api.function.CharInput;
@@ -38,7 +38,7 @@ import github.com.gengyoubo.replayneo.api.function.Focusable;
 import github.com.gengyoubo.replayneo.api.function.KeyHandler;
 import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.api.function.Tickable;
-import github.com.gengyoubo.replayneo.api.Consumer;
+import github.com.gengyoubo.replayneo.api.other.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
@@ -52,7 +52,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 
 import static github.com.gengyoubo.replayneo.core.guiutils.Utils.clamp;
-import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 
 public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
         extends AbstractGuiElement<T> implements Clickable, KeyHandler, CharHandler, Tickable, IGuiTextArea<T> {

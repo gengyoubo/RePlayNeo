@@ -6,7 +6,7 @@ import github.com.gengyoubo.replayneo.api.pathing.TimelinePlaybackTarget;
 import com.replaymod.replaystudio.pathing.property.AbstractProperty;
 import com.replaymod.replaystudio.pathing.property.PropertyPart;
 import com.replaymod.replaystudio.pathing.property.PropertyParts;
-import github.com.gengyoubo.replayneo.api.NonNull;
+import github.com.gengyoubo.replayneo.api.other.NonNull;
 
 import java.io.IOException;
 import java.util.Collection;

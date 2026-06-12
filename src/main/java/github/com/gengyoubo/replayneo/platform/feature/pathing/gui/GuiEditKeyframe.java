@@ -28,7 +28,6 @@ import github.com.gengyoubo.replayneo.platform.gui.element.GuiTooltip;
 import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 import github.com.gengyoubo.replayneo.api.gui.element.IGuiLabel;
 import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiDropdownMenu;
-import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.KeyHandler;
 import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.core.gui.layout.GridLayout;
@@ -36,8 +35,8 @@ import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import github.com.gengyoubo.replayneo.platform.gui.popup.AbstractGuiPopup;
 import net.minecraft.client.resources.language.I18n;
-import github.com.gengyoubo.replayneo.api.Colors;
-import github.com.gengyoubo.replayneo.api.Consumer;
+import github.com.gengyoubo.replayneo.api.other.Colors;
+import github.com.gengyoubo.replayneo.api.other.Consumer;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;

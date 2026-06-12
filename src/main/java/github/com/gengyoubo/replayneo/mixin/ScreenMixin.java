@@ -1,7 +1,7 @@
 package github.com.gengyoubo.replayneo.mixin;
 
-import github.com.gengyoubo.replayneo.api.ScreenExt;
-import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.api.other.ScreenExt;
+import github.com.gengyoubo.replayneo.api.callbacks.InitScreenCallback;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.AbstractButton;

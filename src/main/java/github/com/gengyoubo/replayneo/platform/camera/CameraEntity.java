@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.camera;
 
+import github.com.gengyoubo.replayneo.api.camera.CameraController;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
@@ -10,11 +11,10 @@ import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
 import github.com.gengyoubo.replayneo.api.events.PreRenderHandCallback;
 import github.com.gengyoubo.replayneo.api.events.SettingsChangedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
-import github.com.gengyoubo.replayneo.platform.render.events.RenderHotbarCallback;
-import github.com.gengyoubo.replayneo.platform.render.events.RenderSpectatorCrosshairCallback;
+import github.com.gengyoubo.replayneo.api.events.RenderHotbarCallback;
+import github.com.gengyoubo.replayneo.api.events.RenderSpectatorCrosshairCallback;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
-import github.com.gengyoubo.replayneo.core.utils.Utils;
+import github.com.gengyoubo.replayneo.api.callbacks.PreTickCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.feature.replay.Setting;
 import com.replaymod.replaystudio.util.Location;

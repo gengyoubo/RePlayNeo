@@ -1,8 +1,8 @@
 package github.com.gengyoubo.replayneo.platform;
 
 import github.com.gengyoubo.replayneo.RePlayNeo;
-import github.com.gengyoubo.replayneo.platform.callbacks.PostRenderScreenCallback;
-import github.com.gengyoubo.replayneo.platform.callbacks.RenderHudCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.PostRenderScreenCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.RenderHudCallback;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.client.event.ScreenEvent;

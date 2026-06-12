@@ -1,7 +1,5 @@
 package github.com.gengyoubo.replayneo.platform.feature.render.gui;
 
-import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
-
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -13,7 +11,7 @@ import github.com.gengyoubo.replayneo.platform.feature.render.rendering.VideoRen
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import com.replaymod.replaystudio.pathing.path.Timeline;
 import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiScreen;
-import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiVerticalList;
@@ -29,8 +27,8 @@ import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import github.com.gengyoubo.replayneo.platform.gui.popup.AbstractGuiPopup;
 import github.com.gengyoubo.replayneo.platform.gui.popup.GuiFileChooserPopup;
-import github.com.gengyoubo.replayneo.api.Colors;
-import github.com.gengyoubo.replayneo.api.Consumer;
+import github.com.gengyoubo.replayneo.api.other.Colors;
+import github.com.gengyoubo.replayneo.api.other.Consumer;
 import github.com.gengyoubo.replayneo.core.guiutils.Utils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;

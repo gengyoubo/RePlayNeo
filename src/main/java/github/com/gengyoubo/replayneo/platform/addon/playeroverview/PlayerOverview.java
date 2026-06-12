@@ -4,14 +4,13 @@ import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.events.PreRenderHandCallback;
-import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
-import github.com.gengyoubo.replayneo.api.Extra;
+import github.com.gengyoubo.replayneo.api.other.Extra;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
-import github.com.gengyoubo.replayneo.platform.render.events.ReplayClosedCallback;
-import github.com.gengyoubo.replayneo.platform.render.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.api.events.ReplayClosedCallback;
+import github.com.gengyoubo.replayneo.api.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import com.replaymod.replaystudio.lib.guava.base.Optional;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;

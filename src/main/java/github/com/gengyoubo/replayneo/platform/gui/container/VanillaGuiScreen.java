@@ -13,12 +13,12 @@ import github.com.gengyoubo.replayneo.platform.gui.MouseUtils;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
-import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
-import github.com.gengyoubo.replayneo.platform.callbacks.OpenGuiScreenCallback;
-import github.com.gengyoubo.replayneo.platform.callbacks.PostRenderScreenCallback;
-import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
-import github.com.gengyoubo.replayneo.platform.callbacks.KeyboardCallback;
-import github.com.gengyoubo.replayneo.platform.callbacks.MouseCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.OpenGuiScreenCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.PostRenderScreenCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.PreTickCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.KeyboardCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.MouseCallback;
 
 
 

@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.api.gui.element.advanced;
 
-import github.com.gengyoubo.replayneo.api.Consumer;
+import github.com.gengyoubo.replayneo.api.other.Consumer;
 import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
 import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 

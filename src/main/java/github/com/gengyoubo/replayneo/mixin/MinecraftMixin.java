@@ -4,9 +4,8 @@ import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.Window;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.render.gui.progress.VirtualWindow;
-import github.com.gengyoubo.replayneo.platform.render.hooks.MinecraftClientExt;
+import github.com.gengyoubo.replayneo.api.hook.MinecraftClientExt;
 import github.com.gengyoubo.replayneo.platform.feature.replay.InputReplayTimer;
-import net.minecraft.client.Timer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -21,7 +20,7 @@ import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.thread.ReentrantBlockableEventLoop;
-import github.com.gengyoubo.replayneo.platform.callbacks.PreTickCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.PreTickCallback;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin

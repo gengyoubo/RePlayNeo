@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay;
 
+import github.com.gengyoubo.replayneo.api.ReplaySender;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import com.google.common.base.Preconditions;
@@ -11,19 +12,18 @@ import com.mojang.blaze3d.platform.Window;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.api.pathing.TimelinePlaybackTarget;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
-import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
 import github.com.gengyoubo.replayneo.platform.camera.SpectatorCameraController;
-import github.com.gengyoubo.replayneo.platform.render.events.ReplayClosedCallback;
-import github.com.gengyoubo.replayneo.platform.render.events.ReplayClosingCallback;
-import github.com.gengyoubo.replayneo.platform.render.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.api.events.ReplayClosedCallback;
+import github.com.gengyoubo.replayneo.api.events.ReplayClosingCallback;
+import github.com.gengyoubo.replayneo.api.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiReplayOverlay;
 import com.replaymod.replaystudio.data.Marker;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import com.replaymod.replaystudio.util.Location;
 import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiScreen;
-import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiLabel;
 import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiProgressBar;

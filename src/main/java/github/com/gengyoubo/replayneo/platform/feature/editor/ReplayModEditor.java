@@ -1,6 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.editor;
 
-import github.com.gengyoubo.replayneo.api.Module;
+import github.com.gengyoubo.replayneo.api.other.Module;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.feature.editor.handler.GuiHandler;
 import org.apache.logging.log4j.Logger;

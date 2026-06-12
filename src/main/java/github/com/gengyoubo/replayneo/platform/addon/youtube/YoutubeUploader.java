@@ -26,7 +26,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.render.metadata.MetadataInjector;
-import github.com.gengyoubo.replayneo.api.NonNull;
+import github.com.gengyoubo.replayneo.api.other.NonNull;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.io.FileUtils;
 

@@ -6,7 +6,7 @@ import github.com.gengyoubo.replayneo.api.events.KeyBindingEventCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.InputReplayTimer;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.api.function.Click;
-import github.com.gengyoubo.replayneo.platform.callbacks.MouseCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.MouseCallback;
 import github.com.gengyoubo.replayneo.platform.debug.ReplaySoundDebug;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;

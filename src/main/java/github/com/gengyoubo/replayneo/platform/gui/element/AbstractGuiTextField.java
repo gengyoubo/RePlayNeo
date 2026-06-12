@@ -26,17 +26,12 @@ package github.com.gengyoubo.replayneo.platform.gui.element;
 
 import github.com.gengyoubo.replayneo.api.gui.element.IGuiTextField;
 
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractComposedGuiElement;
-import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiClickable;
 import github.com.gengyoubo.replayneo.core.gui.element.AbstractGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.ComposedGuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.GuiElement;
-import github.com.gengyoubo.replayneo.api.gui.element.IGuiClickable;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
-import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import github.com.gengyoubo.replayneo.api.function.CharHandler;
 import github.com.gengyoubo.replayneo.api.function.CharInput;
 import github.com.gengyoubo.replayneo.api.function.Click;
@@ -45,7 +40,7 @@ import github.com.gengyoubo.replayneo.api.function.Focusable;
 import github.com.gengyoubo.replayneo.api.function.KeyHandler;
 import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.api.function.Tickable;
-import github.com.gengyoubo.replayneo.api.Consumer;
+import github.com.gengyoubo.replayneo.api.other.Consumer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;
@@ -57,7 +52,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 
 import static github.com.gengyoubo.replayneo.core.guiutils.Utils.clamp;
-import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 
 public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
         extends AbstractGuiElement<T> implements Clickable, Tickable, KeyHandler, CharHandler, IGuiTextField<T> {

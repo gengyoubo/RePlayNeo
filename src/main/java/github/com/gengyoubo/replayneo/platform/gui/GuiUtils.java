@@ -2,8 +2,8 @@ package github.com.gengyoubo.replayneo.platform.gui;
 
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.version.ProtocolVersion;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import github.com.gengyoubo.replayneo.api.Colors;
-import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.other.Colors;
+import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import github.com.gengyoubo.replayneo.api.ReplayCrashReport;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.core.RePlayCore;

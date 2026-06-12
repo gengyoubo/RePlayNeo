@@ -20,7 +20,7 @@ import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
 import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
 import github.com.gengyoubo.replayneo.platform.input.ForgeReplayInput;
-import github.com.gengyoubo.replayneo.platform.render.ReplaySectionDirtyAccess;
+import github.com.gengyoubo.replayneo.api.ReplaySectionDirtyAccess;
 import net.minecraft.ChatFormatting;
 import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;

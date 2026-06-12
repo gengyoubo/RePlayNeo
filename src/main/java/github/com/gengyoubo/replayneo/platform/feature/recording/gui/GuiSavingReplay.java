@@ -9,7 +9,7 @@ import github.com.gengyoubo.replayneo.platform.feature.recording.Setting;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.screen.GuiReplayViewer;
 import com.replaymod.replaystudio.replay.ReplayMetaData;
 import github.com.gengyoubo.replayneo.platform.gui.container.AbstractGuiScreen;
-import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen;
 import github.com.gengyoubo.replayneo.platform.gui.container.VanillaGuiScreen;
@@ -21,7 +21,7 @@ import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiProgressB
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
-import github.com.gengyoubo.replayneo.api.Colors;
+import github.com.gengyoubo.replayneo.api.other.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 import org.apache.commons.lang3.tuple.Pair;

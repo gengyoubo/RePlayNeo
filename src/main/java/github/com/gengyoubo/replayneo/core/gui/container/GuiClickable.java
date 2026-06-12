@@ -24,7 +24,7 @@
  */
 package github.com.gengyoubo.replayneo.core.gui.container;
 
-import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 
 public class GuiClickable extends AbstractGuiClickableContainer<GuiClickable> {
 

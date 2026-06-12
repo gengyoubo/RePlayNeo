@@ -26,7 +26,7 @@ package github.com.gengyoubo.replayneo.api.gui.element;
 
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
-import github.com.gengyoubo.replayneo.api.GuiContainer;
+import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 
 public interface GuiElement<T extends GuiElement<T>> {

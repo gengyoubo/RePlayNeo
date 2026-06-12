@@ -14,7 +14,7 @@ import github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender;
 import github.com.gengyoubo.replayneo.platform.render.export.FFmpegWriter;
 import github.com.gengyoubo.replayneo.platform.render.blend.BlendState;
 import github.com.gengyoubo.replayneo.api.render.capturer.RenderInfo;
-import github.com.gengyoubo.replayneo.platform.render.events.ReplayRenderCallback;
+import github.com.gengyoubo.replayneo.api.events.ReplayRenderCallback;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.api.frame.FrameConsumer;

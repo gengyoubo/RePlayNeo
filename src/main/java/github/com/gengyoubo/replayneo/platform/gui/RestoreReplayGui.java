@@ -3,7 +3,6 @@ package github.com.gengyoubo.replayneo.platform.gui;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
-import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import com.replaymod.replaystudio.io.ReplayInputStream;
 import com.replaymod.replaystudio.io.ReplayOutputStream;
@@ -20,7 +19,7 @@ import github.com.gengyoubo.replayneo.platform.gui.element.advanced.GuiProgressB
 import github.com.gengyoubo.replayneo.core.gui.layout.CustomLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.HorizontalLayout;
 import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
-import github.com.gengyoubo.replayneo.api.Colors;
+import github.com.gengyoubo.replayneo.api.other.Colors;
 import github.com.gengyoubo.replayneo.platform.ReplayPlatforms;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;

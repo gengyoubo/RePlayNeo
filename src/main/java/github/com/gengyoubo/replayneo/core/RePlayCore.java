@@ -3,7 +3,7 @@ package github.com.gengyoubo.replayneo.core;
 import com.replaymod.replaystudio.lib.viaversion.api.protocol.version.ProtocolVersion;
 import com.replaymod.replaystudio.studio.ReplayStudio;
 import github.com.gengyoubo.replayneo.RePlayNeo;
-import github.com.gengyoubo.replayneo.api.Module;
+import github.com.gengyoubo.replayneo.api.other.Module;
 import github.com.gengyoubo.replayneo.api.ReplayRuntime;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.files.ReplayFilesService;

@@ -12,7 +12,7 @@ import github.com.gengyoubo.replayneo.core.gui.layout.VerticalLayout;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import github.com.gengyoubo.replayneo.platform.callbacks.InitScreenCallback;
+import github.com.gengyoubo.replayneo.api.callbacks.InitScreenCallback;
 
 import static github.com.gengyoubo.replayneo.platform.gui.ReplayTextures.GUI_TEXTURE;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.getMinecraft;

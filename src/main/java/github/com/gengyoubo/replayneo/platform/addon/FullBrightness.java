@@ -1,5 +1,5 @@
 package github.com.gengyoubo.replayneo.platform.addon;
-import github.com.gengyoubo.replayneo.api.Extra;
+import github.com.gengyoubo.replayneo.api.other.Extra;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import github.com.gengyoubo.replayneo.core.RePlayCore;
@@ -8,7 +8,7 @@ import github.com.gengyoubo.replayneo.api.events.PreRenderCallback;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayHandler;
 import github.com.gengyoubo.replayneo.platform.feature.replay.ReplayModReplay;
-import github.com.gengyoubo.replayneo.platform.render.events.ReplayOpenedCallback;
+import github.com.gengyoubo.replayneo.api.events.ReplayOpenedCallback;
 import github.com.gengyoubo.replayneo.platform.feature.replay.gui.overlay.GuiReplayOverlay;
 import github.com.gengyoubo.replayneo.platform.gui.element.GuiImage;
 import github.com.gengyoubo.replayneo.api.gui.element.IGuiImage;

@@ -1,6 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.camera;
 
 import de.johni0702.minecraft.gui.utils.lwjgl.vector.Vector3f;
+import github.com.gengyoubo.replayneo.api.camera.CameraController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 
