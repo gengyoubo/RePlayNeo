@@ -41,6 +41,7 @@ import github.com.gengyoubo.replayneo.api.function.KeyHandler;
 import github.com.gengyoubo.replayneo.api.function.KeyInput;
 import github.com.gengyoubo.replayneo.api.function.Tickable;
 import github.com.gengyoubo.replayneo.api.other.Consumer;
+import github.com.gengyoubo.replayneo.platform.versions.LegacyMCVer.Keyboard;
 import de.johni0702.minecraft.gui.utils.lwjgl.Color;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.Point;

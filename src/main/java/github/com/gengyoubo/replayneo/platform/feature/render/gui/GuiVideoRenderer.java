@@ -266,9 +266,7 @@ public class GuiVideoRenderer extends GuiScreen implements Tickable {
             synchronized (this) {
                 NativeImage data = previewTexture.getPixels();
                 assert data != null;
-                // Note: Optifine changes the texture data array to be three times as long (for use by shaders),
-                //       we only want to initialize the first third and since we use our frame size, not the array size,
-                //       we're good to go.
+                // Some render pipelines may allocate a larger texture buffer; only initialize the frame area.
                 int width = size.getWidth();
                 for (int y = 0; y < size.getHeight(); y++) {
                     for (int x = 0; x < width; x++) {

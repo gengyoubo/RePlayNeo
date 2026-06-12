@@ -515,14 +515,6 @@ public class VideoRenderer implements RenderInfo {
                     "Either use the Sodium build from replaymod.com or uninstall Sodium before rendering!",
             };
         }
-        if (settings.getRenderMethod() == RenderSettings.RenderMethod.ODS
-                && !net.minecraftforge.fml.ModList.get().isLoaded("iris")) {
-            return new String[] {
-                    "ODS export requires Iris to be installed for Minecraft 1.17 and above.",
-                    "Note that it is nevertheless incompatible with other shaders and will simply replace them.",
-                    "Get it from: https://modrinth.com/mod/iris",
-            };
-        }
         return null;
     }
 }

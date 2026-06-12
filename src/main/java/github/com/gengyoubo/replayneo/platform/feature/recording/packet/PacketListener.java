@@ -88,9 +88,9 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private static final Minecraft mc = getMinecraft();
     private static final Logger logger = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
     private static final Set<ResourceLocation> CHANGED_ADDON_BOSS_MUSIC = Set.of(
-            new ResourceLocation("changed_addon", "experiment10_theme"),
-            new ResourceLocation("changed_addon", "music.boss.exp9"),
-            new ResourceLocation("changed_addon", "music.boss.luminarctic_leopard")
+            ResourceLocation.fromNamespaceAndPath("changed_addon", "experiment10_theme"),
+            ResourceLocation.fromNamespaceAndPath("changed_addon", "music.boss.exp9"),
+            ResourceLocation.fromNamespaceAndPath("changed_addon", "music.boss.luminarctic_leopard")
     );
 
     private final RePlayCore core;

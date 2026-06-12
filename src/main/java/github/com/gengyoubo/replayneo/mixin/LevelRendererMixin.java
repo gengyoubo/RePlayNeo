@@ -32,7 +32,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,9 +97,6 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
         if (replayModRender$passThrough) {
             return;
         }
-        if (replayneo$isShaderShadowPass()) {
-            return;
-        }
         ci.cancel();
 
         replayModRender$passThrough = true;
@@ -151,18 +147,6 @@ public abstract class LevelRendererMixin implements IForceChunkLoading, Recordin
     @Inject(method = "renderLevel", at = @At("RETURN"))
     private void postRenderWorld(CallbackInfo ci, @Local(argsOnly = true) PoseStack matrixStack) {
         PostRenderWorldCallback.EVENT.invoker().postRenderWorld(new PoseStackWorldRenderContext(matrixStack));
-    }
-
-    @Unique
-    private static boolean replayneo$isShaderShadowPass() {
-        try {
-            Class<?> shaders = Class.forName("net.optifine.shaders.Shaders");
-            Field field = shaders.getDeclaredField("isShadowPass");
-            field.setAccessible(true);
-            return field.getBoolean(null);
-        } catch (ReflectiveOperationException | RuntimeException ignored) {
-            return false;
-        }
     }
 
     @Inject(method = "renderHitOutline", at = @At("HEAD"), cancellable = true)

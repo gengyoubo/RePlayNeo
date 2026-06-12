@@ -129,9 +129,9 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             ClientboundPlayerAbilitiesPacket.class
     );
     private static final Set<ResourceLocation> CHANGED_ADDON_BOSS_MUSIC = Set.of(
-            new ResourceLocation("changed_addon", "experiment10_theme"),
-            new ResourceLocation("changed_addon", "music.boss.exp9"),
-            new ResourceLocation("changed_addon", "music.boss.luminarctic_leopard")
+            ResourceLocation.fromNamespaceAndPath("changed_addon", "experiment10_theme"),
+            ResourceLocation.fromNamespaceAndPath("changed_addon", "music.boss.exp9"),
+            ResourceLocation.fromNamespaceAndPath("changed_addon", "music.boss.luminarctic_leopard")
     );
     private static final boolean FILTER_CHANGED_ADDON_BOSS_MUSIC = false;
     private static int replayneo$filteredChangedAddonBossMusicPackets;

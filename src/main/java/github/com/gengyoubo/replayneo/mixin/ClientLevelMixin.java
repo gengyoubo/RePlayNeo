@@ -27,9 +27,9 @@ import java.util.Set;
 public abstract class ClientLevelMixin extends Level {
     @Unique
     private static final Set<ResourceLocation> replayneo$changedAddonBossMusicSounds = Set.of(
-            new ResourceLocation("changed_addon", "experiment10_theme"),
-            new ResourceLocation("changed_addon", "music.boss.exp9"),
-            new ResourceLocation("changed_addon", "music.boss.luminarctic_leopard")
+            ResourceLocation.fromNamespaceAndPath("changed_addon", "experiment10_theme"),
+            ResourceLocation.fromNamespaceAndPath("changed_addon", "music.boss.exp9"),
+            ResourceLocation.fromNamespaceAndPath("changed_addon", "music.boss.luminarctic_leopard")
     );
 
     @Unique

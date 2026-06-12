@@ -228,21 +228,6 @@ public class LegacyMCVer {
         github.com.gengyoubo.replayneo.platform.versions.MCVer.bindTexture(id);
     }
 
-
-    private static Boolean hasOptifine;
-    public static boolean hasOptifine() {
-        if (hasOptifine == null) {
-            try {
-                Class.forName("Config");
-                hasOptifine = true;
-            } catch (ClassNotFoundException e) {
-                hasOptifine = false;
-            }
-        }
-        return hasOptifine;
-    }
-
-
     public static abstract class Keyboard {
         public static final int KEY_LCONTROL = GLFW.GLFW_KEY_LEFT_CONTROL;
         public static final int KEY_RCONTROL = GLFW.GLFW_KEY_RIGHT_CONTROL;
