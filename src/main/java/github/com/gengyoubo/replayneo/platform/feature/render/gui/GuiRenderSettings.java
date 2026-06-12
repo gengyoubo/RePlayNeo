@@ -113,7 +113,7 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
 
     public final GuiNumberField bitRateField = new GuiNumberField().setValue(10).setSize(50, 20).setValidateOnFocusChange(true);
     public final GuiDropdownMenu<String> bitRateUnit = new GuiDropdownMenu<String>()
-            .setSize(50, 20).setValues("bps", "kbps", "mbps").setSelected("mbps");
+            .setSize(50, 20).setValues((String[]) new Object[]{"bps", "kbps", "mbps"}).setSelected("mbps");
 
     public final GuiButton outputFileButton = new GuiButton().setMinSize(new Dimension(0, 20)).onClick(new Runnable() {
         @Override

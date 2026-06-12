@@ -52,6 +52,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 import net.minecraft.client.gui.Font;
+import org.jetbrains.annotations.UnknownNullability;
 
 public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMenu<V, T>>
         extends AbstractComposedGuiElement<T> implements IGuiDropdownMenu<V,T>, Clickable {
@@ -145,7 +146,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
 
     @SafeVarargs
     @Override
-    public final T setValues(V... values) {
+    public final T setValues(V @UnknownNullability [] values) {
         this.values = values;
         dropdown = new GuiPanel(){
             @Override

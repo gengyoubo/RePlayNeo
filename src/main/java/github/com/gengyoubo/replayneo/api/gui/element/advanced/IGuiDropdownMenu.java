@@ -32,7 +32,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 public interface IGuiDropdownMenu<V, T extends IGuiDropdownMenu<V, T>> extends GuiElement<T> {
-    T setValues(V... values);
+
+    T setValues(V[] values);
 
     T setSelected(int selected);
 
