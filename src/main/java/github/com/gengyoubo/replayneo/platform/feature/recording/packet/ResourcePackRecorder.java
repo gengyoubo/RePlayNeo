@@ -2,6 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.recording.packet;
 
 import com.google.common.hash.Hashing;
 import com.replaymod.replaystudio.replay.ReplayFile;
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.multiplayer.ServerData;
@@ -21,6 +22,9 @@ import java.net.URL;
 
 import github.com.gengyoubo.replayneo.api.other.Consumer;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.io.File;
@@ -53,7 +57,10 @@ public class ResourcePackRecorder {
             // Read in resource pack file
             byte[] bytes = Files.readAllBytes(file);
             // Check whether it is already known
-            String hash = Hashing.sha1().hashBytes(bytes).toString();
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            byte[] digest = md.digest(bytes);
+
+            String hash = HexFormat.of().formatHex(digest);
             boolean doWrite = false; // Whether we are the first and have to write it
             synchronized (replayFile) { // Need to read, modify and write the resource pack index atomically
                 Map<Integer, String> index = replayFile.getResourcePackIndex();
@@ -75,6 +82,9 @@ public class ResourcePackRecorder {
             }
         } catch (IOException e) {
             logger.warn("Failed to save resource pack.", e);
+        } catch (NoSuchAlgorithmException e) {
+            RePlayNeo.LOGGER.error("Failed to save resource pack.", e);
+            throw new RuntimeException(e);
         }
     }
 

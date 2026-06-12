@@ -328,7 +328,7 @@ public class GuiHandler extends EventRegistrations {
                     findButton(buttonList, "modmenu.title", 6)
             )
                     // skip buttons which do not exist
-                    .flatMap(it -> it.stream())
+                    .flatMap(Optional::stream)
                     // skip buttons which already have something next to them
                     .filter(it -> buttonList.stream().noneMatch(button ->
                             button.getX() <= it.getX() + it.getWidth() + 4 + 20

@@ -83,7 +83,9 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
         int h = size.getHeight();
         renderer.drawTexturedRect(0, 0, u, v, w, h, uWidth, vHeight, textureWidth, textureHeight);
     }
-
+    /** This legacy method will be fixed in version 1.0.7.
+     */
+    @SuppressWarnings("deprecation")
     @Override
     protected void finalize() throws Throwable {
         super.finalize();

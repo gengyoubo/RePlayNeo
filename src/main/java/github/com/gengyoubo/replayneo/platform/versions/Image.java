@@ -16,7 +16,7 @@ import java.nio.file.Path;
 /**
  * As of LWJGL 3, AWT must never be initialized, otherwise GLFW will be broken on OSX.
  * **Any** usage of BufferedImage will initialize AWT (static initializer).
- * E.g. https://www.replaymod.com/forum/thread/2566
+ * E.g. <a href="https://www.replaymod.com/forum/thread/2566">...</a>
  */
 public class Image implements AutoCloseable {
     private NativeImage inner;

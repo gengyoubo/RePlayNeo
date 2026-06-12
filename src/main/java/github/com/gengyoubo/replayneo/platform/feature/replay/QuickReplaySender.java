@@ -10,6 +10,7 @@ import com.replaymod.replaystudio.rar.RandomAccessReplay;
 import github.com.gengyoubo.replayneo.api.ReplaySender;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
 import github.com.gengyoubo.replayneo.api.callbacks.PreTickCallback;
+import github.com.gengyoubo.replayneo.core.utils.FutureUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -128,7 +129,7 @@ public class QuickReplaySender extends ChannelHandlerAdapter implements ReplaySe
             LOGGER.warn("QuickReplaySender used without prior initialization!", new Throwable());
             initialize(progress -> {});
         }
-        Futures.addCallback(initPromise, new FutureCallback<>() {
+        FutureUtils.addCallback(initPromise, new FutureCallback<>() {
             @Override
             public void onSuccess(@Nullable Void result) {
                 body.run();

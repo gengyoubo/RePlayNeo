@@ -92,7 +92,7 @@ public class BlendState implements Exporter {
             //noinspection UseOfSystemOutOrSystemErr
             PrintStream sysout = System.out;
             try {
-                System.setOut(new PrintStream(new NullOutputStream()));
+                System.setOut(new PrintStream(NullOutputStream.NULL_OUTPUT_STREAM));
                 blenderFile.write();
             } finally {
                 System.setOut(sysout);

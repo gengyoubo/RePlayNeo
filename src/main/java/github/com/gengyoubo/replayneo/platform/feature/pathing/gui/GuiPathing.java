@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing.gui;
 
+import github.com.gengyoubo.replayneo.core.utils.FutureUtils;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
@@ -257,7 +258,7 @@ public class GuiPathing {
                 overlay.setCloseable(false);
                 overlay.setMouseVisible(true);
                 core.printInfoToChat("replaymod.chat.pathstarted");
-                Futures.addCallback(future, new FutureCallback<>() {
+                FutureUtils.addCallback(future, new FutureCallback<>() {
                     @Override
                     public void onSuccess(@Nullable Void result) {
                         if (future.isCancelled()) {
@@ -368,7 +369,7 @@ public class GuiPathing {
             Timeline currentTimeline = serialization.deserialize(serialized).get("");
             GuiKeyframeRepository gui = new GuiKeyframeRepository(
                     mod.getCurrentTimeline(), replayHandler.getReplayFile(), currentTimeline);
-            Futures.addCallback(gui.getFuture(), new FutureCallback<>() {
+            FutureUtils.addCallback(gui.getFuture(), new FutureCallback<>() {
                 @Override
                 public void onSuccess(Timeline result) {
                     if (result != null) {
@@ -585,7 +586,7 @@ public class GuiPathing {
             LOGGER.debug("Entity tracker not yet loaded, delaying...");
             LoadEntityTrackerPopup popup = new LoadEntityTrackerPopup(replayHandler.getOverlay());
             entityTrackerLoadingProgress = p -> popup.progressBar.setProgress(p.floatValue());
-            Futures.addCallback(entityTrackerFuture, new FutureCallback<>() {
+            FutureUtils.addCallback(entityTrackerFuture, new FutureCallback<>() {
                 @Override
                 public void onSuccess(@Nullable Void result) {
                     popup.close();

@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static github.com.gengyoubo.replayneo.core.files.RePlayMethod.encodeFileName;
 import static github.com.gengyoubo.replayneo.core.utils.Utils.ensureDirectoryExists;
 
 public class ReplayFoldersService {
@@ -54,13 +55,13 @@ public class ReplayFoldersService {
         return path;
     }
 
-    private static final PercentEscaper CACHE_FILE_NAME_ENCODER = new PercentEscaper("-_ ", false);
-
     public Path getCachePathForReplay(Path replay) throws IOException {
         Path replayFolder = getReplayFolder();
         Path cacheFolder = getCacheFolder();
         Path relative = replayFolder.toAbsolutePath().relativize(replay.toAbsolutePath());
-        return cacheFolder.resolve(CACHE_FILE_NAME_ENCODER.escape(relative.toString()));
+        return cacheFolder.resolve(
+                encodeFileName(
+                        relative.toString()));
     }
 
     public Path getReplayPathForCache(Path cache) throws IOException {

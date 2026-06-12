@@ -7,6 +7,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 import github.com.gengyoubo.replayneo.api.ReplaySender;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
+import github.com.gengyoubo.replayneo.core.files.RePlayMethod;
 import github.com.gengyoubo.replayneo.platform.compat.ChangedReplayCompat;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
@@ -248,7 +249,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     /**
      * Directory to which resource packs are extracted.
      */
-    private final File tempResourcePackFolder = Files.createTempDir();
+    private final File tempResourcePackFolder = RePlayMethod.createTempDir();
 
     private final EventHandler events = new EventHandler();
 
@@ -1212,7 +1213,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         return true;
     }
 
-    private static final class PacketData {
+    protected static final class PacketData {
         private static final com.github.steveice10.netty.buffer.ByteBuf byteBuf = com.github.steveice10.netty.buffer.Unpooled.buffer();
         private static final NetOutput netOutput = new ByteBufNetOutput(byteBuf);
 

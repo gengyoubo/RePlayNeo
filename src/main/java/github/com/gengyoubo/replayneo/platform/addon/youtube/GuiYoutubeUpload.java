@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.addon.youtube;
 
+import github.com.gengyoubo.replayneo.core.utils.FutureUtils;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import com.google.api.services.youtube.model.Video;
@@ -198,7 +199,7 @@ public class GuiYoutubeUpload extends GuiScreen {
                     upload = new YoutubeUploader(getMinecraft(), videoFile, videoFrames,
                             thumbnailFormat, thumbnailImage, settings, visibility, snippet);
                     ListenableFuture<Video> future = upload.upload();
-                    Futures.addCallback(future, new FutureCallback<>() {
+                    FutureUtils.addCallback(future, new FutureCallback<>() {
                         @Override
                         public void onSuccess(Video result) {
                             String url = "https://youtu.be/" + result.getId();

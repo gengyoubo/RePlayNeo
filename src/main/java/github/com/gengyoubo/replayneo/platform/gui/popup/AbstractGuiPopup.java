@@ -129,7 +129,7 @@ public abstract class AbstractGuiPopup<T extends AbstractGuiPopup<T>> extends Ab
     protected void open() {
         setLayer(container.getMaxLayer() + 1);
         container.addElements(null, this);
-        container.setLayout(new CustomLayout<GuiContainer<?>>(originalLayout = container.getLayout()) {
+        container.setLayout(new CustomLayout<>(originalLayout = container.getLayout()) {
             @Override
             protected void layout(GuiContainer<?> container, int width, int height) {
                 pos(AbstractGuiPopup.this, 0, 0);

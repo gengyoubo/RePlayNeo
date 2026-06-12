@@ -8,6 +8,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.other.Module;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
+import github.com.gengyoubo.replayneo.core.utils.FutureUtils;
 import github.com.gengyoubo.replayneo.core.utils.ModCompat;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer.Keyboard;
@@ -78,7 +79,7 @@ public class ReplayModReplay implements Module {
             if (replayHandler != null) {
                 Minecraft mc = MCVer.getMinecraft();
                 ListenableFuture<NoGuiScreenshot> future = NoGuiScreenshot.take(mc, 1280, 720);
-                Futures.addCallback(future, new FutureCallback<>() {
+                FutureUtils.addCallback(future, new FutureCallback<>() {
                     @Override
                     public void onSuccess(NoGuiScreenshot result) {
                         try {

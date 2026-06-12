@@ -13,7 +13,7 @@ import static github.com.gengyoubo.replayneo.core.RePlayCore.MOD_ID;
  * quality.
  * In particular also to force-load all chunks with Canvas/Sodium/Bobby.
  * <p>
- * See https://github.com/grondag/frex/pull/9
+ * See <a href="https://github.com/grondag/frex/pull/9">...</a>
  */
 public class FlawlessFrames {
     private static final List<Consumer<Boolean>> CONSUMERS = new CopyOnWriteArrayList<>();

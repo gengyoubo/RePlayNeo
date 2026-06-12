@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import github.com.gengyoubo.replayneo.api.other.Pattern;
+import github.com.gengyoubo.replayneo.core.utils.FutureUtils;
 import net.minecraft.client.Options;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -271,7 +272,7 @@ class Patterns {
     @SuppressWarnings("rawtypes") // preprocessor bug: doesn't work with generics
     @Pattern
     private static void Futures_addCallback(ListenableFuture future, FutureCallback callback) {
-        Futures.addCallback(future, callback, Runnable::run);
+        FutureUtils.addCallback(future, callback, Runnable::run);
     }
 
     @Pattern

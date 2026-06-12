@@ -24,9 +24,6 @@
  */
 package github.com.gengyoubo.replayneo.api.function;
 
-/**
- * @param scancode Note: unavailable on 1.12.2 and below
- */
 public interface KeyInput extends InputWithModifiers {
     int KEY_ESCAPE = 256;
 

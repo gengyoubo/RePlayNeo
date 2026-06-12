@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.FileAttribute;
 import java.util.function.Consumer;
+import static github.com.gengyoubo.replayneo.core.files.RePlayMethod.encodeFileName;
 
 
 public class Utils {
@@ -65,15 +66,13 @@ public class Utils {
         return mail.matches("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$");
     }
 
-    private static final PercentEscaper REPLAY_NAME_ENCODER = new PercentEscaper(".-_ ", false);
-
     public static Path replayNameToPath(Path folder, String replayName) {
         // If we can, prefer directly using the replay name as the file name
         if (isUsable(folder, replayName + ".mcpr")) {
             return folder.resolve(replayName + ".mcpr");
         } else {
             // otherwise, fall back to percent encoding
-            return folder.resolve(REPLAY_NAME_ENCODER.escape(replayName) + ".mcpr");
+            return folder.resolve(encodeFileName((replayName) + ".mcpr"));
         }
     }
 
@@ -127,7 +126,7 @@ public class Utils {
     }
 
     public static <T> void addCallback(ListenableFuture<T> future, Consumer<T> onSuccess, Consumer<Throwable> onFailure) {
-        Futures.addCallback(future, new FutureCallback<>() {
+        FutureUtils.addCallback(future, new FutureCallback<>() {
             @Override
             public void onSuccess(@Nullable T result) {
                 onSuccess.accept(result);

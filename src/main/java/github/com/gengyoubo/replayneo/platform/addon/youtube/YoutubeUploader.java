@@ -36,6 +36,7 @@ import java.util.Collections;
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.minecraft.client.Minecraft;
 
+import static github.com.gengyoubo.replayneo.core.files.RePlayMethod.getFileExtension;
 import static github.com.gengyoubo.replayneo.platform.addon.ReplayModExtras.LOGGER;
 
 public class YoutubeUploader {
@@ -132,8 +133,9 @@ public class YoutubeUploader {
         if (settings.getRenderMethod().isSpherical()) {
             // inject spherical metadata for YouTube unless already done
 
-            boolean isMp4 = Files.getFileExtension(outputFile.getName()).equalsIgnoreCase("mp4");
-
+            boolean isMp4 =
+                    getFileExtension(outputFile.getName())
+                            .equalsIgnoreCase("mp4");
             if (!isMp4) {
                 // convert non-mp4 videos into mp4 format to be able to inject metadata
                 outputFile = new File(outputFile.getParentFile(), System.currentTimeMillis() + ".mp4");

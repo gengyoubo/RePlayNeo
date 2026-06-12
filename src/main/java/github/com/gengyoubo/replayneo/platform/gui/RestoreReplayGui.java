@@ -3,6 +3,7 @@ package github.com.gengyoubo.replayneo.platform.gui;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
+import github.com.gengyoubo.replayneo.core.files.RePlayMethod;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import com.replaymod.replaystudio.io.ReplayInputStream;
 import com.replaymod.replaystudio.io.ReplayOutputStream;
@@ -53,7 +54,7 @@ public class RestoreReplayGui extends AbstractGuiScreen<RestoreReplayGui> {
 
         textPanel.addElements(new VerticalLayout.Data(0.5),
                     new GuiLabel().setI18nText("replaymod.gui.restorereplay1"),
-                    new GuiLabel().setI18nText("replaymod.gui.restorereplay2", Files.getNameWithoutExtension(file.getName())),
+                    new GuiLabel().setI18nText("replaymod.gui.restorereplay2", RePlayMethod.getNameWithoutExtension(file.getName())),
                     new GuiLabel().setI18nText("replaymod.gui.restorereplay3"));
 
         LOGGER.info("Found partially saved replay, offering recovery: {}", file);
@@ -71,7 +72,10 @@ public class RestoreReplayGui extends AbstractGuiScreen<RestoreReplayGui> {
                 if (deleted.exists()) {
                     FileUtils.deleteDirectory(deleted);
                 }
-                Files.move(tmp, deleted);
+                java.nio.file.Files.move(
+                        tmp.toPath(),
+                        deleted.toPath()
+                );
             } catch (IOException e) {
                 e.printStackTrace();
             }

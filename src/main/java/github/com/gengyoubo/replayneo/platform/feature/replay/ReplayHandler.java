@@ -1,6 +1,7 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay;
 
 import github.com.gengyoubo.replayneo.api.ReplaySender;
+import github.com.gengyoubo.replayneo.core.utils.FutureUtils;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import com.google.common.base.Preconditions;
@@ -288,7 +289,7 @@ public class ReplayHandler implements TimelinePlaybackTarget {
         if (future == null) {
             InitializingQuickModePopup popup = new InitializingQuickModePopup(overlay);
             future = quickReplaySender.initialize(progress -> popup.progressBar.setProgress(progress.floatValue()));
-            Futures.addCallback(future, new FutureCallback<>() {
+            FutureUtils.addCallback(future, new FutureCallback<>() {
                 @Override
                 public void onSuccess(@Nullable Void result) {
                     popup.close();
@@ -301,7 +302,7 @@ public class ReplayHandler implements TimelinePlaybackTarget {
                 }
             }, Runnable::run);
         }
-        Futures.addCallback(future, new FutureCallback<>() {
+        FutureUtils.addCallback(future, new FutureCallback<>() {
             @Override
             public void onSuccess(@Nullable Void result) {
                 andThen.run();
