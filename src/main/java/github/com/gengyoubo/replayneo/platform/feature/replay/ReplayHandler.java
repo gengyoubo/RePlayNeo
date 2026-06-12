@@ -318,7 +318,7 @@ public class ReplayHandler implements TimelinePlaybackTarget {
         private final GuiProgressBar progressBar = new GuiProgressBar(popup).setSize(300, 20)
                 .setI18nLabel("replaymod.gui.loadquickmode");
 
-        public InitializingQuickModePopup(GuiContainer container) {
+        public InitializingQuickModePopup(GuiContainer<?> container) {
             super(container);
             open();
         }

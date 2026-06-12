@@ -25,11 +25,11 @@
 package github.com.gengyoubo.replayneo.platform.gui.container;
 
 public class GuiScreen extends AbstractGuiScreen<GuiScreen> {
-    public static AbstractGuiScreen from(net.minecraft.client.gui.screens.Screen minecraft) {
-        if (!(minecraft instanceof AbstractGuiScreen.MinecraftGuiScreen)) {
+    public static AbstractGuiScreen<?> from(net.minecraft.client.gui.screens.Screen minecraft) {
+        if (!(minecraft instanceof AbstractGuiScreen.MinecraftScreen minecraftScreen)) {
             return null;
         }
-        return ((AbstractGuiScreen.MinecraftGuiScreen) minecraft).getWrapper();
+        return minecraftScreen.getWrapper();
     }
 
     public static GuiScreen wrap(final net.minecraft.client.gui.screens.Screen minecraft) {

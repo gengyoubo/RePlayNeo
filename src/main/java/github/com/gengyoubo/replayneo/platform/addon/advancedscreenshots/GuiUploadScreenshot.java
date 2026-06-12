@@ -55,7 +55,7 @@ public class GuiUploadScreenshot extends AbstractGuiPopup<GuiUploadScreenshot> {
             .with(neverOpenLabel, new HorizontalLayout.Data(0.5))
             .build();
 
-    public GuiUploadScreenshot(GuiContainer container, RePlayCore mod, RenderSettings renderSettings) {
+    public GuiUploadScreenshot(GuiContainer<?> container, RePlayCore mod, RenderSettings renderSettings) {
         super(container);
         this.mod = mod;
         this.renderSettings = renderSettings;

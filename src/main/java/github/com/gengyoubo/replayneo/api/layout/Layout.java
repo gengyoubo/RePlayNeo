@@ -34,7 +34,7 @@ import java.util.Map;
 
 public interface Layout {
 
-    Map<GuiElement, Pair<ReadablePoint, ReadableDimension>> layOut(GuiContainer<?> container, ReadableDimension size);
+    Map<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> layOut(GuiContainer<?> container, ReadableDimension size);
 
     ReadableDimension calcMinSize(GuiContainer<?> container);
 

@@ -30,7 +30,7 @@ public class GuiProgressBar extends AbstractGuiProgressBar<GuiProgressBar> {
     public GuiProgressBar() {
     }
 
-    public GuiProgressBar(GuiContainer container) {
+    public GuiProgressBar(GuiContainer<?> container) {
         super(container);
     }
 

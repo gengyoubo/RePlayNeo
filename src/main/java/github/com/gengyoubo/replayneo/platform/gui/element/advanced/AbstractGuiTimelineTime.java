@@ -45,7 +45,7 @@ public abstract class AbstractGuiTimelineTime<T extends AbstractGuiTimelineTime<
     public AbstractGuiTimelineTime() {
     }
 
-    public AbstractGuiTimelineTime(GuiContainer container) {
+    public AbstractGuiTimelineTime(GuiContainer<?> container) {
         super(container);
     }
 

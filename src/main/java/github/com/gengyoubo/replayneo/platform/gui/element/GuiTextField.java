@@ -30,7 +30,7 @@ public class GuiTextField extends AbstractGuiTextField<GuiTextField> {
     public GuiTextField() {
     }
 
-    public GuiTextField(GuiContainer container) {
+    public GuiTextField(GuiContainer<?> container) {
         super(container);
     }
 

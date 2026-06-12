@@ -30,7 +30,7 @@ public class GuiVerticalList extends AbstractGuiVerticalList<GuiVerticalList> {
     public GuiVerticalList() {
     }
 
-    public GuiVerticalList(GuiContainer container) {
+    public GuiVerticalList(GuiContainer<?> container) {
         super(container);
     }
 

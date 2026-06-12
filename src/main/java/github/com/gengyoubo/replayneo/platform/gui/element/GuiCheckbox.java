@@ -30,7 +30,7 @@ public class GuiCheckbox extends AbstractGuiCheckbox<GuiCheckbox> {
     public GuiCheckbox() {
     }
 
-    public GuiCheckbox(GuiContainer container) {
+    public GuiCheckbox(GuiContainer<?> container) {
         super(container);
     }
 

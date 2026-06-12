@@ -35,7 +35,7 @@ public class GuiReplayOverlay extends AbstractGuiOverlay<GuiReplayOverlay> {
             .setLayout(new HorizontalLayout(HorizontalLayout.Alignment.LEFT).setSpacing(5));
     public final GuiButton playPauseButton = new GuiButton() {
         @Override
-        public GuiElement getTooltip(RenderInfo renderInfo) {
+        public GuiElement<?> getTooltip(RenderInfo renderInfo) {
             GuiTooltip tooltip = (GuiTooltip) super.getTooltip(renderInfo);
             if (tooltip != null) {
                 String label;

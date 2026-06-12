@@ -53,14 +53,14 @@ import java.nio.file.InvalidPathException;
 import java.util.*;
 
 public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> implements KeyHandler {
-    public static GuiFileChooserPopup openSaveGui(GuiContainer container, String buttonLabel, String...fileExtensions) {
+    public static GuiFileChooserPopup openSaveGui(GuiContainer<?> container, String buttonLabel, String...fileExtensions) {
         GuiFileChooserPopup popup = new GuiFileChooserPopup(container, fileExtensions, false).setBackgroundColor(Colors.DARK_TRANSPARENT);
         popup.acceptButton.setI18nLabel(buttonLabel);
         popup.open();
         return popup;
     }
 
-    public static GuiFileChooserPopup openLoadGui(GuiContainer container, String buttonLabel, String...fileExtensions) {
+    public static GuiFileChooserPopup openLoadGui(GuiContainer<?> container, String buttonLabel, String...fileExtensions) {
         GuiFileChooserPopup popup = new GuiFileChooserPopup(container, fileExtensions, true).setBackgroundColor(Colors.DARK_TRANSPARENT);
         popup.acceptButton.setI18nLabel(buttonLabel).setDisabled();
         popup.open();
@@ -123,7 +123,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
             }
 
             @Override
-            public ReadableDimension calcMinSize(GuiContainer container) {
+            public ReadableDimension calcMinSize(GuiContainer<?> container) {
                 return new Dimension(300, 200);
             }
         });
@@ -134,7 +134,7 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
 
     private File folder;
 
-    public GuiFileChooserPopup(GuiContainer container, String[] fileExtensions, boolean load) {
+    public GuiFileChooserPopup(GuiContainer<?> container, String[] fileExtensions, boolean load) {
         super(container);
         this.fileExtensions = fileExtensions;
         this.load = load;
@@ -178,10 +178,10 @@ public class GuiFileChooserPopup extends AbstractGuiPopup<GuiFileChooserPopup> i
 
         updateButton();
 
-        for (GuiElement element : new ArrayList<>(pathPanel.getElements().keySet())) {
+        for (GuiElement<?> element : new ArrayList<>(pathPanel.getElements().keySet())) {
             pathPanel.removeElement(element);
         }
-        for (GuiElement element : new ArrayList<>(fileList.getListPanel().getElements().keySet())) {
+        for (GuiElement<?> element : new ArrayList<>(fileList.getListPanel().getElements().keySet())) {
             fileList.getListPanel().removeElement(element);
         }
 

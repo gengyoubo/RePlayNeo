@@ -192,9 +192,7 @@ public abstract class ConnectionMixin {
         return Component.translatable("multiplayer.disconnect.invalid_packet");
     }
 
-    @Unique
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    private static void replayneo$handlePacketUnchecked(Packet packet, net.minecraft.network.PacketListener packetListener) {
+    private static void replayneo$handlePacketUnchecked(Packet<?> packet, net.minecraft.network.PacketListener packetListener) {
         packet.handle(packetListener);
     }
 

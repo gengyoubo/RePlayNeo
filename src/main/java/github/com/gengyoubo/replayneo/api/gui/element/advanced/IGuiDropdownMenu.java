@@ -58,7 +58,7 @@ public interface IGuiDropdownMenu<V, T extends IGuiDropdownMenu<V, T>> extends G
      * This may return null if {@link #setValues(Object[])} has not yet been called.
      * @return Unmodifiable, ordered map of entries
      */
-    Map<V, IGuiClickable> getDropdownEntries();
+    Map<V, IGuiClickable<?>> getDropdownEntries();
 
     /**
      * Set the function used to convert the values to display strings.

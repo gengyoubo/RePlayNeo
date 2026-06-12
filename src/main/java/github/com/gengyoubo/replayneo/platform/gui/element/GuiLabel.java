@@ -30,7 +30,7 @@ public class GuiLabel extends AbstractGuiLabel<GuiLabel> {
     public GuiLabel() {
     }
 
-    public GuiLabel(GuiContainer container) {
+    public GuiLabel(GuiContainer<?> container) {
         super(container);
     }
 

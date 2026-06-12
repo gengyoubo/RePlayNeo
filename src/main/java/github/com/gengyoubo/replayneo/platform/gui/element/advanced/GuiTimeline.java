@@ -30,7 +30,7 @@ public class GuiTimeline extends AbstractGuiTimeline<GuiTimeline> {
     public GuiTimeline() {
     }
 
-    public GuiTimeline(GuiContainer container) {
+    public GuiTimeline(GuiContainer<?> container) {
         super(container);
     }
 

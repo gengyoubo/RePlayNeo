@@ -69,7 +69,7 @@ public class GuiReplaySettings extends AbstractGuiScreen<GuiReplaySettings> {
                         }
                     }.setSize(150, 20).setValues(entries);
                     menu.setSelected(selected).onSelection(obj -> {
-                        settingsRegistry.set((SettingsRegistry.SettingKey) multipleChoiceKey,
+                        settingsRegistry.set((SettingsRegistry.SettingKey<Object>) multipleChoiceKey,
                                 menu.getSelectedValue().value);
                         settingsRegistry.save();
                     });

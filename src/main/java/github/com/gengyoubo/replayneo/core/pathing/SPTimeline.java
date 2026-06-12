@@ -370,7 +370,7 @@ public class SPTimeline implements PathingRegistry {
 
         // Then copy over all properties
         UpdateKeyframeProperties.Builder builder = UpdateKeyframeProperties.create(path, path.getKeyframe(newTime));
-        for (Property property : keyframe.getProperties()) {
+        for (Property<?> property : keyframe.getProperties()) {
             copyProperty(property, keyframe, builder);
         }
         Change propertyChange = builder.done();
@@ -429,9 +429,10 @@ public class SPTimeline implements PathingRegistry {
                 restoreInterpolatorChange, interpolatorUpdateChange, spectatorChange);
     }
 
-    // Helper method because generics cannot be defined on blocks
-    private <T> void copyProperty(Property<T> property, Keyframe from, UpdateKeyframeProperties.Builder to) {
-        from.getValue(property).ifPresent(value -> to.setValue(property, value));
+    @SuppressWarnings("unchecked")
+    private <T> void copyProperty(Property<?> property, Keyframe from, UpdateKeyframeProperties.Builder to) {
+        Property<T> typedProperty = (Property<T>) property;
+        from.getValue(typedProperty).ifPresent(value -> to.setValue(typedProperty, value));
     }
 
     private Change updateInterpolators() {

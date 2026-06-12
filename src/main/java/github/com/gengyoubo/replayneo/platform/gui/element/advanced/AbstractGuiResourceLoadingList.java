@@ -77,7 +77,7 @@ public abstract class AbstractGuiResourceLoadingList
     public AbstractGuiResourceLoadingList() {
     }
 
-    public AbstractGuiResourceLoadingList(GuiContainer container) {
+    public AbstractGuiResourceLoadingList(GuiContainer<?> container) {
         super(container);
     }
 
@@ -105,7 +105,7 @@ public abstract class AbstractGuiResourceLoadingList
 
         // Clear list
         resourcesQueue.clear();
-        for (GuiElement element : new ArrayList<>(resourcesPanel.getChildren())) {
+        for (GuiElement<?> element : new ArrayList<>(resourcesPanel.getChildren())) {
             resourcesPanel.removeElement(element);
         }
         selected.clear();

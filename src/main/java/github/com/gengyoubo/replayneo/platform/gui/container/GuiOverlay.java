@@ -25,11 +25,11 @@
 package github.com.gengyoubo.replayneo.platform.gui.container;
 
 public class GuiOverlay extends AbstractGuiOverlay<GuiOverlay> {
-    public static AbstractGuiOverlay from(net.minecraft.client.gui.screens.Screen minecraft) {
-        if (!(minecraft instanceof AbstractGuiOverlay.UserInputGuiScreen)) {
+    public static AbstractGuiOverlay<?> from(net.minecraft.client.gui.screens.Screen minecraft) {
+        if (!(minecraft instanceof AbstractGuiOverlay.OverlayScreen overlayScreen)) {
             return null;
         }
-        return ((AbstractGuiOverlay.UserInputGuiScreen) minecraft).getOverlay();
+        return overlayScreen.getOverlay();
     }
 
     @Override

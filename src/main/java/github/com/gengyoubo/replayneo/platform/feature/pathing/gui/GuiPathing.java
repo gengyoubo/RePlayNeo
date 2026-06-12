@@ -78,7 +78,7 @@ public class GuiPathing {
 
     public final GuiButton playPauseButton = new GuiButton() {
         @Override
-        public GuiElement getTooltip(RenderInfo renderInfo) {
+        public GuiElement<?> getTooltip(RenderInfo renderInfo) {
             GuiTooltip tooltip = (GuiTooltip) super.getTooltip(renderInfo);
             if (tooltip != null) {
                 if (player.isActive()) {
@@ -112,7 +112,7 @@ public class GuiPathing {
 
     public final GuiButton positionKeyframeButton = new GuiButton() {
         @Override
-        public GuiElement getTooltip(RenderInfo renderInfo) {
+        public GuiElement<?> getTooltip(RenderInfo renderInfo) {
             GuiTooltip tooltip = (GuiTooltip) super.getTooltip(renderInfo);
             if (tooltip != null) {
                 String label;
@@ -137,7 +137,7 @@ public class GuiPathing {
 
     public final GuiButton timeKeyframeButton = new GuiButton() {
         @Override
-        public GuiElement getTooltip(RenderInfo renderInfo) {
+        public GuiElement<?> getTooltip(RenderInfo renderInfo) {
             GuiTooltip tooltip = (GuiTooltip) super.getTooltip(renderInfo);
             if (tooltip != null) {
                 String label;
@@ -703,7 +703,7 @@ public class GuiPathing {
         private final GuiProgressBar progressBar = new GuiProgressBar(popup).setSize(300, 20)
                 .setI18nLabel("replaymod.gui.loadentitytracker");
 
-        public LoadEntityTrackerPopup(GuiContainer container) {
+        public LoadEntityTrackerPopup(GuiContainer<?> container) {
             super(container);
             open();
         }

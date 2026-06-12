@@ -51,7 +51,7 @@ public class GridLayout implements Layout {
     private boolean cellsEqualSize = true;
 
     @Override
-    public Map<GuiElement, Pair<ReadablePoint, ReadableDimension>> layOut(GuiContainer<?> container, ReadableDimension size) {
+    public Map<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> layOut(GuiContainer<?> container, ReadableDimension size) {
         Preconditions.checkState(columns != 0, "Columns may not be 0.");
         int elements = container.getElements().size();
         int rows = (elements - 1 + columns) / columns;
@@ -67,8 +67,8 @@ public class GridLayout implements Layout {
             maxCellSize = calcNeededCellSize(container);
         }
 
-        Map<GuiElement, Pair<ReadablePoint, ReadableDimension>> map = new LinkedHashMap<>();
-        Iterator<Map.Entry<GuiElement, LayoutData>> iter = container.getElements().entrySet().iterator();
+        Map<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> map = new LinkedHashMap<>();
+        Iterator<Map.Entry<GuiElement<?>, LayoutData>> iter = container.getElements().entrySet().iterator();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 if (!iter.hasNext()) {
@@ -94,8 +94,8 @@ public class GridLayout implements Layout {
                     }
                 }
 
-                Map.Entry<GuiElement, LayoutData> entry = iter.next();
-                GuiElement element  = entry.getKey();
+                Map.Entry<GuiElement<?>, LayoutData> entry = iter.next();
+                GuiElement<?> element  = entry.getKey();
                 Data data = entry.getValue() instanceof Data ? (Data) entry.getValue() : DEFAULT_DATA;
                 Dimension elementSize = new Dimension(element.getMinSize());
                 ReadableDimension elementMaxSize = element.getMaxSize();
@@ -118,8 +118,8 @@ public class GridLayout implements Layout {
         int maxWidth = 0, maxHeight = 0;
 
         int elements = 0;
-        for (Map.Entry<GuiElement, LayoutData> entry : container.getElements().entrySet()) {
-            GuiElement element = entry.getKey();
+        for (Map.Entry<GuiElement<?>, LayoutData> entry : container.getElements().entrySet()) {
+            GuiElement<?> element = entry.getKey();
             ReadableDimension minSize = element.getMinSize();
 
             int width = minSize.getWidth();
@@ -166,11 +166,11 @@ public class GridLayout implements Layout {
         int[] rowMaxHeight = new int[(container.getElements().size() - 1 + columns) / columns];
 
         int elements = 0;
-        for (Map.Entry<GuiElement, LayoutData> entry : container.getElements().entrySet()) {
+        for (Map.Entry<GuiElement<?>, LayoutData> entry : container.getElements().entrySet()) {
             int column = elements % columns;
             int row = elements / columns;
 
-            GuiElement element = entry.getKey();
+            GuiElement<?> element = entry.getKey();
             ReadableDimension minSize = element.getMinSize();
 
             int width = minSize.getWidth();

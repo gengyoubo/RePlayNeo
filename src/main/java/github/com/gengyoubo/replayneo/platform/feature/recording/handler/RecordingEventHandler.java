@@ -175,7 +175,7 @@ public class RecordingEventHandler extends EventRegistrations {
 
             final double maxRelDist = 8.0;
 
-            Packet packet;
+            Packet<?> packet;
             if (force || Math.abs(dx) > maxRelDist || Math.abs(dy) > maxRelDist || Math.abs(dz) > maxRelDist) {
                 packet = new ClientboundTeleportEntityPacket(player);
             } else {

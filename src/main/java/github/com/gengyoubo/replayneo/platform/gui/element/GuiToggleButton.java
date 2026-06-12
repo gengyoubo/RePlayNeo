@@ -30,7 +30,7 @@ public class GuiToggleButton<V> extends AbstractGuiToggleButton<V, GuiToggleButt
     public GuiToggleButton() {
     }
 
-    public GuiToggleButton(GuiContainer container) {
+    public GuiToggleButton(GuiContainer<?> container) {
         super(container);
     }
 

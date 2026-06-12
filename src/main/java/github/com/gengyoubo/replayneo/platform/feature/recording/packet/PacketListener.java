@@ -166,7 +166,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         });
     }
 
-    public void save(net.minecraft.network.protocol.Packet packet) {
+    public void save(net.minecraft.network.protocol.Packet<?> packet) {
         try {
             for (Packet encoded : encodeObservedPackets(packet)) {
                 save(encoded);
@@ -393,7 +393,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
             if (buf.readableBytes() > 0) {
                 packet = decodePacket(connectionState, buf);
             }
-        } else if (msg instanceof net.minecraft.network.protocol.Packet) {
+        } else if (msg instanceof net.minecraft.network.protocol.Packet<?>) {
             // for integrated server connections MC is passing the packet objects directly, so we need to encode them
             // ourselves to be able to store them
             List<Packet> packets = encodeObservedPackets((net.minecraft.network.protocol.Packet<?>) msg);
@@ -421,7 +421,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         return channel.attr(key).get();
     }
 
-    private Packet encodeMcPacket(ConnectionProtocol connectionState, net.minecraft.network.protocol.Packet packet) throws Exception {
+    private Packet encodeMcPacket(ConnectionProtocol connectionState, net.minecraft.network.protocol.Packet<?> packet) throws Exception {
         Packet stablePacket = encodeStableRegistryPacket(connectionState, packet);
         if (stablePacket != null) {
             return stablePacket;

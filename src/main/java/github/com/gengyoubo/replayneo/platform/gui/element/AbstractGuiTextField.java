@@ -62,7 +62,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
 
     // Focus
     private boolean focused;
-    private Focusable next, previous;
+    private Focusable<?> next, previous;
 
     // Content
     private int maxLength = 32;
@@ -88,7 +88,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
     public AbstractGuiTextField() {
     }
 
-    public AbstractGuiTextField(GuiContainer container) {
+    public AbstractGuiTextField(GuiContainer<?> container) {
         super(container);
     }
 
@@ -332,13 +332,13 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
     }
 
     @Override
-    public T setNext(Focusable next) {
+    public T setNext(Focusable<?> next) {
         this.next = next;
         return getThis();
     }
 
     @Override
-    public T setPrevious(Focusable previous) {
+    public T setPrevious(Focusable<?> previous) {
         this.previous = previous;
         return getThis();
     }
@@ -399,7 +399,7 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
         int keyCode = keyInput.key();
 
         if (keyCode == Keyboard.KEY_TAB) {
-            Focusable other = keyInput.hasShift() ? previous : next;
+            Focusable<?> other = keyInput.hasShift() ? previous : next;
             if (other != null) {
                 setFocused(false);
                 other.setFocused(true);
@@ -617,11 +617,11 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
         return this.focused;
     }
 
-    public Focusable getNext() {
+    public Focusable<?> getNext() {
         return this.next;
     }
 
-    public Focusable getPrevious() {
+    public Focusable<?> getPrevious() {
         return this.previous;
     }
 

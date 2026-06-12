@@ -30,7 +30,7 @@ public class GuiSlider extends AbstractGuiSlider<GuiSlider> {
     public GuiSlider() {
     }
 
-    public GuiSlider(GuiContainer container) {
+    public GuiSlider(GuiContainer<?> container) {
         super(container);
     }
 

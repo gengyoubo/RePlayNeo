@@ -76,7 +76,7 @@ public class GuiExportFailed extends GuiScreen {
         logList.getListPanel().addElements(null,
                 Arrays.stream(e.getLog().replace("\t", "    ").split("\n"))
                         .map(l -> new GuiLabel().setText(l))
-                        .toArray(GuiElement[]::new));
+                        .toArray(GuiElement<?>[]::new));
 
         resetButton.onClick(() -> RePlayCore.instance.runLater(() -> {
             RenderSettings oldSettings = e.getSettings();

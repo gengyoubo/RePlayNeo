@@ -42,7 +42,7 @@ public abstract class AbstractGuiClickableContainer<T extends AbstractGuiClickab
     public AbstractGuiClickableContainer() {
     }
 
-    public AbstractGuiClickableContainer(GuiContainer<GuiPanel> container) {
+    public AbstractGuiClickableContainer(GuiContainer<?> container) {
         super(container);
     }
 

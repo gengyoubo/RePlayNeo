@@ -30,7 +30,7 @@ public class GuiImage extends AbstractGuiImage<GuiImage> {
     public GuiImage() {
     }
 
-    public GuiImage(GuiContainer container) {
+    public GuiImage(GuiContainer<?> container) {
         super(container);
     }
 

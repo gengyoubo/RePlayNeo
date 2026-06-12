@@ -40,7 +40,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import java.util.function.Consumer;
 
 public class GuiYesNoPopup extends AbstractGuiPopup<GuiYesNoPopup> implements KeyHandler {
-    public static GuiYesNoPopup open(GuiContainer container, GuiElement... info) {
+    public static GuiYesNoPopup open(GuiContainer<?> container, GuiElement<?>... info) {
         GuiYesNoPopup popup = new GuiYesNoPopup(container).setBackgroundColor(Colors.DARK_TRANSPARENT);
         popup.getInfo().addElements(new VerticalLayout.Data(0.5), info);
         popup.open();
@@ -77,7 +77,7 @@ public class GuiYesNoPopup extends AbstractGuiPopup<GuiYesNoPopup> implements Ke
 
     private int layer;
 
-    public GuiYesNoPopup(GuiContainer container) {
+    public GuiYesNoPopup(GuiContainer<?> container) {
         super(container);
     }
 

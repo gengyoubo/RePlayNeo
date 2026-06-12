@@ -55,7 +55,7 @@ public abstract class AbstractGuiImage<T extends AbstractGuiImage<T>>
     public AbstractGuiImage() {
     }
 
-    public AbstractGuiImage(GuiContainer<GuiPanel> container) {
+    public AbstractGuiImage(GuiContainer<?> container) {
         super(container);
     }
 

@@ -53,7 +53,7 @@ public abstract class AbstractGuiLabel<T extends AbstractGuiLabel<T>> extends Ab
     public AbstractGuiLabel() {
     }
 
-    public AbstractGuiLabel(GuiContainer<GuiPanel> container) {
+    public AbstractGuiLabel(GuiContainer<?> container) {
         super(container);
     }
 

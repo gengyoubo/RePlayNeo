@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public interface ComposedGuiElement<T extends ComposedGuiElement<T>> extends GuiElement<T> {
-    Collection<GuiElement> getChildren();
+    Collection<GuiElement<?>> getChildren();
 
     default  <C, R> R forEach(Class<C> ofType, Function<C, R> function) {
         return forEach((elem, elemLayer) -> elem.forEach(elemLayer, ofType, function));

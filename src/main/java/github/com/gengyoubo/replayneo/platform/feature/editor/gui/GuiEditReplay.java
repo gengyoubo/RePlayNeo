@@ -61,7 +61,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
 
     private Set<Marker> markers;
 
-    protected GuiEditReplay(GuiContainer container, Path inputPath) throws IOException {
+    protected GuiEditReplay(GuiContainer<?> container, Path inputPath) throws IOException {
         super(container);
         this.inputPath = inputPath;
 
@@ -192,7 +192,7 @@ public class GuiEditReplay extends AbstractGuiPopup<GuiEditReplay> {
     private static class ProgressPopup extends AbstractGuiPopup<ProgressPopup> {
         private final GuiProgressBar progressBar = new GuiProgressBar(popup).setSize(300, 20);
 
-        ProgressPopup(GuiContainer container) {
+        ProgressPopup(GuiContainer<?> container) {
             super(container);
             open();
         }

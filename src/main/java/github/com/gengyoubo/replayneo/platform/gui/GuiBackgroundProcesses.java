@@ -52,7 +52,7 @@ public class GuiBackgroundProcesses extends EventRegistrations {
     }
 
     public void removeProcess(GuiElement<?> element) {
-        for (GuiElement child : panel.getChildren()) {
+        for (GuiElement<?> child : panel.getChildren()) {
             if (((Element) child).inner == element) {
                 panel.removeElement(child);
                 return;
@@ -61,9 +61,9 @@ public class GuiBackgroundProcesses extends EventRegistrations {
     }
 
     private static class Element extends AbstractGuiContainer<Element> {
-        private final GuiElement inner;
+        private final GuiElement<?> inner;
 
-        Element(GuiElement inner) {
+        Element(GuiElement<?> inner) {
             this.inner = inner;
             addElements(null, inner);
 

@@ -290,7 +290,7 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
                 dragging = true;
             } else if (click.button() == 1) { // Right click
                 Keyframe keyframe = gui.getMod().getCurrentTimeline().getKeyframe(path, keyframeTime);
-                for (Property property : keyframe.getProperties()) {
+                for (Property<?> property : keyframe.getProperties()) {
                     applyPropertyToGame(property, keyframe);
                 }
             }
@@ -314,16 +314,18 @@ public class GuiKeyframeTimeline extends AbstractGuiTimeline<GuiKeyframeTimeline
         return false;
     }
 
-    // Helper method because generics cannot be defined on blocks
-    private <T> void applyPropertyToGame(Property<T> property, Path path, long time) {
-        Optional<T> value = path.getValue(property, time);
-        value.ifPresent(t -> property.applyToGame(t, ReplayModReplay.instance.getReplayHandler()));
+    @SuppressWarnings("unchecked")
+    private <T> void applyPropertyToGame(Property<?> property, Path path, long time) {
+        Property<T> typedProperty = (Property<T>) property;
+        Optional<T> value = path.getValue(typedProperty, time);
+        value.ifPresent(t -> typedProperty.applyToGame(t, ReplayModReplay.instance.getReplayHandler()));
     }
 
-    // Helper method because generics cannot be defined on blocks
-    private <T> void applyPropertyToGame(Property<T> property, Keyframe keyframe) {
-        Optional<T> value = keyframe.getValue(property);
-        value.ifPresent(t -> property.applyToGame(t, ReplayModReplay.instance.getReplayHandler()));
+    @SuppressWarnings("unchecked")
+    private <T> void applyPropertyToGame(Property<?> property, Keyframe keyframe) {
+        Property<T> typedProperty = (Property<T>) property;
+        Optional<T> value = keyframe.getValue(typedProperty);
+        value.ifPresent(t -> typedProperty.applyToGame(t, ReplayModReplay.instance.getReplayHandler()));
     }
 
     @Override

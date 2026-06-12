@@ -39,15 +39,15 @@ public class Utils {
     public static final int DOUBLE_CLICK_INTERVAL = 250;
 
     /**
-     * Link the specified focusable compontents in the order they're supplied.
+     * Link the specified Focusable<?> compontents in the order they're supplied.
      * @param focusables Focusables to link
      * @see Focusable#setNext(Focusable)
      * @see Focusable#setPrevious(Focusable)
      */
-    public static void link(Focusable... focusables) {
+    public static void link(Focusable<?>... focusables) {
         checkArgument(new HashSet<>(Arrays.asList(focusables)).size() == focusables.length, "focusables must be unique and not null");
         for (int i = 0; i < focusables.length; i++) {
-            Focusable next = focusables[(i + 1) % focusables.length];
+            Focusable<?> next = focusables[(i + 1) % focusables.length];
             focusables[i].setNext(next);
             next.setPrevious(focusables[i]);
         }

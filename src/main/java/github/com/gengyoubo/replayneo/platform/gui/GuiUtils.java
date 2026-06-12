@@ -49,7 +49,7 @@ public final class GuiUtils {
         return ReplayPlatforms.get().input().controlDown();
     }
 
-    public static void error(Logger logger, GuiContainer container, Object crashReport, Runnable onClose) {
+    public static void error(Logger logger, GuiContainer<?> container, Object crashReport, Runnable onClose) {
         String crashReportStr = friendlyReport(crashReport);
 
         logger.error(crashReportStr);
@@ -87,17 +87,17 @@ public final class GuiUtils {
         }
     }
 
-    public static void denyIfMinimalMode(GuiContainer container, Runnable onPopupClosed, Runnable orElseRun) {
+    public static void denyIfMinimalMode(GuiContainer<?> container, Runnable onPopupClosed, Runnable orElseRun) {
         if (isNotMinimalModeElsePopup(container, onPopupClosed)) {
             orElseRun.run();
         }
     }
 
-    public static boolean ifMinimalModeDoPopup(GuiContainer container, Runnable onPopupClosed) {
+    public static boolean ifMinimalModeDoPopup(GuiContainer<?> container, Runnable onPopupClosed) {
         return !isNotMinimalModeElsePopup(container, onPopupClosed);
     }
 
-    public static boolean isNotMinimalModeElsePopup(GuiContainer container, Runnable onPopupClosed) {
+    public static boolean isNotMinimalModeElsePopup(GuiContainer<?> container, Runnable onPopupClosed) {
         if (!RePlayCore.isMinimalMode()) {
             LOGGER.trace("Minimal mode not active, continuing");
             return true;
@@ -117,7 +117,7 @@ public final class GuiUtils {
     private static class GuiCrashReportPopup extends GuiInfoPopup {
         private final GuiScrollable scrollable;
 
-        public GuiCrashReportPopup(GuiContainer container, String crashReport) {
+        public GuiCrashReportPopup(GuiContainer<?> container, String crashReport) {
             super(container);
             setBackgroundColor(Colors.DARK_TRANSPARENT);
 
@@ -127,7 +127,7 @@ public final class GuiUtils {
                             .setLayout(new VerticalLayout().setSpacing(2))
                             .addElements(null, Arrays.stream(crashReport.replace("\t", "    ").split("\n"))
                                     .map(line -> new GuiLabel().setText(line).setColor(Colors.BLACK))
-                                    .toArray(GuiElement[]::new)));
+                                    .toArray(GuiElement<?>[]::new)));
 
             GuiButton copyToClipboardButton = new GuiButton().setI18nLabel("chat.copy").onClick(() ->
                     MCVer.setClipboardString(crashReport)).setSize(150, 20);
@@ -148,7 +148,7 @@ public final class GuiUtils {
     }
 
     private static class MinimalModeUnsupportedPopup extends GuiInfoPopup {
-        private MinimalModeUnsupportedPopup(GuiContainer container) {
+        private MinimalModeUnsupportedPopup(GuiContainer<?> container) {
             super(container);
             setBackgroundColor(Colors.DARK_TRANSPARENT);
 

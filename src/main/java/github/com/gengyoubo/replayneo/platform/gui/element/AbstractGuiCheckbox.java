@@ -55,7 +55,7 @@ public abstract class AbstractGuiCheckbox<T extends AbstractGuiCheckbox<T>>
     public AbstractGuiCheckbox() {
     }
 
-    public AbstractGuiCheckbox(GuiContainer<GuiPanel> container) {
+    public AbstractGuiCheckbox(GuiContainer<?> container) {
         super(container);
     }
 

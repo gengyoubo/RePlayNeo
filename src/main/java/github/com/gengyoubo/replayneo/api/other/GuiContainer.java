@@ -39,7 +39,7 @@ public interface GuiContainer<T extends GuiContainer<T>> extends ComposedGuiElem
     T setLayout(Layout layout);
     Layout getLayout();
 
-    void convertFor(GuiElement element, Point point);
+    void convertFor(GuiElement<?> element, Point point);
 
     /**
      * Converts the global coordinates of the point to ones relative to the element.
@@ -48,13 +48,13 @@ public interface GuiContainer<T extends GuiContainer<T>> extends ComposedGuiElem
      * @param relativeLayer Layer at which the point is relative to this element,
      *                      positive values are above this element
      */
-    void convertFor(GuiElement element, Point point, int relativeLayer);
+    void convertFor(GuiElement<?> element, Point point, int relativeLayer);
 
-    Map<GuiElement, LayoutData> getElements();
-    T addElements(LayoutData layoutData, GuiElement... elements);
-    T removeElement(GuiElement element);
+    Map<GuiElement<?>, LayoutData> getElements();
+    T addElements(LayoutData layoutData, GuiElement<?>... elements);
+    T removeElement(GuiElement<?> element);
     T sortElements();
-    T sortElements(Comparator<GuiElement> comparator);
+    T sortElements(Comparator<GuiElement<?>> comparator);
 
     ReadableColor getBackgroundColor();
     T setBackgroundColor(ReadableColor backgroundColor);

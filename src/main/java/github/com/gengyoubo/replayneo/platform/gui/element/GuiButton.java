@@ -30,7 +30,7 @@ public class GuiButton extends AbstractGuiButton<GuiButton> {
     public GuiButton() {
     }
 
-    public GuiButton(GuiContainer container) {
+    public GuiButton(GuiContainer<?> container) {
         super(container);
     }
 

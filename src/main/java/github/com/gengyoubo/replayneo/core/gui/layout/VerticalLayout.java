@@ -54,15 +54,15 @@ public class VerticalLayout implements Layout {
     }
 
     @Override
-    public Map<GuiElement, Pair<ReadablePoint, ReadableDimension>> layOut(GuiContainer<?> container, ReadableDimension size) {
+    public Map<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> layOut(GuiContainer<?> container, ReadableDimension size) {
         int y = 0;
         int spacing = 0;
-        Map<GuiElement, Pair<ReadablePoint, ReadableDimension>> map = new LinkedHashMap<>();
-        for (Map.Entry<GuiElement, LayoutData> entry : container.getElements().entrySet()) {
+        Map<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> map = new LinkedHashMap<>();
+        for (Map.Entry<GuiElement<?>, LayoutData> entry : container.getElements().entrySet()) {
             y += spacing;
             spacing = this.spacing;
 
-            GuiElement element  = entry.getKey();
+            GuiElement<?> element  = entry.getKey();
             Data data = entry.getValue() instanceof Data ? (Data) entry.getValue() : DEFAULT_DATA;
             Dimension elementSize = new Dimension(element.getMinSize());
             ReadableDimension elementMaxSize = element.getMaxSize();
@@ -90,11 +90,11 @@ public class VerticalLayout implements Layout {
         int maxWidth = 0;
         int height = 0;
         int spacing = 0;
-        for (Map.Entry<GuiElement, LayoutData> entry : container.getElements().entrySet()) {
+        for (Map.Entry<GuiElement<?>, LayoutData> entry : container.getElements().entrySet()) {
             height += spacing;
             spacing = this.spacing;
 
-            GuiElement element = entry.getKey();
+            GuiElement<?> element = entry.getKey();
             ReadableDimension minSize = element.getMinSize();
             int width = minSize.getWidth();
             if (width > maxWidth) {

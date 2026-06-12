@@ -32,7 +32,7 @@ public class GuiResourceLoadingList<U extends GuiElement<U> & Comparable<U>>
     public GuiResourceLoadingList() {
     }
 
-    public GuiResourceLoadingList(GuiContainer container) {
+    public GuiResourceLoadingList(GuiContainer<?> container) {
         super(container);
     }
 

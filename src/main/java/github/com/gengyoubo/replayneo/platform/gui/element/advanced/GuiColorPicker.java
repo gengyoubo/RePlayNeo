@@ -31,7 +31,7 @@ public class GuiColorPicker extends AbstractGuiColorPicker<GuiColorPicker> {
     public GuiColorPicker() {
     }
 
-    public GuiColorPicker(GuiContainer container) {
+    public GuiColorPicker(GuiContainer<?> container) {
         super(container);
     }
 

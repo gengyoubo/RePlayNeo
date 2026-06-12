@@ -35,7 +35,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implements GuiElement<T> {
     private GuiContainer<?> container;
 
-    private GuiElement tooltip;
+    private GuiElement<?> tooltip;
 
     private boolean enabled = true;
 
@@ -91,7 +91,7 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
     }
 
     @Override
-    public GuiElement getTooltip(RenderInfo renderInfo) {
+    public GuiElement<?> getTooltip(RenderInfo renderInfo) {
         if (tooltip != null && lastSize != null) {
             Point mouse = new Point(renderInfo.mouseX(), renderInfo.mouseY());
             if (container != null) {
@@ -108,7 +108,7 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
     }
 
     @Override
-    public T setTooltip(GuiElement tooltip) {
+    public T setTooltip(GuiElement<?> tooltip) {
         this.tooltip = tooltip;
         return getThis();
     }

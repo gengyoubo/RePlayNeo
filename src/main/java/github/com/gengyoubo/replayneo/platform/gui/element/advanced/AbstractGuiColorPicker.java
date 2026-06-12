@@ -64,7 +64,7 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
     public AbstractGuiColorPicker() {
     }
 
-    public AbstractGuiColorPicker(GuiContainer<GuiPanel> container) {
+    public AbstractGuiColorPicker(GuiContainer<?> container) {
         super(container);
     }
 
@@ -141,7 +141,7 @@ public abstract class AbstractGuiColorPicker<T extends AbstractGuiColorPicker<T>
     }
 
     @Override
-    public Collection<GuiElement> getChildren() {
+    public Collection<GuiElement<?>> getChildren() {
         return opened ? Collections.singleton(picker) : Collections.emptyList();
     }
 

@@ -72,7 +72,7 @@ public class GuiRenderSettings extends AbstractGuiPopup<GuiRenderSettings> {
             }).setMinSize(new Dimension(0, 20)).setValues(RenderSettings.RenderMethod.getSupported());
 
     {
-        for (Map.Entry<RenderSettings.RenderMethod, IGuiClickable> entry :
+        for (Map.Entry<RenderSettings.RenderMethod, IGuiClickable<?>> entry :
                 renderMethodDropdown.getDropdownEntries().entrySet()) {
             entry.getValue().setTooltip(new GuiTooltip().setText(entry.getKey().getDescription()));
         }

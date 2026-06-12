@@ -75,7 +75,7 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
     public AbstractGuiTimeline() {
     }
 
-    public AbstractGuiTimeline(GuiContainer container) {
+    public AbstractGuiTimeline(GuiContainer<?> container) {
         super(container);
     }
 

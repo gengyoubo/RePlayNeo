@@ -55,6 +55,10 @@ import net.minecraft.client.Minecraft;
 
 public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extends AbstractGuiContainer<T> {
 
+    public interface OverlayScreen {
+        AbstractGuiOverlay<?> getOverlay();
+    }
+
     private final UserInputGuiScreen userInputGuiScreen = new UserInputGuiScreen();
     private final EventHandler eventHandler = new EventHandler();
     private boolean visible;
@@ -142,7 +146,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
         }
         super.layout(size, renderInfo);
         if (mouseVisible && renderInfo.layer() == getMaxLayer()) {
-            final GuiElement tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
+            final GuiElement<?> tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
             if (tooltip != null) {
                 tooltip.layout(tooltip.getMinSize(), renderInfo);
             }
@@ -154,7 +158,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
         updateScreenSize();
         super.draw(renderer, size, renderInfo);
         if (mouseVisible && renderInfo.layer() == getMaxLayer()) {
-            final GuiElement tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
+            final GuiElement<?> tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
             if (tooltip != null) {
                 final ReadableDimension tooltipSize = tooltip.getMinSize();
                 int x, y;
@@ -228,7 +232,7 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
         { on(PreTickCallback.EVENT, () -> invokeAll(Tickable.class, Tickable::tick)); }
     }
 
-    protected class UserInputGuiScreen extends net.minecraft.client.gui.screens.Screen {
+    protected class UserInputGuiScreen extends net.minecraft.client.gui.screens.Screen implements OverlayScreen {
 
         UserInputGuiScreen() {
             super(literalText(""));
@@ -308,7 +312,8 @@ public abstract class AbstractGuiOverlay<T extends AbstractGuiOverlay<T>> extend
         }
 
 
-        public AbstractGuiOverlay<T> getOverlay() {
+        @Override
+        public AbstractGuiOverlay<?> getOverlay() {
             return AbstractGuiOverlay.this;
         }
     }

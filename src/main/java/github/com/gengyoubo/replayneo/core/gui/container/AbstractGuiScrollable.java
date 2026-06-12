@@ -63,12 +63,12 @@ public abstract class AbstractGuiScrollable<T extends AbstractGuiScrollable<T>> 
     public AbstractGuiScrollable() {
     }
 
-    public AbstractGuiScrollable(GuiContainer container) {
+    public AbstractGuiScrollable(GuiContainer<?> container) {
         super(container);
     }
 
     @Override
-    public void convertFor(GuiElement element, Point point, int relativeLayer) {
+    public void convertFor(GuiElement<?> element, Point point, int relativeLayer) {
         super.convertFor(element, point, relativeLayer);
         if (relativeLayer > 0 || (point.getX() > 0 && point.getX() < lastRenderSize.getWidth()
                  && point.getY() > 0 && point.getY() < lastRenderSize.getHeight())) {

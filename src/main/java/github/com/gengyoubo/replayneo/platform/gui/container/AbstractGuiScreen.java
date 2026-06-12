@@ -50,6 +50,10 @@ import static github.com.gengyoubo.replayneo.platform.versions.MCVer.literalText
 
 public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends AbstractGuiContainer<T> {
 
+    public interface MinecraftScreen {
+        AbstractGuiScreen<?> getWrapper();
+    }
+
     private final MinecraftGuiScreen wrapped = new MinecraftGuiScreen();
 
     private Dimension screenSize;
@@ -82,7 +86,7 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
         }
         super.layout(size, renderInfo);
         if (renderInfo.layer() == getMaxLayer()) {
-            final GuiElement tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
+            final GuiElement<?> tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
             if (tooltip != null) {
                 tooltip.layout(tooltip.getMinSize(), renderInfo);
             }
@@ -115,7 +119,7 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
         }
         super.draw(renderer, size, renderInfo);
         if (renderInfo.layer() == getMaxLayer()) {
-            final GuiElement tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
+            final GuiElement<?> tooltip = forEach(GuiElement.class, e -> e.getTooltip(renderInfo));
             if (tooltip != null) {
                 final ReadableDimension tooltipSize = tooltip.getMinSize();
                 int x, y;
@@ -178,7 +182,7 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
         this.title = title;
     }
 
-    protected class MinecraftGuiScreen extends net.minecraft.client.gui.screens.Screen {
+    protected class MinecraftGuiScreen extends net.minecraft.client.gui.screens.Screen implements MinecraftScreen {
         private boolean active;
 
         protected MinecraftGuiScreen() {
@@ -282,7 +286,8 @@ public abstract class AbstractGuiScreen<T extends AbstractGuiScreen<T>> extends 
             invokeAll(Loadable.class, Loadable::load);
         }
 
-        public T getWrapper() {
+        @Override
+        public AbstractGuiScreen<?> getWrapper() {
             return AbstractGuiScreen.this.getThis();
         }
     }

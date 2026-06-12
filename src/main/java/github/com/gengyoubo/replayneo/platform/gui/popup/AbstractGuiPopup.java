@@ -129,14 +129,14 @@ public abstract class AbstractGuiPopup<T extends AbstractGuiPopup<T>> extends Ab
     protected void open() {
         setLayer(container.getMaxLayer() + 1);
         container.addElements(null, this);
-        container.setLayout(new CustomLayout(originalLayout = container.getLayout()) {
+        container.setLayout(new CustomLayout<GuiContainer<?>>(originalLayout = container.getLayout()) {
             @Override
-            protected void layout(GuiContainer container, int width, int height) {
+            protected void layout(GuiContainer<?> container, int width, int height) {
                 pos(AbstractGuiPopup.this, 0, 0);
                 size(AbstractGuiPopup.this, width, height);
             }
         });
-        if (container instanceof AbstractGuiOverlay overlay) {
+        if (container instanceof AbstractGuiOverlay<?> overlay) {
             // Popup opened on a overlay gui. These normally allow interaction with the game world which
             // is undesirable when e.g. typing text into a input field. Therefore we disable user input.
             wasAllowUserInput = overlay.isAllowUserInput();
@@ -150,7 +150,7 @@ public abstract class AbstractGuiPopup<T extends AbstractGuiPopup<T>> extends Ab
     protected void close() {
         getContainer().setLayout(originalLayout);
         getContainer().removeElement(this);
-        if (container instanceof AbstractGuiOverlay overlay) {
+        if (container instanceof AbstractGuiOverlay<?> overlay) {
             overlay.setAllowUserInput(wasAllowUserInput);
             overlay.setMouseVisible(wasMouseVisible);
         }

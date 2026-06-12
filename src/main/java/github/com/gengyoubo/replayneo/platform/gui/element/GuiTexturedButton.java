@@ -30,7 +30,7 @@ public class GuiTexturedButton extends AbstractGuiTexturedButton<GuiTexturedButt
     public GuiTexturedButton() {
     }
 
-    public GuiTexturedButton(GuiContainer container) {
+    public GuiTexturedButton(GuiContainer<?> container) {
         super(container);
     }
 

@@ -69,7 +69,7 @@ public abstract class AbstractGuiHorizontalScrollbar<T extends AbstractGuiHorizo
     public AbstractGuiHorizontalScrollbar() {
     }
 
-    public AbstractGuiHorizontalScrollbar(GuiContainer<GuiPanel> container) {
+    public AbstractGuiHorizontalScrollbar(GuiContainer<?> container) {
         super(container);
     }
 

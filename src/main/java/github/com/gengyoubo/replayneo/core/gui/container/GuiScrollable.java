@@ -30,7 +30,7 @@ public class GuiScrollable extends AbstractGuiScrollable<GuiScrollable> {
     public GuiScrollable() {
     }
 
-    public GuiScrollable(GuiContainer container) {
+    public GuiScrollable(GuiContainer<?> container) {
         super(container);
     }
 

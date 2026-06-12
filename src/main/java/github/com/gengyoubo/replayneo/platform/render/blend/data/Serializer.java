@@ -97,7 +97,7 @@ public class Serializer {
 
     public <T> CArrayFacade<CPointer<T>> writeDataPArray(Class<T> clazz, int count, Util.IOFunction<Integer, CPointer<T>> forElem) throws IOException {
         if (count == 0) return null;
-        CArrayFacade<CPointer<T>> arrayFacade = factory().newCPointerBlock(ID_DATA, new Class[]{CPointer.class, clazz}, count);
+        CArrayFacade<CPointer<T>> arrayFacade = factory().newCPointerBlock(ID_DATA, new Class<?>[]{CPointer.class, clazz}, count);
         for (int i = 0; i < count; i++) {
             arrayFacade.set(i, forElem.apply(i));
         }

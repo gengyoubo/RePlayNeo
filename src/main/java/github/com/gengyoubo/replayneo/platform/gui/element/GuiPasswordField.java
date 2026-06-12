@@ -30,7 +30,7 @@ public class GuiPasswordField extends AbstractGuiPasswordField<GuiPasswordField>
     public GuiPasswordField() {
     }
 
-    public GuiPasswordField(GuiContainer container) {
+    public GuiPasswordField(GuiContainer<?> container) {
         super(container);
     }
 

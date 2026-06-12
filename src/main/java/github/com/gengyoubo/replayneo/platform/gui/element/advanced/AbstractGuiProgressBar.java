@@ -47,7 +47,7 @@ public abstract class AbstractGuiProgressBar<T extends AbstractGuiProgressBar<T>
     public AbstractGuiProgressBar() {
     }
 
-    public AbstractGuiProgressBar(GuiContainer container) {
+    public AbstractGuiProgressBar(GuiContainer<?> container) {
         super(container);
     }
 

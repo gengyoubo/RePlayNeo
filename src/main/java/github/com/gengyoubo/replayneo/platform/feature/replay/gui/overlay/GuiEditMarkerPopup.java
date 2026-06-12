@@ -82,7 +82,7 @@ public class GuiEditMarkerPopup extends AbstractGuiPopup<GuiEditMarkerPopup> imp
             .setLayout(new HorizontalLayout(HorizontalLayout.Alignment.CENTER).setSpacing(7))
             .addElements(new HorizontalLayout.Data(0.5), saveButton, cancelButton);
 
-    public GuiEditMarkerPopup(GuiContainer container, Marker marker, Consumer<Marker> onSave) {
+    public GuiEditMarkerPopup(GuiContainer<?> container, Marker marker, Consumer<Marker> onSave) {
         super(container);
         this.onSave = onSave;
 

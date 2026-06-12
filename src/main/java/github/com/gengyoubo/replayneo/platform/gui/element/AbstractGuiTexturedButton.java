@@ -78,7 +78,7 @@ public abstract class AbstractGuiTexturedButton<T extends AbstractGuiTexturedBut
     public AbstractGuiTexturedButton() {
     }
 
-    public AbstractGuiTexturedButton(GuiContainer container) {
+    public AbstractGuiTexturedButton(GuiContainer<?> container) {
         super(container);
     }
 

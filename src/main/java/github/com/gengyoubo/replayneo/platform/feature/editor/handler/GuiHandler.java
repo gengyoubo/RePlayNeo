@@ -8,7 +8,7 @@ import github.com.gengyoubo.replayneo.api.callbacks.InitScreenCallback;
 public class GuiHandler extends EventRegistrations {
     { on(InitScreenCallback.EVENT, (vanillaGuiScreen, buttonList) -> injectIntoReplayViewer(vanillaGuiScreen)); }
     public void injectIntoReplayViewer(net.minecraft.client.gui.screens.Screen vanillaGuiScreen) {
-        AbstractGuiScreen guiScreen = GuiScreen.from(vanillaGuiScreen);
+        AbstractGuiScreen<?> guiScreen = GuiScreen.from(vanillaGuiScreen);
         // Inject Edit button
     }
 }

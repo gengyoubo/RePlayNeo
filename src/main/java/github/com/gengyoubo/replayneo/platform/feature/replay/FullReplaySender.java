@@ -108,7 +108,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     /**
      * These packets are ignored completely during replay.
      */
-    private static final List<Class> BAD_PACKETS = Arrays.asList(
+    private static final List<Class<? extends Packet<?>>> BAD_PACKETS = Arrays.asList(
             ClientboundHelloPacket.class, // workaround for an issue where RePlayCore prior to 2.6.20 would record these
             ClientboundBlockChangedAckPacket.class,
             ClientboundOpenBookPacket.class,
@@ -365,7 +365,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             return;
         }
 
-        if (msg instanceof Packet p) {
+        if (msg instanceof Packet<?> p) {
             try {
 
                 p = processPacket(p);
@@ -520,7 +520,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     // If we do not give minecraft time to tick, there will be dead entity artifacts left in the world
     // Therefore we have to remove all loaded, dead entities manually if we are in sync mode.
     // We do this after every SpawnX packet and after the destroy entities packet.
-    private void maybeRemoveDeadEntities(Packet packet) {
+    private void maybeRemoveDeadEntities(Packet<?> packet) {
         if (asyncMode) {
             return; // MC should have enough time to tick
         }
@@ -556,7 +556,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
      * @param p The packet to process
      * @return The processed packet or {@code null} if no packet shall be sent
      */
-    protected Packet processPacket(Packet p) throws Exception {
+    protected Packet<?> processPacket(Packet<?> p) throws Exception {
         if (p instanceof ClientboundGameProfilePacket) {
             registry = registry.withLoginSuccess();
             return p;
@@ -759,7 +759,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         if (asyncMode) {
             return processPacketAsync(p);
         } else {
-            Packet fp = p;
+            Packet<?> fp = p;
             schedulePacketHandler(() -> processPacketSync(fp));
             return p;
         }
@@ -1000,7 +1000,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         return false;
     }
 
-    protected Packet processPacketAsync(Packet p) {
+    protected Packet<?> processPacketAsync(Packet<?> p) {
         //If hurrying, ignore some packets, except for short durations
         if(desiredTimeStamp - lastTimeStamp > 1000) {
             if(p instanceof ClientboundLevelParticlesPacket) return null;
@@ -1139,7 +1139,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         }
     }
 
-    protected void processPacketSync(Packet p) {
+    protected void processPacketSync(Packet<?> p) {
         if (p instanceof ClientboundForgetLevelChunkPacket packet) {
             int x = packet.getX();
             int z = packet.getZ();

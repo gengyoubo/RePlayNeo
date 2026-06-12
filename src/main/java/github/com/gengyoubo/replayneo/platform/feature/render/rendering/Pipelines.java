@@ -31,7 +31,7 @@ import github.com.gengyoubo.replayneo.platform.render.PixelBufferObject;
 import java.util.Map;
 
 public class Pipelines {
-    public static Pipeline newPipeline(RenderSettings.RenderMethod method, RenderInfo renderInfo, FrameConsumer<BitmapFrame> consumer) {
+    public static Pipeline<?,?> newPipeline(RenderSettings.RenderMethod method, RenderInfo renderInfo, FrameConsumer<BitmapFrame> consumer) {
         return switch (method) {
             case DEFAULT -> newDefaultPipeline(renderInfo, consumer);
             case STEREOSCOPIC -> newStereoscopicPipeline(renderInfo, consumer);

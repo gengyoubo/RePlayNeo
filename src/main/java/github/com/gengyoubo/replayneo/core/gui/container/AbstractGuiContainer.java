@@ -51,9 +51,9 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
 
     private static final Layout DEFAULT_LAYOUT = new HorizontalLayout();
 
-    private Map<GuiElement, LayoutData> elements = new LinkedHashMap<>();
+    private Map<GuiElement<?>, LayoutData> elements = new LinkedHashMap<>();
 
-    private Map<GuiElement, Pair<ReadablePoint, ReadableDimension>> layedOutElements;
+    private Map<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> layedOutElements;
 
     private Layout layout = DEFAULT_LAYOUT;
 
@@ -78,12 +78,12 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public void convertFor(GuiElement element, Point point) {
+    public void convertFor(GuiElement<?> element, Point point) {
         convertFor(element, point, element.getLayer());
     }
 
     @Override
-    public void convertFor(GuiElement element, Point point, int relativeLayer) {
+    public void convertFor(GuiElement<?> element, Point point, int relativeLayer) {
         if (layedOutElements == null || !layedOutElements.containsKey(element)) {
             layout(null, new RenderInfo(0, 0, 0, relativeLayer));
         }
@@ -98,21 +98,21 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public Collection<GuiElement> getChildren() {
+    public Collection<GuiElement<?>> getChildren() {
         return Collections.unmodifiableCollection(elements.keySet());
     }
 
     @Override
-    public Map<GuiElement, LayoutData> getElements() {
+    public Map<GuiElement<?>, LayoutData> getElements() {
         return Collections.unmodifiableMap(elements);
     }
 
     @Override
-    public T addElements(LayoutData layoutData, GuiElement... elements) {
+    public T addElements(LayoutData layoutData, GuiElement<?>... elements) {
         if (layoutData == null) {
             layoutData = LayoutData.NONE;
         }
-        for (GuiElement element : elements) {
+        for (GuiElement<?> element : elements) {
             this.elements.put(element, layoutData);
             element.setContainer(this);
         }
@@ -120,7 +120,7 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public T removeElement(GuiElement element) {
+    public T removeElement(GuiElement<?> element) {
         if (elements.remove(element) != null) {
             element.setContainer(null);
             if (layedOutElements != null) {
@@ -139,8 +139,8 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
         } catch (Exception ex) {
             throw GuiCrashReports.layout(ex, renderInfo, this, layout);
         }
-        for (final Map.Entry<GuiElement, Pair<ReadablePoint, ReadableDimension>> e : layedOutElements.entrySet()) {
-            GuiElement element = e.getKey();
+        for (final Map.Entry<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> e : layedOutElements.entrySet()) {
+            GuiElement<?> element = e.getKey();
             if (element instanceof ComposedGuiElement) {
                 if (((ComposedGuiElement<?>) element).getMaxLayer() < renderInfo.layer()) {
                     continue;
@@ -163,8 +163,8 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
         if (backgroundColor != null && renderInfo.layer() == 0) {
             renderer.drawRect(0, 0, size.getWidth(), size.getHeight(), backgroundColor);
         }
-        for (final Map.Entry<GuiElement, Pair<ReadablePoint, ReadableDimension>> e : layedOutElements.entrySet()) {
-            GuiElement element = e.getKey();
+        for (final Map.Entry<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> e : layedOutElements.entrySet()) {
+            GuiElement<?> element = e.getKey();
             boolean strict;
             if (element instanceof ComposedGuiElement) {
                 if (((ComposedGuiElement<?>) element).getMaxLayer() < renderInfo.layer()) {
@@ -199,8 +199,10 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     @Override
     public T sortElements() {
         sortElements((o1, o2) -> {
-            if (o1 instanceof Comparable && o2 instanceof Comparable) {
-                return ((Comparable) o1).compareTo(o2);
+            if (o1 instanceof Comparable<?> && o2 instanceof Comparable<?>) {
+                @SuppressWarnings("unchecked")
+                Comparable<Object> comparable = (Comparable<Object>) o1;
+                return comparable.compareTo(o2);
             }
             return o1.hashCode() - o2.hashCode();
         });
@@ -208,7 +210,7 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
     }
 
     @Override
-    public T sortElements(final Comparator<GuiElement> comparator) {
+    public T sortElements(final Comparator<GuiElement<?>> comparator) {
         elements = elements.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey(comparator))

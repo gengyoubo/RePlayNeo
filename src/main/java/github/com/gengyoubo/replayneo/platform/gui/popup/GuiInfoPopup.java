@@ -38,15 +38,15 @@ import github.com.gengyoubo.replayneo.api.other.Colors;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 
 public class GuiInfoPopup extends AbstractGuiPopup<GuiInfoPopup> implements KeyHandler {
-    public static GuiInfoPopup open(GuiContainer container, String...info) {
-        GuiElement[] labels = new GuiElement[info.length];
+    public static GuiInfoPopup open(GuiContainer<?> container, String...info) {
+        GuiElement<?>[] labels = new GuiElement[info.length];
         for (int i = 0; i < info.length; i++) {
             labels[i] = new GuiLabel().setI18nText(info[i]).setColor(Colors.BLACK);
         }
         return open(container, labels);
     }
 
-    public static GuiInfoPopup open(GuiContainer container, GuiElement... info) {
+    public static GuiInfoPopup open(GuiContainer<?> container, GuiElement<?>... info) {
         GuiInfoPopup popup = new GuiInfoPopup(container).setBackgroundColor(Colors.DARK_TRANSPARENT);
         popup.getInfo().addElements(new VerticalLayout.Data(0.5), info);
         popup.open();
@@ -70,7 +70,7 @@ public class GuiInfoPopup extends AbstractGuiPopup<GuiInfoPopup> implements KeyH
 
     private int layer;
 
-    public GuiInfoPopup(GuiContainer container) {
+    public GuiInfoPopup(GuiContainer<?> container) {
         super(container);
     }
 

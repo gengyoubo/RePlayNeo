@@ -67,7 +67,7 @@ public abstract class AbstractGuiButton<T extends AbstractGuiButton<T>> extends 
     public AbstractGuiButton() {
     }
 
-    public AbstractGuiButton(GuiContainer<GuiPanel> container) {
+    public AbstractGuiButton(GuiContainer<?> container) {
         super(container);
     }
 

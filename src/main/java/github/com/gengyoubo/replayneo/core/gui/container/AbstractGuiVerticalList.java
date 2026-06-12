@@ -87,7 +87,7 @@ public abstract class AbstractGuiVerticalList<T extends AbstractGuiVerticalList<
     public AbstractGuiVerticalList() {
     }
 
-    public AbstractGuiVerticalList(GuiContainer container) {
+    public AbstractGuiVerticalList(GuiContainer<?> container) {
         super(container);
     }
 

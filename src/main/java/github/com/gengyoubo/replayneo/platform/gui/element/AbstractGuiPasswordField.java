@@ -35,7 +35,7 @@ public abstract class AbstractGuiPasswordField<T extends AbstractGuiPasswordFiel
     public AbstractGuiPasswordField() {
     }
 
-    public AbstractGuiPasswordField(GuiContainer<GuiPanel> container) {
+    public AbstractGuiPasswordField(GuiContainer<?> container) {
         super(container);
     }
 

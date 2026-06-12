@@ -417,14 +417,11 @@ public final class ChangedReplayCompat {
         registryGetValue = registryHolder.getMethod("getValue", ResourceLocation.class);
     }
 
-    @SuppressWarnings("unchecked")
     private static Object findTransfurCause(Class<?> transfurCause) {
-        Class<Enum> enumClass = (Class<Enum>) transfurCause.asSubclass(Enum.class);
         for (String name : new String[] {"DEFAULT", "FLOOR_HAZARD", "CRYSTAL", "SYRINGE"}) {
-            try {
-                return Enum.valueOf(enumClass, name);
-            } catch (IllegalArgumentException ignored) {
-                // Try the next Changed version's common cause name.
+            Object constant = findEnumConstantByName(transfurCause, name);
+            if (constant != null) {
+                return constant;
             }
         }
 
@@ -433,5 +430,18 @@ public final class ChangedReplayCompat {
             return constants[0];
         }
         throw new IllegalStateException("Changed TransfurCause has no enum constants.");
+    }
+
+    private static Object findEnumConstantByName(Class<?> enumType, String name) {
+        Object[] constants = enumType.getEnumConstants();
+        if (constants == null) {
+            return null;
+        }
+        for (Object constant : constants) {
+            if (constant instanceof Enum<?> enumConstant && enumConstant.name().equals(name)) {
+                return constant;
+            }
+        }
+        return null;
     }
 }

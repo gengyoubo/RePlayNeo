@@ -49,7 +49,7 @@ public abstract class AbstractGuiNumberField<T extends AbstractGuiNumberField<T>
     public AbstractGuiNumberField() {
     }
 
-    public AbstractGuiNumberField(GuiContainer<GuiPanel> container) {
+    public AbstractGuiNumberField(GuiContainer<?> container) {
         super(container);
     }
 

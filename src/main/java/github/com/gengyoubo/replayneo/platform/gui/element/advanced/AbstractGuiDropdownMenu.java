@@ -67,14 +67,14 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
 
     private GuiPanel dropdown;
 
-    private Map<V, IGuiClickable> unmodifiableDropdownEntries;
+    private Map<V, IGuiClickable<?>> unmodifiableDropdownEntries;
 
     private Function<V, String> toString = Object::toString;
 
     public AbstractGuiDropdownMenu() {
     }
 
-    public AbstractGuiDropdownMenu(GuiContainer<GuiPanel> container) {
+    public AbstractGuiDropdownMenu(GuiContainer<?> container) {
         super(container);
     }
 
@@ -149,7 +149,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
         this.values = values;
         dropdown = new GuiPanel(){
             @Override
-            public void convertFor(GuiElement element, Point point, int relativeLayer) {
+            public void convertFor(GuiElement<?> element, Point point, int relativeLayer) {
                 AbstractGuiDropdownMenu<V, T> parent = AbstractGuiDropdownMenu.this;
                 if (parent.getContainer() != null) {
                     parent.getContainer().convertFor(parent, point, relativeLayer + 1);
@@ -158,7 +158,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
                 super.convertFor(element, point, relativeLayer);
             }
         }.setLayout(new VerticalLayout());
-        Map<V, IGuiClickable> dropdownEntries = new LinkedHashMap<>();
+        Map<V, IGuiClickable<?>> dropdownEntries = new LinkedHashMap<>();
         for (V value : values) {
             DropdownEntry entry = new DropdownEntry(value);
             dropdownEntries.put(value, entry);
@@ -197,7 +197,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
     }
 
     @Override
-    public Collection<GuiElement> getChildren() {
+    public Collection<GuiElement<?>> getChildren() {
         return opened ? Collections.singletonList(dropdown) : Collections.emptyList();
     }
 
@@ -235,7 +235,7 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
     }
 
     @Override
-    public Map<V, IGuiClickable> getDropdownEntries() {
+    public Map<V, IGuiClickable<?>> getDropdownEntries() {
         return unmodifiableDropdownEntries;
     }
 

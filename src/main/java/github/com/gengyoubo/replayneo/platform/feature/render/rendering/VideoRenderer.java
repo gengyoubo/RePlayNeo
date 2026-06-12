@@ -2,6 +2,7 @@ package github.com.gengyoubo.replayneo.platform.feature.render.rendering;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
+import github.com.gengyoubo.replayneo.api.frame.Frame;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.AbstractTimelinePlayer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.ReplayTimer;
@@ -70,7 +71,7 @@ public class VideoRenderer implements RenderInfo {
     private final RenderSettings settings;
     private final ReplayHandler replayHandler;
     private final Timeline timeline;
-    private final Pipeline renderingPipeline;
+    private final Pipeline<BitmapFrame, BitmapFrame> renderingPipeline;
     private final FFmpegWriter ffmpegWriter;
     private final CameraPathExporter cameraPathExporter;
 
@@ -140,7 +141,7 @@ public class VideoRenderer implements RenderInfo {
                     return frameConsumer.isParallelCapable();
                 }
             };
-            this.renderingPipeline = Pipelines.newPipeline(settings.getRenderMethod(), this, previewingFrameConsumer);
+            this.renderingPipeline = (Pipeline<BitmapFrame, BitmapFrame>) Pipelines.newPipeline(settings.getRenderMethod(), this, previewingFrameConsumer);
         }
 
         if (settings.isCameraPathExport()) {

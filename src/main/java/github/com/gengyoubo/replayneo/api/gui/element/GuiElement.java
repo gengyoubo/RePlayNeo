@@ -47,8 +47,8 @@ public interface GuiElement<T extends GuiElement<T>> {
     T setEnabled();
     T setDisabled();
 
-    GuiElement getTooltip(RenderInfo renderInfo);
-    T setTooltip(GuiElement tooltip);
+    GuiElement<?> getTooltip(RenderInfo renderInfo);
+    T setTooltip(GuiElement<?> tooltip);
 
     /**
      * Returns the layer this element takes part in.

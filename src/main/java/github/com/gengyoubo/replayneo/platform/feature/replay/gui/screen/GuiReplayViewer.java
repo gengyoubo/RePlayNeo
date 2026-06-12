@@ -254,7 +254,7 @@ public class GuiReplayViewer extends GuiScreen {
     private static final GuiImage DEFAULT_THUMBNAIL = new GuiImage().setTexture(GuiUtils.DEFAULT_THUMBNAIL);
 
     public static class GuiSelectReplayPopup extends AbstractGuiPopup<GuiSelectReplayPopup> {
-        public static GuiSelectReplayPopup openGui(GuiContainer container, File folder) {
+        public static GuiSelectReplayPopup openGui(GuiContainer<?> container, File folder) {
             GuiSelectReplayPopup popup = new GuiSelectReplayPopup(container, folder);
             popup.list.load();
             popup.open();
@@ -270,7 +270,7 @@ public class GuiReplayViewer extends GuiScreen {
         private final GuiButton cancelButton = new GuiButton(popup).setI18nLabel("gui.cancel").setSize(50, 20);
 
 
-        public GuiSelectReplayPopup(GuiContainer container, File folder) {
+        public GuiSelectReplayPopup(GuiContainer<?> container, File folder) {
             super(container);
 
             list.setFolder(folder);
@@ -298,7 +298,7 @@ public class GuiReplayViewer extends GuiScreen {
                 }
 
                 @Override
-                public ReadableDimension calcMinSize(GuiContainer container) {
+                public ReadableDimension calcMinSize(GuiContainer<?> container) {
                     return new Dimension(330, 200);
                 }
             });
@@ -333,7 +333,7 @@ public class GuiReplayViewer extends GuiScreen {
         private final GuiTextField filterTextField = new GuiTextField()
                 .setFocused(true);
 
-        public GuiReplayList(GuiContainer container) {
+        public GuiReplayList(GuiContainer<?> container) {
             super(container);
         }
 

@@ -34,12 +34,13 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadablePoint;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class CustomLayout<T extends GuiContainer<T>> implements Layout {
+public abstract class CustomLayout<T extends GuiContainer<?>> implements Layout {
     private final Layout parent;
-    private final Map<GuiElement, Pair<Point, Dimension>> result = new LinkedHashMap<>();
+    private final Map<GuiElement<?>, Pair<Point, Dimension>> result = new LinkedHashMap<>();
 
     public CustomLayout() {
         this(null);
@@ -51,16 +52,16 @@ public abstract class CustomLayout<T extends GuiContainer<T>> implements Layout 
 
     @Override
     @SuppressWarnings("unchecked")
-    public Map<GuiElement, Pair<ReadablePoint, ReadableDimension>> layOut(GuiContainer container, ReadableDimension size) {
+    public Map<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> layOut(GuiContainer<?> container, ReadableDimension size) {
         result.clear();
         if (parent == null) {
-            Collection<GuiElement> elements = container.getChildren();
-            for (GuiElement element : elements) {
+            Collection<GuiElement<?>> elements = container.getChildren();
+            for (GuiElement<?> element : elements) {
                 result.put(element, Pair.of(new Point(0, 0), new Dimension(element.getMinSize())));
             }
         } else {
-            Map<GuiElement, Pair<ReadablePoint, ReadableDimension>> elements = parent.layOut(container, size);
-            for (Map.Entry<GuiElement, Pair<ReadablePoint, ReadableDimension>> entry : elements.entrySet()) {
+            Map<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> elements = parent.layOut(container, size);
+            for (Map.Entry<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> entry : elements.entrySet()) {
                 Pair<ReadablePoint, ReadableDimension> pair = entry.getValue();
                 result.put(entry.getKey(), Pair.of(new Point(pair.getLeft()), new Dimension(pair.getRight())));
             }
@@ -68,60 +69,64 @@ public abstract class CustomLayout<T extends GuiContainer<T>> implements Layout 
 
         layout((T) container, size.getWidth(), size.getHeight());
 
-        return (Map) result;
+        Map<GuiElement<?>, Pair<ReadablePoint, ReadableDimension>> out = new LinkedHashMap<>();
+        for (Map.Entry<GuiElement<?>, Pair<Point, Dimension>> entry : result.entrySet()) {
+            out.put(entry.getKey(), Pair.of(entry.getValue().getLeft(), entry.getValue().getRight()));
+        }
+        return Collections.unmodifiableMap(out);
     }
 
-    private Pair<Point, Dimension> entry(GuiElement element) {
+    private Pair<Point, Dimension> entry(GuiElement<?> element) {
         return result.get(element);
     }
 
-    protected void set(GuiElement element, int x, int y, int width, int height) {
+    protected void set(GuiElement<?> element, int x, int y, int width, int height) {
         Pair<Point, Dimension> entry = entry(element);
         entry.getLeft().setLocation(x, y);
         entry.getRight().setSize(width, height);
     }
 
-    protected void pos(GuiElement element, int x, int y) {
+    protected void pos(GuiElement<?> element, int x, int y) {
         entry(element).getLeft().setLocation(x, y);
     }
 
-    protected void size(GuiElement element, ReadableDimension size) {
+    protected void size(GuiElement<?> element, ReadableDimension size) {
         size.getSize(entry(element).getRight());
     }
 
-    protected void size(GuiElement element, int width, int height) {
+    protected void size(GuiElement<?> element, int width, int height) {
         entry(element).getRight().setSize(width, height);
     }
 
-    protected void x(GuiElement element, int x) {
+    protected void x(GuiElement<?> element, int x) {
         entry(element).getLeft().setX(x);
     }
 
-    protected void y(GuiElement element, int y) {
+    protected void y(GuiElement<?> element, int y) {
         entry(element).getLeft().setY(y);
     }
 
-    protected void width(GuiElement element, int width) {
+    protected void width(GuiElement<?> element, int width) {
         entry(element).getRight().setWidth(width);
     }
 
-    protected void height(GuiElement element, int height) {
+    protected void height(GuiElement<?> element, int height) {
         entry(element).getRight().setHeight(height);
     }
 
-    protected int x(GuiElement element) {
+    protected int x(GuiElement<?> element) {
         return entry(element).getLeft().getX();
     }
 
-    protected int y(GuiElement element) {
+    protected int y(GuiElement<?> element) {
         return entry(element).getLeft().getY();
     }
 
-    protected int width(GuiElement element) {
+    protected int width(GuiElement<?> element) {
         return entry(element).getRight().getWidth();
     }
 
-    protected int height(GuiElement element) {
+    protected int height(GuiElement<?> element) {
         return entry(element).getRight().getHeight();
     }
 

@@ -30,7 +30,7 @@ public class GuiNumberField extends AbstractGuiNumberField<GuiNumberField> {
     public GuiNumberField() {
     }
 
-    public GuiNumberField(GuiContainer container) {
+    public GuiNumberField(GuiContainer<?> container) {
         super(container);
     }
 

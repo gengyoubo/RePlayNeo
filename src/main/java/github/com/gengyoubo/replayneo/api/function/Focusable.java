@@ -33,10 +33,10 @@ public interface Focusable<T extends Focusable<T>> {
 
     T onFocusChange(Consumer<Boolean> consumer);
 
-    Focusable getNext();
-    T setNext(Focusable next);
+    Focusable<?> getNext();
+    T setNext(Focusable<?> next);
 
-    Focusable getPrevious();
-    T setPrevious(Focusable previous);
+    Focusable<?> getPrevious();
+    T setPrevious(Focusable<?> previous);
 
 }

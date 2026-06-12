@@ -73,41 +73,36 @@ public class ForgeReplayInput implements ReplayInput {
         return ctrl | shift | alt;
     }
 
-    private static class KeyBindingAdapter implements ReplayKeyBinding {
-        private final ReplayKeyBindingRegistry.Binding binding;
-
-        private KeyBindingAdapter(ReplayKeyBindingRegistry.Binding binding) {
-            this.binding = binding;
-        }
+    private record KeyBindingAdapter(ReplayKeyBindingRegistry.Binding binding) implements ReplayKeyBinding {
 
         @Override
-        public String id() {
-            return binding.name();
-        }
-
-        @Override
-        public String displayName() {
-            return binding.getBoundKey();
-        }
-
-        @Override
-        public boolean isBound() {
-            return binding.isBound();
-        }
-
-        @Override
-        public boolean consumeClick() {
-            if (!binding.isDown()) {
-                return false;
+            public String id() {
+                return binding.name();
             }
-            binding.trigger();
-            return true;
-        }
 
-        @Override
-        public boolean isDown() {
-            return binding.isDown();
+            @Override
+            public String displayName() {
+                return binding.getBoundKey();
+            }
+
+            @Override
+            public boolean isBound() {
+                return binding.isBound();
+            }
+
+            @Override
+            public boolean consumeClick() {
+                if (!binding.isDown()) {
+                    return false;
+                }
+                binding.trigger();
+                return true;
+            }
+
+            @Override
+            public boolean isDown() {
+                return binding.isDown();
+            }
         }
-    }
 
 }

@@ -277,7 +277,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
 
         public class InterpolationPanel extends AbstractGuiContainer<InterpolationPanel> {
 
-            private SettingsPanel settingsPanel;
+            private SettingsPanel<? extends Interpolator, ?> settingsPanel;
 
             private GuiDropdownMenu<InterpolatorType> dropdown;
 
@@ -290,7 +290,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
                         .onSelection(i -> setSettingsPanel(dropdown.getSelectedValue()));
 
                 // set hover tooltips
-                for (Map.Entry<InterpolatorType, IGuiClickable> e : dropdown.getDropdownEntries().entrySet()) {
+                for (Map.Entry<InterpolatorType, IGuiClickable<?>> e : dropdown.getDropdownEntries().entrySet()) {
                     e.getValue().setTooltip(new GuiTooltip().setI18nText(e.getKey().getI18nDescription()));
                 }
 
@@ -323,7 +323,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
                 }
             }
 
-            public SettingsPanel getSettingsPanel() {
+            public SettingsPanel<? extends Interpolator, ?> getSettingsPanel() {
                 return settingsPanel;
             }
 

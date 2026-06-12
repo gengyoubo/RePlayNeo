@@ -57,7 +57,7 @@ public abstract class AbstractGuiSlider<T extends AbstractGuiSlider<T>> extends 
     public AbstractGuiSlider() {
     }
 
-    public AbstractGuiSlider(GuiContainer container) {
+    public AbstractGuiSlider(GuiContainer<?> container) {
         super(container);
     }
 

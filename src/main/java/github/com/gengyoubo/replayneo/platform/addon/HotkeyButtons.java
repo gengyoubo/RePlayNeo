@@ -49,12 +49,12 @@ public class HotkeyButtons extends EventRegistrations implements Extra {
 
             panel = new GuiPanel(overlay) {
                 @Override
-                public Collection<GuiElement> getChildren() {
+                public Collection<GuiElement<?>> getChildren() {
                     return open ? super.getChildren() : Collections.emptyList();
                 }
 
                 @Override
-                public Map<GuiElement, LayoutData> getElements() {
+                public Map<GuiElement<?>, LayoutData> getElements() {
                     return open ? super.getElements() : Collections.emptyMap();
                 }
             }.setLayout(panelLayout = new GridLayout().setSpacingX(5).setSpacingY(5).setColumns(1));

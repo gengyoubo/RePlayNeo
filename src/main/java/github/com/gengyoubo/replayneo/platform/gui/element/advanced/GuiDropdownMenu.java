@@ -31,7 +31,7 @@ public class GuiDropdownMenu<V> extends AbstractGuiDropdownMenu<V, GuiDropdownMe
     public GuiDropdownMenu() {
     }
 
-    public GuiDropdownMenu(GuiContainer container) {
+    public GuiDropdownMenu(GuiContainer<?> container) {
         super(container);
     }
 

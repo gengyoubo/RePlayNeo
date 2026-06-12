@@ -62,7 +62,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     private static final int LINE_SPACING = 2;
 
     private boolean focused;
-    private Focusable next, previous;
+    private Focusable<?> next, previous;
 
     private Consumer<Boolean> focusChanged;
 
@@ -89,7 +89,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     public AbstractGuiTextArea() {
     }
 
-    public AbstractGuiTextArea(GuiContainer container) {
+    public AbstractGuiTextArea(GuiContainer<?> container) {
         super(container);
     }
 
@@ -408,13 +408,13 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
     }
 
     @Override
-    public T setNext(Focusable next) {
+    public T setNext(Focusable<?> next) {
         this.next = next;
         return getThis();
     }
 
     @Override
-    public T setPrevious(Focusable previous) {
+    public T setPrevious(Focusable<?> previous) {
         this.previous = previous;
         return getThis();
     }
@@ -506,7 +506,7 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
         int keyCode = keyInput.key();
 
         if (keyCode == Keyboard.KEY_TAB) {
-            Focusable other = keyInput.hasShift() ? previous : next;
+            Focusable<?> other = keyInput.hasShift() ? previous : next;
             if (other != null) {
                 setFocused(false);
                 other.setFocused(true);
@@ -712,11 +712,11 @@ public abstract class AbstractGuiTextArea<T extends AbstractGuiTextArea<T>>
         return this.focused;
     }
 
-    public Focusable getNext() {
+    public Focusable<?> getNext() {
         return this.next;
     }
 
-    public Focusable getPrevious() {
+    public Focusable<?> getPrevious() {
         return this.previous;
     }
 

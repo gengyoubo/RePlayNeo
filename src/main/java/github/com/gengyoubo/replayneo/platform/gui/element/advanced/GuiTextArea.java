@@ -30,7 +30,7 @@ public class GuiTextArea extends AbstractGuiTextArea<GuiTextArea> {
     public GuiTextArea() {
     }
 
-    public GuiTextArea(GuiContainer container) {
+    public GuiTextArea(GuiContainer<?> container) {
         super(container);
     }
 

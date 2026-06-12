@@ -30,7 +30,7 @@ public class GuiHorizontalScrollbar extends AbstractGuiHorizontalScrollbar<GuiHo
     public GuiHorizontalScrollbar() {
     }
 
-    public GuiHorizontalScrollbar(GuiContainer container) {
+    public GuiHorizontalScrollbar(GuiContainer<?> container) {
         super(container);
     }
 
