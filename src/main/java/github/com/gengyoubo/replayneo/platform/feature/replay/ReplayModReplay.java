@@ -1,9 +1,9 @@
 package github.com.gengyoubo.replayneo.platform.feature.replay;
 
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.core.function.MouseClick;
 
 import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.other.Module;
@@ -35,14 +35,14 @@ import java.util.Optional;
 public class ReplayModReplay implements Module {
 
     { instance = this; }
-    public static ReplayModReplay instance;
+    public static ReplayModReplay instance = null;
 
     private final RePlayCore core;
     public ReplayKeyBindingRegistry.Binding keyPlayPause;
 
     private final CameraControllerRegistry cameraControllerRegistry = new CameraControllerRegistry();
 
-    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static final Logger LOGGER = RePlayNeo.LOGGER;
 
     private ReplayHandler replayHandler;
 

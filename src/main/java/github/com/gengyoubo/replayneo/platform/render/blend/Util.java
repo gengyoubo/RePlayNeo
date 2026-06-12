@@ -182,6 +182,6 @@ public class Util {
     }
 
     public interface IOFunction<T, R> {
-        R apply(T t) throws IOException;
+        R apply(T t);
     }
 }

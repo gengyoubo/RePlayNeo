@@ -4,7 +4,6 @@ import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
 import com.mojang.authlib.GameProfile;
 import com.google.common.base.Preconditions;
-import com.google.common.io.Files;
 import github.com.gengyoubo.replayneo.api.ReplaySender;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.files.RePlayMethod;
@@ -414,7 +413,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             return;
         }
 
-        Integer entityId = null;
+        int entityId;
         String packetType;
         Entity entity;
         if (packet instanceof ClientboundMoveEntityPacket movePacket) {
@@ -430,7 +429,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         }
 
         if (entity == null) {
-            if (entityId != null && entityId == replayneo$lastReplayPlayerEntityId && replayneo$loggedReplayPlayerMovePackets++ < 16) {
+            if (entityId == replayneo$lastReplayPlayerEntityId && replayneo$loggedReplayPlayerMovePackets++ < 16) {
                 LOGGER.warn("Replay player movement packet has no target entity. type={}, entityId={}, time={}",
                         packetType, entityId, currentTimeStamp());
             }
@@ -439,10 +438,6 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                         packetType, entityId, currentTimeStamp());
             }
             return;
-        }
-
-        if (entityId == null) {
-            entityId = entity.getId();
         }
 
         ChangedReplayCompat.applyPendingTransfur(entity);
@@ -875,7 +870,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                                 }
 
                                 // Process packet
-                                if (!replayneo$dropMalformedBundlePacket(nextPacket)) {
+                                if (replayneo$dropMalformedBundlePacket(nextPacket)) {
                                     if (nextPacket.type == PacketType.Bundle) inBundle = !inBundle;
                                     channel.pipeline().fireChannelRead(Unpooled.wrappedBuffer(nextPacket.bytes));
                                 }
@@ -1092,7 +1087,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                         }
 
                         // Process packet
-                        if (!replayneo$dropMalformedBundlePacket(pd)) {
+                        if (replayneo$dropMalformedBundlePacket(pd)) {
                             if (pd.type == PacketType.Bundle) inBundle = !inBundle;
                             channel.pipeline().fireChannelRead(Unpooled.wrappedBuffer(pd.bytes));
                         }
@@ -1199,18 +1194,18 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
     private boolean replayneo$dropMalformedBundlePacket(PacketData packetData) {
         if (packetData.type != PacketType.Bundle || packetData.bytes.length <= 1) {
-            return false;
+            return true;
         }
         if (replayneo$droppedMalformedBundlePackets++ < 8) {
             LOGGER.warn(
                     "Dropping malformed replay bundle delimiter. timestamp={}, bytes={}, firstByte={}, dropped={}",
                     packetData.timestamp,
                     packetData.bytes.length,
-                    packetData.bytes.length == 0 ? -1 : Byte.toUnsignedInt(packetData.bytes[0]),
+                    Byte.toUnsignedInt(packetData.bytes[0]),
                     replayneo$droppedMalformedBundlePackets
             );
         }
-        return true;
+        return false;
     }
 
     protected static final class PacketData {

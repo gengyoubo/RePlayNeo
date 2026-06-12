@@ -6,7 +6,6 @@ import github.com.gengyoubo.replayneo.platform.gui.ReplayTextures;
 
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
@@ -625,7 +624,7 @@ public class GuiPathing {
      * @param neverSpectator when true, will insert a position keyframe even when currently spectating an entity
      */
     public void toggleKeyframe(SPPath path, boolean neverSpectator) {
-        LOGGER.debug("Updating keyframe on path {}{}", path);
+        LOGGER.debug("Updating keyframe on path {}", path);
         if (loadEntityTracker(() -> toggleKeyframe(path, neverSpectator))) return;
 
         int time = timeline.getCursorPosition();

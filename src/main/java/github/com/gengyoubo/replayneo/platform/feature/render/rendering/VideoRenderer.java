@@ -2,7 +2,6 @@ package github.com.gengyoubo.replayneo.platform.feature.render.rendering;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
-import github.com.gengyoubo.replayneo.api.frame.Frame;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.AbstractTimelinePlayer;
 import github.com.gengyoubo.replayneo.platform.feature.pathing.player.ReplayTimer;
@@ -61,7 +60,6 @@ import static com.google.common.collect.Iterables.getLast;
 import static github.com.gengyoubo.replayneo.core.utils.Utils.DEFAULT_MS_PER_TICK;
 import static github.com.gengyoubo.replayneo.platform.versions.MCVer.*;
 import static github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender.LOGGER;
-import static github.com.gengyoubo.replayneo.platform.versions.MCVer.identifier;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 
@@ -378,7 +376,6 @@ public class VideoRenderer implements RenderInfo {
 
     public boolean drawGui() {
         Window window = mc.getWindow();
-        do {
             if (GLFW.glfwWindowShouldClose(window.getWindow()) || mc.delayedCrash != null) {
                 return false;
             }
@@ -445,7 +442,6 @@ public class VideoRenderer implements RenderInfo {
             }
 
             return hasFailed() && !cancelled;
-        } while (true);
     }
 
     public int getFramesDone() {

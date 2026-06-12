@@ -24,7 +24,7 @@ public abstract class Result<Ok, Err> {
     public abstract <T> Result<T, Err> mapOk(Function<Ok, T> func);
     public abstract <T> Result<Ok, T> mapErr(Function<Err, T> func);
 
-    private static class OkImpl<Ok, Err> extends Result<Ok, Err> {
+    public static class OkImpl<Ok, Err> extends Result<Ok, Err> {
         private final Ok value;
 
         public OkImpl(Ok value) {
@@ -82,7 +82,7 @@ public abstract class Result<Ok, Err> {
         }
     }
 
-    private static class ErrImpl<Ok, Err> extends Result<Ok, Err> {
+    public static class ErrImpl<Ok, Err> extends Result<Ok, Err> {
         private final Err value;
 
         public ErrImpl(Err value) {

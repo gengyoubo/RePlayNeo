@@ -134,18 +134,18 @@ public abstract class AbstractGuiScrollable<T extends AbstractGuiScrollable<T>> 
         return offsetX;
     }
 
-    public T setOffsetX(int offsetX) {
+    public void setOffsetX(int offsetX) {
         this.offsetX = offsetX;
-        return getThis();
+        getThis();
     }
 
     public int getOffsetY() {
         return offsetY;
     }
 
-    public T setOffsetY(int offsetY) {
+    public void setOffsetY(int offsetY) {
         this.offsetY = offsetY;
-        return getThis();
+        getThis();
     }
 
     public Direction getScrollDirection() {

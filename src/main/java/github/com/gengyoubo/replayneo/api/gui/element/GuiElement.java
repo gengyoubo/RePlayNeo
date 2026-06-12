@@ -32,7 +32,7 @@ import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
 public interface GuiElement<T extends GuiElement<T>> {
 
     GuiContainer<?> getContainer();
-    T setContainer(GuiContainer<?> container);
+    void setContainer(GuiContainer<?> container);
 
     void layout(ReadableDimension size, RenderInfo renderInfo);
     void draw(GuiRenderer renderer, ReadableDimension size, RenderInfo renderInfo);

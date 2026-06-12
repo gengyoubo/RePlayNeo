@@ -55,20 +55,7 @@ public abstract class PboOpenGlFrameCapturer<F extends Frame, D extends Enum<D> 
         for (int i = 0; i < frames.length; i++) {
             ByteBuffer frameBuffer = ByteBufferPool.allocate(frameBufferSize);
             pboBuffer.limit(pboBuffer.position() + frameBufferSize);
-            if (false) {
-                for (int j = 0; j < frameBufferSize; j += 4) {
-                    byte r = pboBuffer.get();
-                    byte g = pboBuffer.get();
-                    byte b = pboBuffer.get();
-                    byte a = pboBuffer.get();
-                    frameBuffer.put(b);
-                    frameBuffer.put(g);
-                    frameBuffer.put(r);
-                    frameBuffer.put(a);
-                }
-            } else {
-                frameBuffer.put(pboBuffer);
-            }
+            frameBuffer.put(pboBuffer);
             frameBuffer.rewind();
             frames[i] = new OpenGlFrame(framesDone - 2, frameSize, 4, frameBuffer);
         }

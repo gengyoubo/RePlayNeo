@@ -7,7 +7,6 @@ import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
 import com.google.gson.Gson;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
-import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.editor.gui.MarkerProcessor;
 import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
@@ -421,7 +420,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         return channel.attr(key).get();
     }
 
-    private Packet encodeMcPacket(ConnectionProtocol connectionState, net.minecraft.network.protocol.Packet<?> packet) throws Exception {
+    private Packet encodeMcPacket(ConnectionProtocol connectionState, net.minecraft.network.protocol.Packet<?> packet) {
         Packet stablePacket = encodeStableRegistryPacket(connectionState, packet);
         if (stablePacket != null) {
             return stablePacket;
@@ -435,7 +434,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
         ByteBuf byteBuf = Unpooled.buffer();
         try {
             packet.write(new FriendlyByteBuf(byteBuf));
-            if (!replayneo$isValidEncodedPacket(connectionState, packetId, byteBuf, packet)) {
+            if (replayneo$isValidEncodedPacket(connectionState, packetId, byteBuf, packet)) {
                 return null;
             }
             byte[] bytes = new byte[byteBuf.readableBytes()];
@@ -453,14 +452,14 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     private List<Packet> encodeObservedPackets(net.minecraft.network.protocol.Packet<?> packet) throws Exception {
         ConnectionProtocol connectionState = getConnectionState();
         BundlerInfo.Provider bundlerProvider = channel.attr(BundlerInfo.BUNDLER_PROVIDER).get();
-        BundlerInfo bundlerInfo = null;
+        BundlerInfo bundlerInfo;
         if (bundlerProvider == null) {
             bundlerInfo = connectionState.getBundlerInfo(PacketFlow.CLIENTBOUND);
         } else {
             bundlerInfo = bundlerProvider.getBundlerInfo(PacketFlow.CLIENTBOUND);
         }
 
-        if (bundlerInfo == null || bundlerInfo == BundlerInfo.EMPTY) {
+        if (bundlerInfo == BundlerInfo.EMPTY) {
             Packet encoded = encodeMcPacket(connectionState, packet);
             return encoded == null ? Collections.emptyList() : Collections.singletonList(encoded);
         }
@@ -480,7 +479,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
     }
 
     private Packet encodeStableRegistryPacket(ConnectionProtocol connectionState,
-                                              net.minecraft.network.protocol.Packet<?> packet) throws Exception {
+                                              net.minecraft.network.protocol.Packet<?> packet) {
         if (!(packet instanceof ClientboundSoundPacket) && !(packet instanceof ClientboundSoundEntityPacket)) {
             return null;
         }
@@ -515,7 +514,7 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
                 friendlyByteBuf.writeLong(soundPacket.getSeed());
             }
 
-            if (!replayneo$isValidEncodedPacket(connectionState, packetId, byteBuf, packet)) {
+            if (replayneo$isValidEncodedPacket(connectionState, packetId, byteBuf, packet)) {
                 return null;
             }
             byte[] bytes = new byte[byteBuf.readableBytes()];
@@ -546,12 +545,12 @@ public class PacketListener extends ChannelInboundHandlerAdapter {
             int extra = validationBuf.readableBytes();
             if (extra > 0) {
                 replayneo$warnInvalidEncodedPacket(originalPacket, packetId, extra, "encoded packet leaves unread bytes");
-                return false;
+                return true;
             }
-            return true;
+            return false;
         } catch (Throwable throwable) {
             replayneo$warnInvalidEncodedPacket(originalPacket, packetId, validationBuf.readableBytes(), throwable.toString());
-            return false;
+            return true;
         } finally {
             validationBuf.release();
         }

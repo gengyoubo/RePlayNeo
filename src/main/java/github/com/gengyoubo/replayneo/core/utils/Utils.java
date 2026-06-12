@@ -1,8 +1,6 @@
 package github.com.gengyoubo.replayneo.core.utils;
 
-import com.google.common.net.PercentEscaper;
 import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;

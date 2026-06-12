@@ -101,9 +101,7 @@ public class ForgeReplayPlatform implements ReplayPlatform {
         @Override
         public void sendTranslatedMessage(String translationKey, Object... args) {
             Minecraft minecraft = Minecraft.getInstance();
-            if (minecraft.gui != null) {
-                minecraft.gui.getChat().addMessage(Component.translatable(translationKey, args));
-            }
+            minecraft.gui.getChat().addMessage(Component.translatable(translationKey, args));
         }
 
         @Override
@@ -111,9 +109,6 @@ public class ForgeReplayPlatform implements ReplayPlatform {
             Minecraft minecraft = Minecraft.getInstance();
             if (!minecraft.isSameThread()) {
                 execute(() -> sendReplayMessage(warning, translationKey, args));
-                return;
-            }
-            if (minecraft.gui == null) {
                 return;
             }
 

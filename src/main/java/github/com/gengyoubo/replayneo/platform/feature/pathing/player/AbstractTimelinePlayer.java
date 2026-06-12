@@ -73,7 +73,6 @@ public abstract class AbstractTimelinePlayer extends EventRegistrations {
         ReplayTimer timer = new ReplayTimer();
         mc.timer = timer;
 
-        //noinspection ConstantConditions
         timer.msPerTick = DEFAULT_MS_PER_TICK;
         timer.partialTick = timer.ticksThisFrame = 0;
         return future = settableFuture = SettableFuture.create();

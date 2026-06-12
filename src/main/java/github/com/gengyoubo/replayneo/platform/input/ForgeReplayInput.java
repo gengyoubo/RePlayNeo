@@ -7,7 +7,6 @@ import github.com.gengyoubo.replayneo.api.input.ReplayInput;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBinding;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyHandler;
-import github.com.gengyoubo.replayneo.api.input.ReplayKeyInput;
 import github.com.gengyoubo.replayneo.core.input.DefaultReplayKeyInput;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.Util;

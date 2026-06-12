@@ -37,7 +37,7 @@ public interface CharInput {
         return Character.toString(character());
     }
 
-    public static boolean isValidChar(char c) {
+    static boolean isValidChar(char c) {
         return c != 167 && c >= ' ' && c != 127;
     }
 }

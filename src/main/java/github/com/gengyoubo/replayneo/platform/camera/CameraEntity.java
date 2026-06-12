@@ -26,7 +26,6 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatsCounter;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -36,10 +35,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.charset.StandardCharsets;
@@ -270,10 +269,11 @@ public class CameraEntity
 
 
     @Override
-    public boolean isEyeInFluid(
-            @NotNull TagKey<Fluid> fluid
+    public boolean isEyeInFluidType(
+            @NotNull FluidType
+                    fluid
     ) {
-        return falseUnlessSpectating(entity -> entity.isEyeInFluid(fluid));
+        return falseUnlessSpectating(entity -> entity.isEyeInFluidType(fluid));
     }
 
     @Override

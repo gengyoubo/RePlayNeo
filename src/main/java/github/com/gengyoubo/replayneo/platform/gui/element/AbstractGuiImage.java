@@ -32,7 +32,6 @@ import github.com.gengyoubo.replayneo.api.render.RenderInfo;
 import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.platform.versions.Image;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import net.minecraft.client.renderer.texture.DynamicTexture;

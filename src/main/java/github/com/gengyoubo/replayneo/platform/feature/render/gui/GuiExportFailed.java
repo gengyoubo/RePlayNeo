@@ -21,7 +21,7 @@ import net.minecraft.ReportedException;
 import static github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender.LOGGER;
 
 public class GuiExportFailed extends GuiScreen {
-    public static GuiExportFailed tryToRecover(FFmpegWriter.FFmpegStartupException e, Consumer<RenderSettings> doRestart) {
+    public static void tryToRecover(FFmpegWriter.FFmpegStartupException e, Consumer<RenderSettings> doRestart) {
         // Always log the error first
         LOGGER.error("Rendering video:", e);
 
@@ -38,7 +38,6 @@ public class GuiExportFailed extends GuiScreen {
             // If they have, ask them whether it was intentional
             GuiExportFailed gui = new GuiExportFailed(e, doRestart);
             gui.display();
-            return gui;
         }
     }
 

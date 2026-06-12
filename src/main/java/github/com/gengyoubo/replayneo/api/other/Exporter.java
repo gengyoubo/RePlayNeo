@@ -1,13 +1,11 @@
 package github.com.gengyoubo.replayneo.api.other;
 
-import java.io.IOException;
-
 public interface Exporter {
-    default void setup() throws IOException {}
+    default void setup() {}
 
-    default void tearDown() throws IOException {}
+    default void tearDown() {}
 
-    default void preFrame(int frame) throws IOException {}
+    default void preFrame(int frame) {}
 
-    default void postFrame(int frame) throws IOException {}
+    default void postFrame(int frame) {}
 }

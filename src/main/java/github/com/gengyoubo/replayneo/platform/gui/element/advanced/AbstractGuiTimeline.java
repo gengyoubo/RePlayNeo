@@ -241,8 +241,8 @@ public abstract class AbstractGuiTimeline<T extends AbstractGuiTimeline<T>> exte
         return ensureCursorVisible(0);
     }
 
-    public T ensureCursorVisibleWithPadding() {
-        return ensureCursorVisible(Math.max((int) (length * zoom) / 10, 10));
+    public void ensureCursorVisibleWithPadding() {
+        ensureCursorVisible(Math.max((int) (length * zoom) / 10, 10));
     }
 
     public T ensureCursorVisible(int padding) {

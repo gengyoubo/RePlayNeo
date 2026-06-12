@@ -127,7 +127,7 @@ public class ToJson {
 
         try {
             Class<?> cStruct = Class.forName(PACKAGE + "." + Renaming.mapStruct2Class(struct.getSignature()));
-            long address = b.header.getAddress() + index * struct.sizeof(blend.getEncoding().getAddressWidth());
+            long address = b.header.getAddress() + (long) index * struct.sizeof(blend.getEncoding().getAddressWidth());
             Constructor<?> constructor = cStruct.getDeclaredConstructor(long.class, Block.class, BlockTable.class);
             Object object = constructor.newInstance(address, b, blockTable);
 

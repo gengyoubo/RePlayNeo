@@ -160,7 +160,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         { on(PostRenderScreenCallback.EVENT, this::onGuiRender); }
         private void onGuiRender(net.minecraft.client.gui.GuiGraphics stack, float partialTicks) {
-            if (!isCurrentScreen()) {
+            if (isCurrentScreen()) {
                 onGuiClosed();
                 return;
             }
@@ -173,7 +173,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         { on(PreTickCallback.EVENT, this::tickOverlay); }
         private void tickOverlay() {
-            if (!isCurrentScreen()) {
+            if (isCurrentScreen()) {
                 onGuiClosed();
                 return;
             }
@@ -184,7 +184,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean mouseDown(Click click) {
-            if (!isCurrentScreen()) {
+            if (isCurrentScreen()) {
                 onGuiClosed();
                 return false;
             }
@@ -193,7 +193,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean mouseDrag(Click click, double dx, double dy) {
-            if (!isCurrentScreen()) {
+            if (isCurrentScreen()) {
                 onGuiClosed();
                 return false;
             }
@@ -202,7 +202,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean mouseUp(Click click) {
-            if (!isCurrentScreen()) {
+            if (isCurrentScreen()) {
                 onGuiClosed();
                 return false;
             }
@@ -211,7 +211,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean mouseScroll(double x, double y, double horizontal, double vertical) {
-            if (!isCurrentScreen()) {
+            if (isCurrentScreen()) {
                 onGuiClosed();
                 return false;
             }
@@ -223,7 +223,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean keyPressed(KeyInput keyInput) {
-            if (!isCurrentScreen()) {
+            if (isCurrentScreen()) {
                 onGuiClosed();
                 return false;
             }
@@ -232,7 +232,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean keyReleased(KeyInput keyInput) {
-            if (!isCurrentScreen()) {
+            if (isCurrentScreen()) {
                 onGuiClosed();
                 return false;
             }
@@ -241,7 +241,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
 
         @Override
         public boolean charTyped(CharInput charInput) {
-            if (!isCurrentScreen()) {
+            if (isCurrentScreen()) {
                 onGuiClosed();
                 return false;
             }
@@ -249,7 +249,7 @@ public class VanillaGuiScreen extends GuiScreen implements Draggable, KeyHandler
         }
 
         private boolean isCurrentScreen() {
-            return active && getMinecraft().screen == mcScreen;
+            return !active || getMinecraft().screen != mcScreen;
         }
     }
 }

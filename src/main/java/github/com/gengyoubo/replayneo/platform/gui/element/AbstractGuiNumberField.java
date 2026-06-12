@@ -28,7 +28,6 @@ import github.com.gengyoubo.replayneo.api.gui.element.IGuiNumberField;
 
 import com.google.common.base.Preconditions;
 import github.com.gengyoubo.replayneo.api.other.GuiContainer;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 
 import java.util.Locale;
 import java.util.regex.Pattern;

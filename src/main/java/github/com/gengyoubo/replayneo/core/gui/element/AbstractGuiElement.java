@@ -114,9 +114,9 @@ public abstract class AbstractGuiElement<T extends AbstractGuiElement<T>> implem
     }
 
     @Override
-    public T setContainer(GuiContainer<?> container) {
+    public void setContainer(GuiContainer<?> container) {
         this.container = container;
-        return getThis();
+        getThis();
     }
 
     public T setMinSize(ReadableDimension minSize) {

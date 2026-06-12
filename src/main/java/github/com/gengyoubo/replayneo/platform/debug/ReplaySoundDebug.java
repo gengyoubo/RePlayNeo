@@ -20,7 +20,7 @@ public final class ReplaySoundDebug {
     }
 
     public static void markReplayRightClick(int button, int action) {
-        if (button != 1 || action != 1 || !isInReplay()) {
+        if (button != 1 || action != 1 || isInReplay()) {
             return;
         }
         lastReplayRightClickMs = System.currentTimeMillis();
@@ -29,7 +29,7 @@ public final class ReplaySoundDebug {
     }
 
     public static void logReplaySound(String entryPoint, SoundInstance sound) {
-        if (sound == null || !isInReplay()) {
+        if (sound == null || isInReplay()) {
             return;
         }
         long elapsed = System.currentTimeMillis() - lastReplayRightClickMs;
@@ -57,7 +57,7 @@ public final class ReplaySoundDebug {
     }
 
     public static void logReplayMusic(String entryPoint, Music music) {
-        if (music == null || !isInReplay()) {
+        if (music == null || isInReplay()) {
             return;
         }
         RePlayNeo.LOGGER.warn("Replay music trace: entry={}, event={}, minDelay={}, maxDelay={}, replaceCurrentMusic={}",
@@ -67,7 +67,7 @@ public final class ReplaySoundDebug {
 
     public static boolean isInReplay() {
         ReplayModReplay replay = ReplayModReplay.instance;
-        return replay != null && replay.getReplayHandler() != null;
+        return replay == null || replay.getReplayHandler() == null;
     }
 
     private static boolean isMusicLike(SoundSource source) {

@@ -144,7 +144,6 @@ public abstract class AbstractGuiDropdownMenu<V, T extends AbstractGuiDropdownMe
         }
     }
 
-    @SafeVarargs
     @Override
     public final T setValues(V @UnknownNullability [] values) {
         this.values = values;

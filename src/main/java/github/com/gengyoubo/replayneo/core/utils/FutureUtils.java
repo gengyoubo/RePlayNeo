@@ -5,7 +5,6 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.replaymod.replaystudio.lib.guava.util.concurrent.Uninterruptibles;
 
 import java.util.Objects;
-import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 

@@ -4,8 +4,6 @@ import github.com.gengyoubo.replayneo.api.render.capturer.WorldRenderer;
 
 import github.com.gengyoubo.replayneo.api.render.capturer.RenderInfo;
 
-import github.com.gengyoubo.replayneo.api.render.capturer.CaptureData;
-
 import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.StereoscopicOpenGlFrame;
 

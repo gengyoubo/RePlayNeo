@@ -39,7 +39,6 @@ public final class ChangedReplayCompat {
     private static Method setTemporaryForSuit;
     private static Method setTransfurVariantDirect;
     private static Method setTransfurProgressDirect;
-    private static Method hazardContext;
     private static Method registryGetValue;
     private static Method renderForm;
     private static Method getTransfurProgressionAt;
@@ -48,7 +47,6 @@ public final class ChangedReplayCompat {
     private static Field transfurProgression;
     private static Field transfurProgressionO;
     private static Field playerLatexVariant;
-    private static Object defaultTransfurCause;
     private static boolean advancedSyncAvailable;
     private static int renderLogCount;
     private static int renderMissLogCount;
@@ -60,7 +58,7 @@ public final class ChangedReplayCompat {
     }
 
     public static ClientboundCustomPayloadPacket createTransfurPayload(Player player) {
-        if (!isChangedAvailable()) {
+        if (isChangedAvailable()) {
             return null;
         }
         ResourceLocation formId = getFormId(player);
@@ -96,7 +94,7 @@ public final class ChangedReplayCompat {
     }
 
     public static ResourceLocation getFormId(Player player) {
-        if (!isChangedAvailable() || player == null) {
+        if (isChangedAvailable() || player == null) {
             return null;
         }
         try {
@@ -111,9 +109,9 @@ public final class ChangedReplayCompat {
         }
     }
 
-    public static boolean applyTransfurPayload(FriendlyByteBuf buf, Level level) {
-        if (!isChangedAvailable() || level == null) {
-            return true;
+    public static void applyTransfurPayload(FriendlyByteBuf buf, Level level) {
+        if (isChangedAvailable() || level == null) {
+            return;
         }
         try {
             int entityId = buf.readVarInt();
@@ -127,18 +125,16 @@ public final class ChangedReplayCompat {
                 pendingTransfurs.put(entityId, new PendingTransfur(hasForm, formId, progress, temporary, data));
                 RePlayNeo.LOGGER.info("Queued Changed replay form until player entity exists. entityId={}, form={}",
                         entityId, formId);
-                return true;
+                return;
             }
             applyTransfurOnClientThread(player, hasForm, formId, progress, temporary, data);
-            return true;
         } catch (Throwable throwable) {
             RePlayNeo.LOGGER.warn("Could not apply Changed replay form packet.", throwable);
-            return true;
         }
     }
 
     public static boolean hasRenderableForm(Player player) {
-        if (!isChangedAvailable() || player == null) {
+        if (isChangedAvailable() || player == null) {
             return false;
         }
         try {
@@ -182,7 +178,7 @@ public final class ChangedReplayCompat {
     }
 
     public static void applyPendingTransfur(Entity entity) {
-        if (!isChangedAvailable() || !(entity instanceof Player player)) {
+        if (isChangedAvailable() || !(entity instanceof Player player)) {
             return;
         }
         PendingTransfur pending = pendingTransfurs.remove(entity.getId());
@@ -316,7 +312,6 @@ public final class ChangedReplayCompat {
                                    Object instance) {
     }
 
-    @SuppressWarnings("unchecked")
     private static Optional<?> getPlayerTransfurVariant(Player player) throws ReflectiveOperationException {
         return (Optional<?>) getPlayerTransfurVariantSafe.invoke(null, player);
     }
@@ -387,7 +382,6 @@ public final class ChangedReplayCompat {
         return changedAvailable;
     }
 
-    @SuppressWarnings("unchecked")
     private static void initializeAdvancedSync(Class<?> processTransfur, Class<?> transfurVariantInstance) throws ReflectiveOperationException {
         Class<?> transfurVariant = Class.forName("net.ltxprogrammer.changed.entity.variant.TransfurVariant");
 
@@ -403,8 +397,8 @@ public final class ChangedReplayCompat {
 
         Class<?> transfurContext = Class.forName("net.ltxprogrammer.changed.entity.TransfurContext");
         Class<?> transfurCause = Class.forName("net.ltxprogrammer.changed.entity.TransfurCause");
-        defaultTransfurCause = findTransfurCause(transfurCause);
-        hazardContext = transfurContext.getMethod("hazard", transfurCause);
+        Object defaultTransfurCause = findTransfurCause(transfurCause);
+        Method hazardContext = transfurContext.getMethod("hazard", transfurCause);
         setPlayerTransfurVariantFull = processTransfur.getMethod("setPlayerTransfurVariant",
                 Player.class, transfurVariant, transfurContext, float.class, boolean.class);
 

@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.pathing;
 
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.core.pathing.InterpolatorType;
 import github.com.gengyoubo.replayneo.core.pathing.SPTimeline;
@@ -38,14 +39,14 @@ import net.minecraft.ReportedException;
 
 public class ReplayModSimplePathing extends EventRegistrations implements Module {
     { instance = this; }
-    public static ReplayModSimplePathing instance;
+    public static ReplayModSimplePathing instance = null;
 
     private final RePlayCore core;
     public ReplayKeyBindingRegistry.Binding keyPositionKeyframe;
     public ReplayKeyBindingRegistry.Binding keyTimeKeyframe;
     public ReplayKeyBindingRegistry.Binding keySyncTime;
 
-    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static final Logger LOGGER = RePlayNeo.LOGGER;
 
     private GuiPathing guiPathing;
     private final PathPreview pathPreview = new PathPreview(this);

@@ -37,6 +37,6 @@ public interface Focusable<T extends Focusable<T>> {
     T setNext(Focusable<?> next);
 
     Focusable<?> getPrevious();
-    T setPrevious(Focusable<?> previous);
+    void setPrevious(Focusable<?> previous);
 
 }

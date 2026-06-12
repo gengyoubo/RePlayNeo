@@ -1,6 +1,5 @@
 package github.com.gengyoubo.replayneo.core.files;
 
-import com.google.common.net.PercentEscaper;
 import github.com.gengyoubo.replayneo.core.Setting;
 import github.com.gengyoubo.replayneo.core.SettingsRegistry;
 import java.io.IOException;

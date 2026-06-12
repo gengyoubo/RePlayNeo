@@ -29,7 +29,6 @@ import github.com.gengyoubo.replayneo.api.gui.element.IGuiButton;
 import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
 import github.com.gengyoubo.replayneo.api.other.GuiContainer;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import github.com.gengyoubo.replayneo.api.function.Click;
 import github.com.gengyoubo.replayneo.api.function.Clickable;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;

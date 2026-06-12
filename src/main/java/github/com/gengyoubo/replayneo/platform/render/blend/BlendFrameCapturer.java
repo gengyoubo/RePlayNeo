@@ -7,7 +7,7 @@ import github.com.gengyoubo.replayneo.core.render.rendering.Channel;
 import github.com.gengyoubo.replayneo.api.frame.FrameCapturer;
 import github.com.gengyoubo.replayneo.core.utils.ByteBufferPool;
 import de.johni0702.minecraft.gui.utils.lwjgl.Dimension;
-import java.io.IOException;
+
 import java.util.Collections;
 import java.util.Map;
 import net.minecraft.client.Minecraft;
@@ -44,7 +44,7 @@ public class BlendFrameCapturer implements FrameCapturer<BitmapFrame> {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         BlendState.getState().tearDown();
         BlendState.setState(null);
     }

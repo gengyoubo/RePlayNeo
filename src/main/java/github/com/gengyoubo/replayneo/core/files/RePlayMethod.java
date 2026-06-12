@@ -1,18 +1,8 @@
 package github.com.gengyoubo.replayneo.core.files;
 
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.function.Consumer;
-
-import static com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly;
 
 public class RePlayMethod {
 

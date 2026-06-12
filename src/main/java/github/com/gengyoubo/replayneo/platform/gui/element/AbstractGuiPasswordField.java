@@ -28,7 +28,6 @@ import github.com.gengyoubo.replayneo.api.render.GuiRenderer;
 import github.com.gengyoubo.replayneo.api.render.RenderInfo;
 import github.com.gengyoubo.replayneo.api.other.GuiContainer;
 import de.johni0702.minecraft.gui.utils.lwjgl.ReadableDimension;
-import github.com.gengyoubo.replayneo.core.gui.container.GuiPanel;
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractGuiPasswordField<T extends AbstractGuiPasswordField<T>> extends AbstractGuiTextField<T> {

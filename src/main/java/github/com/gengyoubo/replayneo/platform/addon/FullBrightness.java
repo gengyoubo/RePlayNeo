@@ -30,7 +30,7 @@ public class FullBrightness extends EventRegistrations implements Extra {
     private double originalGamma;
 
     @Override
-    public void register(final RePlayCore mod) throws Exception {
+    public void register(final RePlayCore mod) {
         this.core = mod;
         this.module = ReplayModReplay.instance;
         this.mc = MCVer.getMinecraft();
@@ -100,7 +100,7 @@ public class FullBrightness extends EventRegistrations implements Extra {
         }
     }
 
-    enum Type {
+    public enum Type {
         Gamma,
         NightVision,
         Both,

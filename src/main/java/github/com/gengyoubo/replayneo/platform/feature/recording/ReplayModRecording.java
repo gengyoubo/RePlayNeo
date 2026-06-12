@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.recording;
 
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.api.input.ReplayKeyBindingRegistry;
 import github.com.gengyoubo.replayneo.api.other.Module;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
@@ -19,11 +20,11 @@ import net.minecraft.network.protocol.PacketFlow;
 
 public class ReplayModRecording implements Module {
 
-    private static final Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    private static final Logger LOGGER = RePlayNeo.LOGGER;
     private static final AttributeKey<Boolean> ATTR_CHECKED = AttributeKey.newInstance("ReplayModRecording_checked");
 
     { instance = this; }
-    public static ReplayModRecording instance;
+    public static ReplayModRecording instance = null;
 
     private final RePlayCore core;
 

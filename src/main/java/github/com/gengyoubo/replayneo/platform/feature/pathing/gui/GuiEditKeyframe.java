@@ -38,6 +38,7 @@ import net.minecraft.client.resources.language.I18n;
 import github.com.gengyoubo.replayneo.api.other.Colors;
 import github.com.gengyoubo.replayneo.api.other.Consumer;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.UnknownNullability;
 
 import java.util.Map;
 import java.util.Optional;
@@ -97,14 +98,14 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
         this.keyframe = this.path.getKeyframe(time);
 
         Consumer<String> updateSaveButtonState = s -> saveButton.setEnabled(canSave());
-        timeMinField.setValue(time / 1000 / 60).onTextChanged(updateSaveButtonState);
-        timeSecField.setValue(time / 1000 % 60).onTextChanged(updateSaveButtonState);
+        timeMinField.setValue((double) time / 1000 / 60).onTextChanged(updateSaveButtonState);
+        timeSecField.setValue((double) time / 1000 % 60).onTextChanged(updateSaveButtonState);
         timeMSecField.setValue(time % 1000).onTextChanged(updateSaveButtonState);
 
         title.setI18nText("replaymod.gui.editkeyframe.title." + type);
         saveButton.onClick(() -> {
             Change change = save();
-            long newTime = (timeMinField.getInteger() * 60 + timeSecField.getInteger()) * 1000 + timeMSecField.getInteger();
+            long newTime = (timeMinField.getInteger() * 60L + timeSecField.getInteger()) * 1000 + timeMSecField.getInteger();
             if (newTime != time) {
                 change = CombinedChange.createFromApplied(change,
                         gui.getMod().getCurrentTimeline().moveKeyframe(path, time, newTime));
@@ -118,14 +119,11 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
     }
 
     private boolean canSave() {
-        long newTime = (timeMinField.getInteger() * 60 + timeSecField.getInteger()) * 1000 + timeMSecField.getInteger();
+        long newTime = (timeMinField.getInteger() * 60L + timeSecField.getInteger()) * 1000 + timeMSecField.getInteger();
         if (newTime < 0 || newTime > guiPathing.timeline.getLength()) {
             return false;
         }
-        if (newTime != keyframe.getTime() && path.getKeyframe(newTime) != null) {
-            return false;
-        }
-        return true;
+        return newTime == keyframe.getTime() || path.getKeyframe(newTime) == null;
     }
 
     @Override
@@ -314,7 +312,6 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
                         type = InterpolatorType.DEFAULT;
                     }
                     if (getInterpolatorTypeNoDefault(type).getInterpolatorClass().isInstance(interpolator)) {
-                        //noinspection unchecked
                         settingsPanel.loadSettings(interpolator);
                     }
                 } else {
@@ -364,7 +361,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
 
             public abstract static class SettingsPanel<I extends Interpolator, T extends SettingsPanel<I, T>> extends AbstractGuiContainer<T> {
 
-                public abstract void loadSettings(I interpolator);
+                public abstract void loadSettings(Interpolator interpolator);
 
                 public abstract I createInterpolator();
             }
@@ -381,8 +378,13 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
                 }
 
                 @Override
-                public void loadSettings(CatmullRomSplineInterpolator interpolator) {
-                    alphaField.setValue(interpolator.getAlpha());
+                public void loadSettings(@UnknownNullability Interpolator interpolator) {
+                    if (interpolator instanceof CatmullRomSplineInterpolator) {
+                        alphaField.setValue(
+                                ((CatmullRomSplineInterpolator) interpolator).getAlpha()
+                        );
+                    }
+
                 }
 
                 @Override
@@ -399,7 +401,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
             public static class CubicSettingsPanel extends SettingsPanel<CubicSplineInterpolator, CubicSettingsPanel> {
 
                 @Override
-                public void loadSettings(CubicSplineInterpolator interpolator) {
+                public void loadSettings(Interpolator interpolator) {
                 }
 
                 @Override
@@ -416,7 +418,7 @@ public abstract class GuiEditKeyframe<T extends GuiEditKeyframe<T>> extends Abst
             public static class LinearSettingsPanel extends SettingsPanel<LinearInterpolator, LinearSettingsPanel> {
 
                 @Override
-                public void loadSettings(LinearInterpolator interpolator) {
+                public void loadSettings(Interpolator interpolator) {
                 }
 
                 @Override

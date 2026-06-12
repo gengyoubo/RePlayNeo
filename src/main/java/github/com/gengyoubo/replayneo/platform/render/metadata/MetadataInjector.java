@@ -26,7 +26,7 @@ public class MetadataInjector {
     private static final String SPHERICAL_XML_HEADER =
             "<?xml version=\"1.0\"?> " +
             "<rdf:SphericalVideo xmlns:rdf=" +
-            "\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:GSpherical=\"http://ns.google.com/videos/1.0/spherical/\"> ";
+                    "\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:GSpherical=\"https://ns.google.com/videos/1.0/spherical/\"> ";
     private static final String SPHERICAL_XML_CONTENTS =
             "<GSpherical:Spherical>true</GSpherical:Spherical> " +
             "<GSpherical:Stitched>true</GSpherical:Stitched> " +

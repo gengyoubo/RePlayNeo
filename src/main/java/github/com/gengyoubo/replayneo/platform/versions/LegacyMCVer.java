@@ -119,11 +119,7 @@ public class LegacyMCVer {
     ) {
         try {
             java.lang.reflect.Method method;
-            try {
-                method = Screen.class.getDeclaredMethod("addRenderableWidget", GuiEventListener.class);
-            } catch (NoSuchMethodException ignored) {
-                method = Screen.class.getDeclaredMethod("m_142416_", GuiEventListener.class);
-            }
+            method = Screen.class.getDeclaredMethod("addRenderableWidget", GuiEventListener.class);
             method.setAccessible(true);
             method.invoke(screen, button);
         } catch (ReflectiveOperationException e) {

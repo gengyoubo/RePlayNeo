@@ -1,6 +1,5 @@
 package github.com.gengyoubo.replayneo.platform.feature.recording.packet;
 
-import com.google.common.hash.Hashing;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import github.com.gengyoubo.replayneo.RePlayNeo;
 import net.minecraft.client.Minecraft;

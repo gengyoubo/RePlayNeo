@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.feature.render;
 
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import github.com.gengyoubo.replayneo.api.other.Module;
@@ -25,11 +26,11 @@ import net.minecraft.ReportedException;
 
 public class ReplayModRender extends EventRegistrations implements Module {
     { instance = this; }
-    public static ReplayModRender instance;
+    public static ReplayModRender instance = null;
 
     private final RePlayCore core;
 
-    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static final Logger LOGGER = RePlayNeo.LOGGER;
 
     private ReplayFile replayFile;
     private final List<RenderJob> renderQueue = new ArrayList<>();

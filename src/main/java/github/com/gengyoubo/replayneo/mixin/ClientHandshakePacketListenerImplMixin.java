@@ -4,7 +4,6 @@ import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.feature.recording.ReplayModRecording;
 import github.com.gengyoubo.replayneo.platform.feature.recording.handler.RecordingEventHandler.RecordingEventSender;
 import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
-import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.login.ClientboundCustomQueryPacket;

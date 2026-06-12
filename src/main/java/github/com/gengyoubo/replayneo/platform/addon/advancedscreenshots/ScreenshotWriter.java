@@ -3,7 +3,6 @@ package github.com.gengyoubo.replayneo.platform.addon.advancedscreenshots;
 import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import github.com.gengyoubo.replayneo.core.RePlayCore;
-import github.com.gengyoubo.replayneo.core.utils.Utils;
 import github.com.gengyoubo.replayneo.platform.versions.MCVer;
 import github.com.gengyoubo.replayneo.platform.addon.ReplayModExtras;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;

@@ -127,7 +127,7 @@ public class GuiHandler extends EventRegistrations {
                 .filter(button -> button.getX() <= xEnd && button.getX() + button.getWidth() >= xStart)
                 .filter(button -> button.getY() <= yEnd && button.getY() + button.getHeight() >= yStart)
                 // FIXME remap bug: needs the {} to recognize the setter (it also doesn't understand +=)
-                .forEach(button -> button.setY(button.getY() + -24));
+                .forEach(button -> button.setY(button.getY() - 24));
     }
 
     { on(InitScreenCallback.EVENT, (screen, buttons) -> ensureReplayStopped(screen)); }

@@ -1,5 +1,6 @@
 package github.com.gengyoubo.replayneo.platform.addon;
 
+import github.com.gengyoubo.replayneo.RePlayNeo;
 import github.com.gengyoubo.replayneo.api.other.Extra;
 import github.com.gengyoubo.replayneo.api.other.Module;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 public class ReplayModExtras implements Module {
     { instance = this; }
-    public static ReplayModExtras instance;
+    public static ReplayModExtras instance = null;
 
     private static final List<Class<? extends Extra>> builtin = Arrays.asList(
             AdvancedScreenshots.class,
@@ -29,7 +30,7 @@ public class ReplayModExtras implements Module {
 
     private final Map<Class<? extends Extra>, Extra> instances = new HashMap<>();
 
-    public static Logger LOGGER = github.com.gengyoubo.replayneo.RePlayNeo.LOGGER;
+    public static final Logger LOGGER = RePlayNeo.LOGGER;
 
     public ReplayModExtras(RePlayCore core) {
         core.getSettingsRegistry().register(Setting.class);

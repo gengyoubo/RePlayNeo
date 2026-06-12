@@ -4,7 +4,6 @@ import github.com.gengyoubo.replayneo.api.render.RenderSettings;
 import github.com.gengyoubo.replayneo.platform.render.blend.BlendFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.render.capturer.CubicOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.render.capturer.CubicPboOpenGlFrameCapturer;
-import github.com.gengyoubo.replayneo.platform.render.capturer.ODSFrameCapturer;
 import github.com.gengyoubo.replayneo.api.render.capturer.RenderInfo;
 import github.com.gengyoubo.replayneo.platform.render.capturer.SimpleOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.platform.render.capturer.SimplePboOpenGlFrameCapturer;
@@ -12,7 +11,6 @@ import github.com.gengyoubo.replayneo.platform.render.capturer.StereoscopicOpenG
 import github.com.gengyoubo.replayneo.platform.render.capturer.StereoscopicPboOpenGlFrameCapturer;
 import github.com.gengyoubo.replayneo.api.render.capturer.WorldRenderer;
 import github.com.gengyoubo.replayneo.core.render.frame.CubicOpenGlFrame;
-import github.com.gengyoubo.replayneo.core.render.frame.ODSOpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.OpenGlFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.BitmapFrame;
 import github.com.gengyoubo.replayneo.core.render.frame.StereoscopicOpenGlFrame;
@@ -20,7 +18,6 @@ import github.com.gengyoubo.replayneo.platform.render.hooks.EntityRendererHandle
 import github.com.gengyoubo.replayneo.core.render.processor.CubicToBitmapProcessor;
 import github.com.gengyoubo.replayneo.core.render.processor.DummyProcessor;
 import github.com.gengyoubo.replayneo.core.render.processor.EquirectangularToBitmapProcessor;
-import github.com.gengyoubo.replayneo.core.render.processor.ODSToBitmapProcessor;
 import github.com.gengyoubo.replayneo.core.render.processor.OpenGlToBitmapProcessor;
 import github.com.gengyoubo.replayneo.core.render.processor.StereoscopicToBitmapProcessor;
 import github.com.gengyoubo.replayneo.core.render.rendering.Channel;

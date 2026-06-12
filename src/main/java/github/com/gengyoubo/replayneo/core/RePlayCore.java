@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 public class RePlayCore implements Module, Scheduler {
-    public static String MOD_ID = RePlayNeo.MODID;
+    public static final String MOD_ID = RePlayNeo.MODID;
 
     public static RePlayCore instance;
 

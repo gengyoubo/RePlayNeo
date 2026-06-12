@@ -338,9 +338,9 @@ public abstract class AbstractGuiTextField<T extends AbstractGuiTextField<T>>
     }
 
     @Override
-    public T setPrevious(Focusable<?> previous) {
+    public void setPrevious(Focusable<?> previous) {
         this.previous = previous;
-        return getThis();
+        getThis();
     }
 
     @Override

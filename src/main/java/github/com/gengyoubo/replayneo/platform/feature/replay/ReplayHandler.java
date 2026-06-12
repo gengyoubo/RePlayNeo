@@ -6,7 +6,6 @@ import github.com.gengyoubo.replayneo.platform.gui.GuiUtils;
 
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
@@ -184,7 +183,7 @@ public class ReplayHandler implements TimelinePlaybackTarget {
 
         Connection networkManager = new Connection(PacketFlow.CLIENTBOUND) {
             @Override
-            public void exceptionCaught(@NotNull ChannelHandlerContext ctx, Throwable t) {
+            public void exceptionCaught(@NotNull ChannelHandlerContext ctx, @NotNull Throwable t) {
                 ReplayHandler.this.replayneo$handleReplayConnectionException(t);
             }
         };

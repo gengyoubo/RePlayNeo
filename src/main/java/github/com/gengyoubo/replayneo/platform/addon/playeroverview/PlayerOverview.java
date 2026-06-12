@@ -27,7 +27,7 @@ public class PlayerOverview extends EventRegistrations implements Extra {
     private boolean savingEnabled;
 
     @Override
-    public void register(final RePlayCore mod) throws Exception {
+    public void register(final RePlayCore mod) {
         this.module = ReplayModReplay.instance;
 
         mod.getKeyBindingRegistry().registerKeyBinding("replaymod.input.playeroverview", Keyboard.KEY_B, () -> {

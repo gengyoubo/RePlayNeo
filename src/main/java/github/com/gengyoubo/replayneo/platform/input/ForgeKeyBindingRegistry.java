@@ -111,13 +111,13 @@ public class ForgeKeyBindingRegistry extends EventRegistrations implements Repla
             }
         }
     }
-
     private void drainConflictingReplayKeyClicks(Binding handledBinding) {
         for (Binding binding : bindings.values()) {
             if (binding == handledBinding) {
                 continue;
             }
             if (binding.keyBinding.same(handledBinding.keyBinding)) {
+                //noinspection StatementWithEmptyBody
                 while (binding.keyBinding.consumeClick()) {
                     // Drain duplicate replay-only clicks so one physical key does not trigger multiple replay actions.
                 }

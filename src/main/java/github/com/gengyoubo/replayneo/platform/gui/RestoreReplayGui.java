@@ -1,6 +1,5 @@
 package github.com.gengyoubo.replayneo.platform.gui;
 
-import com.google.common.io.Files;
 import com.google.gson.Gson;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
 import github.com.gengyoubo.replayneo.core.files.RePlayMethod;

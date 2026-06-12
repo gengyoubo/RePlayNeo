@@ -22,12 +22,11 @@ public class ModCompat {
                         // Mod is installed, check if versions match
                         if (Objects.equals(required.getVersion(), installed.getVersion())) {
                             // Mod found and version match
-                            continue REQUIRED;
                         } else {
                             // Mod found but versions don't match
                             differing.put(required, installed.getVersion());
-                            continue REQUIRED;
                         }
+                        continue REQUIRED;
                     }
                 }
                 // Mod no longer installed

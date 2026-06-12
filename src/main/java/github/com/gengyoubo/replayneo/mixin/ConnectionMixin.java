@@ -95,7 +95,7 @@ public abstract class ConnectionMixin {
     @Redirect(method = "channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/protocol/Packet;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/Connection;genericsFtw(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;)V"))
     private void replayneo$handlePacketWithDiagnostics(Packet<?> packet, net.minecraft.network.PacketListener packetListener) {
         try {
-            replayneo$handlePacketUnchecked(packet, packetListener);
+            replayneo$handlePacketUnchecked((Packet<net.minecraft.network.PacketListener>) packet, packetListener);
         } catch (RunningOnDifferentThreadException exception) {
             throw exception;
         } catch (Throwable throwable) {
@@ -192,9 +192,10 @@ public abstract class ConnectionMixin {
         return Component.translatable("multiplayer.disconnect.invalid_packet");
     }
 
-    private static void replayneo$handlePacketUnchecked(Packet<?> packet, net.minecraft.network.PacketListener packetListener) {
+    private static void replayneo$handlePacketUnchecked(Packet<net.minecraft.network.PacketListener> packet, net.minecraft.network.PacketListener packetListener) {
         packet.handle(packetListener);
     }
+
 
     @Unique
     private void replayneo$logPacketHandlingFailure(Packet<?> packet, net.minecraft.network.PacketListener packetListener, Throwable throwable) {

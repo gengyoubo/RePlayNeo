@@ -13,9 +13,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import net.minecraft.CrashReport;
-import net.minecraft.CrashReportCategory;
-import net.minecraft.ReportedException;
 
 import static github.com.gengyoubo.replayneo.platform.feature.render.ReplayModRender.LOGGER;
 
@@ -60,28 +57,14 @@ public class BlendState implements Exporter {
     @Override
     public void setup() {
         for (Exporter exporter : exporters) {
-            try {
-                exporter.setup();
-            } catch (IOException e) {
-                CrashReport report = CrashReport.forThrowable(e, "Setup of blend exporter");
-                CrashReportCategory category = report.addCategory("Exporter");
-                category.setDetail("Exporter", exporter::toString);
-                throw new ReportedException(report);
-            }
+            exporter.setup();
         }
     }
 
     @Override
     public void tearDown() {
         for (Exporter exporter : exporters) {
-            try {
-                exporter.tearDown();
-            } catch (IOException e) {
-                CrashReport report = CrashReport.forThrowable(e, "Tear down of blend exporter");
-                CrashReportCategory category = report.addCategory("Exporter");
-                category.setDetail("Exporter", exporter::toString);
-                throw new ReportedException(report);
-            }
+            exporter.tearDown();
         }
 
         try {
@@ -111,30 +94,14 @@ public class BlendState implements Exporter {
     @Override
     public void preFrame(int frame) {
         for (Exporter exporter : exporters) {
-            try {
             exporter.preFrame(frame);
-            } catch (IOException e) {
-                CrashReport report = CrashReport.forThrowable(e, "Pre frame of blend exporter");
-                CrashReportCategory category = report.addCategory("Exporter");
-                category.setDetail("Exporter", exporter::toString);
-                category.setDetail("Frame", () -> String.valueOf(frame));
-                throw new ReportedException(report);
-            }
         }
     }
 
     @Override
     public void postFrame(int frame) {
         for (Exporter exporter : exporters) {
-            try {
-                exporter.postFrame(frame);
-            } catch (IOException e) {
-                CrashReport report = CrashReport.forThrowable(e, "Post frame of blend exporter");
-                CrashReportCategory category = report.addCategory("Exporter");
-                category.setDetail("Exporter", exporter::toString);
-                category.setDetail("Frame", () -> String.valueOf(frame));
-                throw new ReportedException(report);
-            }
+            exporter.postFrame(frame);
         }
 
         scene.endFrame = frame;

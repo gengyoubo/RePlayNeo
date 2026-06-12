@@ -112,7 +112,7 @@ public class GuiRecordingControls extends EventRegistrations {
     private void injectIntoIngameMenu(Screen guiScreen,
                                       Collection<AbstractButton> buttonList
     ) {
-        if (!shouldShowOn(guiScreen)) {
+        if (shouldShowOn(guiScreen)) {
             return;
         }
         if (buttonList.isEmpty()) {
@@ -129,7 +129,7 @@ public class GuiRecordingControls extends EventRegistrations {
         vanillaGui.setLayout(new CustomLayout<github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen>(vanillaGui.getLayout()) {
             @Override
             protected void layout(github.com.gengyoubo.replayneo.platform.gui.container.GuiScreen container, int width, int height) {
-                if (!shouldShowOn(guiScreen)) {
+                if (shouldShowOn(guiScreen)) {
                     size(panel, 0, 0);
                     pos(panel, -10000, -10000);
                     if (panel.getContainer() != null) {
@@ -144,15 +144,15 @@ public class GuiRecordingControls extends EventRegistrations {
 
     private boolean shouldShowOn(Screen guiScreen) {
         if (closed || packetListener == null || guiScreen == null || guiScreen.getClass() != PauseScreen.class) {
-            return false;
+            return true;
         }
 
         Minecraft minecraft = MCVer.getMinecraft();
         if (minecraft.screen != guiScreen || minecraft.level == null || minecraft.player == null || minecraft.getConnection() == null) {
-            return false;
+            return true;
         }
 
-        return ReplayModReplay.instance == null || ReplayModReplay.instance.getReplayHandler() == null;
+        return ReplayModReplay.instance != null && ReplayModReplay.instance.getReplayHandler() != null;
     }
 
     public boolean isPaused() {
