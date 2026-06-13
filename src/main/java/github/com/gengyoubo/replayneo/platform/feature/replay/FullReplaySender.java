@@ -4,9 +4,10 @@ import com.github.steveice10.packetlib.io.NetOutput;
 import com.github.steveice10.packetlib.tcp.io.ByteBufNetOutput;
 import com.mojang.authlib.GameProfile;
 import com.google.common.base.Preconditions;
+import com.google.common.io.Files;
 import github.com.gengyoubo.replayneo.api.ReplaySender;
+import github.com.gengyoubo.replayneo.api.callbacks.PreTickCallback;
 import github.com.gengyoubo.replayneo.core.RePlayCore;
-import github.com.gengyoubo.replayneo.core.files.RePlayMethod;
 import github.com.gengyoubo.replayneo.platform.compat.ChangedReplayCompat;
 import github.com.gengyoubo.replayneo.platform.network.Restrictions;
 import github.com.gengyoubo.replayneo.platform.camera.CameraEntity;
@@ -16,7 +17,6 @@ import com.replaymod.replaystudio.protocol.PacketType;
 import com.replaymod.replaystudio.protocol.PacketTypeRegistry;
 import com.replaymod.replaystudio.replay.ReplayFile;
 import github.com.gengyoubo.replayneo.core.utils.EventRegistrations;
-import github.com.gengyoubo.replayneo.api.callbacks.PreTickCallback;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
@@ -108,7 +108,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     /**
      * These packets are ignored completely during replay.
      */
-    private static final List<Class<? extends Packet<?>>> BAD_PACKETS = Arrays.asList(
+    private static final List<Class> BAD_PACKETS = Arrays.asList(
             ClientboundHelloPacket.class, // workaround for an issue where RePlayCore prior to 2.6.20 would record these
             ClientboundBlockChangedAckPacket.class,
             ClientboundOpenBookPacket.class,
@@ -248,7 +248,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     /**
      * Directory to which resource packs are extracted.
      */
-    private final File tempResourcePackFolder = RePlayMethod.createTempDir();
+    private final File tempResourcePackFolder = Files.createTempDir();
 
     private final EventHandler events = new EventHandler();
 
@@ -365,7 +365,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             return;
         }
 
-        if (msg instanceof Packet<?> p) {
+        if (msg instanceof Packet p) {
             try {
 
                 p = processPacket(p);
@@ -413,7 +413,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
             return;
         }
 
-        int entityId;
+        Integer entityId = null;
         String packetType;
         Entity entity;
         if (packet instanceof ClientboundMoveEntityPacket movePacket) {
@@ -429,7 +429,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         }
 
         if (entity == null) {
-            if (entityId == replayneo$lastReplayPlayerEntityId && replayneo$loggedReplayPlayerMovePackets++ < 16) {
+            if (entityId != null && entityId == replayneo$lastReplayPlayerEntityId && replayneo$loggedReplayPlayerMovePackets++ < 16) {
                 LOGGER.warn("Replay player movement packet has no target entity. type={}, entityId={}, time={}",
                         packetType, entityId, currentTimeStamp());
             }
@@ -438,6 +438,10 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                         packetType, entityId, currentTimeStamp());
             }
             return;
+        }
+
+        if (entityId == null) {
+            entityId = entity.getId();
         }
 
         ChangedReplayCompat.applyPendingTransfur(entity);
@@ -516,7 +520,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
     // If we do not give minecraft time to tick, there will be dead entity artifacts left in the world
     // Therefore we have to remove all loaded, dead entities manually if we are in sync mode.
     // We do this after every SpawnX packet and after the destroy entities packet.
-    private void maybeRemoveDeadEntities(Packet<?> packet) {
+    private void maybeRemoveDeadEntities(Packet packet) {
         if (asyncMode) {
             return; // MC should have enough time to tick
         }
@@ -552,7 +556,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
      * @param p The packet to process
      * @return The processed packet or {@code null} if no packet shall be sent
      */
-    protected Packet<?> processPacket(Packet<?> p) throws Exception {
+    protected Packet processPacket(Packet p) throws Exception {
         if (p instanceof ClientboundGameProfilePacket) {
             registry = registry.withLoginSuccess();
             return p;
@@ -755,7 +759,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         if (asyncMode) {
             return processPacketAsync(p);
         } else {
-            Packet<?> fp = p;
+            Packet fp = p;
             schedulePacketHandler(() -> processPacketSync(fp));
             return p;
         }
@@ -870,7 +874,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                                 }
 
                                 // Process packet
-                                if (replayneo$dropMalformedBundlePacket(nextPacket)) {
+                                if (!replayneo$dropMalformedBundlePacket(nextPacket)) {
                                     if (nextPacket.type == PacketType.Bundle) inBundle = !inBundle;
                                     channel.pipeline().fireChannelRead(Unpooled.wrappedBuffer(nextPacket.bytes));
                                 }
@@ -996,7 +1000,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         return false;
     }
 
-    protected Packet<?> processPacketAsync(Packet<?> p) {
+    protected Packet processPacketAsync(Packet p) {
         //If hurrying, ignore some packets, except for short durations
         if(desiredTimeStamp - lastTimeStamp > 1000) {
             if(p instanceof ClientboundLevelParticlesPacket) return null;
@@ -1087,7 +1091,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
                         }
 
                         // Process packet
-                        if (replayneo$dropMalformedBundlePacket(pd)) {
+                        if (!replayneo$dropMalformedBundlePacket(pd)) {
                             if (pd.type == PacketType.Bundle) inBundle = !inBundle;
                             channel.pipeline().fireChannelRead(Unpooled.wrappedBuffer(pd.bytes));
                         }
@@ -1135,7 +1139,7 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
         }
     }
 
-    protected void processPacketSync(Packet<?> p) {
+    protected void processPacketSync(Packet p) {
         if (p instanceof ClientboundForgetLevelChunkPacket packet) {
             int x = packet.getX();
             int z = packet.getZ();
@@ -1194,21 +1198,21 @@ public class FullReplaySender extends ChannelInboundHandlerAdapter implements Re
 
     private boolean replayneo$dropMalformedBundlePacket(PacketData packetData) {
         if (packetData.type != PacketType.Bundle || packetData.bytes.length <= 1) {
-            return true;
+            return false;
         }
         if (replayneo$droppedMalformedBundlePackets++ < 8) {
             LOGGER.warn(
                     "Dropping malformed replay bundle delimiter. timestamp={}, bytes={}, firstByte={}, dropped={}",
                     packetData.timestamp,
                     packetData.bytes.length,
-                    Byte.toUnsignedInt(packetData.bytes[0]),
+                    packetData.bytes.length == 0 ? -1 : Byte.toUnsignedInt(packetData.bytes[0]),
                     replayneo$droppedMalformedBundlePackets
             );
         }
-        return false;
+        return true;
     }
 
-    protected static final class PacketData {
+    private static final class PacketData {
         private static final com.github.steveice10.netty.buffer.ByteBuf byteBuf = com.github.steveice10.netty.buffer.Unpooled.buffer();
         private static final NetOutput netOutput = new ByteBufNetOutput(byteBuf);
 

@@ -24,17 +24,17 @@ public class Restrictions {
         while (buffer.isReadable()) {
             String name = buffer.readUtf(64);
             boolean active = buffer.readBoolean();
-//            if ("no_xray".equals(name)) {
-//                noXray = active;
-//            } else if ("no_noclip".equals(name)) {
-//                noNoclip = active;
-//            } else if ("only_first_person".equals(name)) {
-//                onlyFirstPerson = active;
-//            } else if ("only_recording_player".equals(name)) {
-//                onlyRecordingPlayer = active;
-//            } else {
+            if ("no_xray".equals(name)) {
+                noXray = active;
+            } else if ("no_noclip".equals(name)) {
+                noNoclip = active;
+            } else if ("only_first_person".equals(name)) {
+                onlyFirstPerson = active;
+            } else if ("only_recording_player".equals(name)) {
+                onlyRecordingPlayer = active;
+            } else {
                 return name;
-//            }
+            }
         }
         return null;
     }

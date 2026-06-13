@@ -135,7 +135,7 @@ public abstract class AbstractGuiContainer<T extends AbstractGuiContainer<T>>
         super.layout(size, renderInfo);
         if (size == null) return;
         try {
-            layedOutElements = layout.layOut(this, size);
+            layedOutElements = new LinkedHashMap<>(layout.layOut(this, size));
         } catch (Exception ex) {
             throw GuiCrashReports.layout(ex, renderInfo, this, layout);
         }

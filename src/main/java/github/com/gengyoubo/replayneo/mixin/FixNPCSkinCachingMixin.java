@@ -1,19 +1,23 @@
 package github.com.gengyoubo.replayneo.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.RemotePlayer;
 
+import javax.annotation.Nullable;
+
 @Mixin(AbstractClientPlayer.class)
 public abstract class FixNPCSkinCachingMixin {
-    @Unique
-    protected abstract void rePlay$getPlayerInfo();
+    @Shadow
+    @Nullable
+    protected abstract PlayerInfo getPlayerInfo();
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void forceCachePlayerListEntry(CallbackInfo ci) {
@@ -34,7 +38,7 @@ public abstract class FixNPCSkinCachingMixin {
 
         // And we catch any exceptions, so if there is still something, it's hopefully not fatal
         try {
-            this.rePlay$getPlayerInfo();
+            this.getPlayerInfo();
         } catch (Exception e) {
             e.printStackTrace();
         }

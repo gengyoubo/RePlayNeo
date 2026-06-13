@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.Cleaner;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -19,7 +20,10 @@ import java.nio.file.Path;
  * E.g. <a href="https://www.replaymod.com/forum/thread/2566">...</a>
  */
 public class Image implements AutoCloseable {
+    private static final Cleaner CLEANER = Cleaner.create();
+
     private NativeImage inner;
+    private final Cleaner.Cleanable cleanable;
 
     public Image(int width, int height) {
         this(
@@ -29,6 +33,20 @@ public class Image implements AutoCloseable {
 
     public Image(NativeImage inner) {
         this.inner = inner;
+        this.cleanable = CLEANER.register(this, new CleanAction(inner));
+    }
+
+    private static class CleanAction implements Runnable {
+        private final NativeImage image;
+
+        CleanAction(NativeImage image) {
+            this.image = image;
+        }
+
+        @Override
+        public void run() {
+            image.close();
+        }
     }
 
     public NativeImage getInner() {
@@ -36,16 +54,9 @@ public class Image implements AutoCloseable {
     }
 
     @Override
-    protected void finalize() throws Throwable {
-        // Great, now we're using a language with GC but still need to take care of memory management.. thanks MC
-        close();
-        super.finalize();
-    }
-
-    @Override
     public void close() {
         if (inner != null) {
-            inner.close();
+            cleanable.clean();
             inner = null;
         }
     }

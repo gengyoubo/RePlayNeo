@@ -39,6 +39,7 @@ public final class ChangedReplayCompat {
     private static Method setTemporaryForSuit;
     private static Method setTransfurVariantDirect;
     private static Method setTransfurProgressDirect;
+    private static Method hazardContext;
     private static Method registryGetValue;
     private static Method renderForm;
     private static Method getTransfurProgressionAt;
@@ -47,6 +48,7 @@ public final class ChangedReplayCompat {
     private static Field transfurProgression;
     private static Field transfurProgressionO;
     private static Field playerLatexVariant;
+    private static Object defaultTransfurCause;
     private static boolean advancedSyncAvailable;
     private static int renderLogCount;
     private static int renderMissLogCount;
@@ -58,7 +60,7 @@ public final class ChangedReplayCompat {
     }
 
     public static ClientboundCustomPayloadPacket createTransfurPayload(Player player) {
-        if (isChangedAvailable()) {
+        if (!isChangedAvailable()) {
             return null;
         }
         ResourceLocation formId = getFormId(player);
@@ -94,7 +96,7 @@ public final class ChangedReplayCompat {
     }
 
     public static ResourceLocation getFormId(Player player) {
-        if (isChangedAvailable() || player == null) {
+        if (!isChangedAvailable() || player == null) {
             return null;
         }
         try {
@@ -109,9 +111,9 @@ public final class ChangedReplayCompat {
         }
     }
 
-    public static void applyTransfurPayload(FriendlyByteBuf buf, Level level) {
-        if (isChangedAvailable() || level == null) {
-            return;
+    public static boolean applyTransfurPayload(FriendlyByteBuf buf, Level level) {
+        if (!isChangedAvailable() || level == null) {
+            return true;
         }
         try {
             int entityId = buf.readVarInt();
@@ -125,16 +127,18 @@ public final class ChangedReplayCompat {
                 pendingTransfurs.put(entityId, new PendingTransfur(hasForm, formId, progress, temporary, data));
                 RePlayNeo.LOGGER.info("Queued Changed replay form until player entity exists. entityId={}, form={}",
                         entityId, formId);
-                return;
+                return true;
             }
             applyTransfurOnClientThread(player, hasForm, formId, progress, temporary, data);
+            return true;
         } catch (Throwable throwable) {
             RePlayNeo.LOGGER.warn("Could not apply Changed replay form packet.", throwable);
+            return true;
         }
     }
 
     public static boolean hasRenderableForm(Player player) {
-        if (isChangedAvailable() || player == null) {
+        if (!isChangedAvailable() || player == null) {
             return false;
         }
         try {
@@ -178,7 +182,7 @@ public final class ChangedReplayCompat {
     }
 
     public static void applyPendingTransfur(Entity entity) {
-        if (isChangedAvailable() || !(entity instanceof Player player)) {
+        if (!isChangedAvailable() || !(entity instanceof Player player)) {
             return;
         }
         PendingTransfur pending = pendingTransfurs.remove(entity.getId());
@@ -312,6 +316,7 @@ public final class ChangedReplayCompat {
                                    Object instance) {
     }
 
+    @SuppressWarnings("unchecked")
     private static Optional<?> getPlayerTransfurVariant(Player player) throws ReflectiveOperationException {
         return (Optional<?>) getPlayerTransfurVariantSafe.invoke(null, player);
     }
@@ -382,6 +387,7 @@ public final class ChangedReplayCompat {
         return changedAvailable;
     }
 
+    @SuppressWarnings("unchecked")
     private static void initializeAdvancedSync(Class<?> processTransfur, Class<?> transfurVariantInstance) throws ReflectiveOperationException {
         Class<?> transfurVariant = Class.forName("net.ltxprogrammer.changed.entity.variant.TransfurVariant");
 
@@ -397,8 +403,8 @@ public final class ChangedReplayCompat {
 
         Class<?> transfurContext = Class.forName("net.ltxprogrammer.changed.entity.TransfurContext");
         Class<?> transfurCause = Class.forName("net.ltxprogrammer.changed.entity.TransfurCause");
-        Object defaultTransfurCause = findTransfurCause(transfurCause);
-        Method hazardContext = transfurContext.getMethod("hazard", transfurCause);
+        defaultTransfurCause = findTransfurCause(transfurCause);
+        hazardContext = transfurContext.getMethod("hazard", transfurCause);
         setPlayerTransfurVariantFull = processTransfur.getMethod("setPlayerTransfurVariant",
                 Player.class, transfurVariant, transfurContext, float.class, boolean.class);
 
@@ -411,11 +417,14 @@ public final class ChangedReplayCompat {
         registryGetValue = registryHolder.getMethod("getValue", ResourceLocation.class);
     }
 
+    @SuppressWarnings("unchecked")
     private static Object findTransfurCause(Class<?> transfurCause) {
+        Class<Enum> enumClass = (Class<Enum>) transfurCause.asSubclass(Enum.class);
         for (String name : new String[] {"DEFAULT", "FLOOR_HAZARD", "CRYSTAL", "SYRINGE"}) {
-            Object constant = findEnumConstantByName(transfurCause, name);
-            if (constant != null) {
-                return constant;
+            try {
+                return Enum.valueOf(enumClass, name);
+            } catch (IllegalArgumentException ignored) {
+                // Try the next Changed version's common cause name.
             }
         }
 
@@ -424,18 +433,5 @@ public final class ChangedReplayCompat {
             return constants[0];
         }
         throw new IllegalStateException("Changed TransfurCause has no enum constants.");
-    }
-
-    private static Object findEnumConstantByName(Class<?> enumType, String name) {
-        Object[] constants = enumType.getEnumConstants();
-        if (constants == null) {
-            return null;
-        }
-        for (Object constant : constants) {
-            if (constant instanceof Enum<?> enumConstant && enumConstant.name().equals(name)) {
-                return constant;
-            }
-        }
-        return null;
     }
 }

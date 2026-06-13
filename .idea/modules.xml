@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/RePlay.main.iml" filepath="$PROJECT_DIR$/.idea/modules/RePlay.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/RePlay.test.iml" filepath="$PROJECT_DIR$/.idea/modules/RePlay.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/RePlay2.iml" filepath="$PROJECT_DIR$/.idea/RePlay2.iml" />
     </modules>
   </component>
 </project>
